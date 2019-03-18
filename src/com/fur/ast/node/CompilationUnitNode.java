@@ -6,15 +6,27 @@ import java.util.List;
 
 public class CompilationUnitNode extends BaseNode {
 
-    private List<DeclarationNode> declarationNodes;
+    private List<ClassDeclarationNode> classDeclarationNodes;
+    private List<FunctionDeclarationNode> functionDeclarationNodes;
+    private List<VariableDeclarationNode> variableDeclarationNodes;
 
-    public CompilationUnitNode(List<DeclarationNode> _declarationNodes, Token token) {
+    public CompilationUnitNode(List<ClassDeclarationNode> _classDeclarationNodes, List<FunctionDeclarationNode> _functionDeclarationNodes, List<VariableDeclarationNode> _variableDeclarationNodes, Token token) {
         super(token);
-        declarationNodes = _declarationNodes;
+        classDeclarationNodes = _classDeclarationNodes;
+        functionDeclarationNodes = _functionDeclarationNodes;
+        variableDeclarationNodes = _variableDeclarationNodes;
     }
 
-    public List<DeclarationNode> getDeclarationNodes() {
-        return declarationNodes;
+    public List<ClassDeclarationNode> getClassDeclarationNodes() {
+        return classDeclarationNodes;
+    }
+
+    public List<VariableDeclarationNode> getVariableDeclarationNodes() {
+        return variableDeclarationNodes;
+    }
+
+    public List<FunctionDeclarationNode> getFunctionDeclarationNodes() {
+        return functionDeclarationNodes;
     }
 
 }

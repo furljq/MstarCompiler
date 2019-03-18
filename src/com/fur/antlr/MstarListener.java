@@ -118,6 +118,16 @@ public interface MstarListener extends ParseTreeListener {
 	 */
 	void exitType(MstarParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MstarParser#nonArrayType}.
+	 * @param ctx the parse tree
+	 */
+	void enterNonArrayType(MstarParser.NonArrayTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MstarParser#nonArrayType}.
+	 * @param ctx the parse tree
+	 */
+	void exitNonArrayType(MstarParser.NonArrayTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MstarParser#primitiveType}.
 	 * @param ctx the parse tree
 	 */
@@ -167,6 +177,36 @@ public interface MstarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatement(MstarParser.StatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MstarParser#creator}.
+	 * @param ctx the parse tree
+	 */
+	void enterCreator(MstarParser.CreatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MstarParser#creator}.
+	 * @param ctx the parse tree
+	 */
+	void exitCreator(MstarParser.CreatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MstarParser#arrayCreator}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayCreator(MstarParser.ArrayCreatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MstarParser#arrayCreator}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayCreator(MstarParser.ArrayCreatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MstarParser#classCreator}.
+	 * @param ctx the parse tree
+	 */
+	void enterClassCreator(MstarParser.ClassCreatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MstarParser#classCreator}.
+	 * @param ctx the parse tree
+	 */
+	void exitClassCreator(MstarParser.ClassCreatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MstarParser#expressions}.
 	 * @param ctx the parse tree

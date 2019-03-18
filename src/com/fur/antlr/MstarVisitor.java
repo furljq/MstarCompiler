@@ -77,6 +77,12 @@ public interface MstarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(MstarParser.TypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MstarParser#nonArrayType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNonArrayType(MstarParser.NonArrayTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MstarParser#primitiveType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -106,6 +112,24 @@ public interface MstarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStatement(MstarParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MstarParser#creator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCreator(MstarParser.CreatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MstarParser#arrayCreator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayCreator(MstarParser.ArrayCreatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MstarParser#classCreator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassCreator(MstarParser.ClassCreatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MstarParser#expressions}.
 	 * @param ctx the parse tree

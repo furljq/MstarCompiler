@@ -148,6 +148,18 @@ public class MstarBaseListener implements MstarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNonArrayType(MstarParser.NonArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNonArrayType(MstarParser.NonArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPrimitiveType(MstarParser.PrimitiveTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -203,6 +215,42 @@ public class MstarBaseListener implements MstarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStatement(MstarParser.StatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCreator(MstarParser.CreatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCreator(MstarParser.CreatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayCreator(MstarParser.ArrayCreatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayCreator(MstarParser.ArrayCreatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClassCreator(MstarParser.ClassCreatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassCreator(MstarParser.ClassCreatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

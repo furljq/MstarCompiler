@@ -26,7 +26,8 @@ variableDeclarationStatement : type variableDeclarations ';' ;
 variableDeclarations : variableDeclaration ( ',' variableDeclaration )* ;
 variableDeclaration : Identifier ( '=' expression )? ;
 
-type : ( primitiveType | classType ) ( '[' ']' )* ;
+type : nonArrayType ( '[' ']' )* ;
+nonArrayType : primitiveType | classType ;
 
 primitiveType:
     'bool'
@@ -55,6 +56,10 @@ statement :
   | expression ';'
 ;
 
+creator : nonArrayType ( arrayCreator+ | classCreator )? ;
+arrayCreator : '[' expression? ']' ;
+classCreator : '(' expressions? ')' ;
+
 expressions : expression ( ',' expression )* ;
 expression:
     primaryExpression
@@ -62,6 +67,7 @@ expression:
   | expression '[' expression ']'
   | expression '(' expressions? ')'
   | expression ('++' | '--')
+  | 'new' creator
   | ('+'|'-'|'++'|'--') expression
   | ('~'|'!') expression
   | expression ('*'|'/'|'%') expression

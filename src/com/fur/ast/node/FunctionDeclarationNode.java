@@ -2,16 +2,18 @@ package com.fur.ast.node;
 
 import org.antlr.v4.runtime.Token;
 
+import java.util.List;
+
 public class FunctionDeclarationNode extends DeclarationNode {
 
     private TypeNode typeNode;
-    private ParametersNode parametersNode;
+    private List<VariableDeclarationNode> parameterNodes;
     private BlockNode blockNodes;
 
-    public FunctionDeclarationNode(TypeNode _typeNode, String _name, ParametersNode _parametersNode, BlockNode _blockNodes, Token token) {
+    public FunctionDeclarationNode(TypeNode _typeNode, String _name, List<VariableDeclarationNode> _parameterNodes, BlockNode _blockNodes, Token token) {
         super(_name, token);
         typeNode = _typeNode;
-        parametersNode = _parametersNode;
+        parameterNodes = _parameterNodes;
         blockNodes = _blockNodes;
     }
 
@@ -23,8 +25,8 @@ public class FunctionDeclarationNode extends DeclarationNode {
         return typeNode;
     }
 
-    public ParametersNode getParametersNode() {
-        return parametersNode;
+    public List<VariableDeclarationNode> getParameterNodes() {
+        return parameterNodes;
     }
 
     public BlockNode getBlockNodes() {
