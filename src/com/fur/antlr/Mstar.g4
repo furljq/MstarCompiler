@@ -1,6 +1,6 @@
 grammar Mstar;
 
-compilationUnit : programDeclaration* EOF ;
+complicationUnit : programDeclaration* EOF ;
 
 programDeclaration :
     classDeclaration
@@ -28,9 +28,7 @@ variableDeclarationStatement : type variableDeclarations ';' ;
 variableDeclarations : variableDeclaration ( ',' variableDeclaration )* ;
 variableDeclaration : Identifier ( '=' expression )? ;
 
-type : nonArrayType ( '[' ']' )* ;
-
-nonArrayType : primitiveType | classType ;
+type : ( primitiveType | classType ) ( '[' ']' )* ;
 
 primitiveType:
     'bool'
@@ -65,7 +63,6 @@ expression:
   | expression '.' Identifier
   | expression '[' expression ']'
   | expression '(' expressions? ')'
-  | 'new' creator
   | expression ('++' | '--')
   | ('+'|'-'|'++'|'--') expression
   | ('~'|'!') expression
@@ -81,12 +78,6 @@ expression:
   | expression '||' expression
   | <assoc=right> expression '=' expression
 ;
-
-creator : nonArrayType ( classCreator | arrayCreator );
-
-classCreator : '(' expressions? ')' ;
-
-arrayCreator : ( '[' expression? ']' )* ;
 
 primaryExpression :
     '(' expression ')'
