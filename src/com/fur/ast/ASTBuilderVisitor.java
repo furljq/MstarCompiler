@@ -3,7 +3,6 @@ package com.fur.ast;
 import com.fur.antlr.MstarBaseVisitor;
 import com.fur.antlr.MstarParser;
 import com.fur.ast.node.*;
-import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +31,13 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
     public BaseNode visitClassDeclaration(MstarParser.ClassDeclarationContext context) {
         String className = context.Identifier().getText();
         List<VariableDeclarationNode> variableDeclarationNodes = new ArrayList<>();
-        List<BlockNode> blockStatementNodes = new ArrayList<>();
-        for (ParserRuleContext a : context.classBodyDeclaration()) {
-
+        List<FunctionDeclarationNode> functionDeclarationNodes = new ArrayList<>();
+        for (MstarParser.ClassBodyDeclarationContext classBodyDeclarationContext : context.classBodyDeclaration()) {
+            DeclarationNode declarationNode = (DeclarationNode) visit(classBodyDeclarationContext);
+            if (declarationNode instanceof VariableDeclarationNode) variableDeclarationNodes.add((VariableDeclarationNode) declarationNode);
+            if (declarationNode instanceof FunctionDeclarationNode) functionDeclarationNodes.add((FunctionDeclarationNode) declarationNode);
         }
-        return null;
+        return new ClassDeclarationNode(className, variableDeclarationNodes, functionDeclarationNodes, context.start);
     }
 
     @Override

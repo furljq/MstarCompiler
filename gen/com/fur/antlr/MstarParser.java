@@ -1,4 +1,4 @@
-// Generated from D:/Documents/work/CPL/Compiler/src/com/fur\Mstar.g4 by ANTLR 4.7.2
+// Generated from D:/Documents/work/CPL/Compiler/src/com/fur/antlr\Mstar.g4 by ANTLR 4.7.2
 package com.fur.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -26,7 +26,7 @@ public class MstarParser extends Parser {
 		T__45=46, Int=47, String=48, Bool=49, Null=50, Identifier=51, Letter=52, 
 		Digit=53, EscapeCharacter=54, NEWLINE=55, WS=56, LINE_COMMENT=57;
 	public static final int
-		RULE_compilationUnit = 0, RULE_programDeclaration = 1, RULE_classDeclaration = 2, 
+		RULE_complicationUnit = 0, RULE_programDeclaration = 1, RULE_classDeclaration = 2, 
 		RULE_classBodyDeclaration = 3, RULE_functionDeclaration = 4, RULE_parameters = 5, 
 		RULE_parameter = 6, RULE_variableDeclarationStatement = 7, RULE_variableDeclarations = 8, 
 		RULE_variableDeclaration = 9, RULE_type = 10, RULE_primitiveType = 11, 
@@ -35,7 +35,7 @@ public class MstarParser extends Parser {
 		RULE_literalExpression = 19;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"compilationUnit", "programDeclaration", "classDeclaration", "classBodyDeclaration", 
+			"complicationUnit", "programDeclaration", "classDeclaration", "classBodyDeclaration", 
 			"functionDeclaration", "parameters", "parameter", "variableDeclarationStatement", 
 			"variableDeclarations", "variableDeclaration", "type", "primitiveType", 
 			"classType", "block", "blockStatement", "statement", "expressions", "expression", 
@@ -116,7 +116,7 @@ public class MstarParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public static class CompilationUnitContext extends ParserRuleContext {
+	public static class ComplicationUnitContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(MstarParser.EOF, 0); }
 		public List<ProgramDeclarationContext> programDeclaration() {
 			return getRuleContexts(ProgramDeclarationContext.class);
@@ -124,28 +124,28 @@ public class MstarParser extends Parser {
 		public ProgramDeclarationContext programDeclaration(int i) {
 			return getRuleContext(ProgramDeclarationContext.class,i);
 		}
-		public CompilationUnitContext(ParserRuleContext parent, int invokingState) {
+		public ComplicationUnitContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_compilationUnit; }
+		@Override public int getRuleIndex() { return RULE_complicationUnit; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MstarListener ) ((MstarListener)listener).enterCompilationUnit(this);
+			if ( listener instanceof MstarListener ) ((MstarListener)listener).enterComplicationUnit(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MstarListener ) ((MstarListener)listener).exitCompilationUnit(this);
+			if ( listener instanceof MstarListener ) ((MstarListener)listener).exitComplicationUnit(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MstarVisitor ) return ((MstarVisitor<? extends T>)visitor).visitCompilationUnit(this);
+			if ( visitor instanceof MstarVisitor ) return ((MstarVisitor<? extends T>)visitor).visitComplicationUnit(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final CompilationUnitContext compilationUnit() throws RecognitionException {
-		CompilationUnitContext _localctx = new CompilationUnitContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_compilationUnit);
+	public final ComplicationUnitContext complicationUnit() throws RecognitionException {
+		ComplicationUnitContext _localctx = new ComplicationUnitContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_complicationUnit);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

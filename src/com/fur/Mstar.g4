@@ -1,6 +1,6 @@
 grammar Mstar;
 
-complicationUnit : programDeclaration* EOF ;
+compilationUnit : programDeclaration* EOF ;
 
 programDeclaration :
     classDeclaration
@@ -13,14 +13,12 @@ classDeclaration : 'class' Identifier '{' classBodyDeclaration* '}' ;
 classBodyDeclaration :
     functionDeclaration
   | variableDeclarationStatement
-  | constructorDeclaration
 ;
 
 functionDeclaration :
-    ( type | 'void' ) Identifier '(' parameters? ')' block
+    ( type | 'void' )? Identifier '(' parameters? ')' block
 ;
 
-constructorDeclaration : Identifier '(' parameters? ')' block ;
 parameters : parameter ( ',' parameter )* ;
 parameter : type Identifier ( '=' expression )? ;
 

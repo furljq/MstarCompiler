@@ -1,4 +1,4 @@
-// Generated from D:/Documents/work/CPL/Compiler/src/com/fur\Mstar.g4 by ANTLR 4.7.2
+// Generated from D:/Documents/work/CPL/Compiler/src/com/fur/antlr\Mstar.g4 by ANTLR 4.7.2
 package com.fur.antlr;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -17,7 +17,7 @@ public class MstarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCompilationUnit(MstarParser.CompilationUnitContext ctx) { return visitChildren(ctx); }
+	@Override public T visitComplicationUnit(MstarParser.ComplicationUnitContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

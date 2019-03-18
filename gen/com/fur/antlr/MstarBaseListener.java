@@ -1,4 +1,4 @@
-// Generated from D:/Documents/work/CPL/Compiler/src/com/fur\Mstar.g4 by ANTLR 4.7.2
+// Generated from D:/Documents/work/CPL/Compiler/src/com/fur/antlr\Mstar.g4 by ANTLR 4.7.2
 package com.fur.antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,13 +16,13 @@ public class MstarBaseListener implements MstarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCompilationUnit(MstarParser.CompilationUnitContext ctx) { }
+	@Override public void enterComplicationUnit(MstarParser.ComplicationUnitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCompilationUnit(MstarParser.CompilationUnitContext ctx) { }
+	@Override public void exitComplicationUnit(MstarParser.ComplicationUnitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

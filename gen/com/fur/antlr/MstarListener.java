@@ -1,4 +1,4 @@
-// Generated from D:/Documents/work/CPL/Compiler/src/com/fur\Mstar.g4 by ANTLR 4.7.2
+// Generated from D:/Documents/work/CPL/Compiler/src/com/fur/antlr\Mstar.g4 by ANTLR 4.7.2
 package com.fur.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MstarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link MstarParser#compilationUnit}.
+	 * Enter a parse tree produced by {@link MstarParser#complicationUnit}.
 	 * @param ctx the parse tree
 	 */
-	void enterCompilationUnit(MstarParser.CompilationUnitContext ctx);
+	void enterComplicationUnit(MstarParser.ComplicationUnitContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MstarParser#compilationUnit}.
+	 * Exit a parse tree produced by {@link MstarParser#complicationUnit}.
 	 * @param ctx the parse tree
 	 */
-	void exitCompilationUnit(MstarParser.CompilationUnitContext ctx);
+	void exitComplicationUnit(MstarParser.ComplicationUnitContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MstarParser#programDeclaration}.
 	 * @param ctx the parse tree

@@ -1,4 +1,4 @@
-// Generated from D:/Documents/work/CPL/Compiler/src/com/fur\Mstar.g4 by ANTLR 4.7.2
+// Generated from D:/Documents/work/CPL/Compiler/src/com/fur/antlr\Mstar.g4 by ANTLR 4.7.2
 package com.fur.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface MstarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link MstarParser#compilationUnit}.
+	 * Visit a parse tree produced by {@link MstarParser#complicationUnit}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCompilationUnit(MstarParser.CompilationUnitContext ctx);
+	T visitComplicationUnit(MstarParser.ComplicationUnitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MstarParser#programDeclaration}.
 	 * @param ctx the parse tree
