@@ -1,23 +1,28 @@
 package com.fur.ast.node;
 
-import com.fur.type.Type;
 import org.antlr.v4.runtime.Token;
 
 public class TypeNode extends BaseNode {
 
-    private Type type;
+    private String typeName;
+    private int dimension;
 
-    public TypeNode(Type _type, Token token) {
+    public TypeNode(String _typeName, int _dimension, Token token) {
         super(token);
-        type = _type;
+        typeName = _typeName;
+        dimension = _dimension;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
     }
 
-    public Type getType() {
-        return type;
+    public String getType() {
+        return typeName;
+    }
+
+    public int getDimension() {
+        return dimension;
     }
 
 }

@@ -16,7 +16,7 @@ classBodyDeclaration :
 ;
 
 functionDeclaration :
-    ( type | 'void' )? Identifier '(' parameters? ')' block
+    ( type | 'void' )? Identifier LeftParanthesis parameters? RightParanthesis block
 ;
 
 parameters : parameter ( ',' parameter )* ;
@@ -26,14 +26,13 @@ variableDeclarationStatement : type variableDeclarations ';' ;
 variableDeclarations : variableDeclaration ( ',' variableDeclaration )* ;
 variableDeclaration : Identifier ( '=' expression )? ;
 
-type : nonArrayType ( '[' ']' )* ;
+type : nonArrayType ( LeftBracket RightBracket )* ;
 nonArrayType : primitiveType | classType ;
 
 primitiveType:
-    'bool'
-  | 'int'
-  | 'double'
-  | 'string'
+    Bool
+  | Int
+  | Str
 ;
 
 classType : Identifier ;
@@ -47,9 +46,9 @@ blockStatement :
 
 statement :
     block
-  | 'if' '(' expression ')' statement ('else' statement)?
-  | 'for' '(' expressions? ';' expression? ';' expressions? ')' statement
-  | 'while' '(' expression ')' statement
+  | 'if' LeftParanthesis expression RightParanthesis statement ('else' statement)?
+  | 'for' LeftParanthesis expressions? ';' expression? ';' expressions? RightParanthesis statement
+  | 'while' LeftParanthesis expression RightParanthesis statement
   | 'return' expression? ';'
   | 'break' ';'
   | 'continue' ';'
@@ -57,15 +56,15 @@ statement :
 ;
 
 creator : nonArrayType ( arrayCreator+ | classCreator )? ;
-arrayCreator : '[' expression? ']' ;
-classCreator : '(' expressions? ')' ;
+arrayCreator : LeftBracket expression? RightBracket ;
+classCreator : LeftParanthesis expressions? RightParanthesis ;
 
 expressions : expression ( ',' expression )* ;
 expression:
     primaryExpression
   | expression '.' Identifier
-  | expression '[' expression ']'
-  | expression '(' expressions? ')'
+  | expression LeftBracket expression RightBracket
+  | expression LeftParanthesis expressions? RightParanthesis
   | expression ('++' | '--')
   | 'new' creator
   | ('+'|'-'|'++'|'--') expression
@@ -84,23 +83,32 @@ expression:
 ;
 
 primaryExpression :
-    '(' expression ')'
+    LeftParanthesis expression RightParanthesis
   | 'this'
   | literalExpression
   | Identifier
 ;
 
 literalExpression :
-    Int
+    Integer
   | String
-  | Bool
+  | Boolean
   | Null
 ;
 
-Int : Digit+ ;
+Integer : Digit+ ;
 String : '"' ( EscapeCharacter | ~( '"' | '\\' ) )* '"' ;
-Bool : 'true' | 'false' ;
+Boolean : 'true' | 'false' ;
 Null : 'null' ;
+
+LeftBracket : '[' ;
+RightBracket : ']' ;
+LeftParanthesis : '(' ;
+RightParanthesis : ')' ;
+
+Bool : 'bool' ;
+Int : 'int' ;
+Str : 'string' ;
 
 Identifier : Letter ( Letter | Digit )* ;
 
