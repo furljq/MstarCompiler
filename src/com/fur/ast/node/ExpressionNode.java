@@ -1,6 +1,7 @@
 package com.fur.ast.node;
 
-import com.fur.ast.type.TypeList;
+import com.fur.ast.enumerate.OperatorList;
+import com.fur.ast.enumerate.TypeList;
 import org.antlr.v4.runtime.Token;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
 public class ExpressionNode extends PrimaryExpressionNode {
 
     private List<ExpressionNode> expressionNodes;
-    private String operator;
+    private OperatorList operator;
 
-    public ExpressionNode(TypeList _type, List<ExpressionNode> _expressionNodes, String _operator, Token token) {
+    public ExpressionNode(TypeList _type, List<ExpressionNode> _expressionNodes, OperatorList _operator, Token token) {
         super(_type, token);
         expressionNodes = _expressionNodes;
         operator = _operator;
@@ -20,7 +21,7 @@ public class ExpressionNode extends PrimaryExpressionNode {
         return expressionNodes;
     }
 
-    public String getOperator() {
+    public OperatorList getOperator() {
         return operator;
     }
 
