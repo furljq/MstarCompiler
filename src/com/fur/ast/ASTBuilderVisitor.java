@@ -3,6 +3,9 @@ package com.fur.ast;
 import com.fur.antlr.MstarBaseVisitor;
 import com.fur.antlr.MstarParser;
 import com.fur.ast.node.*;
+import com.fur.ast.type.ArrayType;
+import com.fur.ast.type.BaseType;
+import com.fur.ast.type.TypeList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +76,13 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public TypeNode visitType(MstarParser.TypeContext context) {
-        TypeNode typeNode = (TypeNode) visit(context.nonArrayType());
-        typeNode.setDimension(context.LeftBracket().size());
-        return typeNode;
+        if (context.Op != null) {
+            TypeNode baseTypeNode = (TypeNode) visit(context.type());
+            ArrayType arrayType = new ArrayType(baseTypeNode.getType());
+            return new TypeNode(arrayType, context.start);
+        } else {
+            return (TypeNode) visit(context.nonArrayType());
+        }
     }
 
     @Override
@@ -87,15 +94,39 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public TypeNode visitPrimitiveType(MstarParser.PrimitiveTypeContext context) {
-        if (context.Bool() != null) return new TypeNode(context.Bool().getText(), 0, context.start);
-        if (context.Int() != null) return new TypeNode(context.Int().getText(), 0, context.start);
-        if (context.Str() != null) return new TypeNode(context.Str().getText(), 0, context.start);
+        if (context.getText().equals("bool")) return new TypeNode(new BaseType(TypeList.BOOL), context.start);
+        if (context.getText().equals("int")) return new TypeNode(new BaseType(TypeList.INT), context.start);
+        if (context.getText().equals("string")) return new TypeNode(new BaseType(TypeList.STRING), context.start);
+        if (context.getText().equals("void")) return new TypeNode(new BaseType(TypeList.VOID), context.start);
         return null;
     }
 
     @Override
     public TypeNode visitClassType(MstarParser.ClassTypeContext context) {
         String typeName = context.Identifier().getText();
-        return new TypeNode(typeName, 0, context.start);
+        return new TypeNode(new BaseType(TypeList.CLASS), context.start);
+    }
+
+    @Override
+    public PrimaryExpressionNode visitExpression(MstarParser.ExpressionContext context) {
+        if (context.primaryExpression() != null) return (PrimaryExpressionNode) visit(context.primaryExpression());
+        if (context.Op.equals("."))
+    }
+
+    @Override
+    public PrimaryExpressionNode visitPrimaryExpression(MstarParser.PrimaryExpressionContext context) {
+        if (context.expression() != null) return (PrimaryExpressionNode) visit(context.expression());
+        if (context.getText().equals("this")) return new PrimaryExpressionNode(TypeList.CLASS, context.start);
+        if (context.Identifier() != null) return new PrimaryExpressionNode(TypeList.UNKNOWN, context.start);
+        if (context.literalExpression() != null) return (PrimaryExpressionNode) visit(context.literalExpression());
+        return null;
+    }
+
+    @Override
+    public PrimaryExpressionNode visitLiteralExpression(MstarParser.LiteralExpressionContext context) {
+        if (context.Boolean() != null) return new PrimaryExpressionNode(TypeList.BOOL, context.start);
+        if (context.Integer() != null) return new PrimaryExpressionNode(TypeList.INT, context.start);
+        if (context.String() != null) return new PrimaryExpressionNode(TypeList.STRING, context.start);
+        if (context.Null() != null) return new PrimaryExpressionNode(TypeList.NULL, context.start);
     }
 }

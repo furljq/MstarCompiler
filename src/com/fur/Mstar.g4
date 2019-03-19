@@ -16,7 +16,7 @@ classBodyDeclaration :
 ;
 
 functionDeclaration :
-    ( type | 'void' )? Identifier LeftParanthesis parameters? RightParanthesis block
+    type? Identifier '(' parameters? ')' block
 ;
 
 parameters : parameter ( ',' parameter )* ;
@@ -26,13 +26,18 @@ variableDeclarationStatement : type variableDeclarations ';' ;
 variableDeclarations : variableDeclaration ( ',' variableDeclaration )* ;
 variableDeclaration : Identifier ( '=' expression )? ;
 
-type : nonArrayType ( LeftBracket RightBracket )* ;
+type :
+    type Op = '[' ']'
+  | nonArrayType
+;
+
 nonArrayType : primitiveType | classType ;
 
 primitiveType:
-    Bool
-  | Int
-  | Str
+    'bool'
+  | 'int'
+  | 'string'
+  | 'void'
 ;
 
 classType : Identifier ;
@@ -46,9 +51,9 @@ blockStatement :
 
 statement :
     block
-  | 'if' LeftParanthesis expression RightParanthesis statement ('else' statement)?
-  | 'for' LeftParanthesis expressions? ';' expression? ';' expressions? RightParanthesis statement
-  | 'while' LeftParanthesis expression RightParanthesis statement
+  | 'if' '(' expression ')' statement ('else' statement)?
+  | 'for' '(' expressions? ';' expression? ';' expressions? ')' statement
+  | 'while' '(' expression ')' statement
   | 'return' expression? ';'
   | 'break' ';'
   | 'continue' ';'
@@ -56,35 +61,35 @@ statement :
 ;
 
 creator : nonArrayType ( arrayCreator+ | classCreator )? ;
-arrayCreator : LeftBracket expression? RightBracket ;
-classCreator : LeftParanthesis expressions? RightParanthesis ;
+arrayCreator : Op = '[' expression? ']' ;
+classCreator : Op = '(' expressions? ')' ;
 
 expressions : expression ( ',' expression )* ;
 expression:
     primaryExpression
-  | expression '.' Identifier
-  | expression LeftBracket expression RightBracket
-  | expression LeftParanthesis expressions? RightParanthesis
-  | expression ('++' | '--')
-  | 'new' creator
-  | ('+'|'-'|'++'|'--') expression
-  | ('~'|'!') expression
-  | expression ('*'|'/'|'%') expression
-  | expression ('+'|'-') expression
-  | expression ('<<' | '>>') expression
-  | expression ('<=' | '>=' | '>' | '<') expression
-  | expression ('==' | '!=') expression
-  | expression '&' expression
-  | expression '^' expression
-  | expression '|' expression
-  | expression '&&' expression
-  | expression '||' expression
-  | <assoc=right> expression '=' expression
+  | expression Op = '.' Identifier
+  | expression Op = '[' expression ']'
+  | expression Op = '(' expressions? ')'
+  | expression Op = ('++' | '--')
+  | Op = 'new' creator
+  | Op = ('+'|'-'|'++'|'--') expression
+  | Op = ('~'|'!') expression
+  | expression Op = ('*'|'/'|'%') expression
+  | expression Op = ('+'|'-') expression
+  | expression Op = ('<<' | '>>') expression
+  | expression Op = ('<=' | '>=' | '>' | '<') expression
+  | expression Op = ('==' | '!=') expression
+  | expression Op = '&' expression
+  | expression Op = '^' expression
+  | expression Op = '|' expression
+  | expression Op = '&&' expression
+  | expression Op = '||' expression
+  | <assoc=right> expression Op = '=' expression
 ;
 
 primaryExpression :
-    LeftParanthesis expression RightParanthesis
-  | 'this'
+    '(' expression ')'
+  | This
   | literalExpression
   | Identifier
 ;
@@ -99,16 +104,8 @@ literalExpression :
 Integer : Digit+ ;
 String : '"' ( EscapeCharacter | ~( '"' | '\\' ) )* '"' ;
 Boolean : 'true' | 'false' ;
+This : 'this' ;
 Null : 'null' ;
-
-LeftBracket : '[' ;
-RightBracket : ']' ;
-LeftParanthesis : '(' ;
-RightParanthesis : ')' ;
-
-Bool : 'bool' ;
-Int : 'int' ;
-Str : 'string' ;
 
 Identifier : Letter ( Letter | Digit )* ;
 
