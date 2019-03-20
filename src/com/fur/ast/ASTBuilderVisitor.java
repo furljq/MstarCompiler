@@ -3,10 +3,8 @@ package com.fur.ast;
 import com.fur.antlr.MstarBaseVisitor;
 import com.fur.antlr.MstarParser;
 import com.fur.ast.enumerate.OperatorList;
+import com.fur.ast.enumerate.PrimaryTypeList;
 import com.fur.ast.node.*;
-import com.fur.ast.type.ArrayType;
-import com.fur.ast.type.BaseType;
-import com.fur.ast.enumerate.TypeList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +48,8 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public FunctionDeclarationNode visitFunctionDeclaration(MstarParser.FunctionDeclarationContext context) {
-        TypeNode typeNode;
-        if (context.type() != null) typeNode = (TypeNode) visit(context.type());
+        BaseTypeNode typeNode;
+        if (context.type() != null) typeNode = (BaseTypeNode) visit(context.type());
         else typeNode = null;
         String name = context.Identifier().getText();
         List<VariableDeclarationNode> parameterNodes = new ArrayList<>();
@@ -67,59 +65,60 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public VariableDeclarationNode visitParameter(MstarParser.ParameterContext context) {
-        TypeNode typeNode = (TypeNode) visit(context.type());
+        BaseTypeNode typeNode = (BaseTypeNode) visit(context.type());
         String name = context.Identifier().getText();
-        ExpressionNode expressionNode;
-        if (context.expression() != null) expressionNode = (ExpressionNode) visit(context.expression());
+        BaseExpressionNode expressionNode;
+        if (context.expression() != null) expressionNode = (BaseExpressionNode) visit(context.expression());
         else expressionNode = null;
         return new VariableDeclarationNode(typeNode, name, expressionNode, context.start);
     }
 
     @Override
-    public TypeNode visitType(MstarParser.TypeContext context) {
+    public BaseTypeNode visitType(MstarParser.TypeContext context) {
         if (context.Op != null) {
-            TypeNode baseTypeNode = (TypeNode) visit(context.type());
-            ArrayType arrayType = new ArrayType(baseTypeNode.getType());
-            return new TypeNode(arrayType, context.start);
+            BaseTypeNode baseTypeNode = (BaseTypeNode) visit(context.type());
+            return new ArrayTypeNode(baseTypeNode, context.start);
         } else {
-            return (TypeNode) visit(context.nonArrayType());
+            return (BaseTypeNode) visit(context.nonArrayType());
         }
     }
 
     @Override
-    public TypeNode visitNonArrayType(MstarParser.NonArrayTypeContext context) {
-        if (context.primitiveType() != null) return (TypeNode) visit(context.primitiveType());
-        if (context.classType() != null) return (TypeNode) visit(context.classType());
+    public BaseTypeNode visitNonArrayType(MstarParser.NonArrayTypeContext context) {
+        if (context.primitiveType() != null) return (PrimaryTypeNode) visit(context.primitiveType());
+        if (context.classType() != null) return (ClassTypeNode) visit(context.classType());
         return null;
     }
 
     @Override
-    public TypeNode visitPrimitiveType(MstarParser.PrimitiveTypeContext context) {
-        if (context.getText().equals("bool")) return new TypeNode(new BaseType(TypeList.BOOL), context.start);
-        if (context.getText().equals("int")) return new TypeNode(new BaseType(TypeList.INT), context.start);
-        if (context.getText().equals("string")) return new TypeNode(new BaseType(TypeList.STRING), context.start);
-        if (context.getText().equals("void")) return new TypeNode(new BaseType(TypeList.VOID), context.start);
+    public PrimaryTypeNode visitPrimitiveType(MstarParser.PrimitiveTypeContext context) {
+        if (context.getText().equals("bool")) return new PrimaryTypeNode(PrimaryTypeList.BOOL, context.start);
+        if (context.getText().equals("int")) return new PrimaryTypeNode(PrimaryTypeList.INT, context.start);
+        if (context.getText().equals("string")) return new PrimaryTypeNode(PrimaryTypeList.STRING, context.start);
+        if (context.getText().equals("void")) return new PrimaryTypeNode(PrimaryTypeList.VOID, context.start);
         return null;
     }
 
     @Override
-    public TypeNode visitClassType(MstarParser.ClassTypeContext context) {
-        String typeName = context.Identifier().getText();
-        return new TypeNode(new BaseType(TypeList.CLASS), context.start);
+    public ClassTypeNode visitClassType(MstarParser.ClassTypeContext context) {
+        String className = context.Identifier().getText();
+        return new ClassTypeNode(className, context.start);
     }
 
     @Override
-    public PrimaryExpressionNode visitExpression(MstarParser.ExpressionContext context) {
-        if (context.primaryExpression() != null) return (PrimaryExpressionNode) visit(context.primaryExpression());
-        if (context.creator() != null) return (PrimaryExpressionNode) visit(context.creator());//TODO
-        List<ExpressionNode> expressionNodes = new ArrayList<>();
-        for (MstarParser.ExpressionContext expressionContext : context.expression()) {
-            ExpressionNode expressionNode = (ExpressionNode) visit(expressionContext);
-            expressionNodes.add(expressionNode);
+    public BaseExpressionNode visitExpression(MstarParser.ExpressionContext context) {
+        if (context.primaryExpression() != null) return (BaseExpressionNode) visit(context.primaryExpression());
+        if (context.creator() != null) return (CreatorExpressionNode) visit(context.creator());
+        if (context.Op.getText().equals(".")) {
+            BaseExpressionNode objectExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+            IdentifierExpressionNode identifierExpressionNode = new IdentifierExpressionNode(context.Identifier().getText(), context.start);
+            return new DotExpressionNode(objectExpressionNode, identifierExpressionNode, context.start);
         }
-        OperatorList operator = OperatorList.UNKNOWN;
-        if (context.Op.getText().equals(".")) operator = OperatorList.Dot;
-        if (context.Op.getText().equals("[")) operator = OperatorList.BRACKET;
+        if (context.Op.getText().equals("[")) {
+            BaseExpressionNode address = (BaseExpressionNode) visit(context.expression(0));
+            BaseExpressionNode index = (BaseExpressionNode) visit(context.expression(1));
+            return new ArrayExpression(address, index, context.start);
+        }
         if (context.Op.getText().equals("(")) operator = OperatorList.PARANTHESIS;
         if (context.Op.getText().equals("++"))
             if (context.getChild(1).getText().equals("++")) operator = OperatorList.SUFFIXINC;
@@ -156,30 +155,34 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
     }
 
     @Override
-    public PrimaryExpressionNode visitPrimaryExpression(MstarParser.PrimaryExpressionContext context) {
-        if (context.expression() != null) return (PrimaryExpressionNode) visit(context.expression());
-        if (context.getText().equals("this")) return new PrimaryExpressionNode(TypeList.CLASS, context.start);
-        if (context.Identifier() != null) return new PrimaryExpressionNode(TypeList.UNKNOWN, context.start);
-        if (context.literalExpression() != null) return (PrimaryExpressionNode) visit(context.literalExpression());
+    public BaseExpressionNode visitPrimaryExpression(MstarParser.PrimaryExpressionContext context) {
+        if (context.expression() != null) return (BaseExpressionNode) visit(context.expression());
+        if (context.getText().equals("this") || context.Identifier() != null) return new IdentifierExpressionNode(context.getText(), context.start);
+        if (context.literalExpression() != null) return (LiteralExpressionNode) visit(context.literalExpression());
         return null;
     }
 
     @Override
-    public PrimaryExpressionNode visitLiteralExpression(MstarParser.LiteralExpressionContext context) {
-        if (context.Boolean() != null) return new PrimaryExpressionNode(TypeList.BOOL, context.start);
-        if (context.Integer() != null) return new PrimaryExpressionNode(TypeList.INT, context.start);
-        if (context.String() != null) return new PrimaryExpressionNode(TypeList.STRING, context.start);
-        if (context.Null() != null) return new PrimaryExpressionNode(TypeList.NULL, context.start);
+    public LiteralExpressionNode visitLiteralExpression(MstarParser.LiteralExpressionContext context) {
+        if (context.Boolean() != null) return new LiteralExpressionNode(PrimaryTypeList.BOOL, context.getText(), context.start);
+        if (context.Integer() != null) return new LiteralExpressionNode(PrimaryTypeList.INT, context.getText(), context.start);
+        if (context.String() != null) return new LiteralExpressionNode(PrimaryTypeList.STRING, context.getText(), context.start);
+        if (context.Null() != null) return new LiteralExpressionNode(PrimaryTypeList.NULL, context.getText(), context.start);
         return null;
     }
 
     @Override
-    public BaseNode visitCreator(MstarParser.CreatorContext ctx) {
-        return super.visitCreator(ctx);
-    }
-
-    @Override
-    public BaseNode visitBlock(MstarParser.BlockContext ctx) {
-        return super.visitBlock(ctx);
+    public CreatorExpressionNode visitCreator(MstarParser.CreatorContext context) {
+        BaseTypeNode typeNode = (BaseTypeNode) visit(context.nonArrayType());
+        List<BaseExpressionNode> fixedDimension = new ArrayList<>();
+        int restDimension = 0;
+        if (context.arrayCreator() != null) {
+            for (MstarParser.ExpressionContext expressionContext : context.arrayCreator().expression()) {
+                BaseExpressionNode expressionNode = (BaseExpressionNode) visit(expressionContext);
+                fixedDimension.add(expressionNode);
+            }
+            restDimension = context.arrayCreator().empty().size();
+        }
+        return new CreatorExpressionNode(typeNode, fixedDimension, restDimension, context.start);
     }
 }

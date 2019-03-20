@@ -154,4 +154,10 @@ public interface MstarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLiteralExpression(MstarParser.LiteralExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MstarParser#empty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmpty(MstarParser.EmptyContext ctx);
 }

@@ -60,8 +60,8 @@ statement :
   | expression ';'
 ;
 
-creator : nonArrayType ( arrayCreator+ | classCreator )? ;
-arrayCreator : Op = '[' expression? ']' ;
+creator : nonArrayType ( arrayCreator | classCreator )? ;
+arrayCreator : ( '[' expression ']' )+ ( '[]' empty )* ;
 classCreator : Op = '(' expressions? ')' ;
 
 expressions : expression ( ',' expression )* ;
@@ -100,6 +100,8 @@ literalExpression :
   | Boolean
   | Null
 ;
+
+empty :;
 
 Integer : Digit+ ;
 String : '"' ( EscapeCharacter | ~( '"' | '\\' ) )* '"' ;

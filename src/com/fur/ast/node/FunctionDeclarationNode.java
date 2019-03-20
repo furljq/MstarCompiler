@@ -6,11 +6,11 @@ import java.util.List;
 
 public class FunctionDeclarationNode extends DeclarationNode {
 
-    private TypeNode typeNode;
+    private BaseTypeNode typeNode;
     private List<VariableDeclarationNode> parameterNodes;
     private BlockNode blockNodes;
 
-    public FunctionDeclarationNode(TypeNode _typeNode, String _name, List<VariableDeclarationNode> _parameterNodes, BlockNode _blockNodes, Token token) {
+    public FunctionDeclarationNode(BaseTypeNode _typeNode, String _name, List<VariableDeclarationNode> _parameterNodes, BlockNode _blockNodes, Token token) {
         super(_name, token);
         typeNode = _typeNode;
         parameterNodes = _parameterNodes;
@@ -21,7 +21,7 @@ public class FunctionDeclarationNode extends DeclarationNode {
         return typeNode == null;
     }
 
-    public TypeNode getTypeNode() {
+    public BaseTypeNode getTypeNode() {
         return typeNode;
     }
 

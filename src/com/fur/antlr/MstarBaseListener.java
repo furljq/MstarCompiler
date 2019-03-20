@@ -299,6 +299,18 @@ public class MstarBaseListener implements MstarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteralExpression(MstarParser.LiteralExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEmpty(MstarParser.EmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEmpty(MstarParser.EmptyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

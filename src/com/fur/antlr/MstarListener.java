@@ -247,4 +247,14 @@ public interface MstarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteralExpression(MstarParser.LiteralExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MstarParser#empty}.
+	 * @param ctx the parse tree
+	 */
+	void enterEmpty(MstarParser.EmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MstarParser#empty}.
+	 * @param ctx the parse tree
+	 */
+	void exitEmpty(MstarParser.EmptyContext ctx);
 }

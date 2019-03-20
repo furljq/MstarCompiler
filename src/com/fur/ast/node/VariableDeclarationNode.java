@@ -4,20 +4,20 @@ import org.antlr.v4.runtime.Token;
 
 public class VariableDeclarationNode extends DeclarationNode {
 
-    private TypeNode typeNode;
-    private ExpressionNode expressionNode;
+    private BaseTypeNode typeNode;
+    private BaseExpressionNode expressionNode;
 
-    public VariableDeclarationNode(TypeNode _typeNode, String _name, ExpressionNode _expressionNode, Token token) {
+    public VariableDeclarationNode(BaseTypeNode _typeNode, String _name, BaseExpressionNode _expressionNode, Token token) {
         super(_name, token);
         typeNode = _typeNode;
         expressionNode = _expressionNode;
     }
 
-    public TypeNode getTypeNode() {
+    public BaseTypeNode getTypeNode() {
         return typeNode;
     }
 
-    public ExpressionNode getExpressionNode() {
+    public BaseExpressionNode getExpressionNode() {
         return expressionNode;
     }
 

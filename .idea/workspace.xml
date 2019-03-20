@@ -12,66 +12,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/Mstar.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
-              <caret line="177" column="8" selection-start-line="177" selection-start-column="8" selection-end-line="177" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#10405#10406#0" expanded="true" />
-                <element signature="e#10451#10452#0" expanded="true" />
-                <element signature="e#10573#10574#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/BlockNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#BlockNode#0;class#BlockNode#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/ExpressionNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#678#679#0" expanded="true" />
-                <element signature="e#709#710#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="817">
+              <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/PrimaryExpressionNode.java">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state relative-caret-position="342">
+              <caret line="117" column="12" lean-forward="true" selection-start-line="117" selection-start-column="12" selection-end-line="117" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#329#330#0" expanded="true" />
-                <element signature="e#356#357#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/Mstar.g4">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/DotExpressionNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+            <state relative-caret-position="323">
+              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+              <folding>
+                <element signature="e#580#581#0" expanded="true" />
+                <element signature="e#623#624#0" expanded="true" />
+                <element signature="e#680#681#0" expanded="true" />
+                <element signature="e#727#728#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,15 +52,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>variableIni</find>
-      <find>typeDeclaration</find>
       <find>block</find>
       <find>statementex</find>
       <find>parex</find>
@@ -118,6 +87,8 @@
       <find>RightBracket</find>
       <find>RightParanthesis</find>
       <find>op</find>
+      <find>const</find>
+      <find>Op</find>
     </findStrings>
     <replaceStrings>
       <replace>identifier</replace>
@@ -127,23 +98,12 @@
       <replace>'['</replace>
       <replace>')'</replace>
       <replace>Op</replace>
+      <replace>op</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/acm/Math.g4" />
-        <option value="$PROJECT_DIR$/src/com/acm/Mx.g4" />
-        <option value="$PROJECT_DIR$/src/com/acm/Java.g4" />
-        <option value="$PROJECT_DIR$/gen/com/acm/MstarBaseVisitor.java" />
-        <option value="$PROJECT_DIR$/src/com/acm/MstarBaseVisitor.java" />
-        <option value="$PROJECT_DIR$/src/com/acm/Mstar.g4" />
-        <option value="$PROJECT_DIR$/src/com/acm/main.mx" />
-        <option value="$PROJECT_DIR$/src/com/acm/Main.java" />
-        <option value="$PROJECT_DIR$/main.mx" />
-        <option value="$PROJECT_DIR$/src/com/acm/ASTBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/acm/ASTNode.java" />
-        <option value="$PROJECT_DIR$/src/com/acm/AST/ASTNode.java" />
         <option value="$PROJECT_DIR$/src/com/acm/AST/NodePosition.java" />
         <option value="$PROJECT_DIR$/src/com/acm/AST/ASTBaseNode.java" />
         <option value="$PROJECT_DIR$/src/com/acm/Compiler.java" />
@@ -165,7 +125,6 @@
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/BaseNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/BlockNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/ParametersNode.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/ast/node/VariableDeclarationNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/ClassDeclarationNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/antlr/Mstar.g4" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/CompilationUnitNode.java" />
@@ -175,14 +134,27 @@
         <option value="$PROJECT_DIR$/src/com/fur/ast/type/Type.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/TypeNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/type/ArrayType.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/ast/type/BaseType.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/ValueNode.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/ast/node/PrimaryExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/type/TypeList.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Mstar.g4" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/ExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/enumerate/OperatorList.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/type/BaseType.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/BaseTypeNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/enumerate/TypeList.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/PrimaryTypeNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/ArrayTypeNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/ClassTypeNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/PrimaryExpressionNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/BaseExpressionNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/enumerate/PrimaryTypeList.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/IdentifierExpressionNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/LiteralExpressionNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/antlr/MstarBaseVisitor.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/CreatorExpressionNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Mstar.g4" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/DotExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/ast/node/VariableDeclarationNode.java" />
       </list>
     </option>
   </component>
@@ -215,6 +187,13 @@
               <item name="Compiler" type="462c0819:PsiDirectoryNode" />
               <item name="gen" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="gen" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="fur" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
@@ -252,14 +231,6 @@
             </path>
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="ast" type="462c0819:PsiDirectoryNode" />
-              <item name="type" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -273,25 +244,25 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552996653162" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EM-Compiler" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553074636087" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mstar-compiler-master" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.fur.ast.type" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documents\work\CPL\Compiler\src\com\acm" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documents\work\CPL\Compiler\src\com\fur\antlr" />
       <recent name="D:\Documents\work\CPL\Compiler\src\com\fur" />
       <recent name="D:\Documents\work\CPL\Compiler\src\com\acm\antlr" />
       <recent name="D:\Documents\work\CPL\Compiler" />
-      <recent name="D:\Documents\work\CPL\Compiler\src\com\acm" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.fur.ast.type" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Documents\work\CPL\Compiler\src\com\acm" />
     </key>
   </component>
@@ -351,16 +322,18 @@
       <workItem from="1552892093017" duration="6451000" />
       <workItem from="1552923923574" duration="6187000" />
       <workItem from="1552966507009" duration="17707000" />
+      <workItem from="1553057258125" duration="9469000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123095000" />
+    <option name="totallyTimeSpent" value="132564000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20576407" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20844504" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -397,48 +370,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/../Repositories/antlr4-runtime-4.7.2.jar!/org/antlr/v4/runtime/ANTLRInputStream.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="15" column="44" lean-forward="true" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../Repositories/antlr4-runtime-4.7.2.jar!/org/antlr/v4/runtime/ANTLRFileStream.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/antlr/MstarListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../Repositories/antlr4-runtime-4.7.2.jar!/org/antlr/v4/runtime/CommonToken.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="92" column="15" selection-start-line="92" selection-start-column="15" selection-end-line="92" selection-end-column="15" />
-          <folding>
-            <element signature="e#2786#2787#0" expanded="true" />
-            <element signature="e#2818#2819#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/project-template.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="jar://D:/Program Files (x86)/Java/jdk-11.0.2/lib/src.zip!/java.base/java/util/stream/Stream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-330">
-          <caret line="166" column="17" selection-start-line="166" selection-start-column="17" selection-end-line="166" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Program Files (x86)/Java/jdk-11.0.2/lib/src.zip!/java.base/java/io/FileInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -506,13 +437,6 @@
             <element signature="e#307#308#0" expanded="true" />
             <element signature="e#347#348#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/BaseNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -613,35 +537,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/type/BaseType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-          <folding>
-            <element signature="e#183#184#0" expanded="true" />
-            <element signature="e#210#211#0" expanded="true" />
-            <element signature="e#421#422#0" expanded="true" />
-            <element signature="e#453#454#0" expanded="true" />
-            <element signature="e#248#249#0" expanded="true" />
-            <element signature="e#275#276#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/VariableDeclarationNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/type/TypeConfigure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/type/TypeConfigure.java" />
     <entry file="file://$PROJECT_DIR$/src/com/fur/antlr/MstarVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -660,39 +556,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/type/BaseType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/TypeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#299#300#0" expanded="true" />
-            <element signature="e#326#327#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/antlr/MstarBaseVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="61" column="23" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/enumerate/TypeList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -738,6 +601,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/type/BaseType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/BlockNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -749,17 +619,127 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Mstar.g4">
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/BaseNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/PrimaryTypeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#351#352#0" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/ClassTypeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding>
+            <element signature="e#298#299#0" expanded="true" />
+            <element signature="e#330#331#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/enumerate/PrimaryTypeList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/BaseTypeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/ArrayTypeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#331#332#0" expanded="true" />
+            <element signature="e#366#367#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/IdentifierExpressionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="49" lean-forward="true" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
+          <folding>
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#380#381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/antlr/MstarBaseVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
-          <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
+          <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/LiteralExpressionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1066#1067#0" expanded="true" />
+            <element signature="e#1093#1094#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1153#1154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/CreatorExpressionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#585#586#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#653#654#0" expanded="true" />
+            <element signature="e#689#690#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/BaseExpressionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Mstar.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/ExpressionNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="152">
+          <caret line="8" column="43" lean-forward="true" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#678#679#0" expanded="true" />
@@ -768,27 +748,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/DotExpressionNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="177" column="8" selection-start-line="177" selection-start-column="8" selection-end-line="177" selection-end-column="39" />
+        <state relative-caret-position="323">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#10405#10406#0" expanded="true" />
-            <element signature="e#10451#10452#0" expanded="true" />
-            <element signature="e#10573#10574#0" expanded="true" />
+            <element signature="e#580#581#0" expanded="true" />
+            <element signature="e#623#624#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
+            <element signature="e#727#728#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/PrimaryExpressionNode.java">
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/VariableDeclarationNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        <state relative-caret-position="380">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+          <folding>
+            <element signature="e#564#565#0" expanded="true" />
+            <element signature="e#601#602#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="117" column="12" lean-forward="true" selection-start-line="117" selection-start-column="12" selection-end-line="117" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#329#330#0" expanded="true" />
-            <element signature="e#356#357#0" expanded="true" />
           </folding>
         </state>
       </provider>
