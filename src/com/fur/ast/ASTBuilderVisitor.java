@@ -6,6 +6,7 @@ import com.fur.ast.enumerate.OperatorList;
 import com.fur.ast.enumerate.PrimaryTypeList;
 import com.fur.ast.node.*;
 
+import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,39 +120,69 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
             BaseExpressionNode index = (BaseExpressionNode) visit(context.expression(1));
             return new ArrayExpression(address, index, context.start);
         }
-        if (context.Op.getText().equals("(")) operator = OperatorList.PARANTHESIS;
-        if (context.Op.getText().equals("++"))
+        if (context.Op.getText().equals("(")) {
+            BaseExpressionNode functionNode = (BaseExpressionNode) visit(context.expression(0));
+            List<BaseExpressionNode> arguments = new ArrayList<>();
+            for (MstarParser.ExpressionContext expressionContext : context.expressions().expression()) {
+                BaseExpressionNode argument = (BaseExpressionNode) visit(expressionContext);
+                arguments.add(argument);
+            }
+            return new FunctionExpressionNode(functionNode, arguments, context.start);
+        }
+        if (context.Op.getText().equals("++")) {
+            OperatorList operator;
             if (context.getChild(1).getText().equals("++")) operator = OperatorList.SUFFIXINC;
             else operator = OperatorList.PREFIXINC;
-        if (context.Op.getText().equals("--"))
+            BaseExpressionNode expressionNode = (BaseExpressionNode) visit(context.expression(0));
+            return new UnaryExpressionNode(operator, expressionNode, context.start);
+        }
+        if (context.Op.getText().equals("--")) {
+            OperatorList operator;
             if (context.getChild(1).getText().equals("--")) operator = OperatorList.SUFFIXDEC;
             else operator = OperatorList.PREFIXDEC;
+            BaseExpressionNode expressionNode = (BaseExpressionNode) visit(context.expression(0));
+            return new UnaryExpressionNode(operator, expressionNode, context.start);
+        }
         if (context.Op.getText().equals("+"))
-            if (context.getChildCount() == 2) operator = OperatorList.POS;
-            else operator = OperatorList.ADD;
+            if (context.getChildCount() == 2) {
+                BaseExpressionNode expressionNode = (BaseExpressionNode) visit(context.expression(0));
+                return new UnaryExpressionNode(OperatorList.POS, expressionNode, context.start);
+            }
         if (context.Op.getText().equals("-"))
-            if (context.getChildCount() == 2) operator = OperatorList.NEG;
-            else operator = OperatorList.SUB;
-        if (context.Op.getText().equals("~")) operator = OperatorList.NOT;
-        if (context.Op.getText().equals("!")) operator = OperatorList.LOGICALNOT;
-        if (context.Op.getText().equals("*")) operator = OperatorList.MUL;
-        if (context.Op.getText().equals("/")) operator = OperatorList.DIV;
-        if (context.Op.getText().equals("%")) operator = OperatorList.MOD;
-        if (context.Op.getText().equals("<<")) operator = OperatorList.LEFTSHIFT;
-        if (context.Op.getText().equals(">>")) operator = OperatorList.RIGHTSHIFT;
-        if (context.Op.getText().equals("<=")) operator = OperatorList.LEQ;
-        if (context.Op.getText().equals(">=")) operator = OperatorList.GEQ;
-        if (context.Op.getText().equals("<")) operator = OperatorList.LT;
-        if (context.Op.getText().equals(">")) operator = OperatorList.GT;
-        if (context.Op.getText().equals("==")) operator = OperatorList.EQUAL;
-        if (context.Op.getText().equals("!=")) operator = OperatorList.NOTEQUAL;
-        if (context.Op.getText().equals("&")) operator = OperatorList.AND;
-        if (context.Op.getText().equals("^")) operator = OperatorList.XOR;
-        if (context.Op.getText().equals("|")) operator = OperatorList.OR;
-        if (context.Op.getText().equals("&&")) operator = OperatorList.LOGICALAND;
-        if (context.Op.getText().equals("||")) operator = OperatorList.LOGICALOR;
-        if (context.Op.getText().equals("=")) operator = OperatorList.ASSIGN;
-        return new ExpressionNode(expressionNodes.get(0).getType(), expressionNodes, operator, context.start);
+            if (context.getChildCount() == 2) {
+                BaseExpressionNode expressionNode = (BaseExpressionNode) visit(context.expression(0));
+                return new UnaryExpressionNode(OperatorList.NEG, expressionNode, context.start);
+            }
+        if (context.Op.getText().equals("~")) {
+            BaseExpressionNode expressionNode = (BaseExpressionNode) visit(context.expression(0));
+            return new UnaryExpressionNode(OperatorList.NOT, expressionNode, context.start);
+        }
+        if (context.Op.getText().equals("!")) {
+            BaseExpressionNode expressionNode = (BaseExpressionNode) visit(context.expression(0));
+            return new UnaryExpressionNode(OperatorList.LOGICALNOT, expressionNode, context.start);
+        }
+        BaseExpressionNode leftExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+        BaseExpressionNode rightExpressionNode = (BaseExpressionNode) visit(context.expression(1));
+        if (context.Op.getText().equals("+")) return new BinaryExpressionNode(OperatorList.ADD, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("-")) return new BinaryExpressionNode(OperatorList.SUB, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("*")) return new BinaryExpressionNode(OperatorList.MUL, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("/")) return new BinaryExpressionNode(OperatorList.DIV, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("%")) return new BinaryExpressionNode(OperatorList.MOD, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("<<")) return new BinaryExpressionNode(OperatorList.LEFTSHIFT, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals(">>")) return new BinaryExpressionNode(OperatorList.RIGHTSHIFT, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("<=")) return new BinaryExpressionNode(OperatorList.LEQ, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals(">=")) return new BinaryExpressionNode(OperatorList.GEQ, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("<")) return new BinaryExpressionNode(OperatorList.LT, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals(">")) return new BinaryExpressionNode(OperatorList.GT, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("==")) return new BinaryExpressionNode(OperatorList.EQUAL, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("!=")) return new BinaryExpressionNode(OperatorList.NOTEQUAL, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("&")) return new BinaryExpressionNode(OperatorList.AND, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("^")) return new BinaryExpressionNode(OperatorList.XOR, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("|")) return new BinaryExpressionNode(OperatorList.OR, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("&&")) return new BinaryExpressionNode(OperatorList.LOGICALAND, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("||")) return new BinaryExpressionNode(OperatorList.LOGICALOR, leftExpressionNode, rightExpressionNode, context.start);
+        if (context.Op.getText().equals("=")) return new BinaryExpressionNode(OperatorList.ASSIGN, leftExpressionNode, rightExpressionNode, context.start);
+        return null;
     }
 
     @Override
