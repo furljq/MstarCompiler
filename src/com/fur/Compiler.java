@@ -2,7 +2,7 @@ package com.fur;
 
 import com.fur.antlr.MstarLexer;
 import com.fur.antlr.MstarParser;
-import com.fur.ast.ASTBuilderVisitor;
+import com.fur.ast.ASTBuilder;
 import com.fur.ast.node.CompilationUnitNode;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -20,8 +20,8 @@ class Compiler {
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
-        ASTBuilderVisitor astBuilderVisitor = new ASTBuilderVisitor();
-        CompilationUnitNode ASTNode = (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
+        ASTBuilder astBuilderVisitor = new ASTBuilder();
+        CompilationUnitNode AST = (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
     }
 
     Compiler(String _mstarFile) {

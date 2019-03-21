@@ -1,5 +1,6 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import com.fur.ast.enumerate.PrimaryTypeList;
 import org.antlr.v4.runtime.Token;
 
@@ -33,6 +34,11 @@ public class LiteralExpressionNode extends BaseExpressionNode {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitLiteralExpressionNode(this);
     }
 
 }

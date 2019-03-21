@@ -1,5 +1,6 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class LoopStatementNode extends BaseStatementNode {
@@ -31,6 +32,11 @@ public class LoopStatementNode extends BaseStatementNode {
 
     public BaseStatementNode getBodyStatementNode() {
         return bodyStatementNode;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitLoopStatementNode(this);
     }
 
 }

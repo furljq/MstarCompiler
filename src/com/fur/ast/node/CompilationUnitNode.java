@@ -1,5 +1,6 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import org.antlr.v4.runtime.Token;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class CompilationUnitNode extends BaseNode {
 
     public List<FunctionDeclarationNode> getFunctionDeclarationNodes() {
         return functionDeclarationNodes;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitCompilationUnitNode(this);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.fur.ast.node;
 
 
+import com.fur.ast.ASTVisitor;
 import com.fur.ast.enumerate.PrimaryTypeList;
 import org.antlr.v4.runtime.Token;
 
@@ -15,6 +16,11 @@ public class PrimaryTypeNode extends BaseTypeNode {
 
     public PrimaryTypeList getType() {
         return type;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitPrimaryTypeNode(this);
     }
 
 }

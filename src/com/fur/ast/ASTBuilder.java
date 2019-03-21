@@ -9,7 +9,7 @@ import com.fur.ast.node.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
+public class ASTBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public CompilationUnitNode visitCompilationUnit(MstarParser.CompilationUnitContext context) {
@@ -124,7 +124,7 @@ public class ASTBuilderVisitor extends MstarBaseVisitor<BaseNode> {
         if (context.Op.getText().equals("[")) {
             BaseExpressionNode address = (BaseExpressionNode) visit(context.expression(0));
             BaseExpressionNode index = (BaseExpressionNode) visit(context.expression(1));
-            return new ArrayExpression(address, index, context.start);
+            return new ArrayExpressionNode(address, index, context.start);
         }
         if (context.Op.getText().equals("(")) {
             BaseExpressionNode functionNode = (BaseExpressionNode) visit(context.expression(0));

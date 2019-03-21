@@ -1,13 +1,14 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import org.antlr.v4.runtime.Token;
 
-public class ArrayExpression extends BaseExpressionNode {
+public class ArrayExpressionNode extends BaseExpressionNode {
 
     private BaseExpressionNode address;
     private BaseExpressionNode index;
 
-    public ArrayExpression(BaseExpressionNode _address, BaseExpressionNode _index, Token token) {
+    public ArrayExpressionNode(BaseExpressionNode _address, BaseExpressionNode _index, Token token) {
         super(token);
         address = _address;
         index = _index;
@@ -19,6 +20,11 @@ public class ArrayExpression extends BaseExpressionNode {
 
     public BaseExpressionNode getIndex() {
         return index;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitArrayExpressionNode(this);
     }
 
 }

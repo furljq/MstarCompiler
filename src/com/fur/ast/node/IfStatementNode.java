@@ -1,5 +1,6 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class IfStatementNode extends BaseStatementNode {
@@ -25,6 +26,11 @@ public class IfStatementNode extends BaseStatementNode {
 
     public BaseStatementNode getElseStatementNode() {
         return elseStatementNode;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitIfStatementNode(this);
     }
 
 }

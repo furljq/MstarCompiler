@@ -1,5 +1,6 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class DotExpressionNode extends BaseExpressionNode {
@@ -19,6 +20,11 @@ public class DotExpressionNode extends BaseExpressionNode {
 
     public IdentifierExpressionNode getIdentifierExpressionNode() {
         return identifierExpressionNode;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitDotExpressionNode(this);
     }
 
 }

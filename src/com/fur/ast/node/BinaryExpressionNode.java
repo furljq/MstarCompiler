@@ -1,5 +1,6 @@
 package com.fur.ast.node;
 
+import com.fur.ast.ASTVisitor;
 import com.fur.ast.enumerate.OperatorList;
 import org.antlr.v4.runtime.Token;
 
@@ -25,6 +26,11 @@ public class BinaryExpressionNode extends BaseExpressionNode {
 
     public BaseExpressionNode getRightExressionNode() {
         return rightExressionNode;
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) {
+        return visitor.visitBinaryExpressionNode(this);
     }
 
 }
