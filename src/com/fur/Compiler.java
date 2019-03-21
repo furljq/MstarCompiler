@@ -19,9 +19,9 @@ class Compiler {
         MstarLexer lexer = new MstarLexer(mstarFileCharStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
-        ASTBuilderVisitor astBuilderVisitor = new ASTBuilderVisitor();
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
-        CompilationUnitNode ASTNode = astBuilderVisitor.visitCompilationUnit(parseTree);
+        ASTBuilderVisitor astBuilderVisitor = new ASTBuilderVisitor();
+        CompilationUnitNode ASTNode = (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
     }
 
     Compiler(String _mstarFile) {

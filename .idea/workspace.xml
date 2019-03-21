@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="286" column="9" lean-forward="true" selection-start-line="286" selection-start-column="9" selection-end-line="286" selection-end-column="9" />
+            <state relative-caret-position="5206">
+              <caret line="274" lean-forward="true" selection-start-line="274" selection-end-line="274" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -27,7 +27,19 @@
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+              <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="16" column="48" lean-forward="true" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -154,12 +166,12 @@
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/BaseExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/DeclarationNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/BaseDeclarationNode.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Compiler.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/LoopStatementNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/Mstar.g4" />
         <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/node/ClassDeclarationNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Compiler.java" />
       </list>
     </option>
   </component>
@@ -241,7 +253,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553151113060" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553151290094" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/main.mx" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Problems" />
@@ -320,12 +332,12 @@
       <workItem from="1552892093017" duration="6451000" />
       <workItem from="1552923923574" duration="6187000" />
       <workItem from="1552966507009" duration="17707000" />
-      <workItem from="1553057258125" duration="24499000" />
+      <workItem from="1553057258125" duration="24667000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147594000" />
+    <option name="totallyTimeSpent" value="147762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -751,16 +763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/ast/node/LoopStatementNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -805,13 +807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.mx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="369">
@@ -819,10 +814,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/ast/ASTBuilderVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="286" column="9" lean-forward="true" selection-start-line="286" selection-start-column="9" selection-end-line="286" selection-end-column="9" />
+        <state relative-caret-position="5206">
+          <caret line="274" lean-forward="true" selection-start-line="274" selection-end-line="274" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="16" column="48" lean-forward="true" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
