@@ -2,7 +2,7 @@ package com.fur.ast.node;
 
 import org.antlr.v4.runtime.Token;
 
-public class BaseNode {
+public abstract class BaseNode {
 
     private NodePosition position;
 

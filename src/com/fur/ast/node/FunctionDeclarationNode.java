@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.Token;
 
 import java.util.List;
 
-public class FunctionDeclarationNode extends DeclarationNode {
+public class FunctionDeclarationNode extends BaseDeclarationNode {
 
     private BaseTypeNode typeNode;
     private List<VariableDeclarationNode> parameterNodes;

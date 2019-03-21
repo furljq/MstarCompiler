@@ -4,19 +4,19 @@ import org.antlr.v4.runtime.Token;
 
 import java.util.List;
 
-public class ClassDeclarationNode extends DeclarationNode {
+public class ClassDeclarationNode extends BaseDeclarationNode {
 
-    private List<VariableDeclarationNode> variableDeclarationNodes;
+    private List<VariableDeclarationStatementNode> variableDeclarationStatementNodes;
     private List<FunctionDeclarationNode> functionDeclarationNodes;
 
-    public ClassDeclarationNode(String _name, List<VariableDeclarationNode> _variableDeclarationNodes, List<FunctionDeclarationNode> _functionDeclarationNodes, Token token) {
+    public ClassDeclarationNode(String _name, List<VariableDeclarationStatementNode> _variableDeclarationStatementNodes, List<FunctionDeclarationNode> _functionDeclarationNodes, Token token) {
         super(_name, token);
-        variableDeclarationNodes = _variableDeclarationNodes;
+        variableDeclarationStatementNodes = _variableDeclarationStatementNodes;
         functionDeclarationNodes = _functionDeclarationNodes;
     }
 
-    public List<VariableDeclarationNode> getVariableDeclarationNodes() {
-        return variableDeclarationNodes;
+    public List<VariableDeclarationStatementNode> getVariableDeclarationStatementNodes() {
+        return variableDeclarationStatementNodes;
     }
 
     public List<FunctionDeclarationNode> getFunctionDeclarationNodes() {

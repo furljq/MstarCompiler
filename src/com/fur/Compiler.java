@@ -1,16 +1,16 @@
 package com.fur;
 
-import com.fur.ast.ASTBuilderVisitor;
 import com.fur.antlr.MstarLexer;
 import com.fur.antlr.MstarParser;
+import com.fur.ast.ASTBuilderVisitor;
+import com.fur.ast.node.CompilationUnitNode;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
 
-public class Compiler {
+class Compiler {
 
     private String mstarFile;
 
@@ -20,15 +20,15 @@ public class Compiler {
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
         ASTBuilderVisitor astBuilderVisitor = new ASTBuilderVisitor();
-        ParseTree parseTree = parser.complicationUnit();
-        System.out.println(parseTree.toStringTree(parser));
+        MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
+        CompilationUnitNode ASTNode = astBuilderVisitor.visitCompilationUnit(parseTree);
     }
 
-    public Compiler(String _mstarFile) {
+    Compiler(String _mstarFile) {
         mstarFile = _mstarFile;
     }
 
-    public void compile() throws IOException {
+    void compile() throws IOException {
         buildAST();
     }
 

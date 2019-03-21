@@ -2,7 +2,7 @@ package com.fur.ast.node;
 
 import org.antlr.v4.runtime.Token;
 
-public class VariableDeclarationNode extends DeclarationNode {
+public class VariableDeclarationNode extends BaseDeclarationNode {
 
     private BaseTypeNode typeNode;
     private BaseExpressionNode expressionNode;
