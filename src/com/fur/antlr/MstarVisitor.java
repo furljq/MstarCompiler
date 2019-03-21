@@ -95,12 +95,6 @@ public interface MstarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassType(MstarParser.ClassTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MstarParser#block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(MstarParser.BlockContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MstarParser#blockStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

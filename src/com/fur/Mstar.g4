@@ -16,7 +16,7 @@ classBodyDeclaration :
 ;
 
 functionDeclaration :
-    type? Identifier '(' parameters? ')' block
+    type? Identifier '(' parameters? ')' blockStatement
 ;
 
 parameters : parameter ( ',' parameter )* ;
@@ -42,22 +42,18 @@ primitiveType:
 
 classType : Identifier ;
 
-block: '{' blockStatement* '}' ;
-
-blockStatement :
-    statement
-  | variableDeclarationStatement
-;
+blockStatement: '{' statement* '}' ;
 
 statement :
-    block
-  | 'if' '(' expression ')' statement ('else' statement)?
-  | 'for' '(' expressions? ';' expression? ';' expressions? ')' statement
-  | 'while' '(' expression ')' statement
-  | 'return' expression? ';'
-  | 'break' ';'
-  | 'continue' ';'
-  | expression ';'
+    blockStatement
+  | Op = 'if' '(' expression ')' statement ('else' statement)?
+  | Op = 'for' '(' expressions? ';' expression? ';' expressions? ')' statement
+  | Op = 'while' '(' expression ')' statement
+  | Op = 'return' expression? ';'
+  | Op = 'break' ';'
+  | Op = 'continue' ';'
+  | expression Op = ';'
+  | variableDeclarationStatement
 ;
 
 creator : nonArrayType ( arrayCreator | classCreator )? ;

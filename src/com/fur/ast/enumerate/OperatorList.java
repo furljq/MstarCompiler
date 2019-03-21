@@ -1,11 +1,7 @@
 package com.fur.ast.enumerate;
 
 public enum OperatorList {
-    Dot,
-    BRACKET,
-    PARANTHESIS,
     SUFFIXINC, SUFFIXDEC,
-    NEW,
     POS, NEG, PREFIXINC, PREFIXDEC,
     NOT, LOGICALNOT,
     MUL, DIV, MOD,
@@ -18,6 +14,5 @@ public enum OperatorList {
     OR,
     LOGICALAND,
     LOGICALOR,
-    ASSIGN,
-    UNKNOWN
+    ASSIGN
 }

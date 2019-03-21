@@ -148,16 +148,6 @@ public interface MstarListener extends ParseTreeListener {
 	 */
 	void exitClassType(MstarParser.ClassTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MstarParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlock(MstarParser.BlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MstarParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlock(MstarParser.BlockContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MstarParser#blockStatement}.
 	 * @param ctx the parse tree
 	 */

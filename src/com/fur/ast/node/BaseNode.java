@@ -4,9 +4,9 @@ import org.antlr.v4.runtime.Token;
 
 public class BaseNode {
 
-    protected NodePosition position;
+    private NodePosition position;
 
-    public BaseNode(Token token) {
+    BaseNode(Token token) {
         position = new NodePosition(token);
     }
 

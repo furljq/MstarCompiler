@@ -2,9 +2,9 @@ package com.fur.ast.node;
 
 import org.antlr.v4.runtime.Token;
 
-public class BaseTypeNode extends BaseNode {
+public class BaseStatementNode extends BaseNode {
 
-    BaseTypeNode(Token token) {
+    public BaseStatementNode(Token token) {
         super(token);
     }
 

@@ -6,12 +6,7 @@ public class NodePosition {
 
     private final int line, column;
 
-    public NodePosition(int _line, int _column) {
-        line = _line;
-        column = _column;
-    }
-
-    public NodePosition(Token token) {
+    NodePosition(Token token) {
         line = token.getLine();
         column = token.getCharPositionInLine();
     }

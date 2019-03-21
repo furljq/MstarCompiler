@@ -8,13 +8,13 @@ public class FunctionDeclarationNode extends DeclarationNode {
 
     private BaseTypeNode typeNode;
     private List<VariableDeclarationNode> parameterNodes;
-    private BlockNode blockNodes;
+    private BlockStatementNode blockStatementNodes;
 
-    public FunctionDeclarationNode(BaseTypeNode _typeNode, String _name, List<VariableDeclarationNode> _parameterNodes, BlockNode _blockNodes, Token token) {
+    public FunctionDeclarationNode(BaseTypeNode _typeNode, String _name, List<VariableDeclarationNode> _parameterNodes, BlockStatementNode _blockStatementNodes, Token token) {
         super(_name, token);
         typeNode = _typeNode;
         parameterNodes = _parameterNodes;
-        blockNodes = _blockNodes;
+        blockStatementNodes = _blockStatementNodes;
     }
 
     public boolean isConstructor() {
@@ -29,8 +29,8 @@ public class FunctionDeclarationNode extends DeclarationNode {
         return parameterNodes;
     }
 
-    public BlockNode getBlockNodes() {
-        return blockNodes;
+    public BlockStatementNode getBlockStatementNodes() {
+        return blockStatementNodes;
     }
 
 }
