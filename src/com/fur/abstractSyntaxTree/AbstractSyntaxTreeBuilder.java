@@ -5,6 +5,10 @@ import com.fur.antlr.MstarParser;
 import com.fur.enumerate.OperatorList;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.abstractSyntaxTree.node.*;
+import com.fur.type.ArrayType;
+import com.fur.type.BaseType;
+import com.fur.type.ClassType;
+import com.fur.type.PrimaryType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +57,8 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public FunctionDeclarationNode visitFunctionDeclaration(MstarParser.FunctionDeclarationContext context) {
-        BaseTypeNode typeNode;
-        if (context.type() != null) typeNode = (BaseTypeNode) visit(context.type());
+        TypeNode typeNode;
+        if (context.type() != null) typeNode = (TypeNode) visit(context.type());
         else typeNode = null;
         String name = context.Identifier().getText();
         List<VariableDeclarationNode> parameterNodes = new ArrayList<>();
@@ -69,40 +73,31 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
     }
 
     @Override
-    public BaseTypeNode visitType(MstarParser.TypeContext context) {
-        if (context.Op != null) {
-            BaseTypeNode baseTypeNode = (BaseTypeNode) visit(context.type());
-            return new ArrayTypeNode(baseTypeNode, context.start);
-        } else {
-            return (BaseTypeNode) visit(context.nonArrayType());
+    public TypeNode visitType(MstarParser.TypeContext context) {
+        BaseType type = getType(context);
+        return new TypeNode(type, context.start);
+    }
+
+    private BaseType getType(MstarParser.TypeContext context) {
+        if (context.type() != null) return new ArrayType(getType(context.type()));
+        if (context.nonArrayType() != null) {
+            MstarParser.NonArrayTypeContext nonArrayTypeContext = context.nonArrayType();
+            if (nonArrayTypeContext.primitiveType() != null) {
+                MstarParser.PrimitiveTypeContext primitiveTypeContext = nonArrayTypeContext.primitiveType();
+                if (primitiveTypeContext.getText().equals("bool")) return new PrimaryType(PrimaryTypeList.BOOL);
+                if (primitiveTypeContext.getText().equals("int")) return new PrimaryType(PrimaryTypeList.INT);
+                if (primitiveTypeContext.getText().equals("string")) return new PrimaryType(PrimaryTypeList.STRING);
+                if (primitiveTypeContext.getText().equals("void")) return new PrimaryType(PrimaryTypeList.VOID);
+                return null;
+            }
+            if (nonArrayTypeContext.classType() != null) return new ClassType(nonArrayTypeContext.getText());
         }
-    }
-
-    @Override
-    public BaseTypeNode visitNonArrayType(MstarParser.NonArrayTypeContext context) {
-        if (context.primitiveType() != null) return (PrimaryTypeNode) visit(context.primitiveType());
-        if (context.classType() != null) return (ClassTypeNode) visit(context.classType());
         return null;
-    }
-
-    @Override
-    public PrimaryTypeNode visitPrimitiveType(MstarParser.PrimitiveTypeContext context) {
-        if (context.getText().equals("bool")) return new PrimaryTypeNode(PrimaryTypeList.BOOL, context.start);
-        if (context.getText().equals("int")) return new PrimaryTypeNode(PrimaryTypeList.INT, context.start);
-        if (context.getText().equals("string")) return new PrimaryTypeNode(PrimaryTypeList.STRING, context.start);
-        if (context.getText().equals("void")) return new PrimaryTypeNode(PrimaryTypeList.VOID, context.start);
-        return null;
-    }
-
-    @Override
-    public ClassTypeNode visitClassType(MstarParser.ClassTypeContext context) {
-        String className = context.Identifier().getText();
-        return new ClassTypeNode(className, context.start);
     }
 
     @Override
     public VariableDeclarationNode visitParameter(MstarParser.ParameterContext context) {
-        BaseTypeNode typeNode = (BaseTypeNode) visit(context.type());
+        TypeNode typeNode = (TypeNode) visit(context.type());
         String name = context.Identifier().getText();
         BaseExpressionNode expressionNode;
         if (context.expression() != null) expressionNode = (BaseExpressionNode) visit(context.expression());
@@ -208,7 +203,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public CreatorExpressionNode visitCreator(MstarParser.CreatorContext context) {
-        BaseTypeNode typeNode = (BaseTypeNode) visit(context.nonArrayType());
+        TypeNode typeNode = (TypeNode) visit(context.nonArrayType());
         List<BaseExpressionNode> fixedDimension = new ArrayList<>();
         int restDimension;
         if (context.arrayCreator() != null) {
@@ -273,7 +268,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public VariableDeclarationStatementNode visitVariableDeclarationStatement(MstarParser.VariableDeclarationStatementContext context) {
-        BaseTypeNode typeNode = (BaseTypeNode) visit(context.type());
+        TypeNode typeNode = (TypeNode) visit(context.type());
         List<VariableDeclarationNode> variableDeclarationNodes = new ArrayList<>();
         for (MstarParser.VariableDeclarationContext variableDeclarationContext : context.variableDeclarations().variableDeclaration()) {
             String name = variableDeclarationContext.Identifier().getText();

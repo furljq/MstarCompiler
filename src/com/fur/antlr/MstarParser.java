@@ -759,7 +759,6 @@ public class MstarParser extends Parser {
 	}
 
 	public static class TypeContext extends ParserRuleContext {
-		public Token Op;
 		public NonArrayTypeContext nonArrayType() {
 			return getRuleContext(NonArrayTypeContext.class,0);
 		}
@@ -819,7 +818,7 @@ public class MstarParser extends Parser {
 					setState(121);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 					setState(122);
-					((TypeContext)_localctx).Op = match(T__8);
+					match(T__8);
 					setState(123);
 					match(T__9);
 					}

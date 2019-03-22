@@ -7,12 +7,10 @@ public interface AbstractSyntaxTreeVisitor<T> {
     T visit(BaseNode node);
 
     T visitArrayExpressionNode(ArrayExpressionNode node);
-    T visitArrayTypeNode(ArrayTypeNode node);
     T visitBinaryExpressionNode(BinaryExpressionNode node);
     T visitBlockStatementNode(BlockStatementNode node);
     T visitBreakStatementNode(BreakStatementNode node);
     T visitClassDeclarationNode(ClassDeclarationNode node);
-    T visitClassTypeNode(ClassTypeNode node);
     T visitCompilationUnitNode(CompilationUnitNode node);
     T visitContinueStatementNode(ContinueStatementNode node);
     T visitCreatorExpressionNode(CreatorExpressionNode node);
@@ -24,8 +22,8 @@ public interface AbstractSyntaxTreeVisitor<T> {
     T visitIfStatementNode(IfStatementNode node);
     T visitLiteralExpressionNode(LiteralExpressionNode node);
     T visitLoopStatementNode(LoopStatementNode node);
-    T visitPrimaryTypeNode(PrimaryTypeNode node);
     T visitReturnStatementNode(ReturnStatementNode node);
+    T visitTypeNode(TypeNode node);
     T visitUnaryExpressionNode(UnaryExpressionNode node);
     T visitVariableDeclarationNode(VariableDeclarationNode node);
     T visitVariableDeclarationStatementNode(VariableDeclarationStatementNode node);

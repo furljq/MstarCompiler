@@ -1,26 +1,25 @@
 package com.fur.abstractSyntaxTree.node;
 
-
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeVisitor;
-import com.fur.enumerate.PrimaryTypeList;
+import com.fur.type.BaseType;
 import org.antlr.v4.runtime.Token;
 
-public class PrimaryTypeNode extends BaseTypeNode {
+public class TypeNode extends BaseNode {
 
-    private PrimaryTypeList type;
+    private BaseType type;
 
-    public PrimaryTypeNode(PrimaryTypeList _type, Token token) {
+    public TypeNode(BaseType _type, Token token) {
         super(token);
         type = _type;
     }
 
-    public PrimaryTypeList getType() {
+    public BaseType getType() {
         return type;
     }
 
     @Override
     public <T> T accept(AbstractSyntaxTreeVisitor<? extends T> visitor) {
-        return visitor.visitPrimaryTypeNode(this);
+        return visitor.visitTypeNode(this);
     }
 
 }

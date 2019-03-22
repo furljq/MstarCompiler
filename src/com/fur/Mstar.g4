@@ -27,7 +27,7 @@ variableDeclarations : variableDeclaration ( ',' variableDeclaration )* ;
 variableDeclaration : Identifier ( '=' expression )? ;
 
 type :
-    type Op = '[' ']'
+    type '[' ']'
   | nonArrayType
 ;
 

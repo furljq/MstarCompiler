@@ -7,18 +7,18 @@ import java.util.List;
 
 public class CreatorExpressionNode extends BaseExpressionNode {
 
-    private BaseTypeNode typeNode;
+    private TypeNode typeNode;
     private List<BaseExpressionNode> fixedDimension;
     private int restDimension;
 
-    public CreatorExpressionNode(BaseTypeNode _typeNode, List<BaseExpressionNode> _fixedDimension, int _restDimension, Token token) {
+    public CreatorExpressionNode(TypeNode _typeNode, List<BaseExpressionNode> _fixedDimension, int _restDimension, Token token) {
         super(token);
         typeNode = _typeNode;
         fixedDimension = _fixedDimension;
         restDimension = _restDimension;
     }
 
-    public BaseTypeNode getTypeNode() {
+    public TypeNode getTypeNode() {
         return typeNode;
     }
 
