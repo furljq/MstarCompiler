@@ -1,9 +1,11 @@
 package com.fur;
 
+import com.fur.SymbolTable.Entity.ClassEntity;
+import com.fur.SymbolTable.SymbolTableBuilder;
 import com.fur.antlr.MstarLexer;
 import com.fur.antlr.MstarParser;
-import com.fur.ast.ASTBuilder;
-import com.fur.ast.node.CompilationUnitNode;
+import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBuilder;
+import com.fur.abstractSyntaxTree.node.CompilationUnitNode;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -20,8 +22,10 @@ class Compiler {
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
-        ASTBuilder astBuilderVisitor = new ASTBuilder();
-        CompilationUnitNode AST = (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
+        AbstractSyntaxTreeBuilder astBuilderVisitor = new AbstractSyntaxTreeBuilder();
+        CompilationUnitNode abstractSyntaxTree = (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
+        SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder();
+        ClassEntity globalEntity = (ClassEntity) symbolTableBuilder.visit(abstractSyntaxTree);
     }
 
     Compiler(String _mstarFile) {
