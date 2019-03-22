@@ -1,23 +1,26 @@
 package com.fur.SymbolTable.Entity;
 
-import java.util.List;
+import com.fur.type.BaseType;
+
+import java.util.Map;
 
 public class FunctionEntity extends BaseEntity {
 
-    private String returnType;
-    private List<VariableEntity> parameterEntities;
+    private BaseType returnType;
+    private Map<String, VariableEntity> parameterEntityMap;
 
-    public FunctionEntity(String _returnType, List<VariableEntity> _parameterEntities) {
+    public FunctionEntity(BaseType _returnType, Map<String, VariableEntity> _parameterEntityMap, BaseEntity _parentEntity) {
+        super(_parentEntity);
         returnType = _returnType;
-        parameterEntities = _parameterEntities;
+        parameterEntityMap = _parameterEntityMap;
     }
 
-    public String getReturnType() {
+    public BaseType getReturnType() {
         return returnType;
     }
 
-    public List<VariableEntity> getParameterEntities() {
-        return parameterEntities;
+    public Map<String, VariableEntity> getParameterEntityMap() {
+        return parameterEntityMap;
     }
 
 }
