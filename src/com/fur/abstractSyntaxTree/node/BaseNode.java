@@ -1,36 +1,18 @@
 package com.fur.abstractSyntaxTree.node;
 
+import com.fur.Position;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeVisitor;
 import org.antlr.v4.runtime.Token;
 
 public abstract class BaseNode {
 
-    private class NodePosition {
-
-        private final int line, column;
-
-        NodePosition(Token token) {
-            line = token.getLine();
-            column = token.getCharPositionInLine();
-        }
-
-        public int getLine() {
-            return line;
-        }
-
-        public int getColumn() {
-            return column;
-        }
-
-    }
-
-    private NodePosition position;
+    private Position position;
 
     BaseNode(Token token) {
-        position = new NodePosition(token);
+        position = new Position(token);
     }
 
-    public NodePosition getPosition() {
+    public Position getPosition() {
         return position;
     }
 
