@@ -23,16 +23,16 @@ public class ClassEntity extends BaseEntity {
         if (entity instanceof VariableEntity) scope.put(VARIABLEPREFIX + name, entity);
     }
 
-    public void putNew(String name, BaseEntity entity) throws Exception {
+    public void putNew(String name, BaseEntity entity) {
         if (entity instanceof ClassEntity)
-            if (getClassEntity(name) == null) throw new Exception();
-            else scope.put(CLASSPREFIX + name, entity);
+            if (getClassEntity(name) == null) throw new Error();
+            else putCover(name, entity);
         if (entity instanceof FunctionEntity)
-            if (getFunctionEntity(name) == null) throw new Exception();
-            else scope.put(FUNCTIONPREFIX + name, entity);
+            if (getFunctionEntity(name) == null) throw new Error();
+            else putCover(name, entity);
         if (entity instanceof VariableEntity)
-            if (getVariableEntity(name) == null) throw new Exception();
-            else scope.put(VARIABLEPREFIX + name, entity);
+            if (getVariableEntity(name) == null) throw new Error();
+            else putCover(name, entity);
     }
 
     public ClassEntity getClassEntity(String name) {

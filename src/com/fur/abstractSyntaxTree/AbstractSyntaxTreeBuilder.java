@@ -38,14 +38,14 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
     @Override
     public ClassDeclarationNode visitClassDeclaration(MstarParser.ClassDeclarationContext context) {
         String className = context.Identifier().getText();
-        List<VariableDeclarationStatementNode> variableDeclarationStatementNodes = new ArrayList<>();
+        List<VariableDeclarationNode> variableDeclarationNodes = new ArrayList<>();
         List<FunctionDeclarationNode> functionDeclarationNodes = new ArrayList<>();
         for (MstarParser.ClassBodyDeclarationContext classBodyDeclarationContext : context.classBodyDeclaration()) {
             BaseNode classBodyNode = visit(classBodyDeclarationContext);
-            if (classBodyNode instanceof VariableDeclarationStatementNode) variableDeclarationStatementNodes.add((VariableDeclarationStatementNode) classBodyNode);
+            if (classBodyNode instanceof VariableDeclarationStatementNode) variableDeclarationNodes.addAll(((VariableDeclarationStatementNode) classBodyNode).getVariableDeclarationNodes());
             if (classBodyNode instanceof FunctionDeclarationNode) functionDeclarationNodes.add((FunctionDeclarationNode) classBodyNode);
         }
-        return new ClassDeclarationNode(className, variableDeclarationStatementNodes, functionDeclarationNodes, context.start);
+        return new ClassDeclarationNode(className, variableDeclarationNodes, functionDeclarationNodes, context.start);
     }
 
     @Override

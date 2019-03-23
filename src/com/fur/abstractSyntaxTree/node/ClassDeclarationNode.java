@@ -7,17 +7,17 @@ import java.util.List;
 
 public class ClassDeclarationNode extends BaseDeclarationNode {
 
-    private List<VariableDeclarationStatementNode> variableDeclarationStatementNodes;
+    private List<VariableDeclarationNode> variableDeclarationNodes;
     private List<FunctionDeclarationNode> functionDeclarationNodes;
 
-    public ClassDeclarationNode(String _name, List<VariableDeclarationStatementNode> _variableDeclarationStatementNodes, List<FunctionDeclarationNode> _functionDeclarationNodes, Token token) {
+    public ClassDeclarationNode(String _name, List<VariableDeclarationNode> _variableDeclarationNodes, List<FunctionDeclarationNode> _functionDeclarationNodes, Token token) {
         super(_name, token);
-        variableDeclarationStatementNodes = _variableDeclarationStatementNodes;
+        variableDeclarationNodes = _variableDeclarationNodes;
         functionDeclarationNodes = _functionDeclarationNodes;
     }
 
-    public List<VariableDeclarationStatementNode> getVariableDeclarationStatementNodes() {
-        return variableDeclarationStatementNodes;
+    public List<VariableDeclarationNode> getVariableDeclarationNodes() {
+        return variableDeclarationNodes;
     }
 
     public List<FunctionDeclarationNode> getFunctionDeclarationNodes() {
