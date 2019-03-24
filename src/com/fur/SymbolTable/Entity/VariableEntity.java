@@ -1,4 +1,4 @@
-package com.fur.SymbolTable.Entity;
+package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
 import com.fur.type.BaseType;

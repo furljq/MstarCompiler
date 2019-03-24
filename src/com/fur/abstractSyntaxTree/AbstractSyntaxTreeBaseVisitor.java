@@ -109,9 +109,4 @@ public class AbstractSyntaxTreeBaseVisitor<T> implements AbstractSyntaxTreeVisit
         return null;
     }
 
-    @Override
-    public T visitVariableDeclarationStatementNode(VariableDeclarationStatementNode node) {
-        return null;
-    }
-
 }

@@ -7,15 +7,15 @@ import java.util.List;
 
 public class CompilationUnitNode extends BaseNode {
 
-    private List<BaseDeclarationNode> declarationNodes;
+    private List<BaseNode> baseNodes;
 
-    public CompilationUnitNode(List<BaseDeclarationNode> _declarationNodes, Token token) {
+    public CompilationUnitNode(List<BaseNode> _baseNodes, Token token) {
         super(token);
-        declarationNodes = _declarationNodes;
+        baseNodes = _baseNodes;
     }
 
-    public List<BaseDeclarationNode> getDeclarationNodes() {
-        return declarationNodes;
+    public List<BaseNode> getBaseNodes() {
+        return baseNodes;
     }
 
     @Override

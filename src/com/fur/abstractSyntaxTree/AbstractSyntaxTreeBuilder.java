@@ -1,10 +1,10 @@
 package com.fur.abstractSyntaxTree;
 
+import com.fur.abstractSyntaxTree.node.*;
 import com.fur.antlrParseTree.MstarBaseVisitor;
 import com.fur.antlrParseTree.MstarParser;
 import com.fur.enumerate.OperatorList;
 import com.fur.enumerate.PrimaryTypeList;
-import com.fur.abstractSyntaxTree.node.*;
 import com.fur.type.ArrayType;
 import com.fur.type.BaseType;
 import com.fur.type.ClassType;
@@ -17,42 +17,48 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public CompilationUnitNode visitCompilationUnit(MstarParser.CompilationUnitContext context) {
-        List<BaseDeclarationNode> declarationNodes = new ArrayList<>();
+        List<BaseNode> baseNodes = new ArrayList<>();
         for (MstarParser.ProgramDeclarationContext programDeclarationContext : context.programDeclaration()) {
-            BaseNode baseNode = visit(programDeclarationContext);
-            if (baseNode instanceof ClassDeclarationNode) declarationNodes.add((ClassDeclarationNode) baseNode);
-            if (baseNode instanceof FunctionDeclarationNode) declarationNodes.add((FunctionDeclarationNode) baseNode);
-            if (baseNode instanceof VariableDeclarationStatementNode) declarationNodes.addAll(((VariableDeclarationStatementNode) baseNode).getVariableDeclarationNodes());
+            if (programDeclarationContext.classDeclaration() != null) baseNodes.add(visit(programDeclarationContext.classDeclaration()));
+            if (programDeclarationContext.functionDeclaration() != null) baseNodes.add(visit(programDeclarationContext.functionDeclaration()));
+            if (programDeclarationContext.variableDeclarationStatement() != null) baseNodes.addAll(spiltVariableDeclarationStatementNode(programDeclarationContext.variableDeclarationStatement()));
         }
-        return new CompilationUnitNode(declarationNodes, context.getStart());
+        return new CompilationUnitNode(baseNodes, context.getStart());
     }
 
-    @Override
-    public BaseNode visitProgramDeclaration(MstarParser.ProgramDeclarationContext context) {
-        if (context.classDeclaration() != null) return visit(context.classDeclaration());
-        if (context.functionDeclaration() != null) return visit(context.functionDeclaration());
-        if (context.variableDeclarationStatement() != null) return visit(context.variableDeclarationStatement());
-        return null;
+    private List<BaseNode> spiltVariableDeclarationStatementNode(MstarParser.VariableDeclarationStatementContext context) {
+        List<BaseNode> baseNodes = new ArrayList<>();
+        TypeNode typeNode = (TypeNode) visit(context.type());
+        for (MstarParser.VariableDeclarationContext variableDeclarationContext : context.variableDeclarations().variableDeclaration())
+            baseNodes.addAll(spiltVariableDeclarationNode(variableDeclarationContext, typeNode));
+        return baseNodes;
+    }
+
+    private List<BaseNode> spiltVariableDeclarationNode(MstarParser.VariableDeclarationContext context, TypeNode typeNode) {
+        List<BaseNode> baseNodes = new ArrayList<>();
+        String name = context.Identifier().getText();
+        VariableDeclarationNode variableDeclarationNode = new VariableDeclarationNode(typeNode, name, context.start);
+        baseNodes.add(variableDeclarationNode);
+        if (context.expression() != null) {
+            IdentifierExpressionNode identifierNode = new IdentifierExpressionNode(name, context.start);
+            BaseExpressionNode initExpression = (BaseExpressionNode) visit(context.expression());
+            BinaryExpressionNode assignExpressionNode = new BinaryExpressionNode(OperatorList.ASSIGN, identifierNode, initExpression, initExpression.getPosition());
+            ExpressionStatementNode assignStatementNode = new ExpressionStatementNode(assignExpressionNode, assignExpressionNode.getPosition());
+            baseNodes.add(assignStatementNode);
+        }
+        return baseNodes;
     }
 
     @Override
     public ClassDeclarationNode visitClassDeclaration(MstarParser.ClassDeclarationContext context) {
         String className = context.Identifier().getText();
-        List<VariableDeclarationNode> variableDeclarationNodes = new ArrayList<>();
+        List<BaseNode> variableDeclarationNodes = new ArrayList<>();
         List<FunctionDeclarationNode> functionDeclarationNodes = new ArrayList<>();
         for (MstarParser.ClassBodyDeclarationContext classBodyDeclarationContext : context.classBodyDeclaration()) {
-            BaseNode classBodyNode = visit(classBodyDeclarationContext);
-            if (classBodyNode instanceof VariableDeclarationStatementNode) variableDeclarationNodes.addAll(((VariableDeclarationStatementNode) classBodyNode).getVariableDeclarationNodes());
-            if (classBodyNode instanceof FunctionDeclarationNode) functionDeclarationNodes.add((FunctionDeclarationNode) classBodyNode);
+            if (classBodyDeclarationContext.variableDeclarationStatement() != null) variableDeclarationNodes.addAll(spiltVariableDeclarationStatementNode(classBodyDeclarationContext.variableDeclarationStatement()));
+            if (classBodyDeclarationContext.functionDeclaration() != null) functionDeclarationNodes.add((FunctionDeclarationNode) visit(classBodyDeclarationContext.functionDeclaration()));
         }
         return new ClassDeclarationNode(className, variableDeclarationNodes, functionDeclarationNodes, context.start);
-    }
-
-    @Override
-    public BaseNode visitClassBodyDeclaration(MstarParser.ClassBodyDeclarationContext context) {
-        if (context.functionDeclaration() != null) return visit(context.functionDeclaration());
-        if (context.variableDeclarationStatement() != null) return visit(context.variableDeclarationStatement());
-        return null;
     }
 
     @Override
@@ -61,15 +67,15 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         if (context.type() != null) typeNode = (TypeNode) visit(context.type());
         else typeNode = null;
         String name = context.Identifier().getText();
-        List<VariableDeclarationNode> parameterNodes = new ArrayList<>();
+        List<BaseNode> baseNodes = new ArrayList<>();
         if (context.parameters() != null) {
             for (MstarParser.ParameterContext parameterContext : context.parameters().parameter()) {
-                VariableDeclarationNode parameterNode = (VariableDeclarationNode) visit(parameterContext);
-                parameterNodes.add(parameterNode);
+                TypeNode parameterTypeNode = (TypeNode) visit(parameterContext.type());
+                baseNodes.addAll(spiltVariableDeclarationNode(parameterContext.variableDeclaration(), parameterTypeNode));
             }
         }
         BlockStatementNode blockStatementNode = (BlockStatementNode) visit(context.blockStatement());
-        return new FunctionDeclarationNode(typeNode, name, parameterNodes, blockStatementNode, context.getStart());
+        return new FunctionDeclarationNode(typeNode, name, baseNodes, blockStatementNode, context.getStart());
     }
 
     @Override
@@ -93,16 +99,6 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
             if (nonArrayTypeContext.classType() != null) return new ClassType(nonArrayTypeContext.getText());
         }
         return null;
-    }
-
-    @Override
-    public VariableDeclarationNode visitParameter(MstarParser.ParameterContext context) {
-        TypeNode typeNode = (TypeNode) visit(context.type());
-        String name = context.Identifier().getText();
-        BaseExpressionNode expressionNode;
-        if (context.expression() != null) expressionNode = (BaseExpressionNode) visit(context.expression());
-        else expressionNode = null;
-        return new VariableDeclarationNode(typeNode, name, expressionNode, context.start);
     }
 
     @Override
@@ -218,18 +214,19 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public BlockStatementNode visitBlockStatement(MstarParser.BlockStatementContext context) {
-        List<BaseStatementNode> statementNodes = new ArrayList<>();
+        List<BaseNode> baseNodes = new ArrayList<>();
         for (MstarParser.StatementContext statementContext : context.statement()) {
-            BaseStatementNode statementNode = (BaseStatementNode) visit(statementContext);
-            statementNodes.add(statementNode);
+            if (statementContext.variableDeclarationStatement() != null)
+                baseNodes.addAll(spiltVariableDeclarationStatementNode(statementContext.variableDeclarationStatement()));
+            else baseNodes.add(visit(statementContext));
         }
-        return new BlockStatementNode(statementNodes, context.start);
+        return new BlockStatementNode(baseNodes, context.start);
     }
 
     @Override
     public BaseStatementNode visitStatement(MstarParser.StatementContext context) {
         if (context.blockStatement() != null) return (BlockStatementNode) visit(context.blockStatement());
-        if (context.variableDeclarationStatement() != null) return (VariableDeclarationStatementNode) visit(context.variableDeclarationStatement());
+        if (context.variableDeclarationStatement() != null) return null;
         if (context.Op.getText().equals("if")) {
             BaseExpressionNode conditionExpressionNode = (BaseExpressionNode) visit(context.expression(0));
             BaseStatementNode thenStatementNode = (BaseStatementNode) visit(context.statement(0));
@@ -264,21 +261,6 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         if (context.Op.getText().equals("continue")) return new ContinueStatementNode(context.start);
         if (context.Op.getText().equals(";")) return new ExpressionStatementNode((BaseExpressionNode) visit(context.expression(0)), context.start);
         return null;
-    }
-
-    @Override
-    public VariableDeclarationStatementNode visitVariableDeclarationStatement(MstarParser.VariableDeclarationStatementContext context) {
-        TypeNode typeNode = (TypeNode) visit(context.type());
-        List<VariableDeclarationNode> variableDeclarationNodes = new ArrayList<>();
-        for (MstarParser.VariableDeclarationContext variableDeclarationContext : context.variableDeclarations().variableDeclaration()) {
-            String name = variableDeclarationContext.Identifier().getText();
-            BaseExpressionNode initExpression;
-            if (variableDeclarationContext.expression() != null) initExpression = (BaseExpressionNode) visit(variableDeclarationContext.expression());
-            else initExpression = null;
-            VariableDeclarationNode variableDeclarationNode = new VariableDeclarationNode(typeNode, name, initExpression, context.start);
-            variableDeclarationNodes.add(variableDeclarationNode);
-        }
-        return new VariableDeclarationStatementNode(variableDeclarationNodes, context.start);
     }
 
 }

@@ -2,9 +2,12 @@
 package com.fur.antlrParseTree;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class MstarLexer extends Lexer {
@@ -46,7 +49,7 @@ public class MstarLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'class'", "'{'", "'}'", "'('", "')'", "','", "'='", "';'", "'['", 
+			null, "'class'", "'{'", "'}'", "'('", "')'", "','", "';'", "'='", "'['", 
 			"']'", "'bool'", "'int'", "'string'", "'void'", "'if'", "'else'", "'for'", 
 			"'while'", "'return'", "'break'", "'continue'", "'.'", "'++'", "'--'", 
 			"'new'", "'+'", "'-'", "'~'", "'!'", "'*'", "'/'", "'%'", "'<<'", "'>>'", 
@@ -176,7 +179,7 @@ public class MstarLexer extends Lexer {
 		"\2\2vw\7n\2\2wx\7c\2\2xy\7u\2\2yz\7u\2\2z\4\3\2\2\2{|\7}\2\2|\6\3\2\2"+
 		"\2}~\7\177\2\2~\b\3\2\2\2\177\u0080\7*\2\2\u0080\n\3\2\2\2\u0081\u0082"+
 		"\7+\2\2\u0082\f\3\2\2\2\u0083\u0084\7.\2\2\u0084\16\3\2\2\2\u0085\u0086"+
-		"\7?\2\2\u0086\20\3\2\2\2\u0087\u0088\7=\2\2\u0088\22\3\2\2\2\u0089\u008a"+
+		"\7=\2\2\u0086\20\3\2\2\2\u0087\u0088\7?\2\2\u0088\22\3\2\2\2\u0089\u008a"+
 		"\7]\2\2\u008a\24\3\2\2\2\u008b\u008c\7_\2\2\u008c\26\3\2\2\2\u008d\u008e"+
 		"\7d\2\2\u008e\u008f\7q\2\2\u008f\u0090\7q\2\2\u0090\u0091\7n\2\2\u0091"+
 		"\30\3\2\2\2\u0092\u0093\7k\2\2\u0093\u0094\7p\2\2\u0094\u0095\7v\2\2\u0095"+

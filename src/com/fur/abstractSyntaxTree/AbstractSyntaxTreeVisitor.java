@@ -26,6 +26,5 @@ public interface AbstractSyntaxTreeVisitor<T> {
     T visitTypeNode(TypeNode node);
     T visitUnaryExpressionNode(UnaryExpressionNode node);
     T visitVariableDeclarationNode(VariableDeclarationNode node);
-    T visitVariableDeclarationStatementNode(VariableDeclarationStatementNode node);
 
 }

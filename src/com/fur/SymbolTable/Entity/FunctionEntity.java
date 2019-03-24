@@ -1,4 +1,4 @@
-package com.fur.SymbolTable.Entity;
+package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
 
@@ -11,9 +11,12 @@ public class FunctionEntity extends BaseEntity {
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
 
-    public FunctionEntity(VariableEntity _returnType, BaseEntity _parentEntity, Position _position) {
+    public FunctionEntity(BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
-        returnType = _returnType;
+    }
+
+    public void setReturnType(VariableEntity returnType) {
+        this.returnType = returnType;
     }
 
     public void setBlockEntity(BlockEntity blockEntity) {

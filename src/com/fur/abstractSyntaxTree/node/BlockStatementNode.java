@@ -7,14 +7,14 @@ import java.util.List;
 
 public class BlockStatementNode extends BaseStatementNode {
 
-    private List<BaseStatementNode> statementNodes;
+    private List<BaseNode> statementNodes;
 
-    public BlockStatementNode(List<BaseStatementNode> _statementNodes, Token token) {
+    public BlockStatementNode(List<BaseNode> _statementNodes, Token token) {
         super(token);
         statementNodes = _statementNodes;
     }
 
-    public List<BaseStatementNode> getStatementNodes() {
+    public List<BaseNode> getStatementNodes() {
         return statementNodes;
     }
 

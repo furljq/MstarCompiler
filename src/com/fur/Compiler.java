@@ -1,11 +1,12 @@
 package com.fur;
 
-import com.fur.SymbolTable.Entity.ClassEntity;
-import com.fur.SymbolTable.SymbolTableBuilder;
+import com.fur.symbolTable.Entity.ClassEntity;
+import com.fur.symbolTable.SymbolTableBuilder;
 import com.fur.antlrParseTree.MstarLexer;
 import com.fur.antlrParseTree.MstarParser;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBuilder;
 import com.fur.abstractSyntaxTree.node.CompilationUnitNode;
+import com.fur.syntax.SyntaxChecker;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -34,13 +35,15 @@ class Compiler {
         return (ClassEntity) symbolTableBuilder.visit(abstractSyntaxTree);
     }
 
-    private void syntaxChecker(CompilationUnitNode abstractSyntaxTree, ClassEntity globalEntity) {
+    private boolean syntaxCheck(CompilationUnitNode abstractSyntaxTree, ClassEntity globalEntity) {
+        SyntaxChecker syntaxChecker = new SyntaxChecker(globalEntity);
+        return syntaxChecker.visit(abstractSyntaxTree);
     }
 
     void compile() {
         CompilationUnitNode abstractSyntaxTree = buildAbstractSyntaxTree(mstarFileCharStream);
         ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
-        syntaxChecker(abstractSyntaxTree, globalEntity);
+        //if (!syntaxCheck(abstractSyntaxTree, globalEntity)) throw new Error();
     }
 
 }

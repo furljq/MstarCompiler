@@ -1,5 +1,6 @@
 package com.fur.abstractSyntaxTree.node;
 
+import com.fur.Position;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeVisitor;
 import com.fur.enumerate.OperatorList;
 import org.antlr.v4.runtime.Token;
@@ -14,6 +15,13 @@ public class BinaryExpressionNode extends BaseExpressionNode {
         operator = _operator;
         leftExpressionNode = _leftExpressionNode;
         rightExressionNode = _rightExressionNode;
+    }
+
+    public BinaryExpressionNode(OperatorList _operator, BaseExpressionNode _leftExpressionNode, BaseExpressionNode _rightExpressionNode, Position _position) {
+        super(_position);
+        operator = _operator;
+        leftExpressionNode = _leftExpressionNode;
+        rightExressionNode = _rightExpressionNode;
     }
 
     public OperatorList getOperator() {

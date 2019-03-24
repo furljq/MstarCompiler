@@ -12,6 +12,10 @@ public abstract class BaseNode {
         position = new Position(token);
     }
 
+    BaseNode(Position _position) {
+        position = _position;
+    }
+
     public Position getPosition() {
         return position;
     }

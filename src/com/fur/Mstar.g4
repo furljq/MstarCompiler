@@ -20,7 +20,7 @@ functionDeclaration :
 ;
 
 parameters : parameter ( ',' parameter )* ;
-parameter : type Identifier ( '=' expression )? ;
+parameter : type variableDeclaration ;
 
 variableDeclarationStatement : type variableDeclarations ';' ;
 variableDeclarations : variableDeclaration ( ',' variableDeclaration )* ;

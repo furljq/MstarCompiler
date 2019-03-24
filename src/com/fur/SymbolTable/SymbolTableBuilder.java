@@ -1,29 +1,52 @@
-package com.fur.SymbolTable;
+package com.fur.symbolTable;
 
-import com.fur.SymbolTable.Entity.*;
+import com.fur.symbolTable.Entity.*;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBaseVisitor;
 import com.fur.abstractSyntaxTree.node.*;
+import com.fur.enumerate.PrimaryTypeList;
 import com.fur.type.BaseType;
 import com.fur.type.ClassType;
+import com.fur.type.PrimaryType;
 
 public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity> {
 
     private ClassEntity globalEntity = new ClassEntity(null, null);
     private BaseEntity currentEntity = globalEntity;
 
+    public SymbolTableBuilder() {
+        globalEntity.putNew("print", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING));
+        globalEntity.putNew("println", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING));
+        globalEntity.putNew("getString", setInBuildFunction(PrimaryTypeList.STRING, null));
+        globalEntity.putNew("getInt", setInBuildFunction(PrimaryTypeList.INT, null));
+        globalEntity.putNew("toString", setInBuildFunction(PrimaryTypeList.STRING, PrimaryTypeList.INT));
+    }
+
+    private FunctionEntity setInBuildFunction(PrimaryTypeList returnType, PrimaryTypeList parameterType) {
+        FunctionEntity functionEntity = new FunctionEntity(globalEntity, null);
+        VariableEntity returnTypeEntity = new VariableEntity(new PrimaryType(returnType), null, functionEntity, null);
+        functionEntity.setReturnType(returnTypeEntity);
+        if (parameterType != null) {
+            VariableEntity parameterEntity = new VariableEntity(new PrimaryType(parameterType), null, functionEntity, null);
+            functionEntity.put("str", parameterEntity);
+        }
+        return functionEntity;
+    }
+
     @Override
     public ClassEntity visitCompilationUnitNode(CompilationUnitNode node) {
-        for (BaseDeclarationNode classDeclarationNode : node.getDeclarationNodes())
+        for (BaseNode classDeclarationNode : node.getBaseNodes())
             if (classDeclarationNode instanceof ClassDeclarationNode) {
-                String name = classDeclarationNode.getName();
+                String name = ((ClassDeclarationNode) classDeclarationNode).getName();
                 ClassEntity classEntity = new ClassEntity(globalEntity, classDeclarationNode.getPosition());
                 globalEntity.putNew(name, classEntity);
             }
-        for (BaseDeclarationNode declarationNode : node.getDeclarationNodes()) {
-            String name = declarationNode.getName();
-            BaseEntity entity = visit(declarationNode);
-            if (entity instanceof ClassEntity) globalEntity.putCover(name, entity);
-            else globalEntity.putNew(name, entity);
+        for (BaseNode declarationNode : node.getBaseNodes()) {
+            if (declarationNode instanceof BaseDeclarationNode) {
+                String name = ((BaseDeclarationNode) declarationNode).getName();
+                BaseEntity entity = visit(declarationNode);
+                if (entity instanceof ClassEntity) globalEntity.putCover(name, entity);
+                else globalEntity.putNew(name, entity);
+            }
         }
         return globalEntity;
     }
@@ -31,8 +54,9 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     @Override
     public ClassEntity visitClassDeclarationNode(ClassDeclarationNode node) {
         currentEntity = ((ClassEntity) currentEntity).getClassEntity(node.getName());
-        for (VariableDeclarationNode variableDeclarationNode : node.getVariableDeclarationNodes())
-            ((ClassEntity) currentEntity).putNew(node.getName(), visit(variableDeclarationNode));
+        for (BaseNode variableDeclarationNode : node.getVariableNodes())
+            if (variableDeclarationNode instanceof VariableDeclarationNode)
+                ((ClassEntity) currentEntity).putNew(node.getName(), visit(variableDeclarationNode));
         for (FunctionDeclarationNode functionDeclarationNode : node.getFunctionDeclarationNodes())
             visit(functionDeclarationNode);
         currentEntity = globalEntity;
@@ -53,16 +77,19 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
 
     @Override
     public BaseEntity visitFunctionDeclarationNode(FunctionDeclarationNode node) {
+        FunctionEntity functionEntity = new FunctionEntity(currentEntity, node.getPosition());
+        BaseEntity oldEntity = currentEntity;
+        currentEntity = functionEntity;
         VariableEntity returnTypeEntity;
         if (node.getTypeNode() != null) returnTypeEntity = (VariableEntity) visit(node.getTypeNode());
         else returnTypeEntity = null;
-        FunctionEntity functionEntity = new FunctionEntity(returnTypeEntity, currentEntity, node.getPosition());
-        BaseEntity oldEntity = currentEntity;
-        currentEntity = functionEntity;
-        for (VariableDeclarationNode parameterDeclarationNode : node.getParameterNodes()) {
-            String parameterName = parameterDeclarationNode.getName();
-            VariableEntity parameterEntity = (VariableEntity) visit(parameterDeclarationNode);
-            functionEntity.put(parameterName, parameterEntity);
+        functionEntity.setReturnType(returnTypeEntity);
+        for (BaseNode parameterDeclarationNode : node.getParameterNodes()) {
+            if (parameterDeclarationNode instanceof VariableDeclarationNode) {
+                String parameterName = ((BaseDeclarationNode) parameterDeclarationNode).getName();
+                VariableEntity parameterEntity = (VariableEntity) visit(parameterDeclarationNode);
+                functionEntity.put(parameterName, parameterEntity);
+            }
         }
         BlockEntity blockEntity = (BlockEntity) visit(node.getBlockStatementNodes());
         currentEntity = oldEntity;
@@ -75,12 +102,10 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         BlockEntity blockEntity = new BlockEntity(currentEntity, node.getPosition());
         BaseEntity oldEntity = currentEntity;
         currentEntity = blockEntity;
-        for (BaseStatementNode statementNode : node.getStatementNodes()) {
-            if (statementNode instanceof VariableDeclarationStatementNode) {
-                for (VariableDeclarationNode variableDeclarationNode : ((VariableDeclarationStatementNode) statementNode).getVariableDeclarationNodes()) {
-                    VariableEntity variableEntity = (VariableEntity) visit(variableDeclarationNode);
-                    blockEntity.put(variableDeclarationNode.getName(), variableEntity);
-                }
+        for (BaseNode statementNode : node.getStatementNodes()) {
+            if (statementNode instanceof VariableDeclarationNode) {
+                VariableEntity variableEntity = (VariableEntity) visit(statementNode);
+                blockEntity.put(((VariableDeclarationNode) statementNode).getName(), variableEntity);
             }
             if (statementNode instanceof IfStatementNode) {
                 BaseStatementNode thenStatementNode = ((IfStatementNode) statementNode).getThenStatementNode();
@@ -96,10 +121,10 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
                     }
             }
             if (statementNode instanceof LoopStatementNode) {
-                BaseStatementNode bodyStatemenNode = ((LoopStatementNode) statementNode).getBodyStatementNode();
-                if (bodyStatemenNode instanceof BlockStatementNode) {
-                    BlockEntity bodyEntity = (BlockEntity) visit(bodyStatemenNode);
-                    blockEntity.put(bodyStatemenNode.getPosition(), bodyEntity);
+                BaseStatementNode bodyStatementNode = ((LoopStatementNode) statementNode).getBodyStatementNode();
+                if (bodyStatementNode instanceof BlockStatementNode) {
+                    BlockEntity bodyEntity = (BlockEntity) visit(bodyStatementNode);
+                    blockEntity.put(bodyStatementNode.getPosition(), bodyEntity);
                 }
             }
         }
