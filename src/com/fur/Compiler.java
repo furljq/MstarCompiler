@@ -2,8 +2,8 @@ package com.fur;
 
 import com.fur.SymbolTable.Entity.ClassEntity;
 import com.fur.SymbolTable.SymbolTableBuilder;
-import com.fur.antlr.MstarLexer;
-import com.fur.antlr.MstarParser;
+import com.fur.antlrParseTree.MstarLexer;
+import com.fur.antlrParseTree.MstarParser;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBuilder;
 import com.fur.abstractSyntaxTree.node.CompilationUnitNode;
 import org.antlr.v4.runtime.CharStream;
@@ -14,26 +14,33 @@ import java.io.IOException;
 
 class Compiler {
 
-    private String mstarFile;
+    private CharStream mstarFileCharStream;
 
-    private void buildAST() throws IOException {
-        CharStream mstarFileCharStream = CharStreams.fromFileName(mstarFile);
+    Compiler(String _mstarFile) throws IOException {
+        mstarFileCharStream = CharStreams.fromFileName(_mstarFile);
+    }
+
+    private CompilationUnitNode buildAbstractSyntaxTree(CharStream mstarFileCharStream) {
         MstarLexer lexer = new MstarLexer(mstarFileCharStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
         AbstractSyntaxTreeBuilder astBuilderVisitor = new AbstractSyntaxTreeBuilder();
-        CompilationUnitNode abstractSyntaxTree = (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
+        return  (CompilationUnitNode) astBuilderVisitor.visit(parseTree);
+    }
+
+    private ClassEntity buildSymbolTable(CompilationUnitNode abstractSyntaxTree) {
         SymbolTableBuilder symbolTableBuilder = new SymbolTableBuilder();
-        ClassEntity globalEntity = (ClassEntity) symbolTableBuilder.visit(abstractSyntaxTree);
+        return (ClassEntity) symbolTableBuilder.visit(abstractSyntaxTree);
     }
 
-    Compiler(String _mstarFile) {
-        mstarFile = _mstarFile;
+    private void syntaxChecker(CompilationUnitNode abstractSyntaxTree, ClassEntity globalEntity) {
     }
 
-    void compile() throws IOException {
-        buildAST();
+    void compile() {
+        CompilationUnitNode abstractSyntaxTree = buildAbstractSyntaxTree(mstarFileCharStream);
+        ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
+        syntaxChecker(abstractSyntaxTree, globalEntity);
     }
 
 }

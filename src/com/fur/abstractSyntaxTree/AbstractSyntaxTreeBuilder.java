@@ -1,7 +1,7 @@
 package com.fur.abstractSyntaxTree;
 
-import com.fur.antlr.MstarBaseVisitor;
-import com.fur.antlr.MstarParser;
+import com.fur.antlrParseTree.MstarBaseVisitor;
+import com.fur.antlrParseTree.MstarParser;
 import com.fur.enumerate.OperatorList;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.abstractSyntaxTree.node.*;

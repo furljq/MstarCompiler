@@ -25,13 +25,13 @@ public class ClassEntity extends BaseEntity {
 
     public void putNew(String name, BaseEntity entity) {
         if (entity instanceof ClassEntity)
-            if (getClassEntity(name) == null) throw new Error();
+            if (getClassEntity(name) != null) throw new Error();
             else putCover(name, entity);
         if (entity instanceof FunctionEntity)
-            if (getFunctionEntity(name) == null) throw new Error();
+            if (getFunctionEntity(name) != null) throw new Error();
             else putCover(name, entity);
         if (entity instanceof VariableEntity)
-            if (getVariableEntity(name) == null) throw new Error();
+            if (getVariableEntity(name) != null) throw new Error();
             else putCover(name, entity);
     }
 
