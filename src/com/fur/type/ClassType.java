@@ -12,4 +12,10 @@ public class ClassType extends BaseType {
         return className;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ClassType)) return false;
+        return className.equals(((ClassType) obj).className);
+    }
+
 }

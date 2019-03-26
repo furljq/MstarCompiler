@@ -86,18 +86,20 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     private BaseType getType(MstarParser.TypeContext context) {
         if (context.type() != null) return new ArrayType(getType(context.type()));
-        if (context.nonArrayType() != null) {
-            MstarParser.NonArrayTypeContext nonArrayTypeContext = context.nonArrayType();
-            if (nonArrayTypeContext.primitiveType() != null) {
-                MstarParser.PrimitiveTypeContext primitiveTypeContext = nonArrayTypeContext.primitiveType();
-                if (primitiveTypeContext.getText().equals("bool")) return new PrimaryType(PrimaryTypeList.BOOL);
-                if (primitiveTypeContext.getText().equals("int")) return new PrimaryType(PrimaryTypeList.INT);
-                if (primitiveTypeContext.getText().equals("string")) return new PrimaryType(PrimaryTypeList.STRING);
-                if (primitiveTypeContext.getText().equals("void")) return new PrimaryType(PrimaryTypeList.VOID);
-                return null;
-            }
-            if (nonArrayTypeContext.classType() != null) return new ClassType(nonArrayTypeContext.getText());
+        if (context.nonArrayType() != null) return getNonArrayType(context.nonArrayType());
+        return null;
+    }
+
+    private BaseType getNonArrayType(MstarParser.NonArrayTypeContext context) {
+        if (context.primitiveType() != null) {
+            MstarParser.PrimitiveTypeContext primitiveTypeContext = context.primitiveType();
+            if (primitiveTypeContext.getText().equals("bool")) return new PrimaryType(PrimaryTypeList.BOOL);
+            if (primitiveTypeContext.getText().equals("int")) return new PrimaryType(PrimaryTypeList.INT);
+            if (primitiveTypeContext.getText().equals("string")) return new PrimaryType(PrimaryTypeList.STRING);
+            if (primitiveTypeContext.getText().equals("void")) return new PrimaryType(PrimaryTypeList.VOID);
+            return null;
         }
+        if (context.classType() != null) return new ClassType(context.getText());
         return null;
     }
 
@@ -199,7 +201,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public CreatorExpressionNode visitCreator(MstarParser.CreatorContext context) {
-        TypeNode typeNode = (TypeNode) visit(context.nonArrayType());
+        TypeNode typeNode = new TypeNode(getNonArrayType(context.nonArrayType()), context.nonArrayType().start);
         List<BaseExpressionNode> fixedDimension = new ArrayList<>();
         int restDimension;
         if (context.arrayCreator() != null) {
@@ -209,7 +211,13 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
             }
             restDimension = context.arrayCreator().empty().size();
         } else restDimension = 0;
-        return new CreatorExpressionNode(typeNode, fixedDimension, restDimension, context.start);
+        List<BaseExpressionNode> arguments = new ArrayList<>();
+        if (context.classCreator() != null)
+            if (context.classCreator().expressions() != null)
+                for (MstarParser.ExpressionContext expressionContext : context.classCreator().expressions().expression()) {
+                    arguments.add((BaseExpressionNode) visit(expressionContext));
+                }
+        return new CreatorExpressionNode(typeNode, fixedDimension, restDimension, arguments, context.start);
     }
 
     @Override

@@ -99,6 +99,15 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             baseType = new ArrayType(baseType);
         for (int i = 0; i < node.getFixedDimension().size(); i++)
             baseType = new ArrayType(baseType);
+        if (node.getArguments().size() > 0) {
+            if (!(baseType instanceof ClassType)) throw new Error();
+            ClassEntity classEntity = globalEntity.getClassEntity(((ClassType) baseType).getClassName());
+            FunctionEntity functionEntity = classEntity.getFunctionEntity(((ClassType) baseType).getClassName());
+            for (int i = 0; i < node.getArguments().size(); i++) {
+                BaseType argumentType = visit(node.getArguments().get(i));
+                if (!argumentType.equals(functionEntity.getParameterList().get(i).getType())) throw new Error();
+            }
+        }
         return baseType;
     }
 
@@ -200,8 +209,8 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     @Override
     public BaseType visitBlockStatementNode(BlockStatementNode node) {
         BaseEntity oldEntity = currentEntity;
-        if (currentEntity instanceof FunctionEntity) currentEntity = ((FunctionEntity) currentEntity).getBlockEntity();
         if (currentEntity instanceof BlockEntity) currentEntity = ((BlockEntity) currentEntity).get(node.getPosition());
+        if (currentEntity instanceof FunctionEntity) currentEntity = ((FunctionEntity) currentEntity).getBlockEntity();
         for (BaseNode baseNode : node.getStatementNodes()) {
             if (baseNode instanceof BaseStatementNode) visit(baseNode);
         }
@@ -215,7 +224,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         if (!(conditionType instanceof PrimaryType)) throw new Error();
         if (((PrimaryType) conditionType).getType() != PrimaryTypeList.BOOL) throw new Error();
         visit(node.getThenStatementNode());
-        visit(node.getElseStatementNode());
+        if (node.getElseStatementNode() != null) visit(node.getElseStatementNode());
         return null;
     }
 

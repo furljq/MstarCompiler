@@ -12,4 +12,10 @@ public class ArrayType extends BaseType {
         return baseType;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ArrayType)) return false;
+        return baseType.equals(((ArrayType) obj).baseType);
+    }
+
 }

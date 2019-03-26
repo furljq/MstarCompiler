@@ -10,12 +10,14 @@ public class CreatorExpressionNode extends BaseExpressionNode {
     private TypeNode typeNode;
     private List<BaseExpressionNode> fixedDimension;
     private int restDimension;
+    private List<BaseExpressionNode> arguments;
 
-    public CreatorExpressionNode(TypeNode _typeNode, List<BaseExpressionNode> _fixedDimension, int _restDimension, Token token) {
+    public CreatorExpressionNode(TypeNode _typeNode, List<BaseExpressionNode> _fixedDimension, int _restDimension, List<BaseExpressionNode> _arguments, Token token) {
         super(token);
         typeNode = _typeNode;
         fixedDimension = _fixedDimension;
         restDimension = _restDimension;
+        arguments = _arguments;
     }
 
     public TypeNode getTypeNode() {
@@ -28,6 +30,10 @@ public class CreatorExpressionNode extends BaseExpressionNode {
 
     public int getRestDimension() {
         return restDimension;
+    }
+
+    public List<BaseExpressionNode> getArguments() {
+        return arguments;
     }
 
     @Override

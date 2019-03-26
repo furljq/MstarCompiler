@@ -14,4 +14,10 @@ public class PrimaryType extends BaseType {
         return type;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof PrimaryType)) return false;
+        return type.equals(((PrimaryType) obj).type);
+    }
+
 }
