@@ -16,7 +16,7 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     public SymbolTableBuilder() {
         setInBuildString();
         globalEntity.putNew("print", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str"));
-        globalEntity.putNew("println", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str、"));
+        globalEntity.putNew("println", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str"));
         globalEntity.putNew("getString", setInBuildFunction(PrimaryTypeList.STRING, null, null));
         globalEntity.putNew("getInt", setInBuildFunction(PrimaryTypeList.INT, null, null));
         globalEntity.putNew("toString", setInBuildFunction(PrimaryTypeList.STRING, PrimaryTypeList.INT, "i"));
