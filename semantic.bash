@@ -5,5 +5,5 @@
 
 set -e
 cd "$(dirname "$0")"
-export CCHK="java -classpath ./lib/antlr-4.7.1-complete.jar:./bin com.fur.Main"
+export CCHK="java -classpath ./lib/antlr-4.7.2.jar:./bin com.fur.Main"
 $CCHK
