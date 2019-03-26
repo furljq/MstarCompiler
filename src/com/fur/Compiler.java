@@ -35,15 +35,15 @@ class Compiler {
         return (ClassEntity) symbolTableBuilder.visit(abstractSyntaxTree);
     }
 
-    private boolean syntaxCheck(CompilationUnitNode abstractSyntaxTree, ClassEntity globalEntity) {
+    private void syntaxCheck(CompilationUnitNode abstractSyntaxTree, ClassEntity globalEntity) {
         SyntaxChecker syntaxChecker = new SyntaxChecker(globalEntity);
-        return syntaxChecker.visit(abstractSyntaxTree);
+        syntaxChecker.visit(abstractSyntaxTree);
     }
 
     void compile() {
         CompilationUnitNode abstractSyntaxTree = buildAbstractSyntaxTree(mstarFileCharStream);
         ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
-        //if (!syntaxCheck(abstractSyntaxTree, globalEntity)) throw new Error();
+        syntaxCheck(abstractSyntaxTree, globalEntity);
     }
 
 }

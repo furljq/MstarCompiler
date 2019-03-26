@@ -6,8 +6,8 @@ import org.antlr.v4.runtime.Token;
 
 public class UnaryExpressionNode extends BaseExpressionNode {
 
-    OperatorList operator;
-    BaseExpressionNode expressionNode;
+    private OperatorList operator;
+    private BaseExpressionNode expressionNode;
 
     public UnaryExpressionNode(OperatorList _operator, BaseExpressionNode _expressionNode, Token token) {
         super(token);

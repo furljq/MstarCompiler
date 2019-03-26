@@ -190,10 +190,10 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     @Override
     public LiteralExpressionNode visitLiteralExpression(MstarParser.LiteralExpressionContext context) {
-        if (context.Boolean() != null) return new LiteralExpressionNode(PrimaryTypeList.BOOL, context.getText(), context.start);
-        if (context.Integer() != null) return new LiteralExpressionNode(PrimaryTypeList.INT, context.getText(), context.start);
-        if (context.String() != null) return new LiteralExpressionNode(PrimaryTypeList.STRING, context.getText(), context.start);
-        if (context.Null() != null) return new LiteralExpressionNode(PrimaryTypeList.NULL, context.getText(), context.start);
+        if (context.Boolean() != null) return new LiteralExpressionNode(new PrimaryType(PrimaryTypeList.BOOL), context.getText(), context.start);
+        if (context.Integer() != null) return new LiteralExpressionNode(new PrimaryType(PrimaryTypeList.INT), context.getText(), context.start);
+        if (context.String() != null) return new LiteralExpressionNode(new ClassType("string"), context.getText(), context.start);
+        if (context.Null() != null) return new LiteralExpressionNode(new PrimaryType(PrimaryTypeList.NULL), context.getText(), context.start);
         return null;
     }
 

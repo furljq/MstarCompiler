@@ -11,12 +11,9 @@ public class Position {
         column = token.getCharPositionInLine();
     }
 
-    public int getLine() {
-        return line;
-    }
-
-    public int getColumn() {
-        return column;
+    public boolean above(Position position) {
+        if (line == position.line) return column <= position.column;
+        else return line <= position.line;
     }
 
 }

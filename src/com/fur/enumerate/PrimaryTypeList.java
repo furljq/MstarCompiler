@@ -1,5 +1,5 @@
 package com.fur.enumerate;
 
 public enum PrimaryTypeList {
-    VOID, INT, BOOL, STRING, NULL, CLASS
+    VOID, INT, BOOL, NULL, STRING
 }

@@ -2,12 +2,15 @@ package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FunctionEntity extends BaseEntity {
 
     private VariableEntity returnType;
+    private List<VariableEntity> parameterList = new ArrayList<>();
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
 
@@ -27,6 +30,10 @@ public class FunctionEntity extends BaseEntity {
         return returnType;
     }
 
+    public List<VariableEntity> getParameterList() {
+        return parameterList;
+    }
+
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }
@@ -37,6 +44,7 @@ public class FunctionEntity extends BaseEntity {
 
     public void put(String name, VariableEntity variableEntity) {
         variableScope.put(name, variableEntity);
+        parameterList.add(variableEntity);
     }
 
 }

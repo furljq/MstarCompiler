@@ -1,9 +1,9 @@
 package com.fur.symbolTable;
 
-import com.fur.symbolTable.Entity.*;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBaseVisitor;
 import com.fur.abstractSyntaxTree.node.*;
 import com.fur.enumerate.PrimaryTypeList;
+import com.fur.symbolTable.Entity.*;
 import com.fur.type.BaseType;
 import com.fur.type.ClassType;
 import com.fur.type.PrimaryType;
@@ -14,20 +14,41 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     private BaseEntity currentEntity = globalEntity;
 
     public SymbolTableBuilder() {
-        globalEntity.putNew("print", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING));
-        globalEntity.putNew("println", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING));
-        globalEntity.putNew("getString", setInBuildFunction(PrimaryTypeList.STRING, null));
-        globalEntity.putNew("getInt", setInBuildFunction(PrimaryTypeList.INT, null));
-        globalEntity.putNew("toString", setInBuildFunction(PrimaryTypeList.STRING, PrimaryTypeList.INT));
+        setInBuildString();
+        globalEntity.putNew("print", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str"));
+        globalEntity.putNew("println", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str、"));
+        globalEntity.putNew("getString", setInBuildFunction(PrimaryTypeList.STRING, null, null));
+        globalEntity.putNew("getInt", setInBuildFunction(PrimaryTypeList.INT, null, null));
+        globalEntity.putNew("toString", setInBuildFunction(PrimaryTypeList.STRING, PrimaryTypeList.INT, "i"));
     }
 
-    private FunctionEntity setInBuildFunction(PrimaryTypeList returnType, PrimaryTypeList parameterType) {
+    private void setInBuildString() {
+        ClassEntity stringEntity = new ClassEntity(globalEntity, null);
+        globalEntity.putNew("string", stringEntity);
+        FunctionEntity length = new FunctionEntity(stringEntity, null);
+        length.setReturnType(new VariableEntity(new PrimaryType(PrimaryTypeList.INT), length, null));
+        stringEntity.putNew("length", length);
+        FunctionEntity substring = new FunctionEntity(stringEntity, null);
+        substring.setReturnType(new VariableEntity(new ClassType("string"), substring, null));
+        substring.put("left", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), substring, null));
+        substring.put("right", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), substring, null));
+        stringEntity.putNew("substring", substring);
+        FunctionEntity parseInt = new FunctionEntity(stringEntity, null);
+        parseInt.setReturnType(new VariableEntity(new PrimaryType(PrimaryTypeList.INT), parseInt,null));
+        stringEntity.putNew("parseInt", parseInt);
+        FunctionEntity ord = new FunctionEntity(stringEntity, null);
+        ord.setReturnType(new VariableEntity(new PrimaryType(PrimaryTypeList.INT), ord, null));
+        ord.put("pos", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), ord, null));
+        stringEntity.putNew("ord", ord);
+    }
+
+    private FunctionEntity setInBuildFunction(PrimaryTypeList returnType, PrimaryTypeList parameterType1, String parameterName1) {
         FunctionEntity functionEntity = new FunctionEntity(globalEntity, null);
-        VariableEntity returnTypeEntity = new VariableEntity(new PrimaryType(returnType), null, functionEntity, null);
+        VariableEntity returnTypeEntity = new VariableEntity(new PrimaryType(returnType), functionEntity, null);
         functionEntity.setReturnType(returnTypeEntity);
-        if (parameterType != null) {
-            VariableEntity parameterEntity = new VariableEntity(new PrimaryType(parameterType), null, functionEntity, null);
-            functionEntity.put("str", parameterEntity);
+        if (parameterType1 != null) {
+            VariableEntity parameterEntity = new VariableEntity(new PrimaryType(parameterType1), functionEntity, null);
+            functionEntity.put(parameterName1, parameterEntity);
         }
         return functionEntity;
     }
@@ -54,11 +75,12 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     @Override
     public ClassEntity visitClassDeclarationNode(ClassDeclarationNode node) {
         currentEntity = ((ClassEntity) currentEntity).getClassEntity(node.getName());
+        ((ClassEntity) currentEntity).putNew("this", currentEntity);
         for (BaseNode variableDeclarationNode : node.getVariableNodes())
             if (variableDeclarationNode instanceof VariableDeclarationNode)
-                ((ClassEntity) currentEntity).putNew(node.getName(), visit(variableDeclarationNode));
+                ((ClassEntity) currentEntity).putNew(((VariableDeclarationNode) variableDeclarationNode).getName(), visit(variableDeclarationNode));
         for (FunctionDeclarationNode functionDeclarationNode : node.getFunctionDeclarationNodes())
-            visit(functionDeclarationNode);
+            ((ClassEntity) currentEntity).putNew(functionDeclarationNode.getName(), visit(functionDeclarationNode));
         currentEntity = globalEntity;
         return globalEntity.getClassEntity(node.getName());
     }
@@ -67,12 +89,7 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     public VariableEntity visitVariableDeclarationNode(VariableDeclarationNode node) {
         TypeNode typeNode = node.getTypeNode();
         BaseType type = typeNode.getType();
-        ClassEntity classEntity;
-        if (type instanceof ClassType) {
-            String className = ((ClassType) type).getClassName();
-            classEntity = globalEntity.getClassEntity(className);
-        } else classEntity = null;
-        return new VariableEntity(type, classEntity, currentEntity, typeNode.getPosition());
+        return new VariableEntity(type, currentEntity, typeNode.getPosition());
     }
 
     @Override

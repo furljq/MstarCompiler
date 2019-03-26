@@ -2,20 +2,22 @@ package com.fur.abstractSyntaxTree.node;
 
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeVisitor;
 import com.fur.enumerate.PrimaryTypeList;
+import com.fur.type.BaseType;
+import com.fur.type.ClassType;
 import org.antlr.v4.runtime.Token;
 
 public class LiteralExpressionNode extends BaseExpressionNode {
 
-    private PrimaryTypeList type;
+    private BaseType type;
     private String value;
 
-    public LiteralExpressionNode(PrimaryTypeList _type, String _value, Token token) {
+    public LiteralExpressionNode(BaseType _type, String _value, Token token) {
         super(token);
         type = _type;
         value = _value;
-        if (_type == PrimaryTypeList.STRING) {
+        if (_type instanceof ClassType) {
             StringBuilder rebuild = new StringBuilder();
-            for (int i = 0; i < value.length(); i ++) {
+            for (int i = 0; i < value.length(); i++) {
                 if (value.charAt(i) == '\\') {
                     char nextChar = value.charAt(i + 1);
                     if (nextChar == 'n') rebuild.append('\n');
@@ -28,7 +30,7 @@ public class LiteralExpressionNode extends BaseExpressionNode {
         }
     }
 
-    public PrimaryTypeList getType() {
+    public BaseType getType() {
         return type;
     }
 

@@ -1,4 +1,4 @@
 package com.fur.type;
 
-public class BaseType {
+public abstract class BaseType {
 }
