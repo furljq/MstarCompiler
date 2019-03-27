@@ -247,7 +247,11 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         for (MstarParser.StatementContext statementContext : context.statement()) {
             if (statementContext.variableDeclarationStatement() != null)
                 baseNodes.addAll(spiltVariableDeclarationStatementNode(statementContext.variableDeclarationStatement()));
-            else baseNodes.add(visit(statementContext));
+            else {
+                BaseStatementNode statementNode = (BaseStatementNode) visit(statementContext);
+                if (statementNode != null)
+                    baseNodes.add(statementNode);
+            }
         }
         return new BlockStatementNode(baseNodes, context.start);
     }
@@ -256,6 +260,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
     public BaseStatementNode visitStatement(MstarParser.StatementContext context) {
         if (context.blockStatement() != null) return (BlockStatementNode) visit(context.blockStatement());
         if (context.variableDeclarationStatement() != null) return null;
+        if (context.Op == null) return null;
         if (context.Op.getText().equals("if")) {
             BaseExpressionNode conditionExpressionNode = (BaseExpressionNode) visit(context.expression(0));
             BaseStatementNode thenStatementNode = (BaseStatementNode) visit(context.statement(0));

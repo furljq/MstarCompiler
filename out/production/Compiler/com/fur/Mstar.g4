@@ -52,6 +52,7 @@ statement :
   | Op = 'return' expression? ';'
   | Op = 'break' ';'
   | Op = 'continue' ';'
+  | ';'
   | expression Op = ';'
   | variableDeclarationStatement
 ;
