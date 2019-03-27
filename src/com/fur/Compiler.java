@@ -30,6 +30,8 @@ class Compiler {
         MstarLexer lexer = new MstarLexer(mstarFileCharStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
+        parser.removeErrorListeners();;
+        parser.addErrorListener(new ParseTreeErrorListener());
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
         AbstractSyntaxTreeBuilder astBuilderVisitor = new AbstractSyntaxTreeBuilder();
         return  (CompilationUnitNode) astBuilderVisitor.visit(parseTree);

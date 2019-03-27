@@ -64,6 +64,9 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
             if (declarationNode instanceof BaseDeclarationNode) {
                 String name = ((BaseDeclarationNode) declarationNode).getName();
                 BaseEntity entity = visit(declarationNode);
+                if (entity instanceof FunctionEntity)
+                    if (((FunctionEntity) entity).getReturnType() == null)
+                        throw new Error();
                 if (entity instanceof ClassEntity) globalEntity.putCover(name, entity);
                 else globalEntity.putNew(name, entity);
             }
@@ -78,8 +81,13 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         for (BaseNode variableDeclarationNode : node.getVariableNodes())
             if (variableDeclarationNode instanceof VariableDeclarationNode)
                 ((ClassEntity) currentEntity).putNew(((VariableDeclarationNode) variableDeclarationNode).getName(), visit(variableDeclarationNode));
-        for (FunctionDeclarationNode functionDeclarationNode : node.getFunctionDeclarationNodes())
-            ((ClassEntity) currentEntity).putNew(functionDeclarationNode.getName(), visit(functionDeclarationNode));
+        for (FunctionDeclarationNode functionDeclarationNode : node.getFunctionDeclarationNodes()) {
+            FunctionEntity functionEntity = (FunctionEntity) visit(functionDeclarationNode);
+            if (functionEntity.getReturnType() == null)
+                if (!functionDeclarationNode.getName().equals(node.getName()))
+                    throw new Error();
+            ((ClassEntity) currentEntity).putNew(functionDeclarationNode.getName(), functionEntity);
+        }
         currentEntity = globalEntity;
         return globalEntity.getClassEntity(node.getName());
     }
@@ -103,7 +111,7 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         currentEntity = functionEntity;
         BaseType returnType;
         if (node.getTypeNode() != null) returnType = node.getTypeNode().getType();
-        else returnType = new PrimaryType(PrimaryTypeList.VOID);
+        else returnType = null;
         if (returnType instanceof ClassType)
             globalEntity.getClassEntity(((ClassType) returnType).getClassName());
         functionEntity.setReturnType(returnType);
