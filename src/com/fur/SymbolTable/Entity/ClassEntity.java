@@ -43,7 +43,7 @@ public class ClassEntity extends BaseEntity {
 
     public VariableEntity getVariableEntity(String name) {
         BaseEntity variableEntity = scope.get(name);
-        if (!(variableEntity instanceof VariableEntity)) throw new Error();
+        if (!(variableEntity instanceof VariableEntity)) return null;
         return (VariableEntity) variableEntity;
     }
 
