@@ -130,7 +130,7 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
                 VariableEntity variableEntity = (VariableEntity) visit(statementNode);
                 blockEntity.put(((VariableDeclarationNode) statementNode).getName(), variableEntity);
             }
-            if (statementNode instanceof IfStatementNode || statementNode instanceof LoopStatementNode) {
+            if (statementNode instanceof IfStatementNode || statementNode instanceof LoopStatementNode || statementNode instanceof BlockStatementNode) {
                 BlockEntity entity = (BlockEntity) visit(statementNode);
                 blockEntity.put(statementNode.getPosition(), entity);
             }

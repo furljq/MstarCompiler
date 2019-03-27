@@ -56,11 +56,14 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
 
     private void checkInitExpression(MstarParser.ExpressionContext expressionContext, String forbid) {
         if (expressionContext.primaryExpression() != null) {
-            if (expressionContext.primaryExpression().Identifier().getText().equals(forbid)) throw new Error();
-            checkInitExpression(expressionContext.primaryExpression().expression(), forbid);
+            if (expressionContext.primaryExpression().Identifier() != null)
+                if (expressionContext.primaryExpression().Identifier().getText().equals(forbid)) throw new Error();
+            if (expressionContext.primaryExpression().expression() != null)
+                checkInitExpression(expressionContext.primaryExpression().expression(), forbid);
         }
-        for (MstarParser.ExpressionContext subExpressionContext : expressionContext.expressions().expression())
-            checkInitExpression(subExpressionContext, forbid);
+        if (expressionContext.expressions() != null)
+            for (MstarParser.ExpressionContext subExpressionContext : expressionContext.expressions().expression())
+                checkInitExpression(subExpressionContext, forbid);
         for (MstarParser.ExpressionContext subExpressionContext : expressionContext.expression())
             checkInitExpression(subExpressionContext, forbid);
     }

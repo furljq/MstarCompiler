@@ -92,7 +92,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         if (!rightType.equals(leftType)) throw new Error();
         if (leftType instanceof PrimaryType)
             if (((PrimaryType) leftType).getType() == PrimaryTypeList.VOID) throw new Error();
-        if (operator == OperatorList.LEQ || operator == OperatorList.GEQ || operator == OperatorList.LT || operator == OperatorList.GT || operator == OperatorList.EQUAL || operator == OperatorList.LOGICALNOT)
+        if (operator == OperatorList.LEQ || operator == OperatorList.GEQ || operator == OperatorList.LT || operator == OperatorList.GT || operator == OperatorList.EQUAL || operator == OperatorList.NOTEQUAL)
             return new PrimaryType(PrimaryTypeList.BOOL);
         return leftType;
     }
@@ -259,11 +259,14 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
     @Override
     public BaseType visitLoopStatementNode(LoopStatementNode node) {
+        BlockEntity oldEntity = (BlockEntity) currentEntity;
+        currentEntity = ((BlockEntity) currentEntity).get(node.getPosition());
         BaseType conditionType = visit(node.getConditionExpressionNode());
         if (!(conditionType instanceof PrimaryType)) throw new Error();
-        visit(node.getInitExpressionNode());
-        visit(node.getUpdateExpressionNode());
+        if (node.getInitExpressionNode() != null) visit(node.getInitExpressionNode());
+        if (node.getUpdateExpressionNode() != null) visit(node.getUpdateExpressionNode());
         visit(node.getBodyStatementNode());
+        currentEntity = oldEntity;
         return null;
     }
 
