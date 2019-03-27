@@ -74,7 +74,7 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     @Override
     public ClassEntity visitClassDeclarationNode(ClassDeclarationNode node) {
         currentEntity = ((ClassEntity) currentEntity).getClassEntity(node.getName());
-        ((ClassEntity) currentEntity).putNew("this", currentEntity);
+        ((ClassEntity) currentEntity).putNew("this", new VariableEntity(new ClassType(node.getName()), currentEntity, node.getPosition()));
         for (BaseNode variableDeclarationNode : node.getVariableNodes())
             if (variableDeclarationNode instanceof VariableDeclarationNode)
                 ((ClassEntity) currentEntity).putNew(((VariableDeclarationNode) variableDeclarationNode).getName(), visit(variableDeclarationNode));

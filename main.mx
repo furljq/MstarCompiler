@@ -1,12 +1,21 @@
-int main()
-{
-    //test your array type;
-    int[][][][] a = new int[100][200][300][500];
-    int b;
-    int[][][] c = a[3];
-    int[][] d = c[7];
-    int e = c[7][8][9];
-    if(d[2][1] == c[1][2][3] && d[2][2] == a[1][2][3][4] && d[2][3] == b)
-        ++c[1][2][3];
-    return 0;
+int too(int young) {
+    return young;
+}
+int young(int too) {
+    return too;
+}
+int simple(sometimes naive) {
+    return 1926;
+}
+class sometimes {
+	int naive;
+	void make_money() {
+		this.naive++;
+	}
+}
+int main() {
+    sometimes naive = null;
+    print(toString(
+        too(young(too(simple(naive))))
+    ));
 }
