@@ -1,6 +1,7 @@
 package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
+import com.fur.type.BaseType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public class FunctionEntity extends BaseEntity {
 
-    private VariableEntity returnType;
+    private BaseType returnType;
     private List<VariableEntity> parameterList = new ArrayList<>();
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
@@ -18,7 +19,7 @@ public class FunctionEntity extends BaseEntity {
         super(_parentEntity, _position);
     }
 
-    public void setReturnType(VariableEntity returnType) {
+    public void setReturnType(BaseType returnType) {
         this.returnType = returnType;
     }
 
@@ -26,7 +27,7 @@ public class FunctionEntity extends BaseEntity {
         this.blockEntity = blockEntity;
     }
 
-    public VariableEntity getReturnType() {
+    public BaseType getReturnType() {
         return returnType;
     }
 

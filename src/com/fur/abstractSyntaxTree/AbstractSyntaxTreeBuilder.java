@@ -20,7 +20,11 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         List<BaseNode> baseNodes = new ArrayList<>();
         for (MstarParser.ProgramDeclarationContext programDeclarationContext : context.programDeclaration()) {
             if (programDeclarationContext.classDeclaration() != null) baseNodes.add(visit(programDeclarationContext.classDeclaration()));
-            if (programDeclarationContext.functionDeclaration() != null) baseNodes.add(visit(programDeclarationContext.functionDeclaration()));
+            if (programDeclarationContext.functionDeclaration() != null) {
+                FunctionDeclarationNode functionDeclarationNode = (FunctionDeclarationNode) visit(programDeclarationContext.functionDeclaration());
+                if (functionDeclarationNode.getTypeNode() == null) throw new Error();
+                baseNodes.add(functionDeclarationNode);
+            }
             if (programDeclarationContext.variableDeclarationStatement() != null) baseNodes.addAll(spiltVariableDeclarationStatementNode(programDeclarationContext.variableDeclarationStatement()));
         }
         return new CompilationUnitNode(baseNodes, context.getStart());
@@ -120,9 +124,11 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         if (context.Op.getText().equals("(")) {
             BaseExpressionNode functionNode = (BaseExpressionNode) visit(context.expression(0));
             List<BaseExpressionNode> arguments = new ArrayList<>();
-            for (MstarParser.ExpressionContext expressionContext : context.expressions().expression()) {
-                BaseExpressionNode argument = (BaseExpressionNode) visit(expressionContext);
-                arguments.add(argument);
+            if (context.expressions() != null) {
+                for (MstarParser.ExpressionContext expressionContext : context.expressions().expression()) {
+                    BaseExpressionNode argument = (BaseExpressionNode) visit(expressionContext);
+                    arguments.add(argument);
+                }
             }
             return new FunctionExpressionNode(functionNode, arguments, context.start);
         }

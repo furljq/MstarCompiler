@@ -1,29 +1,11 @@
-class Type {
-    int[] a = new int[2];
-    Type(int x, int y) {
-        a[0] = x;
-        a[1] = y;
-    }
-    int get2() {
-        return a[0];
-    }
-    int get1() {
-        return a[1];
-    }
+int main() {
+    int a;
+    int b;
+    a = a + b;
+    foo();
+    return 0;
 }
 
-Type t;
-
-int a = 1, b = 2;
-
-int main(){
-    int a = 0;
-    int b = a + 1;
-    Type t1 = new Type(a, b);
-    if (t1 == t) {
-        int i = 0;
-        for (i = 0; i < 0; i++){
-            t = t;
-        }
-    }
+void foo(){
+    void s = foo(); return s;
 }

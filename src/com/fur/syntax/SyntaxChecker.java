@@ -22,6 +22,10 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
     @Override
     public BaseType visitCompilationUnitNode(CompilationUnitNode node) {
+        FunctionEntity mainFunction = globalEntity.getFunctionEntity("main");
+        if (mainFunction == null) throw new Error();
+        if (!(mainFunction.getReturnType() instanceof PrimaryType)) throw new Error();
+        if (((PrimaryType) mainFunction.getReturnType()).getType() != PrimaryTypeList.INT) throw new Error();
         for (BaseNode baseNode : node.getBaseNodes())
             visit(baseNode);
         return null;
@@ -82,6 +86,8 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         }
         BaseType rightType = visit(node.getRightExressionNode());
         if (!rightType.equals(leftType)) throw new Error();
+        if (leftType instanceof PrimaryType)
+            if (((PrimaryType) leftType).getType() == PrimaryTypeList.VOID) throw new Error();
         if (operator == OperatorList.LEQ || operator == OperatorList.GEQ || operator == OperatorList.LT || operator == OperatorList.GT || operator == OperatorList.EQUAL || operator == OperatorList.LOGICALNOT)
             return new PrimaryType(PrimaryTypeList.BOOL);
         return leftType;
@@ -138,7 +144,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             BaseType argumentType = visit(node.getArguments().get(i));
             if (!functionEntity.getParameterList().get(i).getType().equals(argumentType)) throw new Error();
         }
-        return functionEntity.getReturnType().getType();
+        return functionEntity.getReturnType();
     }
 
     @Override
@@ -220,11 +226,15 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
     @Override
     public BaseType visitIfStatementNode(IfStatementNode node) {
+        if (!(currentEntity instanceof BlockEntity)) throw new Error();
+        BaseEntity oldEntity = currentEntity;
+        currentEntity = ((BlockEntity) currentEntity).get(node.getPosition());
         BaseType conditionType = visit(node.getConditionExpressionNode());
         if (!(conditionType instanceof PrimaryType)) throw new Error();
         if (((PrimaryType) conditionType).getType() != PrimaryTypeList.BOOL) throw new Error();
         visit(node.getThenStatementNode());
         if (node.getElseStatementNode() != null) visit(node.getElseStatementNode());
+        currentEntity = oldEntity;
         return null;
     }
 
@@ -236,5 +246,19 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         visit(node.getUpdateExpressionNode());
         visit(node.getBodyStatementNode());
         return null;
+    }
+
+    @Override
+    public BaseType visitReturnStatementNode(ReturnStatementNode node) {
+        BaseType returnType = visit(node.getReturnExpressionNode());
+        BaseEntity functionEntity = currentEntity;
+        while (functionEntity != null) {
+            if (functionEntity instanceof FunctionEntity) {
+                if (returnType.equals(((FunctionEntity) functionEntity).getReturnType())) return null;
+                else throw new Error();
+            }
+            functionEntity = functionEntity.getParentEntity();
+        }
+        throw new Error();
     }
 }
