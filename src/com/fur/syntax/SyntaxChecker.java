@@ -164,7 +164,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             }
         } else if (node.getfunctionNode() instanceof IdentifierExpressionNode) {
             BaseEntity entity = currentEntity;
-            while (entity != globalEntity) {
+            while (!(entity instanceof ClassEntity)) {
                 if (entity instanceof BlockEntity) {
                     VariableEntity variableEntity = ((BlockEntity) entity).get(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
                     if (variableEntity != null)
@@ -177,14 +177,11 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                         if (variableEntity.getPosition().above(node.getPosition()))
                             throw new Error();
                 }
-                if (entity instanceof ClassEntity) {
-                    VariableEntity variableEntity = ((ClassEntity) entity).getVariableEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
-                    if (variableEntity != null)
-                        throw new Error();
-                }
                 entity = entity.getParentEntity();
             }
-            functionEntity = globalEntity.getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
+            if (((ClassEntity) entity).hasFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName()))
+                functionEntity = ((ClassEntity) entity).getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
+            else functionEntity = globalEntity.getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
         } else throw new Error();
         if (functionEntity.getParameterList().size() != node.getArguments().size()) throw new Error();
         for (int i = 0; i < functionEntity.getParameterList().size(); i++) {

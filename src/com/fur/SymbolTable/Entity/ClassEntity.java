@@ -41,6 +41,12 @@ public class ClassEntity extends BaseEntity {
         return (FunctionEntity) functionEntity;
     }
 
+    public boolean hasFunctionEntity(String name) {
+        BaseEntity functionEntity = scope.get(name);
+        if (functionEntity == null) return false;
+        return functionEntity instanceof FunctionEntity;
+    }
+
     public VariableEntity getVariableEntity(String name) {
         BaseEntity variableEntity = scope.get(name);
         if (!(variableEntity instanceof VariableEntity)) return null;
