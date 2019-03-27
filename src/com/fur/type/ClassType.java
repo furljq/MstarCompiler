@@ -16,7 +16,7 @@ public class ClassType extends BaseType {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof PrimaryType)
+        if (obj instanceof PrimaryType && !className.equals("string"))
             if (((PrimaryType) obj).getType() == PrimaryTypeList.NULL)
                 return true;
         if (!(obj instanceof ClassType)) return false;

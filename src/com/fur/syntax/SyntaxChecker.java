@@ -154,9 +154,30 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             ClassEntity classEntity = globalEntity.getClassEntity(classType.getClassName());
             if (classEntity == null) throw new Error();
             functionEntity = classEntity.getFunctionEntity(((DotExpressionNode) node.getfunctionNode()).getIdentifierExpressionNode().getIdentifierName());
-        } else if (node.getfunctionNode() instanceof IdentifierExpressionNode)
+        } else if (node.getfunctionNode() instanceof IdentifierExpressionNode) {
+            BaseEntity entity = currentEntity;
+            while (entity != globalEntity) {
+                if (entity instanceof BlockEntity) {
+                    VariableEntity variableEntity = ((BlockEntity) entity).get(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
+                    if (variableEntity != null)
+                        if (variableEntity.getPosition().above(node.getPosition()))
+                            throw new Error();
+                }
+                if (entity instanceof FunctionEntity) {
+                    VariableEntity variableEntity = ((FunctionEntity) entity).get(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
+                    if (variableEntity != null)
+                        if (variableEntity.getPosition().above(node.getPosition()))
+                            throw new Error();
+                }
+                if (entity instanceof ClassEntity) {
+                    VariableEntity variableEntity = ((ClassEntity) entity).getVariableEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
+                    if (variableEntity != null)
+                        throw new Error();
+                }
+                entity = entity.getParentEntity();
+            }
             functionEntity = globalEntity.getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
-        else throw new Error();
+        } else throw new Error();
         if (functionEntity.getParameterList().size() != node.getArguments().size()) throw new Error();
         for (int i = 0; i < functionEntity.getParameterList().size(); i++) {
             BaseType argumentType = visit(node.getArguments().get(i));
@@ -288,13 +309,25 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
     @Override
     public BaseType visitContinueStatementNode(ContinueStatementNode node) {
+        checkInLoop();
+        return null;
+    }
+
+    @Override
+    public BaseType visitBreakStatementNode(BreakStatementNode node) {
+        checkInLoop();
+        return null;
+    }
+
+    private void checkInLoop() {
         BaseEntity loopEntity = currentEntity;
         while (loopEntity != null) {
             if (loopEntity instanceof LoopEntity) {
-                return null;
+                return;
             }
             loopEntity = loopEntity.getParentEntity();
         }
         throw new Error();
     }
+
 }
