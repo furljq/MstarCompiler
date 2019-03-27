@@ -23,6 +23,9 @@ public class PrimaryType extends BaseType {
                 if (!((ClassType) obj).getClassName().equals("string"))
                     return true;
         }
+        if (type == PrimaryTypeList.VOID)
+            if (obj == null)
+                return true;
         if (!(obj instanceof PrimaryType)) return false;
         return type.equals(((PrimaryType) obj).type);
     }
