@@ -69,6 +69,15 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     @Override
     public BaseType visitBinaryExpressionNode(BinaryExpressionNode node) {
         OperatorList operator = node.getOperator();
+        if (operator == OperatorList.ASSIGN) {
+            boolean assign = false;
+            BaseExpressionNode leftExpressionNode = node.getLeftExpressionNode();
+            if (leftExpressionNode instanceof IdentifierExpressionNode) assign = true;
+            if (leftExpressionNode instanceof UnaryExpressionNode)
+                if (((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.POS && ((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.NEG)
+                    assign = true;
+            if (!assign) throw new Error();
+        }
         BaseType leftType = visit(node.getLeftExpressionNode());
         if (operator == OperatorList.MUL || operator == OperatorList.DIV || operator == OperatorList.MOD || operator == OperatorList.SUB || operator == OperatorList.LEFTSHIFT || operator == OperatorList.RIGHTSHIFT || operator == OperatorList.AND || operator == OperatorList.XOR || operator == OperatorList.OR) {
             if (!(leftType instanceof PrimaryType)) throw new Error();

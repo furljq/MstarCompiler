@@ -1,12 +1,7 @@
-A b;
-int c = b.a;
-
-int main() {
+int[] f() {
+    return new int[20];
 }
 
-class A{
-    int a;
-    void fun() {
-    	 a = c;
-    }
+int main() {
+    f() = new int[16];
 }
