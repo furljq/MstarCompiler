@@ -265,15 +265,33 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
             return new IfStatementNode(conditionExpressionNode, thenStatementNode, elseStatementNode, context.start);
         }
         if (context.Op.getText().equals("for")) {
-            BaseExpressionNode initExpressionNode;
-            if (context.initExpression != null) initExpressionNode = (BaseExpressionNode) visit(context.expression(0));
-            else initExpressionNode = null;
-            BaseExpressionNode conditionExpressionNode;
-            if (context.conditionExpression != null) conditionExpressionNode = (BaseExpressionNode) visit(context.expression(1));
-            else conditionExpressionNode = null;
-            BaseExpressionNode updateExpressionNode;
-            if (context.updateExpression != null) updateExpressionNode = (BaseExpressionNode) visit(context.expression(2));
-            else updateExpressionNode = null;
+            BaseExpressionNode initExpressionNode = null;
+            BaseExpressionNode conditionExpressionNode = null;
+            BaseExpressionNode updateExpressionNode = null;
+            if (context.expression().size() == 1) {
+                if (context.initExpression != null) initExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+                if (context.conditionExpression != null) conditionExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+                if (context.updateExpression != null) updateExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+            }
+            if (context.expression().size() == 2) {
+                if (context.initExpression == null) {
+                    conditionExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+                    updateExpressionNode = (BaseExpressionNode) visit(context.expression(1));
+                }
+                if (context.conditionExpression == null) {
+                    initExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+                    updateExpressionNode = (BaseExpressionNode) visit(context.expression(1));
+                }
+                if (context.updateExpression == null) {
+                    initExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+                    conditionExpressionNode = (BaseExpressionNode) visit(context.expression(1));
+                }
+            }
+            if (context.expression().size() == 3) {
+                initExpressionNode = (BaseExpressionNode) visit(context.expression(0));
+                conditionExpressionNode = (BaseExpressionNode) visit(context.expression(1));
+                updateExpressionNode = (BaseExpressionNode) visit(context.expression(2));
+            }
             BaseStatementNode bodyStatementNode = (BaseStatementNode) visit(context.statement(0));
             return new LoopStatementNode(initExpressionNode, conditionExpressionNode, updateExpressionNode, bodyStatementNode, context.start);
         }
@@ -283,7 +301,9 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
             return new LoopStatementNode(null, conditionExpressionNode, null, bodyStatementNode, context.start);
         }
         if (context.Op.getText().equals("return")) {
-            if (context.expression() != null) return new ReturnStatementNode((BaseExpressionNode) visit(context.expression(0)), context.start);
+            if (context.expression() != null)
+                if (context.expression().size() > 0)
+                    return new ReturnStatementNode((BaseExpressionNode) visit(context.expression(0)), context.start);
             else return new ReturnStatementNode(null, context.start);
         }
         if (context.Op.getText().equals("break")) return new BreakStatementNode(context.start);
