@@ -1,3 +1,37 @@
-int main() {
-    println("asdf");
+class A{
+    int a;
+    A ptr;
+    B alt;
+    B af(){
+        return alt.pf();
+    }
+    A pf(){
+        return alt.af();
+    }
+}
+
+int main()
+{
+    A ptr;
+    B alt;
+    //legal
+    ptr.ptr.(ptr).alt.alt.a = alt.af().pf().af().pf().b;
+    alt.pf();
+    //illegal
+    ptr.(alt.ptr);
+    ptr.alt.(b+1);
+
+    return 1;
+}
+
+class B{
+    int b;
+    A alt;
+    B ptr;
+    A af(){
+        return alt.pf();
+    }
+    B pf(){
+        return alt.af();
+    }
 }

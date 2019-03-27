@@ -22,6 +22,10 @@ class Compiler {
         mstarFileCharStream = CharStreams.fromFileName(_mstarFile);
     }
 
+    Compiler() throws IOException {
+        mstarFileCharStream = CharStreams.fromStream(System.in);
+    }
+
     private CompilationUnitNode buildAbstractSyntaxTree(CharStream mstarFileCharStream) {
         MstarLexer lexer = new MstarLexer(mstarFileCharStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
