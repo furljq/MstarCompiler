@@ -15,11 +15,11 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
 
     public SymbolTableBuilder() {
         setInBuildString();
-        globalEntity.putNew("print", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str"));
-        globalEntity.putNew("println", setInBuildFunction(PrimaryTypeList.VOID, PrimaryTypeList.STRING, "str"));
-        globalEntity.putNew("getString", setInBuildFunction(PrimaryTypeList.STRING, null, null));
-        globalEntity.putNew("getInt", setInBuildFunction(PrimaryTypeList.INT, null, null));
-        globalEntity.putNew("toString", setInBuildFunction(PrimaryTypeList.STRING, PrimaryTypeList.INT, "i"));
+        globalEntity.putNew("print", setInBuildFunction(new PrimaryType(PrimaryTypeList.INT), new ClassType("string"), "str"));
+        globalEntity.putNew("println", setInBuildFunction(new PrimaryType(PrimaryTypeList.INT), new ClassType("string"), "str"));
+        globalEntity.putNew("getString", setInBuildFunction(new ClassType("string"), null, null));
+        globalEntity.putNew("getInt", setInBuildFunction(new PrimaryType(PrimaryTypeList.INT), null, null));
+        globalEntity.putNew("toString", setInBuildFunction(new ClassType("string"), new PrimaryType(PrimaryTypeList.INT), "i"));
     }
 
     private void setInBuildString() {
@@ -42,12 +42,11 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         stringEntity.putNew("ord", ord);
     }
 
-    private FunctionEntity setInBuildFunction(PrimaryTypeList _returnType, PrimaryTypeList parameterType1, String parameterName1) {
+    private FunctionEntity setInBuildFunction(BaseType returnType, BaseType parameterType1, String parameterName1) {
         FunctionEntity functionEntity = new FunctionEntity(globalEntity, null);
-        BaseType returnType = new PrimaryType(_returnType);
         functionEntity.setReturnType(returnType);
         if (parameterType1 != null) {
-            VariableEntity parameterEntity = new VariableEntity(new PrimaryType(parameterType1), functionEntity, null);
+            VariableEntity parameterEntity = new VariableEntity(parameterType1, functionEntity, null);
             functionEntity.put(parameterName1, parameterEntity);
         }
         return functionEntity;

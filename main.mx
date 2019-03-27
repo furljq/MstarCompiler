@@ -1,11 +1,4 @@
-int main() {
-    int a;
-    int b;
-    a = a + b;
-    foo();
-    return 0;
-}
-
-void foo(){
-    void s = foo(); return s;
+int main(){
+  println("hi");
+  return 0;
 }

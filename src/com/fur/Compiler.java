@@ -6,6 +6,7 @@ import com.fur.antlrParseTree.MstarLexer;
 import com.fur.antlrParseTree.MstarParser;
 import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBuilder;
 import com.fur.abstractSyntaxTree.node.CompilationUnitNode;
+import com.fur.syntax.ParseTreeErrorListener;
 import com.fur.syntax.SyntaxChecker;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -25,6 +26,7 @@ class Compiler {
         MstarLexer lexer = new MstarLexer(mstarFileCharStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
+        parser.addErrorListener(new ParseTreeErrorListener());
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
         AbstractSyntaxTreeBuilder astBuilderVisitor = new AbstractSyntaxTreeBuilder();
         return  (CompilationUnitNode) astBuilderVisitor.visit(parseTree);

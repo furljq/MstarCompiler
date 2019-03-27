@@ -99,7 +99,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
             MstarParser.PrimitiveTypeContext primitiveTypeContext = context.primitiveType();
             if (primitiveTypeContext.getText().equals("bool")) return new PrimaryType(PrimaryTypeList.BOOL);
             if (primitiveTypeContext.getText().equals("int")) return new PrimaryType(PrimaryTypeList.INT);
-            if (primitiveTypeContext.getText().equals("string")) return new PrimaryType(PrimaryTypeList.STRING);
+            if (primitiveTypeContext.getText().equals("string")) return new ClassType("string");
             if (primitiveTypeContext.getText().equals("void")) return new PrimaryType(PrimaryTypeList.VOID);
             return null;
         }
