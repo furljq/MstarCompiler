@@ -88,6 +88,8 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     public VariableEntity visitVariableDeclarationNode(VariableDeclarationNode node) {
         TypeNode typeNode = node.getTypeNode();
         BaseType type = typeNode.getType();
+        if (type instanceof ClassType)
+            globalEntity.getClassEntity(((ClassType) type).getClassName());
         return new VariableEntity(type, currentEntity, typeNode.getPosition());
     }
 
@@ -96,10 +98,12 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         FunctionEntity functionEntity = new FunctionEntity(currentEntity, node.getPosition());
         BaseEntity oldEntity = currentEntity;
         currentEntity = functionEntity;
-        BaseType returnTypeEntity;
-        if (node.getTypeNode() != null) returnTypeEntity = node.getTypeNode().getType();
-        else returnTypeEntity = null;
-        functionEntity.setReturnType(returnTypeEntity);
+        BaseType returnType;
+        if (node.getTypeNode() != null) returnType = node.getTypeNode().getType();
+        else returnType = new PrimaryType(PrimaryTypeList.VOID);
+        if (returnType instanceof ClassType)
+            globalEntity.getClassEntity(((ClassType) returnType).getClassName());
+        functionEntity.setReturnType(returnType);
         for (BaseNode parameterDeclarationNode : node.getParameterNodes()) {
             if (parameterDeclarationNode instanceof VariableDeclarationNode) {
                 String parameterName = ((BaseDeclarationNode) parameterDeclarationNode).getName();

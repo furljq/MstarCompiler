@@ -1,37 +1,14 @@
-class A{
+class A {
+    int x;
+    int y;
+    int z;
+}
+
+B f() {
     int a;
-    A ptr;
-    B alt;
-    B af(){
-        return alt.pf();
-    }
-    A pf(){
-        return alt.af();
-    }
+    a = 1;
 }
 
-int main()
-{
-    A ptr;
-    B alt;
-    //legal
-    ptr.ptr.(ptr).alt.alt.a = alt.af().pf().af().pf().b;
-    alt.pf();
-    //illegal
-    ptr.(alt.ptr);
-    ptr.alt.(b+1);
-
-    return 1;
-}
-
-class B{
-    int b;
-    A alt;
-    B ptr;
-    A af(){
-        return alt.pf();
-    }
-    B pf(){
-        return alt.af();
-    }
+int main() {
+    return 0;
 }

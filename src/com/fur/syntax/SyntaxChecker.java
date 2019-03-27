@@ -251,7 +251,9 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
     @Override
     public BaseType visitReturnStatementNode(ReturnStatementNode node) {
-        BaseType returnType = visit(node.getReturnExpressionNode());
+        BaseType returnType;
+        if (node.getReturnExpressionNode() == null) returnType = new PrimaryType(PrimaryTypeList.VOID);
+        else returnType = visit(node.getReturnExpressionNode());
         BaseEntity functionEntity = currentEntity;
         while (functionEntity != null) {
             if (functionEntity instanceof FunctionEntity) {
