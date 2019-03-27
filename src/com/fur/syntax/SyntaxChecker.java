@@ -70,13 +70,8 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     public BaseType visitBinaryExpressionNode(BinaryExpressionNode node) {
         OperatorList operator = node.getOperator();
         if (operator == OperatorList.ASSIGN) {
-            boolean assign = false;
             BaseExpressionNode leftExpressionNode = node.getLeftExpressionNode();
-            if (leftExpressionNode instanceof IdentifierExpressionNode) assign = true;
-            if (leftExpressionNode instanceof UnaryExpressionNode)
-                if (((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.POS && ((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.NEG)
-                    assign = true;
-            if (!assign) throw new Error();
+            assignExpressionCheck(leftExpressionNode);
         }
         BaseType leftType = visit(node.getLeftExpressionNode());
         if (operator == OperatorList.MUL || operator == OperatorList.DIV || operator == OperatorList.MOD || operator == OperatorList.SUB || operator == OperatorList.LEFTSHIFT || operator == OperatorList.RIGHTSHIFT || operator == OperatorList.AND || operator == OperatorList.XOR || operator == OperatorList.OR) {
@@ -100,6 +95,17 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         if (operator == OperatorList.LEQ || operator == OperatorList.GEQ || operator == OperatorList.LT || operator == OperatorList.GT || operator == OperatorList.EQUAL || operator == OperatorList.LOGICALNOT)
             return new PrimaryType(PrimaryTypeList.BOOL);
         return leftType;
+    }
+
+    private void assignExpressionCheck(BaseExpressionNode leftExpressionNode) {
+        boolean assign = false;
+        if (leftExpressionNode instanceof IdentifierExpressionNode) assign = true;
+        if (leftExpressionNode instanceof UnaryExpressionNode)
+            if (((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.POS && ((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.NEG)
+                assign = true;
+        if (leftExpressionNode instanceof ArrayExpressionNode) assign = true;
+        if (leftExpressionNode instanceof DotExpressionNode) assign = true;
+        if (!assign) throw new Error();
     }
 
     private boolean isStringType(BaseType type) {
@@ -200,7 +206,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         OperatorList operator = node.getOperator();
         BaseType baseType = visit(node.getExpressionNode());
         if (operator == OperatorList.PREFIXINC || operator == OperatorList.PREFIXDEC || operator == OperatorList.SUFFIXINC || operator == OperatorList.SUFFIXDEC) {
-            if (!(node.getExpressionNode() instanceof IdentifierExpressionNode)) throw new Error();
+            assignExpressionCheck(node.getExpressionNode());
             if (!baseType.equals(new PrimaryType(PrimaryTypeList.INT))) throw new Error();
         }
         if (operator == OperatorList.POS || operator == OperatorList.NEG || operator == OperatorList.NOT)
