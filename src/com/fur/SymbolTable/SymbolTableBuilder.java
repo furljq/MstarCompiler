@@ -90,6 +90,9 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         BaseType type = typeNode.getType();
         if (type instanceof ClassType)
             globalEntity.getClassEntity(((ClassType) type).getClassName());
+        if (type instanceof PrimaryType)
+            if (((PrimaryType) type).getType() == PrimaryTypeList.VOID)
+                throw new Error();
         return new VariableEntity(type, currentEntity, typeNode.getPosition());
     }
 
@@ -154,8 +157,8 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     }
 
     @Override
-    public BlockEntity visitLoopStatementNode(LoopStatementNode node) {
-        BlockEntity loopEntity = new BlockEntity(currentEntity, node.getPosition());
+    public LoopEntity visitLoopStatementNode(LoopStatementNode node) {
+        LoopEntity loopEntity = new LoopEntity(currentEntity, node.getPosition());
         BaseStatementNode bodyStatementNode = node.getBodyStatementNode();
         if (bodyStatementNode instanceof BlockStatementNode || bodyStatementNode instanceof IfStatementNode || bodyStatementNode instanceof LoopStatementNode) {
             BlockEntity thenEntity = (BlockEntity) visit(bodyStatementNode);

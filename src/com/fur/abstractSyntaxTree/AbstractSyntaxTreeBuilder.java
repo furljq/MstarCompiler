@@ -46,11 +46,23 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         if (context.expression() != null) {
             IdentifierExpressionNode identifierNode = new IdentifierExpressionNode(name, context.start);
             BaseExpressionNode initExpression = (BaseExpressionNode) visit(context.expression());
+            checkInitExpression(context.expression(), name);
             BinaryExpressionNode assignExpressionNode = new BinaryExpressionNode(OperatorList.ASSIGN, identifierNode, initExpression, initExpression.getPosition());
             ExpressionStatementNode assignStatementNode = new ExpressionStatementNode(assignExpressionNode, assignExpressionNode.getPosition());
             baseNodes.add(assignStatementNode);
         }
         return baseNodes;
+    }
+
+    private void checkInitExpression(MstarParser.ExpressionContext expressionContext, String forbid) {
+        if (expressionContext.primaryExpression() != null) {
+            if (expressionContext.primaryExpression().Identifier().getText().equals(forbid)) throw new Error();
+            checkInitExpression(expressionContext.primaryExpression().expression(), forbid);
+        }
+        for (MstarParser.ExpressionContext subExpressionContext : expressionContext.expressions().expression())
+            checkInitExpression(subExpressionContext, forbid);
+        for (MstarParser.ExpressionContext subExpressionContext : expressionContext.expression())
+            checkInitExpression(subExpressionContext, forbid);
     }
 
     @Override

@@ -116,6 +116,9 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     @Override
     public BaseType visitCreatorExpressionNode(CreatorExpressionNode node) {
         BaseType baseType = node.getTypeNode().getType();
+        if (baseType instanceof PrimaryType)
+            if (((PrimaryType) baseType).getType() == PrimaryTypeList.VOID)
+                throw new Error();
         for (int i = 0; i < node.getRestDimension(); i++)
             baseType = new ArrayType(baseType);
         for (int i = 0; i < node.getFixedDimension().size(); i++)
@@ -276,6 +279,18 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                 else throw new Error();
             }
             functionEntity = functionEntity.getParentEntity();
+        }
+        throw new Error();
+    }
+
+    @Override
+    public BaseType visitContinueStatementNode(ContinueStatementNode node) {
+        BaseEntity loopEntity = currentEntity;
+        while (loopEntity != null) {
+            if (loopEntity instanceof LoopEntity) {
+                return null;
+            }
+            loopEntity = loopEntity.getParentEntity();
         }
         throw new Error();
     }
