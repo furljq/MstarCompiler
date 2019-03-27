@@ -16,9 +16,13 @@ public class PrimaryType extends BaseType {
 
     @Override
     public boolean equals(Object obj) {
-        if (type == PrimaryTypeList.NULL)
-            if (obj instanceof ArrayType || obj instanceof ClassType)
+        if (type == PrimaryTypeList.NULL) {
+            if (obj instanceof ArrayType)
                 return true;
+            if (obj instanceof ClassType)
+                if (!((ClassType) obj).getClassName().equals("string"))
+                    return true;
+        }
         if (!(obj instanceof PrimaryType)) return false;
         return type.equals(((PrimaryType) obj).type);
     }

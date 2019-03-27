@@ -159,11 +159,14 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     @Override
     public LoopEntity visitLoopStatementNode(LoopStatementNode node) {
         LoopEntity loopEntity = new LoopEntity(currentEntity, node.getPosition());
+        BlockEntity oldEntity = (BlockEntity) currentEntity;
+        currentEntity = loopEntity;
         BaseStatementNode bodyStatementNode = node.getBodyStatementNode();
         if (bodyStatementNode instanceof BlockStatementNode || bodyStatementNode instanceof IfStatementNode || bodyStatementNode instanceof LoopStatementNode) {
             BlockEntity thenEntity = (BlockEntity) visit(bodyStatementNode);
             loopEntity.put(bodyStatementNode.getPosition(), thenEntity);
         }
+        currentEntity = oldEntity;
         return loopEntity;
     }
 }

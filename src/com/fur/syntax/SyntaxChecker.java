@@ -100,9 +100,6 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     private void assignExpressionCheck(BaseExpressionNode leftExpressionNode) {
         boolean assign = false;
         if (leftExpressionNode instanceof IdentifierExpressionNode) assign = true;
-        if (leftExpressionNode instanceof UnaryExpressionNode)
-            if (((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.POS && ((UnaryExpressionNode) leftExpressionNode).getOperator() != OperatorList.NEG)
-                assign = true;
         if (leftExpressionNode instanceof ArrayExpressionNode) assign = true;
         if (leftExpressionNode instanceof DotExpressionNode) assign = true;
         if (!assign) throw new Error();
@@ -150,10 +147,21 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     public BaseType visitFunctionExpressionNode(FunctionExpressionNode node) {
         FunctionEntity functionEntity;
         if (node.getfunctionNode() instanceof DotExpressionNode) {
-            ClassType classType = (ClassType) visit(((DotExpressionNode) node.getfunctionNode()).getObjectExpressionNode());
-            ClassEntity classEntity = globalEntity.getClassEntity(classType.getClassName());
-            if (classEntity == null) throw new Error();
-            functionEntity = classEntity.getFunctionEntity(((DotExpressionNode) node.getfunctionNode()).getIdentifierExpressionNode().getIdentifierName());
+            BaseType classType = visit(((DotExpressionNode) node.getfunctionNode()).getObjectExpressionNode());
+            if (classType instanceof ClassType) {
+                ClassEntity classEntity = globalEntity.getClassEntity(((ClassType) classType).getClassName());
+                if (classEntity == null) throw new Error();
+                functionEntity = classEntity.getFunctionEntity(((DotExpressionNode) node.getfunctionNode()).getIdentifierExpressionNode().getIdentifierName());
+            } else {
+                if (classType instanceof ArrayType) {
+                    if (!((DotExpressionNode) node.getfunctionNode()).getIdentifierExpressionNode().getIdentifierName().equals("size"))
+                        throw new Error();
+                    if (node.getArguments().size() != 0)
+                        throw new Error();
+                    return new PrimaryType(PrimaryTypeList.INT);
+                }
+                throw new Error();
+            }
         } else if (node.getfunctionNode() instanceof IdentifierExpressionNode) {
             BaseEntity entity = currentEntity;
             while (entity != globalEntity) {
