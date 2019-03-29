@@ -289,6 +289,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         currentEntity = ((BlockEntity) currentEntity).get(node.getPosition());
         BaseType conditionType = visit(node.getConditionExpressionNode());
         if (!(conditionType instanceof PrimaryType)) throw new Error();
+        if (!((PrimaryType) conditionType).getType().equals(PrimaryTypeList.BOOL)) throw new Error();
         if (node.getInitExpressionNode() != null) visit(node.getInitExpressionNode());
         if (node.getUpdateExpressionNode() != null) visit(node.getUpdateExpressionNode());
         visit(node.getBodyStatementNode());
