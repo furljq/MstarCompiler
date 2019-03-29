@@ -6,10 +6,10 @@ import org.antlr.v4.runtime.Token;
 public class IfStatementNode extends BaseStatementNode {
 
     private BaseExpressionNode conditionExpressionNode;
-    private BaseStatementNode thenStatementNode;
-    private BaseStatementNode elseStatementNode;
+    private BlockStatementNode thenStatementNode;
+    private BlockStatementNode elseStatementNode;
 
-    public IfStatementNode(BaseExpressionNode _conditionExpressionNode, BaseStatementNode _thenStatementNode, BaseStatementNode _elseStatementNode, Token token) {
+    public IfStatementNode(BaseExpressionNode _conditionExpressionNode, BlockStatementNode _thenStatementNode, BlockStatementNode _elseStatementNode, Token token) {
         super(token);
         conditionExpressionNode = _conditionExpressionNode;
         thenStatementNode = _thenStatementNode;
@@ -20,11 +20,11 @@ public class IfStatementNode extends BaseStatementNode {
         return conditionExpressionNode;
     }
 
-    public BaseStatementNode getThenStatementNode() {
+    public BlockStatementNode getThenStatementNode() {
         return thenStatementNode;
     }
 
-    public BaseStatementNode getElseStatementNode() {
+    public BlockStatementNode getElseStatementNode() {
         return elseStatementNode;
     }
 

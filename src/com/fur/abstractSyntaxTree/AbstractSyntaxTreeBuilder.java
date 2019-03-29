@@ -263,11 +263,16 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         if (context.Op == null) return null;
         if (context.Op.getText().equals("if")) {
             BaseExpressionNode conditionExpressionNode = (BaseExpressionNode) visit(context.expression(0));
-            BaseStatementNode thenStatementNode = (BaseStatementNode) visit(context.statement(0));
-            BaseStatementNode elseStatementNode;
-            if (context.statement().size() > 1) elseStatementNode = (BaseStatementNode) visit(context.statement(1));
-            else elseStatementNode = null;
-            return new IfStatementNode(conditionExpressionNode, thenStatementNode, elseStatementNode, context.start);
+            List<BaseNode> thenStatementNodes = new ArrayList<>();
+            thenStatementNodes.add(visit(context.statement(0)));
+            BlockStatementNode thenStatementsNode = new BlockStatementNode(thenStatementNodes, context.statement(0).start);
+            BlockStatementNode elseStatementsNode;
+            if (context.statement().size() > 1){
+                List<BaseNode> elseStatementNodes = new ArrayList<>();
+                elseStatementNodes.add(visit(context.statement(1)));
+                elseStatementsNode = new BlockStatementNode(elseStatementNodes, context.statement(1).start);
+            } else elseStatementsNode = null;
+            return new IfStatementNode(conditionExpressionNode, thenStatementsNode, elseStatementsNode, context.start);
         }
         if (context.Op.getText().equals("for")) {
             BaseExpressionNode initExpressionNode = null;
@@ -298,12 +303,26 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
                 updateExpressionNode = (BaseExpressionNode) visit(context.expression(2));
             }
             BaseStatementNode bodyStatementNode = (BaseStatementNode) visit(context.statement(0));
-            return new LoopStatementNode(initExpressionNode, conditionExpressionNode, updateExpressionNode, bodyStatementNode, context.start);
+            if (bodyStatementNode instanceof BlockStatementNode)
+                return new LoopStatementNode(initExpressionNode, conditionExpressionNode, updateExpressionNode, (BlockStatementNode) bodyStatementNode, context.start);
+            else {
+                List<BaseNode> bodyStatementNodes = new ArrayList<>();
+                bodyStatementNodes.add(bodyStatementNode);
+                BlockStatementNode bodyStatementsNode = new BlockStatementNode(bodyStatementNodes, context.statement(0).start);
+                return new LoopStatementNode(initExpressionNode, conditionExpressionNode, updateExpressionNode, bodyStatementsNode, context.start);
+            }
         }
         if (context.Op.getText().equals("while")) {
             BaseExpressionNode conditionExpressionNode = (BaseExpressionNode) visit(context.expression(0));
             BaseStatementNode bodyStatementNode = (BaseStatementNode) visit(context.statement(0));
-            return new LoopStatementNode(null, conditionExpressionNode, null, bodyStatementNode, context.start);
+            if (bodyStatementNode instanceof BlockStatementNode)
+                return new LoopStatementNode(null, conditionExpressionNode, null, (BlockStatementNode) bodyStatementNode, context.start);
+            else {
+                List<BaseNode> bodyStatementNodes = new ArrayList<>();
+                bodyStatementNodes.add(bodyStatementNode);
+                BlockStatementNode bodyStatementsNode = new BlockStatementNode(bodyStatementNodes, context.statement(0).start);
+                return new LoopStatementNode(null, conditionExpressionNode, null, bodyStatementsNode, context.start);
+            }
         }
         if (context.Op.getText().equals("return")) {
             if (context.expression() != null)

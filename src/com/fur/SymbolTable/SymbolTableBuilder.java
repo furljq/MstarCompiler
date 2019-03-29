@@ -151,16 +151,13 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
     public BlockEntity visitIfStatementNode(IfStatementNode node) {
         BlockEntity ifBlockEntity = new BlockEntity(currentEntity, node.getPosition());
         BaseStatementNode thenStatementNode = node.getThenStatementNode();
-        if (thenStatementNode instanceof BlockStatementNode || thenStatementNode instanceof IfStatementNode || thenStatementNode instanceof LoopStatementNode) {
-            BlockEntity thenEntity = (BlockEntity) visit(thenStatementNode);
-            ifBlockEntity.put(thenStatementNode.getPosition(), thenEntity);
-        }
+        BlockEntity thenEntity = (BlockEntity) visit(thenStatementNode);
+        ifBlockEntity.put(thenStatementNode.getPosition(), thenEntity);
         BaseStatementNode elseStatementNode = node.getElseStatementNode();
-        if (elseStatementNode != null)
-            if (elseStatementNode instanceof BlockStatementNode || elseStatementNode instanceof IfStatementNode || elseStatementNode instanceof LoopStatementNode) {
-                BlockEntity elseEntity = (BlockEntity) visit(elseStatementNode);
-                ifBlockEntity.put(elseStatementNode.getPosition(), elseEntity);
-            }
+        if (elseStatementNode != null) {
+            BlockEntity elseEntity = (BlockEntity) visit(elseStatementNode);
+            ifBlockEntity.put(elseStatementNode.getPosition(), elseEntity);
+        }
         return ifBlockEntity;
     }
 
@@ -170,10 +167,8 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         BlockEntity oldEntity = (BlockEntity) currentEntity;
         currentEntity = loopEntity;
         BaseStatementNode bodyStatementNode = node.getBodyStatementNode();
-        if (bodyStatementNode instanceof BlockStatementNode || bodyStatementNode instanceof IfStatementNode || bodyStatementNode instanceof LoopStatementNode) {
-            BlockEntity thenEntity = (BlockEntity) visit(bodyStatementNode);
-            loopEntity.put(bodyStatementNode.getPosition(), thenEntity);
-        }
+        BlockEntity bodyEntity = (BlockEntity) visit(bodyStatementNode);
+        loopEntity.put(bodyStatementNode.getPosition(), bodyEntity);
         currentEntity = oldEntity;
         return loopEntity;
     }

@@ -1,0 +1,4 @@
+it's very happy to rebuild my code again and again to make it nicer, though it's a lot of work.
+it's very unhappy to debug with failed testcases, to make the structure become more and more ugly, and i doubt if the structure still work in further coding phase very much.
+i gain much about java coding and understand better with OO coding during the process.
+as the process goes on, it must be harder for not only the difficulty on project, but also uglier structure. i'm very worried about that.

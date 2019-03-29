@@ -8,9 +8,9 @@ public class LoopStatementNode extends BaseStatementNode {
     private BaseExpressionNode initExpressionNode;
     private BaseExpressionNode conditionExpressionNode;
     private BaseExpressionNode updateExpressionNode;
-    private BaseStatementNode bodyStatementNode;
+    private BlockStatementNode bodyStatementNode;
 
-    public LoopStatementNode(BaseExpressionNode _initExpressionNode, BaseExpressionNode _conditionExpressionNode, BaseExpressionNode _updateExpressionNode, BaseStatementNode _bodyStatementNode, Token token) {
+    public LoopStatementNode(BaseExpressionNode _initExpressionNode, BaseExpressionNode _conditionExpressionNode, BaseExpressionNode _updateExpressionNode, BlockStatementNode _bodyStatementNode, Token token) {
         super(token);
         initExpressionNode = _initExpressionNode;
         conditionExpressionNode = _conditionExpressionNode;
@@ -30,7 +30,7 @@ public class LoopStatementNode extends BaseStatementNode {
         return updateExpressionNode;
     }
 
-    public BaseStatementNode getBodyStatementNode() {
+    public BlockStatementNode getBodyStatementNode() {
         return bodyStatementNode;
     }
 
