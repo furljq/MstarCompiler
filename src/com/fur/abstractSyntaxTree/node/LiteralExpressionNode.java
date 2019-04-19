@@ -4,6 +4,7 @@ import com.fur.abstractSyntaxTree.AbstractSyntaxTreeVisitor;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.type.BaseType;
 import com.fur.type.ClassType;
+import com.fur.type.PrimaryType;
 import org.antlr.v4.runtime.Token;
 
 public class LiteralExpressionNode extends BaseExpressionNode {
@@ -27,6 +28,11 @@ public class LiteralExpressionNode extends BaseExpressionNode {
                 } else rebuild.append(value.charAt(i));
             }
             value = rebuild.toString();
+        } else {
+            assert _type instanceof PrimaryType;
+            if (((PrimaryType) _type).getType().equals(PrimaryTypeList.BOOL))
+                if (value.equals("true")) value = "1";
+                else value = "0";
         }
     }
 

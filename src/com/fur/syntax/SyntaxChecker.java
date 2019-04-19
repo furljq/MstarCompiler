@@ -183,11 +183,20 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                 functionEntity = ((ClassEntity) entity).getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
             else functionEntity = globalEntity.getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
         } else throw new Error();
-        if (functionEntity.getParameterList().size() != node.getArguments().size()) throw new Error();
-        for (int i = 0; i < functionEntity.getParameterList().size(); i++) {
-            BaseType argumentType = visit(node.getArguments().get(i));
-            BaseType parameterType = functionEntity.getParameterList().get(i).getType();
-            if (!parameterType.equals(argumentType)) throw new Error();
+        if (node.getfunctionNode() instanceof DotExpressionNode) {
+            if (functionEntity.getParameterList().size() != node.getArguments().size() + 1) throw new Error();
+            for (int i = 1; i < functionEntity.getParameterList().size(); i++) {
+                BaseType argumentType = visit(node.getArguments().get(i));
+                BaseType parameterType = functionEntity.getParameterList().get(i).getType();
+                if (!parameterType.equals(argumentType)) throw new Error();
+            }
+        } else {
+            if (functionEntity.getParameterList().size() != node.getArguments().size()) throw new Error();
+            for (int i = 0; i < functionEntity.getParameterList().size(); i++) {
+                BaseType argumentType = visit(node.getArguments().get(i));
+                BaseType parameterType = functionEntity.getParameterList().get(i).getType();
+                if (!parameterType.equals(argumentType)) throw new Error();
+            }
         }
         return functionEntity.getReturnType();
     }
@@ -236,12 +245,12 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         BaseType baseType = visit(node.getExpressionNode());
         if (operator == OperatorList.PREFIXINC || operator == OperatorList.PREFIXDEC || operator == OperatorList.SUFFIXINC || operator == OperatorList.SUFFIXDEC) {
             assignExpressionCheck(node.getExpressionNode());
-            if (!baseType.equals(new PrimaryType(PrimaryTypeList.INT))) throw new Error();
+            if (!(baseType instanceof PrimaryType) || ((PrimaryType) baseType).getType() != PrimaryTypeList.INT) throw new Error();
         }
         if (operator == OperatorList.POS || operator == OperatorList.NEG || operator == OperatorList.NOT)
-            if (!baseType.equals(new PrimaryType(PrimaryTypeList.INT))) throw new Error();
+            if (!(baseType instanceof PrimaryType) || ((PrimaryType) baseType).getType() != PrimaryTypeList.INT) throw new Error();
         if (operator == OperatorList.LOGICALNOT)
-            if (!baseType.equals(new PrimaryType(PrimaryTypeList.BOOL))) throw new Error();
+            if (!(baseType instanceof PrimaryType) || ((PrimaryType) baseType).getType() != PrimaryTypeList.BOOL) throw new Error();
         return baseType;
     }
 
@@ -288,8 +297,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         BlockEntity oldEntity = (BlockEntity) currentEntity;
         currentEntity = ((BlockEntity) currentEntity).get(node.getPosition());
         BaseType conditionType = visit(node.getConditionExpressionNode());
-        if (!(conditionType instanceof PrimaryType)) throw new Error();
-        if (!((PrimaryType) conditionType).getType().equals(PrimaryTypeList.BOOL)) throw new Error();
+        if (!(conditionType instanceof PrimaryType) || ((PrimaryType) conditionType).getType() != PrimaryTypeList.BOOL) throw new Error();
         if (node.getInitExpressionNode() != null) visit(node.getInitExpressionNode());
         if (node.getUpdateExpressionNode() != null) visit(node.getUpdateExpressionNode());
         visit(node.getBodyStatementNode());

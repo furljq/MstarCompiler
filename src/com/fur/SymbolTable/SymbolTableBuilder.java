@@ -115,6 +115,10 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         if (returnType instanceof ClassType)
             globalEntity.getClassEntity(((ClassType) returnType).getClassName());
         functionEntity.setReturnType(returnType);
+        if (node.getClassName() != null) {
+            VariableEntity parameterEntity = new VariableEntity(new ClassType(node.getClassName()), currentEntity, node.getPosition());
+            functionEntity.put("this", parameterEntity);
+        }
         for (BaseNode parameterDeclarationNode : node.getParameterNodes()) {
             if (parameterDeclarationNode instanceof VariableDeclarationNode) {
                 String parameterName = ((BaseDeclarationNode) parameterDeclarationNode).getName();

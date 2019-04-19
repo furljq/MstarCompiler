@@ -1,6 +1,8 @@
 package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
+import com.fur.intermediateRepresentation.IRLabel;
+import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.type.BaseType;
 
 import java.util.ArrayList;
@@ -14,6 +16,24 @@ public class FunctionEntity extends BaseEntity {
     private List<VariableEntity> parameterList = new ArrayList<>();
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
+    private IRRegister returnRegister;
+    private IRLabel entryLabel, returnLabel;
+
+    public void setEntryLabel(IRLabel entryLabel) {
+        this.entryLabel = entryLabel;
+    }
+
+    public void setReturnLabel(IRLabel returnLabel) {
+        this.returnLabel = returnLabel;
+    }
+
+    public IRLabel getEntryLabel() {
+        return entryLabel;
+    }
+
+    public IRLabel getReturnLabel() {
+        return returnLabel;
+    }
 
     public FunctionEntity(BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
@@ -46,6 +66,14 @@ public class FunctionEntity extends BaseEntity {
     public void put(String name, VariableEntity variableEntity) {
         variableScope.put(name, variableEntity);
         parameterList.add(variableEntity);
+    }
+
+    public void setReturnRegister(IRRegister returnRegister) {
+        this.returnRegister = returnRegister;
+    }
+
+    public IRRegister getReturnRegister() {
+        return returnRegister;
     }
 
 }

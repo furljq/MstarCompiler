@@ -75,7 +75,11 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         List<FunctionDeclarationNode> functionDeclarationNodes = new ArrayList<>();
         for (MstarParser.ClassBodyDeclarationContext classBodyDeclarationContext : context.classBodyDeclaration()) {
             if (classBodyDeclarationContext.variableDeclarationStatement() != null) variableDeclarationNodes.addAll(spiltVariableDeclarationStatementNode(classBodyDeclarationContext.variableDeclarationStatement()));
-            if (classBodyDeclarationContext.functionDeclaration() != null) functionDeclarationNodes.add((FunctionDeclarationNode) visit(classBodyDeclarationContext.functionDeclaration()));
+            if (classBodyDeclarationContext.functionDeclaration() != null) {
+                FunctionDeclarationNode functionDeclarationNode = (FunctionDeclarationNode) visit(classBodyDeclarationContext.functionDeclaration());
+                functionDeclarationNode.setClassName(className);
+                functionDeclarationNodes.add(functionDeclarationNode);
+            }
         }
         return new ClassDeclarationNode(className, variableDeclarationNodes, functionDeclarationNodes, context.start);
     }
@@ -86,11 +90,11 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
         if (context.type() != null) typeNode = (TypeNode) visit(context.type());
         else typeNode = null;
         String name = context.Identifier().getText();
-        List<BaseNode> baseNodes = new ArrayList<>();
+        List<VariableDeclarationNode> baseNodes = new ArrayList<>();
         if (context.parameters() != null) {
             for (MstarParser.ParameterContext parameterContext : context.parameters().parameter()) {
                 TypeNode parameterTypeNode = (TypeNode) visit(parameterContext.type());
-                baseNodes.addAll(spiltVariableDeclarationNode(parameterContext.variableDeclaration(), parameterTypeNode));
+                baseNodes.add((VariableDeclarationNode) spiltVariableDeclarationNode(parameterContext.variableDeclaration(), parameterTypeNode).get(0));
             }
         }
         BlockStatementNode blockStatementNode = (BlockStatementNode) visit(context.blockStatement());

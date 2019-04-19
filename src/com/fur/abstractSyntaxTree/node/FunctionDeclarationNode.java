@@ -7,15 +7,25 @@ import java.util.List;
 
 public class FunctionDeclarationNode extends BaseDeclarationNode {
 
+    private String className;
     private TypeNode typeNode;
-    private List<BaseNode> parameterNodes;
+    private List<VariableDeclarationNode> parameterNodes;
     private BlockStatementNode blockStatementNodes;
 
-    public FunctionDeclarationNode(TypeNode _typeNode, String _name, List<BaseNode> _parameterNodes, BlockStatementNode _blockStatementNodes, Token token) {
+    public FunctionDeclarationNode(TypeNode _typeNode, String _name, List<VariableDeclarationNode> _parameterNodes, BlockStatementNode _blockStatementNodes, Token token) {
         super(_name, token);
         typeNode = _typeNode;
         parameterNodes = _parameterNodes;
         blockStatementNodes = _blockStatementNodes;
+        className = null;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public boolean isConstructor() {
@@ -26,7 +36,7 @@ public class FunctionDeclarationNode extends BaseDeclarationNode {
         return typeNode;
     }
 
-    public List<BaseNode> getParameterNodes() {
+    public List<VariableDeclarationNode> getParameterNodes() {
         return parameterNodes;
     }
 

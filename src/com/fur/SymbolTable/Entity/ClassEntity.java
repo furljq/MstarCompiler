@@ -8,6 +8,8 @@ import java.util.Map;
 public class ClassEntity extends BaseEntity {
 
     private Map<String, BaseEntity> scope = new HashMap<>();
+    private Map<String, Integer> index = new HashMap<>();
+    private int count = 0;
 
     public ClassEntity(BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
@@ -15,18 +17,13 @@ public class ClassEntity extends BaseEntity {
 
     public void putCover(String name, BaseEntity entity) {
         scope.put(name, entity);
+        if (entity instanceof VariableEntity)
+            index.put(name, count++);
     }
 
     public void putNew(String name, BaseEntity entity) {
-        if (entity instanceof ClassEntity)
-            if (scope.get(name) != null) throw new Error();
-            else putCover(name, entity);
-        if (entity instanceof FunctionEntity)
-            if (scope.get(name) != null) throw new Error();
-            else putCover(name, entity);
-        if (entity instanceof VariableEntity)
-            if (scope.get(name) != null) throw new Error();
-            else putCover(name, entity);
+        if (scope.get(name) != null) throw new Error();
+        else putCover(name, entity);
     }
 
     public ClassEntity getClassEntity(String name) {
@@ -51,6 +48,14 @@ public class ClassEntity extends BaseEntity {
         BaseEntity variableEntity = scope.get(name);
         if (!(variableEntity instanceof VariableEntity)) return null;
         return (VariableEntity) variableEntity;
+    }
+
+    public int getIndex(String name) {
+        return index.get(name);
+    }
+
+    public Map<String, BaseEntity> getScope() {
+        return scope;
     }
 
 }

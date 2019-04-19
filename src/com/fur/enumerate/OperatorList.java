@@ -14,5 +14,8 @@ public enum OperatorList {
     OR,
     LOGICALAND,
     LOGICALOR,
-    ASSIGN
+    ASSIGN,
+
+    ALLOC,
+    RETURN
 }
