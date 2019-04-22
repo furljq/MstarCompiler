@@ -20,6 +20,30 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         currentEntity = globalEntity;
     }
 
+    private void assignExpressionCheck(BaseExpressionNode leftExpressionNode) {
+        boolean assign = false;
+        if (leftExpressionNode instanceof IdentifierExpressionNode) assign = true;
+        if (leftExpressionNode instanceof ArrayExpressionNode) assign = true;
+        if (leftExpressionNode instanceof DotExpressionNode) assign = true;
+        if (!assign) throw new Error();
+    }
+
+    private boolean isStringType(BaseType type) {
+        if (type instanceof ClassType) return ((ClassType) type).getClassName().equals("string");
+        else return false;
+    }
+
+    private void checkInLoop() {
+        BaseEntity loopEntity = currentEntity;
+        while (loopEntity != null) {
+            if (loopEntity instanceof LoopEntity) {
+                return;
+            }
+            loopEntity = loopEntity.getParentEntity();
+        }
+        throw new Error();
+    }
+
     @Override
     public BaseType visitCompilationUnitNode(CompilationUnitNode node) {
         FunctionEntity mainFunction = globalEntity.getFunctionEntity("main");
@@ -95,19 +119,6 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         if (operator == OperatorList.LEQ || operator == OperatorList.GEQ || operator == OperatorList.LT || operator == OperatorList.GT || operator == OperatorList.EQUAL || operator == OperatorList.NOTEQUAL)
             return new PrimaryType(PrimaryTypeList.BOOL);
         return leftType;
-    }
-
-    private void assignExpressionCheck(BaseExpressionNode leftExpressionNode) {
-        boolean assign = false;
-        if (leftExpressionNode instanceof IdentifierExpressionNode) assign = true;
-        if (leftExpressionNode instanceof ArrayExpressionNode) assign = true;
-        if (leftExpressionNode instanceof DotExpressionNode) assign = true;
-        if (!assign) throw new Error();
-    }
-
-    private boolean isStringType(BaseType type) {
-        if (type instanceof ClassType) return ((ClassType) type).getClassName().equals("string");
-        else return false;
     }
 
     @Override
@@ -331,17 +342,6 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     public BaseType visitBreakStatementNode(BreakStatementNode node) {
         checkInLoop();
         return null;
-    }
-
-    private void checkInLoop() {
-        BaseEntity loopEntity = currentEntity;
-        while (loopEntity != null) {
-            if (loopEntity instanceof LoopEntity) {
-                return;
-            }
-            loopEntity = loopEntity.getParentEntity();
-        }
-        throw new Error();
     }
 
 }

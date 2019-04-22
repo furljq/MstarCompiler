@@ -6,8 +6,12 @@ public class IRRegister {
 
     private BaseType type;
 
-    public IRRegister(BaseType _type) {
-        type = _type;
+    public void setType(BaseType type) {
+        this.type = type;
+    }
+
+    public BaseType getType() {
+        return type;
     }
 
 }

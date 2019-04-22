@@ -7,19 +7,19 @@ import com.fur.type.BaseType;
 public class VariableEntity extends BaseEntity {
 
     private BaseType type;
-    private IRRegister register;
+    private IRRegister irRegister;
 
     public VariableEntity(BaseType _type, BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
         type = _type;
     }
 
-    public void setRegister(IRRegister register) {
-        this.register = register;
+    public void setIRRegister(IRRegister irRegister) {
+        this.irRegister = irRegister;
     }
 
-    public IRRegister getRegister() {
-        return register;
+    public IRRegister getIRRegister() {
+        return irRegister;
     }
 
     public BaseType getType() {

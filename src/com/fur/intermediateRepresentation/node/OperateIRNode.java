@@ -6,33 +6,44 @@ import com.fur.intermediateRepresentation.IRRegister;
 public class OperateIRNode extends BaseIRNode {
 
     private OperatorList operator;
-    private IRRegister destRegister, operateRegister1, operateRegister2;
+    private IRRegister destIRRegister, operateIRRegister1, operateIRRegister2;
+    private int operateInt;
 
     public OperateIRNode(OperatorList _operator, IRRegister _destRegister, IRRegister _operateRegister1, IRRegister _operateRegister2) {
         operator = _operator;
-        destRegister = _destRegister;
-        operateRegister1 = _operateRegister1;
-        operateRegister2 = _operateRegister2;
+        destIRRegister = _destRegister;
+        operateIRRegister1 = _operateRegister1;
+        operateIRRegister2 = _operateRegister2;
     }
 
-    public void setDestRegister(IRRegister destRegister) {
-        this.destRegister = destRegister;
+    public OperateIRNode(OperatorList _operator, IRRegister _destRegister, int _operateInt) {
+        operator = _operator;
+        destIRRegister = _destRegister;
+        operateInt = _operateInt;
+    }
+
+    public int getOperateInt() {
+        return operateInt;
+    }
+
+    public void setDestIRRegister(IRRegister destIRRegister) {
+        this.destIRRegister = destIRRegister;
     }
 
     public OperatorList getOperator() {
         return operator;
     }
 
-    public IRRegister getDestRegister() {
-        return destRegister;
+    public IRRegister getDestIRRegister() {
+        return destIRRegister;
     }
 
-    public IRRegister getOperateRegister1() {
-        return operateRegister1;
+    public IRRegister getOperateIRRegister1() {
+        return operateIRRegister1;
     }
 
-    public IRRegister getOperateRegister2() {
-        return operateRegister2;
+    public IRRegister getOperateIRRegister2() {
+        return operateIRRegister2;
     }
 
 }

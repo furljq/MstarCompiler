@@ -236,13 +236,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
             }
             restDimension = context.arrayCreator().empty().size();
         } else restDimension = 0;
-        List<BaseExpressionNode> arguments = new ArrayList<>();
-        if (context.classCreator() != null)
-            if (context.classCreator().expressions() != null)
-                for (MstarParser.ExpressionContext expressionContext : context.classCreator().expressions().expression()) {
-                    arguments.add((BaseExpressionNode) visit(expressionContext));
-                }
-        return new CreatorExpressionNode(typeNode, fixedDimension, restDimension, arguments, context.start);
+        return new CreatorExpressionNode(typeNode, fixedDimension, restDimension, context.start);
     }
 
     @Override
@@ -275,7 +269,10 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
                 List<BaseNode> elseStatementNodes = new ArrayList<>();
                 elseStatementNodes.add(visit(context.statement(1)));
                 elseStatementsNode = new BlockStatementNode(elseStatementNodes, context.statement(1).start);
-            } else elseStatementsNode = null;
+            } else {
+                List<BaseNode> elseStatementNodes = new ArrayList<>();
+                elseStatementsNode = new BlockStatementNode(elseStatementNodes, context.statement(0).stop);
+            }
             return new IfStatementNode(conditionExpressionNode, thenStatementsNode, elseStatementsNode, context.start);
         }
         if (context.Op.getText().equals("for")) {
