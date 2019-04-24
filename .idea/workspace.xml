@@ -20,28 +20,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="138">
+              <caret line="224" lean-forward="true" selection-start-line="224" selection-end-line="224" />
               <folding>
                 <element signature="method#IntermediateRepresentationBuilder#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#getFunctionLabel#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#1206#2233#1" />
-                <element signature="e#1426#1842#1" />
-                <element signature="e#1893#2223#1" />
+                <element signature="e#1095#2122#1" />
+                <element signature="e#1315#1731#1" />
+                <element signature="e#1782#2112#1" />
                 <element signature="method#getArrayType#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#visitCompilationUnitNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#2769#3408#1" />
-                <element signature="e#2829#3277#1" />
-                <element signature="e#3068#3217#1" />
+                <element signature="e#2849#3488#1" />
+                <element signature="e#2909#3357#1" />
+                <element signature="e#3148#3297#1" />
                 <element signature="method#visitFunctionDeclarationNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#4082#4476#1" />
-                <element signature="e#4359#4585#1" />
-                <element signature="e#4809#5117#1" />
+                <element signature="e#4076#4393#1" />
+                <element signature="e#4493#4719#1" />
+                <element signature="e#4889#5197#1" />
                 <element signature="method#visitReturnStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#5819#6133#1" />
+                <element signature="e#5899#6213#1" />
                 <element signature="method#visitBlockStatementNode#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#visitLoopStatementNode#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#visitBreakStatementNode#0;class#IntermediateRepresentationBuilder#0" />
@@ -52,114 +52,79 @@
                 <element signature="method#visitArrayExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#visitBinaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#visitCreatorExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#13273#13307#1" />
-                <element signature="e#13469#13517#1" />
-                <element signature="e#13580#13634#1" />
-                <element signature="e#14071#14735#1" />
+                <element signature="e#13613#14323#1" />
+                <element signature="e#13751#14313#1" />
+                <element signature="e#13862#14299#1" />
+                <element signature="e#14329#16330#1" />
                 <element signature="method#visitDotExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
                 <element signature="method#visitFunctionExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#17856#17894#1" />
-                <element signature="e#18523#18569#1" />
-                <element signature="e#17870#18207#1" />
-                <element signature="e#18165#18217#1" />
+                <element signature="e#17796#19033#1" />
+                <element signature="e#18463#18825#1" />
+                <element signature="e#19039#19900#1" />
+                <element signature="e#19334#19692#1" />
                 <element signature="method#visitIdentifierExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#17940#20064#1" />
-                <element signature="e#17989#18355#1" />
-                <element signature="e#18406#18775#1" />
-                <element signature="e#18823#20007#1" />
-                <element signature="e#18869#19269#1" />
-                <element signature="e#19275#19993#1" />
-                <element signature="e#19445#19975#1" />
+                <element signature="e#20188#22820#1" />
+                <element signature="e#20237#20580#1" />
+                <element signature="e#20631#21035#1" />
+                <element signature="e#21083#22763#1" />
+                <element signature="e#21129#21506#1" />
+                <element signature="e#21512#22749#1" />
+                <element signature="e#21682#22731#1" />
                 <element signature="method#visitLiteralExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#23160#23535#1" />
-                <element signature="e#23493#23535#1" />
-                <element signature="e#24077#24561#1" />
-                <element signature="e#24219#24254#1" />
+                <element signature="e#23100#24072#1" />
+                <element signature="e#23433#24001#1" />
+                <element signature="e#24078#24636#1" />
+                <element signature="e#24220#24446#1" />
                 <element signature="method#visitUnaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeBuilder.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="181" column="42" lean-forward="true" selection-start-line="181" selection-start-column="42" selection-end-line="181" selection-end-column="42" />
-              <folding>
-                <element signature="method#visitCompilationUnit#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#781#1506#1" />
-                <element signature="e#994#1299#1" />
-                <element signature="method#spiltVariableDeclarationStatementNode#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="method#spiltVariableDeclarationNode#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#2532#3165#1" />
-                <element signature="method#checkInitExpression#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#3361#3737#1" />
-                <element signature="method#visitClassDeclaration#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#4584#5188#1" />
-                <element signature="e#4877#5178#1" />
-                <element signature="method#visitFunctionDeclaration#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#5742#6109#1" />
-                <element signature="e#5843#6099#1" />
-                <element signature="method#visitType#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="method#getType#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="method#getNonArrayType#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#6900#7451#1" />
-                <element signature="e#7918#8280#1" />
-                <element signature="e#8327#8595#1" />
-                <element signature="e#8642#9237#1" />
-                <element signature="e#8856#9140#1" />
-                <element signature="e#8965#9126#1" />
-                <element signature="method#visitPrimaryExpression#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="method#visitLiteralExpression#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="method#visitCreator#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#15955#16304#1" />
-                <element signature="e#16061#16227#1" />
-                <element signature="method#visitBlockStatement#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#16679#17106#1" />
-                <element signature="e#16893#17096#1" />
-                <element signature="method#visitStatement#0;class#AbstractSyntaxTreeBuilder#0" />
-                <element signature="e#17549#18607#1" />
-                <element signature="e#18013#18277#1" />
-                <element signature="e#18283#18477#1" />
-                <element signature="e#18656#21263#1" />
-                <element signature="e#18889#19290#1" />
-                <element signature="e#19341#20145#1" />
-                <element signature="e#19395#19605#1" />
-                <element signature="e#19663#19868#1" />
-                <element signature="e#19923#20131#1" />
-                <element signature="e#20196#20482#1" />
-                <element signature="e#20832#21253#1" />
-                <element signature="e#21314#22144#1" />
-                <element signature="e#21743#22134#1" />
-                <element signature="e#22196#22494#1" />
-              </folding>
+            <state relative-caret-position="583">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/type/PrimaryType.java">
+        <entry file="file://$PROJECT_DIR$/main.mx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding>
-                <element signature="e#192#193#0" expanded="true" />
-                <element signature="e#220#221#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="38">
+              <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/Entity/ClassEntity.java">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/syntax/SyntaxChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="57" lean-forward="true" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+            <state relative-caret-position="275">
+              <caret line="197" selection-start-line="197" selection-end-line="197" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1810#1811#0" expanded="true" />
-                <element signature="e#1838#1839#0" expanded="true" />
+                <element signature="method#SyntaxChecker#0;class#SyntaxChecker#0" />
+                <element signature="method#assignExpressionCheck#0;class#SyntaxChecker#0" />
+                <element signature="method#isStringType#0;class#SyntaxChecker#0" />
+                <element signature="method#checkInLoop#0;class#SyntaxChecker#0" />
+                <element signature="e#1361#1517#1" />
+                <element signature="e#1413#1452#1" />
+                <element signature="method#visitCompilationUnitNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitClassDeclarationNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitExpressionStatementNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitArrayExpressionNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitBinaryExpressionNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitCreatorExpressionNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitDotExpressionNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitIdentifierExpressionNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitUnaryExpressionNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitFunctionDeclarationNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitLoopStatementNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitReturnStatementNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitContinueStatementNode#0;class#SyntaxChecker#0" />
+                <element signature="method#visitBreakStatementNode#0;class#SyntaxChecker#0" />
               </folding>
             </state>
           </provider>
@@ -244,7 +209,6 @@
         <option value="$PROJECT_DIR$/semantic.bash" />
         <option value="$PROJECT_DIR$/src/com/fur/type/ArrayType.java" />
         <option value="$PROJECT_DIR$/src/com/fur/type/ClassType.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Compiler.java" />
         <option value="$PROJECT_DIR$/src/com/fur/syntax/ParseTreeErrorListener.java" />
         <option value="$PROJECT_DIR$/src/com/fur/Mstar.g4" />
         <option value="$PROJECT_DIR$/src/com/fur/type/PrimaryType.java" />
@@ -262,7 +226,6 @@
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/ExpressionIRNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/symbolTable/Entity/ClassEntity.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/FunctionCallIRNode.java" />
-        <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/FunctionIRNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/FunctionExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/FunctionDeclarationNode.java" />
@@ -273,14 +236,16 @@
         <option value="$PROJECT_DIR$/src/com/fur/symbolTable/Entity/VariableEntity.java" />
         <option value="$PROJECT_DIR$/src/com/fur/symbolTable/Entity/IfEntity.java" />
         <option value="$PROJECT_DIR$/src/com/fur/symbolTable/SymbolTableBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/syntax/SyntaxChecker.java" />
         <option value="$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/TemplateIRRegister.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeBuilder.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/CreatorExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IRRegister.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/OperateIRNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/syntax/SyntaxChecker.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Compiler.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java" />
+        <option value="$PROJECT_DIR$/main.mx" />
       </list>
     </option>
   </component>
@@ -296,12 +261,24 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fur" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
@@ -312,7 +289,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -428,16 +404,18 @@
       <workItem from="1555732435303" duration="8716000" />
       <workItem from="1555907943875" duration="594000" />
       <workItem from="1555909674092" duration="13982000" />
+      <workItem from="1556010345768" duration="8537000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="361646000" />
+    <option name="totallyTimeSpent" value="370183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29490617" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23391421" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -447,7 +425,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.31325302" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.45515394" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3601071" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -476,6 +454,16 @@
     <option name="version" value="1" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/fur/Compiler.java</url>
+          <line>60</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="globalEntity" language="JAVA" />
@@ -509,21 +497,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation.java" />
     <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/ArrayExpressionNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -543,16 +516,6 @@
             <element signature="e#1174#1175#0" expanded="true" />
             <element signature="e#1231#1232#0" expanded="true" />
             <element signature="e#1272#1273#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/CompilationUnitNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -595,13 +558,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/StringStaticTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/StringStaticTable.java" />
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/BaseIRNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -625,27 +582,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/Entity/BaseEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/VariableDeclarationNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="65" selection-start-line="9" selection-start-column="65" selection-end-line="9" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -670,16 +610,6 @@
           <folding>
             <element signature="e#590#591#0" expanded="true" />
             <element signature="e#625#626#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/FunctionDeclarationNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -799,43 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/BlockStatementNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/syntax/SyntaxChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="280" column="39" selection-start-line="280" selection-start-column="39" selection-end-line="280" selection-end-column="39" />
-          <folding>
-            <element signature="method#SyntaxChecker#0;class#SyntaxChecker#0" />
-            <element signature="method#assignExpressionCheck#0;class#SyntaxChecker#0" />
-            <element signature="method#isStringType#0;class#SyntaxChecker#0" />
-            <element signature="method#checkInLoop#0;class#SyntaxChecker#0" />
-            <element signature="e#1361#1517#1" />
-            <element signature="e#1413#1452#1" />
-            <element signature="method#visitCompilationUnitNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitClassDeclarationNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitExpressionStatementNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitArrayExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitBinaryExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitCreatorExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitDotExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitFunctionExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitIdentifierExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitUnaryExpressionNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitFunctionDeclarationNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitLoopStatementNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitReturnStatementNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitContinueStatementNode#0;class#SyntaxChecker#0" />
-            <element signature="method#visitBreakStatementNode#0;class#SyntaxChecker#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/SymbolTableBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="545">
@@ -878,13 +771,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/TemplateIRRegister.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/FunctionCallIRNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/TypeNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -903,16 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
           <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/CreatorExpressionNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-          <folding>
-            <element signature="method#accept#0;class#CreatorExpressionNode#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -948,50 +824,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/Entity/FunctionEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding>
-            <element signature="e#694#695#0" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <element signature="e#793#794#0" expanded="true" />
-            <element signature="e#839#840#0" expanded="true" />
-            <element signature="e#877#878#0" expanded="true" />
-            <element signature="e#910#911#0" expanded="true" />
-            <element signature="e#949#950#0" expanded="true" />
-            <element signature="e#983#984#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/Entity/ClassEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="57" lean-forward="true" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1810#1811#0" expanded="true" />
-            <element signature="e#1838#1839#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/type/PrimaryType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <element signature="e#192#193#0" expanded="true" />
-            <element signature="e#220#221#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/TemplateName.java" />
     <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="181" column="42" lean-forward="true" selection-start-line="181" selection-start-column="42" selection-end-line="181" selection-end-column="42" />
+        <state relative-caret-position="1197">
+          <caret line="181" column="42" selection-start-line="181" selection-start-column="42" selection-end-line="181" selection-end-column="42" />
           <folding>
             <element signature="method#visitCompilationUnit#0;class#AbstractSyntaxTreeBuilder#0" />
             <element signature="e#781#1506#1" />
@@ -1043,38 +880,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/TemplateName.java">
+    <entry file="file://$PROJECT_DIR$/src/com/fur/type/PrimaryType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <element signature="e#192#193#0" expanded="true" />
+            <element signature="e#220#221#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/Entity/ClassEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1810#1811#0" expanded="true" />
+            <element signature="e#1838#1839#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/CreatorExpressionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="method#accept#0;class#CreatorExpressionNode#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/CompilationUnitNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
-            <element signature="e#250#251#0" expanded="true" />
-            <element signature="e#275#276#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/FunctionCallIRNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeBaseVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#257#258#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/VariableDeclarationNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/BlockStatementNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/FunctionDeclarationNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1264#1265#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/symbolTable/Entity/FunctionEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-380">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="e#694#695#0" expanded="true" />
+            <element signature="e#738#739#0" expanded="true" />
+            <element signature="e#793#794#0" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#910#911#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+            <element signature="e#983#984#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.mx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="138">
+          <caret line="224" lean-forward="true" selection-start-line="224" selection-end-line="224" />
           <folding>
             <element signature="method#IntermediateRepresentationBuilder#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#getFunctionLabel#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#1206#2233#1" />
-            <element signature="e#1426#1842#1" />
-            <element signature="e#1893#2223#1" />
+            <element signature="e#1095#2122#1" />
+            <element signature="e#1315#1731#1" />
+            <element signature="e#1782#2112#1" />
             <element signature="method#getArrayType#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitCompilationUnitNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#2769#3408#1" />
-            <element signature="e#2829#3277#1" />
-            <element signature="e#3068#3217#1" />
+            <element signature="e#2849#3488#1" />
+            <element signature="e#2909#3357#1" />
+            <element signature="e#3148#3297#1" />
             <element signature="method#visitFunctionDeclarationNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#4082#4476#1" />
-            <element signature="e#4359#4585#1" />
-            <element signature="e#4809#5117#1" />
+            <element signature="e#4076#4393#1" />
+            <element signature="e#4493#4719#1" />
+            <element signature="e#4889#5197#1" />
             <element signature="method#visitReturnStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#5819#6133#1" />
+            <element signature="e#5899#6213#1" />
             <element signature="method#visitBlockStatementNode#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitLoopStatementNode#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitBreakStatementNode#0;class#IntermediateRepresentationBuilder#0" />
@@ -1085,31 +1030,67 @@
             <element signature="method#visitArrayExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitBinaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitCreatorExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#13273#13307#1" />
-            <element signature="e#13469#13517#1" />
-            <element signature="e#13580#13634#1" />
-            <element signature="e#14071#14735#1" />
+            <element signature="e#13613#14323#1" />
+            <element signature="e#13751#14313#1" />
+            <element signature="e#13862#14299#1" />
+            <element signature="e#14329#16330#1" />
             <element signature="method#visitDotExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitFunctionExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#17856#17894#1" />
-            <element signature="e#18523#18569#1" />
-            <element signature="e#17870#18207#1" />
-            <element signature="e#18165#18217#1" />
+            <element signature="e#17796#19033#1" />
+            <element signature="e#18463#18825#1" />
+            <element signature="e#19039#19900#1" />
+            <element signature="e#19334#19692#1" />
             <element signature="method#visitIdentifierExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#17940#20064#1" />
-            <element signature="e#17989#18355#1" />
-            <element signature="e#18406#18775#1" />
-            <element signature="e#18823#20007#1" />
-            <element signature="e#18869#19269#1" />
-            <element signature="e#19275#19993#1" />
-            <element signature="e#19445#19975#1" />
+            <element signature="e#20188#22820#1" />
+            <element signature="e#20237#20580#1" />
+            <element signature="e#20631#21035#1" />
+            <element signature="e#21083#22763#1" />
+            <element signature="e#21129#21506#1" />
+            <element signature="e#21512#22749#1" />
+            <element signature="e#21682#22731#1" />
             <element signature="method#visitLiteralExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-            <element signature="e#23160#23535#1" />
-            <element signature="e#23493#23535#1" />
-            <element signature="e#24077#24561#1" />
-            <element signature="e#24219#24254#1" />
+            <element signature="e#23100#24072#1" />
+            <element signature="e#23433#24001#1" />
+            <element signature="e#24078#24636#1" />
+            <element signature="e#24220#24446#1" />
             <element signature="method#visitUnaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/syntax/SyntaxChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="197" selection-start-line="197" selection-end-line="197" />
+          <folding>
+            <element signature="method#SyntaxChecker#0;class#SyntaxChecker#0" />
+            <element signature="method#assignExpressionCheck#0;class#SyntaxChecker#0" />
+            <element signature="method#isStringType#0;class#SyntaxChecker#0" />
+            <element signature="method#checkInLoop#0;class#SyntaxChecker#0" />
+            <element signature="e#1361#1517#1" />
+            <element signature="e#1413#1452#1" />
+            <element signature="method#visitCompilationUnitNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitClassDeclarationNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitExpressionStatementNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitArrayExpressionNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitBinaryExpressionNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitCreatorExpressionNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitDotExpressionNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitIdentifierExpressionNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitUnaryExpressionNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitFunctionDeclarationNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitLoopStatementNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitReturnStatementNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitContinueStatementNode#0;class#SyntaxChecker#0" />
+            <element signature="method#visitBreakStatementNode#0;class#SyntaxChecker#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
         </state>
       </provider>
     </entry>

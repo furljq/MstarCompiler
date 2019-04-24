@@ -1,5 +1,7 @@
 package com.fur;
 
+import com.fur.intermediateRepresentation.IntermediateRepresentationBuilder;
+import com.fur.intermediateRepresentation.node.FunctionIRNode;
 import com.fur.symbolTable.Entity.ClassEntity;
 import com.fur.symbolTable.SymbolTableBuilder;
 import com.fur.antlrParseTree.MstarLexer;
@@ -30,7 +32,7 @@ class Compiler {
         MstarLexer lexer = new MstarLexer(mstarFileCharStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         MstarParser parser = new MstarParser(commonTokenStream);
-        parser.removeErrorListeners();;
+        parser.removeErrorListeners();
         parser.addErrorListener(new ParseTreeErrorListener());
         MstarParser.CompilationUnitContext parseTree = parser.compilationUnit();
         AbstractSyntaxTreeBuilder astBuilderVisitor = new AbstractSyntaxTreeBuilder();
@@ -47,10 +49,16 @@ class Compiler {
         syntaxChecker.visit(abstractSyntaxTree);
     }
 
+    private FunctionIRNode buildIR(CompilationUnitNode abstractSyntaxTree, ClassEntity globalEntity) {
+        IntermediateRepresentationBuilder intermediateRepresentationBuilder = new IntermediateRepresentationBuilder(globalEntity);
+        return intermediateRepresentationBuilder.visit(abstractSyntaxTree);
+    }
+
     void compile() {
         CompilationUnitNode abstractSyntaxTree = buildAbstractSyntaxTree(mstarFileCharStream);
         ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
         syntaxCheck(abstractSyntaxTree, globalEntity);
+        FunctionIRNode irNode = buildIR(abstractSyntaxTree, globalEntity);
     }
 
 }

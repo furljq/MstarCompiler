@@ -131,15 +131,6 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             baseType = new ArrayType(baseType);
         for (int i = 0; i < node.getFixedDimension().size(); i++)
             baseType = new ArrayType(baseType);
-        if (node.getArguments().size() > 0) {
-            if (!(baseType instanceof ClassType)) throw new Error();
-            ClassEntity classEntity = globalEntity.getClassEntity(((ClassType) baseType).getClassName());
-            FunctionEntity functionEntity = classEntity.getFunctionEntity(((ClassType) baseType).getClassName());
-            for (int i = 0; i < node.getArguments().size(); i++) {
-                BaseType argumentType = visit(node.getArguments().get(i));
-                if (!argumentType.equals(functionEntity.getParameterList().get(i).getType())) throw new Error();
-            }
-        }
         return baseType;
     }
 

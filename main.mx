@@ -1,16 +1,4 @@
 int main() {
-    int a;
-    int t1 = 1 + 1;
-    a = t1 + 1;
+    int a = 1 + 1 + 1;
+    println(toString(a));
 }
-
-int a = 1 + 1 + 1;
-
-t1 = t1 + 1
-
-a -> int
-t1
-
-(int bool) (string class)
-reg->value  reg->address
-     reg->address

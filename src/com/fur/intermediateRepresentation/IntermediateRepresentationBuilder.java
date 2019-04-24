@@ -80,7 +80,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         ClassEntity oldEntity = (ClassEntity) currentEntity;
         currentEntity = ((ClassEntity) currentEntity).getFunctionEntity(node.getName());
         List<BaseIRNode> body = new ArrayList<>();
-        IRRegister returnRegister = new IRRegister();
+        IRRegister destIRRegister = new IRRegister();
         body.add(new LabelIRNode(((FunctionEntity) currentEntity).getEntryLabel()));
         if (oldEntity != globalEntity) {
             IRRegister parameterRegister = new IRRegister();
@@ -93,7 +93,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             parameterEntity.setIRRegister(parameterRegister);
             body.add(new OperateIRNode(OperatorList.ALLOC, parameterRegister, null, null));
         }
-        ((FunctionEntity) currentEntity).setReturnRegister(returnRegister);
+        destIRRegister.setType(node.getTypeNode().getType());
+        ((FunctionEntity) currentEntity).setReturnRegister(destIRRegister);
         for (int i = 0; i < ((FunctionEntity) currentEntity).getParameterList().size(); i++) {
             VariableEntity parameterEntity = ((FunctionEntity) currentEntity).getParameterList().get(i);
             IRRegister parameterRegister = parameterEntity.getIRRegister();
@@ -101,9 +102,9 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         }
         body.addAll(visit(node.getBlockStatementNodes()).getBodyNode());
         body.add(new LabelIRNode(((FunctionEntity) currentEntity).getReturnLabel()));
-        body.add(new OperateIRNode(OperatorList.RETURN, returnRegister, null, null));
+        body.add(new OperateIRNode(OperatorList.RETURN, destIRRegister, null, null));
         currentEntity = oldEntity;
-        return new FunctionIRNode(body, returnRegister);
+        return new FunctionIRNode(body, destIRRegister);
     }
 
     @Override
@@ -123,8 +124,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     @Override
     public FunctionIRNode visitBlockStatementNode(BlockStatementNode node) {
         BaseEntity oldEntity = currentEntity;
-        if (currentEntity instanceof FunctionEntity) currentEntity = ((FunctionEntity) currentEntity).getBlockEntity();
         if (currentEntity instanceof BlockEntity) currentEntity = ((BlockEntity) currentEntity).get(node.getPosition());
+        if (currentEntity instanceof FunctionEntity) currentEntity = ((FunctionEntity) currentEntity).getBlockEntity();
         List<BaseIRNode> body = new ArrayList<>();
         for (BaseNode variableDeclarationNode : node.getStatementNodes())
             if (variableDeclarationNode instanceof VariableDeclarationNode)
@@ -213,6 +214,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     @Override
     public FunctionIRNode visitVariableDeclarationNode(VariableDeclarationNode node) {
         IRRegister variableRegister = new IRRegister();
+        variableRegister.setType(node.getTypeNode().getType());
         assert currentEntity instanceof BlockEntity;
         VariableEntity variableEntity = ((BlockEntity) currentEntity).get(node.getName());
         variableEntity.setIRRegister(variableRegister);
@@ -247,9 +249,14 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         List<BaseIRNode> body = new ArrayList<>();
         body.addAll(leftExpression.getBodyNode());
         body.addAll(rightExpression.getBodyNode());
-        IRRegister destIRRegister = new IRRegister();
-        body.add(new OperateIRNode(node.getOperator(), destIRRegister, leftExpression.getReturnRegister(), rightExpression.getReturnRegister()));
-        return new FunctionIRNode(body, destIRRegister);
+        if (node.getOperator() == OperatorList.ASSIGN) {
+            body.add(new OperateIRNode(OperatorList.ASSIGN, leftExpression.getReturnRegister(), rightExpression.getReturnRegister(), null));
+            return new FunctionIRNode(body, leftExpression.getReturnRegister());
+        } else {
+            IRRegister destIRRegister = new IRRegister();
+            body.add(new OperateIRNode(node.getOperator(), destIRRegister, leftExpression.getReturnRegister(), rightExpression.getReturnRegister()));
+            return new FunctionIRNode(body, destIRRegister);
+        }
     }
 
     @Override
