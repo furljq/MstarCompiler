@@ -9,7 +9,7 @@ public class ClassEntity extends BaseEntity {
 
     private Map<String, BaseEntity> scope = new HashMap<>();
     private Map<String, Integer> index = new HashMap<>();
-    private int count = 0;
+    private int size = 0;
 
     public ClassEntity(BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
@@ -18,7 +18,7 @@ public class ClassEntity extends BaseEntity {
     public void putCover(String name, BaseEntity entity) {
         scope.put(name, entity);
         if (entity instanceof VariableEntity)
-            index.put(name, count++);
+            index.put(name, size++);
     }
 
     public void putNew(String name, BaseEntity entity) {
@@ -56,6 +56,10 @@ public class ClassEntity extends BaseEntity {
 
     public Map<String, BaseEntity> getScope() {
         return scope;
+    }
+
+    public int getSize() {
+        return size;
     }
 
 }

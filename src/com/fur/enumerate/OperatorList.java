@@ -19,5 +19,6 @@ public enum OperatorList {
     ALLOC,
     MALLOC,
     RETURN,
-    MEMORY
+    MEMORY,
+    STORE
 }
