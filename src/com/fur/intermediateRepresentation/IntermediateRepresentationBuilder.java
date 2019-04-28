@@ -76,7 +76,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         for (BaseNode variableInitializeStatement : node.getBaseNodes())
             if (variableInitializeStatement instanceof ExpressionStatementNode)
                 body.addAll(visit(variableInitializeStatement).getBodyNode());
-        body.add(new FunctionCallIRNode(globalEntity.getFunctionEntity("main").getEntryLabel()));
+        body.add(new CallIRNode(globalEntity.getFunctionEntity("main").getEntryLabel()));
         body.addAll(constructorFunction);
         for (BaseNode baseNode : node.getBaseNodes()) {
             if (baseNode instanceof ClassDeclarationNode) {
@@ -105,12 +105,12 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             IRRegister parameterRegister = new IRRegister();
             VariableEntity parameterEntity = ((FunctionEntity) currentEntity).get("this");
             parameterEntity.setIRRegister(parameterRegister);
-            body.add(new OpIRNode(OperatorList.ALLOC, parameterRegister, null));
+            body.add(new OpIRNode(OperatorList.ASSIGN, parameterRegister, 0));
         }
         for (VariableEntity parameterEntity : ((FunctionEntity) currentEntity).getParameterList()) {
             IRRegister parameterRegister = new IRRegister();
             parameterEntity.setIRRegister(parameterRegister);
-            body.add(new OpIRNode(OperatorList.ALLOC, parameterRegister, null));
+            body.add(new OpIRNode(OperatorList.ASSIGN, parameterRegister, 0));
         }
         destIRRegister.setType(node.getTypeNode().getType());
         ((FunctionEntity) currentEntity).setReturnRegister(destIRRegister);
@@ -238,7 +238,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         VariableEntity variableEntity = ((BlockEntity) currentEntity).get(node.getName());
         variableEntity.setIRRegister(variableRegister);
         List<BaseIRNode> body = new ArrayList<>();
-        body.add(new OpIRNode(OperatorList.ALLOC, variableRegister, null));
+        body.add(new OpIRNode(OperatorList.ASSIGN, variableRegister, 0));
         return new FunctionIRNode(body, variableRegister);
     }
 
@@ -340,7 +340,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 if (type instanceof ClassType) {
                     String className = ((ClassType) type).getClassName();
                     FunctionEntity constructorEntity = globalEntity.getClassEntity(className).getFunctionEntity(className);
-                    body.add(new FunctionCallIRNode(constructorEntity.getEntryLabel()));
+                    body.add(new CallIRNode(constructorEntity.getEntryLabel()));
                     body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, constructorEntity.getReturnRegister()));
                 }
             }
@@ -407,7 +407,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(argumentNode.getBodyNode());
                 body.add(new OpIRNode(OperatorList.ASSIGN, parameterIRRegister, argumentNode.getReturnRegister()));
             }
-            body.add(new FunctionCallIRNode(functionEntity.getEntryLabel()));
+            body.add(new CallIRNode(functionEntity.getEntryLabel()));
             body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, functionEntity.getReturnRegister()));
         } else {
             assert node.getfunctionNode() instanceof IdentifierExpressionNode;
@@ -418,7 +418,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(argumentNode.getBodyNode());
                 body.add(new OpIRNode(OperatorList.ASSIGN, parameterIRRegister, argumentNode.getReturnRegister()));
             }
-            body.add(new FunctionCallIRNode(functionEntity.getEntryLabel()));
+            body.add(new CallIRNode(functionEntity.getEntryLabel()));
             body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, functionEntity.getReturnRegister()));
         }
         return new FunctionIRNode(body, destIRRegister);

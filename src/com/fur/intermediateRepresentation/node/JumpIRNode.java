@@ -1,6 +1,7 @@
 package com.fur.intermediateRepresentation.node;
 
 import com.fur.intermediateRepresentation.IRLabel;
+import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class JumpIRNode extends BaseIRNode {
 
@@ -10,4 +11,8 @@ public class JumpIRNode extends BaseIRNode {
         this.irLabel = irLabel;
     }
 
+    @Override
+    public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
+        return visitor.visitJumpIRNode(this);
+    }
 }

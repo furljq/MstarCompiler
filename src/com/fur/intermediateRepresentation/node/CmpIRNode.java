@@ -2,6 +2,7 @@ package com.fur.intermediateRepresentation.node;
 
 import com.fur.enumerate.OperatorList;
 import com.fur.intermediateRepresentation.IRRegister;
+import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class CmpIRNode extends BaseIRNode {
 
@@ -46,4 +47,8 @@ public class CmpIRNode extends BaseIRNode {
         return operateIRRegister2;
     }
 
+    @Override
+    public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
+        return visitor.visitCmpIRNode(this);
+    }
 }

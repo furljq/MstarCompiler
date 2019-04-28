@@ -1,6 +1,7 @@
 package com.fur.intermediateRepresentation.node;
 
 import com.fur.intermediateRepresentation.IRRegister;
+import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class FunctionIRNode extends BaseIRNode {
 
     public IRRegister getReturnRegister() {
         return returnRegister;
+    }
+
+    @Override
+    public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
+        return visitor.visitFunctionIRNode(this);
     }
 
 }

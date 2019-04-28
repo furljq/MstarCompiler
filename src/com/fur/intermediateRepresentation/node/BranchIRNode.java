@@ -2,6 +2,7 @@ package com.fur.intermediateRepresentation.node;
 
 import com.fur.intermediateRepresentation.IRLabel;
 import com.fur.intermediateRepresentation.IRRegister;
+import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class BranchIRNode extends BaseIRNode {
     
@@ -25,5 +26,9 @@ public class BranchIRNode extends BaseIRNode {
     public IRLabel getFalseDestIDNode() {
         return falseDestIDNode;
     }
-    
+
+    @Override
+    public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
+        return visitor.visitBranchIRNode(this);
+    }
 }
