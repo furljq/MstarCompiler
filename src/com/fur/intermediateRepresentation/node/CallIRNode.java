@@ -1,16 +1,21 @@
 package com.fur.intermediateRepresentation.node;
 
+import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
+
+import java.util.List;
 
 public class CallIRNode extends BaseIRNode {
 
-    private LabelIRNode functionEntry;
+    private FunctionLabelIRNode functionEntry;
+    private List<IRRegister> parameterIRRegisters;
     
-    public CallIRNode(LabelIRNode _functionEntry) {
+    public CallIRNode(FunctionLabelIRNode _functionEntry, List<IRRegister> paramaterIRRegisters) {
         functionEntry = _functionEntry;
+        this.parameterIRRegisters = paramaterIRRegisters;
     }
 
-    public LabelIRNode getFunctionEntry() {
+    public FunctionLabelIRNode getFunctionEntry() {
         return functionEntry;
     }
 
@@ -18,4 +23,13 @@ public class CallIRNode extends BaseIRNode {
     public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
         return visitor.visitCallIRNode(this);
     }
+
+    public List<IRRegister> getParameterIRRegisters() {
+        return parameterIRRegisters;
+    }
+
+    public void setParameterIRRegisters(int index, IRRegister irRegister) {
+        parameterIRRegisters.set(index, irRegister);
+    }
+
 }
