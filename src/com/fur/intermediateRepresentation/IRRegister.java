@@ -2,13 +2,13 @@ package com.fur.intermediateRepresentation;
 
 import com.fur.type.BaseType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class IRRegister {
 
     private BaseType type;
-    private List<IRRegister> nearbyIRRegisters = new ArrayList<>();
+    private Set<IRRegister> nearbyIRRegisters = new HashSet<>();
     private IRRegister reallocate;
 
     public void setType(BaseType type) {
@@ -19,7 +19,7 @@ public class IRRegister {
         return type;
     }
 
-    public List<IRRegister> getNearbyIRRegisters() {
+    public Set<IRRegister> getNearbyIRRegisters() {
         return nearbyIRRegisters;
     }
 

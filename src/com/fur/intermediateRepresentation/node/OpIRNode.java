@@ -11,11 +11,13 @@ public class OpIRNode extends BaseIRNode {
     private int immediate;
 
     public OpIRNode(OperatorList operator, IRRegister destIRRegister, IRRegister sourceIRRegister) {
+        this.operator = operator;
         this.destIRRegister = destIRRegister;
         this.sourceIRRegister = sourceIRRegister;
     }
 
     public OpIRNode(OperatorList operator, IRRegister destIRRegister, int immediate) {
+        this.operator = operator;
         this.destIRRegister = destIRRegister;
         this.immediate = immediate;
     }
