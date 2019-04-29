@@ -1,17 +1,16 @@
 package com.fur.intermediateRepresentation.node;
 
-import com.fur.intermediateRepresentation.IRLabel;
 import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class CallIRNode extends BaseIRNode {
 
-    private IRLabel functionEntry;
+    private LabelIRNode functionEntry;
     
-    public CallIRNode(IRLabel _functionEntry) {
+    public CallIRNode(LabelIRNode _functionEntry) {
         functionEntry = _functionEntry;
     }
 
-    public IRLabel getFunctionEntry() {
+    public LabelIRNode getFunctionEntry() {
         return functionEntry;
     }
 

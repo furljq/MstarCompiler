@@ -24,12 +24,25 @@ public class OpIRNode extends BaseIRNode {
         return operator;
     }
 
+    public void setDestIRRegister(IRRegister destIRRegister) {
+        this.destIRRegister = destIRRegister;
+    }
+
     public IRRegister getDestIRRegister() {
         return destIRRegister;
+    }
+
+    public void setSourceIRRegister(IRRegister sourceIRRegister) {
+        this.sourceIRRegister = sourceIRRegister;
+    }
+
+    public IRRegister getSourceIRRegister() {
+        return sourceIRRegister;
     }
 
     @Override
     public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
         return visitor.visitOpIRNode(this);
     }
+
 }

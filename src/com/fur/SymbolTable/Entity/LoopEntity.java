@@ -1,37 +1,37 @@
 package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
-import com.fur.intermediateRepresentation.IRLabel;
+import com.fur.intermediateRepresentation.node.LabelIRNode;
 
 public class LoopEntity extends BlockEntity {
 
-    private IRLabel conditionLabel, continueLabel, breakLabel;
+    private LabelIRNode conditionLabel, continueLabel, breakLabel;
 
     public LoopEntity(BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
     }
 
-    public void setConditionLabel(IRLabel conditionLabel) {
+    public void setConditionLabel(LabelIRNode conditionLabel) {
         this.conditionLabel = conditionLabel;
     }
 
-    public void setContinueLabel(IRLabel continueLabel) {
+    public void setContinueLabel(LabelIRNode continueLabel) {
         this.continueLabel = continueLabel;
     }
 
-    public void setBreakLabel(IRLabel breakLabel) {
+    public void setBreakLabel(LabelIRNode breakLabel) {
         this.breakLabel = breakLabel;
     }
 
-    public IRLabel getConditionLabel() {
+    public LabelIRNode getConditionLabel() {
         return conditionLabel;
     }
 
-    public IRLabel getContinueLabel() {
+    public LabelIRNode getContinueLabel() {
         return continueLabel;
     }
 
-    public IRLabel getBreakLabel() {
+    public LabelIRNode getBreakLabel() {
         return breakLabel;
     }
 

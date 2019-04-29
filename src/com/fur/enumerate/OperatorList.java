@@ -16,7 +16,7 @@ public enum OperatorList {
     LOGICALOR,
     ASSIGN,
 
-    ALLOC,
     MALLOC,
-    MEMORY
+    MEMORY,
+    STORE
 }

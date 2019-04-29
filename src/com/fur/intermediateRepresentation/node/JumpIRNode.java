@@ -1,14 +1,17 @@
 package com.fur.intermediateRepresentation.node;
 
-import com.fur.intermediateRepresentation.IRLabel;
 import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class JumpIRNode extends BaseIRNode {
 
-    private IRLabel irLabel;
+    private LabelIRNode destLabelNode;
 
-    public JumpIRNode(IRLabel irLabel) {
-        this.irLabel = irLabel;
+    public JumpIRNode(LabelIRNode irLabel) {
+        this.destLabelNode = irLabel;
+    }
+
+    public LabelIRNode getDestLabelNode() {
+        return destLabelNode;
     }
 
     @Override

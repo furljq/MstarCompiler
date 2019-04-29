@@ -1,29 +1,32 @@
 package com.fur.intermediateRepresentation.node;
 
-import com.fur.intermediateRepresentation.IRLabel;
 import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class BranchIRNode extends BaseIRNode {
     
     private IRRegister conditionRegister;
-    private IRLabel trueDestIRNode, falseDestIDNode;
+    private LabelIRNode trueDestIRNode, falseDestIDNode;
     
-    public BranchIRNode(IRRegister _conditionRegister, IRLabel _trueDestIRNode, IRLabel _falseDestIDNode) {
+    public BranchIRNode(IRRegister _conditionRegister, LabelIRNode _trueDestIRNode, LabelIRNode _falseDestIDNode) {
         conditionRegister = _conditionRegister;
         trueDestIRNode = _trueDestIRNode;
         falseDestIDNode = _falseDestIDNode;
+    }
+
+    public void setConditionRegister(IRRegister conditionRegister) {
+        this.conditionRegister = conditionRegister;
     }
 
     public IRRegister getConditionRegister() {
         return conditionRegister;
     }
 
-    public IRLabel getTrueDestIRNode() {
+    public LabelIRNode getTrueDestIRNode() {
         return trueDestIRNode;
     }
 
-    public IRLabel getFalseDestIDNode() {
+    public LabelIRNode getFalseDestIDNode() {
         return falseDestIDNode;
     }
 

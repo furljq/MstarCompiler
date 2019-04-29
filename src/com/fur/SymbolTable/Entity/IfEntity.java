@@ -1,37 +1,37 @@
 package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
-import com.fur.intermediateRepresentation.IRLabel;
+import com.fur.intermediateRepresentation.node.LabelIRNode;
 
 public class IfEntity extends BlockEntity {
 
-    private IRLabel thenLabel, elseLabel, endLabel;
+    private LabelIRNode thenLabel, elseLabel, endLabel;
 
     public IfEntity(BaseEntity _parentEntity, Position _position) {
         super(_parentEntity, _position);
     }
 
-    public void setThenLabel(IRLabel thenLabel) {
+    public void setThenLabel(LabelIRNode thenLabel) {
         this.thenLabel = thenLabel;
     }
 
-    public void setElseLabel(IRLabel elseLabel) {
+    public void setElseLabel(LabelIRNode elseLabel) {
         this.elseLabel = elseLabel;
     }
 
-    public void setEndLabel(IRLabel endLabel) {
+    public void setEndLabel(LabelIRNode endLabel) {
         this.endLabel = endLabel;
     }
 
-    public IRLabel getThenLabel() {
+    public LabelIRNode getThenLabel() {
         return thenLabel;
     }
 
-    public IRLabel getElseLabel() {
+    public LabelIRNode getElseLabel() {
         return elseLabel;
     }
 
-    public IRLabel getEndLabel() {
+    public LabelIRNode getEndLabel() {
         return endLabel;
     }
 

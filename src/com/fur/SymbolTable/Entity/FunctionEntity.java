@@ -1,8 +1,8 @@
 package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
-import com.fur.intermediateRepresentation.IRLabel;
 import com.fur.intermediateRepresentation.IRRegister;
+import com.fur.intermediateRepresentation.node.LabelIRNode;
 import com.fur.type.BaseType;
 
 import java.util.ArrayList;
@@ -17,21 +17,21 @@ public class FunctionEntity extends BaseEntity {
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
     private IRRegister returnRegister;
-    private IRLabel entryLabel, returnLabel;
+    private LabelIRNode entryLabel, returnLabel;
 
-    public void setEntryLabel(IRLabel entryLabel) {
+    public void setEntryLabel(LabelIRNode entryLabel) {
         this.entryLabel = entryLabel;
     }
 
-    public void setReturnLabel(IRLabel returnLabel) {
+    public void setReturnLabel(LabelIRNode returnLabel) {
         this.returnLabel = returnLabel;
     }
 
-    public IRLabel getEntryLabel() {
+    public LabelIRNode getEntryLabel() {
         return entryLabel;
     }
 
-    public IRLabel getReturnLabel() {
+    public LabelIRNode getReturnLabel() {
         return returnLabel;
     }
 
