@@ -38,14 +38,14 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             if (entity instanceof ClassEntity) {
                 for (BaseEntity memberFunctionEntity : ((ClassEntity) entity).getScope().values())
                     if (memberFunctionEntity instanceof FunctionEntity) {
-                        ((FunctionEntity) memberFunctionEntity).setEntryLabel(new LabelIRNode());
+                        ((FunctionEntity) memberFunctionEntity).setEntryLabel(new FunctionLabelIRNode());
                         ((FunctionEntity) memberFunctionEntity).setReturnLabel(new LabelIRNode());
                         while (parameterIRRegisters.size() < ((FunctionEntity) memberFunctionEntity).getParameterList().size() + 1)
                             parameterIRRegisters.add(new IRRegister());
                     }
                 if (!((ClassEntity) entity).hasFunctionEntity(name)) {
                     FunctionEntity constructorEntity = new FunctionEntity(entity, entity.getPosition());
-                    LabelIRNode entryLabel = new LabelIRNode();
+                    FunctionLabelIRNode entryLabel = new FunctionLabelIRNode();
                     constructorEntity.setEntryLabel(entryLabel);
                     LabelIRNode returnLabel = new LabelIRNode();
                     constructorEntity.setReturnLabel(returnLabel);
@@ -58,7 +58,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 }
             }
             if (entity instanceof FunctionEntity) {
-                ((FunctionEntity) entity).setEntryLabel(new LabelIRNode());
+                ((FunctionEntity) entity).setEntryLabel(new FunctionLabelIRNode());
                 ((FunctionEntity) entity).setReturnLabel(new LabelIRNode());
                 while (parameterIRRegisters.size() < ((FunctionEntity) entity).getParameterList().size())
                     parameterIRRegisters.add(new IRRegister());
@@ -151,11 +151,19 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 ((RetIRNode) instruction).setReturnIRRegister(reallocate(((RetIRNode) instruction).getReturnIRRegister()));
         }
         List<BaseIRNode> code = new ArrayList<>();
+        FunctionLabelIRNode currentFunction = null;
         for (BaseIRNode instruction : instructions) {
+            if (instruction instanceof FunctionLabelIRNode) currentFunction = (FunctionLabelIRNode) instruction;
             if (instruction instanceof OpIRNode)
                 if (((OpIRNode) instruction).getOperator() == OperatorList.ASSIGN)
                     if (((OpIRNode) instruction).getSourceIRRegister() == ((OpIRNode) instruction).getDestIRRegister())
                         continue;
+            if (currentFunction != null) {
+                if (instruction instanceof OpIRNode)
+                    currentFunction.getIrRegisters().add(((OpIRNode) instruction).getDestIRRegister());
+                if (instruction instanceof CmpIRNode)
+                    currentFunction.getIrRegisters().add(((CmpIRNode) instruction).getDestIRRegister());
+            }
             code.add(instruction);
         }
         return code;

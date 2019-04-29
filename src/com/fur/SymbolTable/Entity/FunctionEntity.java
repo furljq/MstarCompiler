@@ -2,6 +2,7 @@ package com.fur.symbolTable.Entity;
 
 import com.fur.Position;
 import com.fur.intermediateRepresentation.IRRegister;
+import com.fur.intermediateRepresentation.node.FunctionLabelIRNode;
 import com.fur.intermediateRepresentation.node.LabelIRNode;
 import com.fur.type.BaseType;
 
@@ -17,9 +18,10 @@ public class FunctionEntity extends BaseEntity {
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
     private IRRegister returnRegister;
-    private LabelIRNode entryLabel, returnLabel;
+    private FunctionLabelIRNode entryLabel;
+    private LabelIRNode returnLabel;
 
-    public void setEntryLabel(LabelIRNode entryLabel) {
+    public void setEntryLabel(FunctionLabelIRNode entryLabel) {
         this.entryLabel = entryLabel;
     }
 
@@ -27,7 +29,7 @@ public class FunctionEntity extends BaseEntity {
         this.returnLabel = returnLabel;
     }
 
-    public LabelIRNode getEntryLabel() {
+    public FunctionLabelIRNode getEntryLabel() {
         return entryLabel;
     }
 
