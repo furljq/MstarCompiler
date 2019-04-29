@@ -54,7 +54,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                     body.add(entryLabel);
                     body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, ((ClassEntity) entity).getSize()));
                     body.add(returnLabel);
-                    body.add(new RetIRNode());
+                    body.add(new RetIRNode(destIRRegister));
                 }
             }
             if (entity instanceof FunctionEntity) {
@@ -119,6 +119,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 if (instruction instanceof OpIRNode)
                     if (((OpIRNode) instruction).getSourceIRRegister() != null)
                         instruction.getLiveIRRegister().add(((OpIRNode) instruction).getSourceIRRegister());
+                if (instruction instanceof RetIRNode)
+                    instruction.getLiveIRRegister().add(((RetIRNode) instruction).getReturnIRRegister());
                 if (liveIRRegister.size() != instruction.getLiveIRRegister().size()) diff = true;
                 else {
                     int j = 0;
@@ -145,6 +147,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 if (((OpIRNode) instruction).getSourceIRRegister() != null)
                     ((OpIRNode) instruction).setSourceIRRegister(reallocate(((OpIRNode) instruction).getSourceIRRegister()));
             }
+            if (instruction instanceof RetIRNode)
+                ((RetIRNode) instruction).setReturnIRRegister(reallocate(((RetIRNode) instruction).getReturnIRRegister()));
         }
         List<BaseIRNode> code = new ArrayList<>();
         for (BaseIRNode instruction : instructions) {
@@ -213,7 +217,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         }
         body.addAll(visit(node.getBlockStatementNodes()).getBodyNode());
         body.add(((FunctionEntity) currentEntity).getReturnLabel());
-        body.add(new RetIRNode());
+        body.add(new RetIRNode(destIRRegister));
         currentEntity = oldEntity;
         return new FunctionIRNode(body, destIRRegister);
     }
