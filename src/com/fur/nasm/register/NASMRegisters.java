@@ -1,0 +1,50 @@
+package com.fur.nasm.register;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class NASMRegisters {
+
+    private List<NASMRegister> registers;
+
+    public NASMRegisters() {
+        registers = new ArrayList<>();
+        registers.add(new NASMRegister("rax"));
+        registers.add(new NASMRegister("rcx"));
+        registers.add(new NASMRegister("rdx"));
+        registers.add(new NASMRegister("rbx"));
+        registers.add(new NASMRegister("rsi"));
+        registers.add(new NASMRegister("rdi"));
+        registers.add(new NASMRegister("rsp"));
+        registers.add(new NASMRegister("rbp"));
+        registers.add(new NASMRegister("r8"));
+        registers.add(new NASMRegister("r9"));
+        registers.add(new NASMRegister("r10"));
+        registers.add(new NASMRegister("r11"));
+        registers.add(new NASMRegister("r12"));
+        registers.add(new NASMRegister("r13"));
+        registers.add(new NASMRegister("r14"));
+        registers.add(new NASMRegister("r15"));
+    }
+
+    public NASMRegister getRegister(String name) {
+        if (name.equals("rax")) return registers.get(0);
+        if (name.equals("rcx")) return registers.get(1);
+        if (name.equals("rdx")) return registers.get(2);
+        if (name.equals("rbx")) return registers.get(3);
+        if (name.equals("rsi")) return registers.get(4);
+        if (name.equals("rdi")) return registers.get(5);
+        if (name.equals("rsp")) return registers.get(6);
+        if (name.equals("rbp")) return registers.get(7);
+        if (name.equals("r8")) return registers.get(8);
+        if (name.equals("r9")) return registers.get(9);
+        if (name.equals("r10")) return registers.get(10);
+        if (name.equals("r11")) return registers.get(11);
+        if (name.equals("r12")) return registers.get(12);
+        if (name.equals("r13")) return registers.get(13);
+        if (name.equals("r14")) return registers.get(14);
+        if (name.equals("r15")) return registers.get(15);
+        return null;
+    }
+
+}

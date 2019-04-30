@@ -6,6 +6,7 @@ import com.fur.abstractSyntaxTree.node.*;
 import com.fur.enumerate.OperatorList;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.intermediateRepresentation.node.*;
+import com.fur.nasm.memory.NASMStackMemory;
 import com.fur.symbolTable.Entity.*;
 import com.fur.type.ArrayType;
 import com.fur.type.BaseType;
@@ -86,7 +87,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         return reallocateIRRegister;
     }
 
-    private List<BaseIRNode> liveAnalyze(List<BaseIRNode> instructions) {
+    private void liveAnalyze(List<BaseIRNode> instructions) {
         while (true) {
             boolean diff = false;
             for (int i = 0; i < instructions.size() - 1; i++) {
@@ -151,8 +152,12 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 for (int i = 0; i < ((CallIRNode) instruction).getParameterIRRegisters().size(); i++)
                     ((CallIRNode) instruction).setParameterIRRegisters(i, reallocate(((CallIRNode) instruction).getParameterIRRegisters().get(i)));
         }
+    }
+
+    private List<BaseIRNode> memoryAllocate(List<BaseIRNode> instructions) {
         List<BaseIRNode> code = new ArrayList<>();
         FunctionLabelIRNode currentFunction = null;
+        int cnt = 0;
         for (BaseIRNode instruction : instructions) {
             if (instruction instanceof FunctionLabelIRNode) currentFunction = (FunctionLabelIRNode) instruction;
             if (instruction instanceof OpIRNode)
@@ -160,10 +165,35 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                     if (((OpIRNode) instruction).getSourceIRRegister() == ((OpIRNode) instruction).getDestIRRegister())
                         continue;
             if (currentFunction != null) {
-                if (instruction instanceof OpIRNode)
-                    currentFunction.getIrRegisters().add(((OpIRNode) instruction).getDestIRRegister());
-                if (instruction instanceof CmpIRNode)
-                    currentFunction.getIrRegisters().add(((CmpIRNode) instruction).getDestIRRegister());
+                if (instruction instanceof BranchIRNode)
+                    if (((BranchIRNode) instruction).getConditionRegister().getMemory() == null)
+                        ((BranchIRNode) instruction).getConditionRegister().setMemory(new NASMStackMemory(++cnt));
+                if (instruction instanceof OpIRNode) {
+                    if (((OpIRNode) instruction).getDestIRRegister().getMemory() == null)
+                        ((OpIRNode) instruction).getDestIRRegister().setMemory(new NASMStackMemory(++cnt));
+                    if (((OpIRNode) instruction).getSourceIRRegister().getMemory() == null)
+                        ((OpIRNode) instruction).getSourceIRRegister().setMemory(new NASMStackMemory(++cnt));
+                }
+                if (instruction instanceof CallIRNode)
+                    for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters())
+                        if (parameterIRRegister.getMemory() == null) parameterIRRegister.setMemory(new NASMStackMemory(++cnt));
+                if (instruction instanceof CmpIRNode) {
+                    if (((CmpIRNode) instruction).getDestIRRegister().getMemory() == null)
+                        ((CmpIRNode) instruction).getDestIRRegister().setMemory(new NASMStackMemory(++cnt));
+                    if (((CmpIRNode) instruction).getOperateIRRegister1().getMemory() == null)
+                        ((CmpIRNode) instruction).getOperateIRRegister1().setMemory(new NASMStackMemory(++cnt));
+                    if (((CmpIRNode) instruction).getOperateIRRegister2().getMemory() == null)
+                        ((CmpIRNode) instruction).getOperateIRRegister2().setMemory(new NASMStackMemory(++cnt));
+                }
+                if (instruction instanceof RetIRNode)
+                    if (((RetIRNode) instruction).getReturnIRRegister().getMemory() == null)
+                        ((RetIRNode) instruction).getReturnIRRegister().setMemory(new NASMStackMemory(++cnt));
+            }
+            if (instruction instanceof RetIRNode) {
+                assert currentFunction != null;
+                currentFunction.setIrRegisterSize(cnt);
+                currentFunction = null;
+                cnt = 0;
             }
             code.add(instruction);
         }
@@ -194,8 +224,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(visit(baseNode).getBodyNode());
         }
         body.add(new LabelIRNode());
-        body = liveAnalyze(body);
-        return new FunctionIRNode(body, null);
+        liveAnalyze(body);
+        return new FunctionIRNode(memoryAllocate(body), null);
     }
 
     @Override
