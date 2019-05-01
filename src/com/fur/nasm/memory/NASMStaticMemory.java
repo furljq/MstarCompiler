@@ -6,4 +6,9 @@ public class NASMStaticMemory extends NASMMemory {
 
     private NASMLabel label;
 
+    @Override
+    public String print() {
+        return "[rel " + label + "]";
+    }
+
 }

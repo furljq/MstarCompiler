@@ -47,4 +47,21 @@ public class NASMRegisters {
         return null;
     }
 
+    public NASMRegister getParameterRegister(int index) {
+        if (index == 0) return registers.get(5);
+        if (index == 1) return registers.get(4);
+        if (index == 2) return registers.get(2);
+        if (index == 3) return registers.get(1);
+        if (index == 4) return registers.get(8);
+        if (index == 5) return registers.get(9);
+        return null;
+    }
+
+    public NASMRegister getFreeRegister() {
+        for (NASMRegister register : registers)
+            if (register.getIrRegister() == null)
+                return register;
+        return null;
+    }
+
 }

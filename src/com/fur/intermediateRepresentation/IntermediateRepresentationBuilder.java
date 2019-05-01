@@ -6,6 +6,8 @@ import com.fur.abstractSyntaxTree.node.*;
 import com.fur.enumerate.OperatorList;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.intermediateRepresentation.node.*;
+import com.fur.nasm.label.NASMLabel;
+import com.fur.nasm.label.NASMLabels;
 import com.fur.nasm.memory.NASMStackMemory;
 import com.fur.symbolTable.Entity.*;
 import com.fur.type.ArrayType;
@@ -24,6 +26,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     private BaseEntity currentEntity;
     private List<BaseIRNode> constructorFunction;
     private List<IRRegister> reallocateIRRegisters = new ArrayList<>();
+    private NASMLabels labels = new NASMLabels();
 
     public IntermediateRepresentationBuilder(ClassEntity _globalEntity) {
         globalEntity = _globalEntity;
@@ -157,6 +160,18 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     private List<BaseIRNode> memoryAllocate(List<BaseIRNode> instructions) {
         List<BaseIRNode> code = new ArrayList<>();
         FunctionLabelIRNode currentFunction = null;
+        for (BaseIRNode instruction : instructions) {
+            if (instruction instanceof FunctionLabelIRNode) {
+                currentFunction = (FunctionLabelIRNode) instruction;
+                FunctionEntity functionEntity = currentFunction.getEntity();
+                for (int i = 0; i < functionEntity.getParameterList().size(); i++) {
+                    VariableEntity parameterEntity = functionEntity.getParameterList().get(i);
+                    IRRegister paramaterIRRegister = parameterEntity.getIRRegister();
+                    if (i < 6) paramaterIRRegister.setMemory(new NASMStackMemory(i + 1));
+                    else paramaterIRRegister.setMemory(new NASMStackMemory(4 - i));
+                }
+            }
+        }
         int cnt = 0;
         for (BaseIRNode instruction : instructions) {
             if (instruction instanceof FunctionLabelIRNode) currentFunction = (FunctionLabelIRNode) instruction;
@@ -191,10 +206,12 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             }
             if (instruction instanceof RetIRNode) {
                 assert currentFunction != null;
+                cnt = currentFunction.getEntity().getParameterList().size();
+                if (cnt > 6) cnt = 6;
                 currentFunction.setIrRegisterSize(cnt);
                 currentFunction = null;
-                cnt = 0;
             }
+            if (instruction instanceof LabelIRNode) ((LabelIRNode) instruction).setNasmLabel(labels.getnew());
             code.add(instruction);
         }
         return code;

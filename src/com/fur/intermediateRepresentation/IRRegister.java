@@ -51,4 +51,10 @@ public class IRRegister {
     public void setRegister(NASMRegister register) {
         this.register = register;
     }
+
+    public String print() {
+        if (register == null) return memory.print();
+        return register.getName();
+    }
+
 }
