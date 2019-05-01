@@ -1,11 +1,4 @@
 int main() {
     int a = 1 + 1;
-
-    r1 = 1;
-    r2 = 1;
-    r3 = r1 + r2;
-    a = r3;
-
-    a = 1;
-    a = a + 1;
+    int b = a;
 }

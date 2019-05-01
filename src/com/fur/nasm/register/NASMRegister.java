@@ -29,7 +29,7 @@ public class NASMRegister {
 
     public List<String> store() {
         List<String> code = new ArrayList<>();
-        if (irRegister == null) return null;
+        if (irRegister == null) return new ArrayList<>();
         NASMMemory memory = irRegister.getMemory();
         code.add("mov\t" + memory.print() + ", " + name);
         return code;

@@ -37,7 +37,8 @@ public class IRRegister {
     }
 
     public NASMMemory getMemory() {
-        return memory;
+        if (reallocate == null) return memory;
+        return reallocate.getMemory();
     }
 
     public void setMemory(NASMMemory memory) {
@@ -45,7 +46,8 @@ public class IRRegister {
     }
 
     public NASMRegister getRegister() {
-        return register;
+        if (reallocate == null) return register;
+        return reallocate.getRegister();
     }
 
     public void setRegister(NASMRegister register) {
@@ -53,8 +55,11 @@ public class IRRegister {
     }
 
     public String print() {
-        if (register == null) return memory.print();
-        return register.getName();
+        if (reallocate == null) {
+            if (register == null) return memory.print();
+            return register.getName();
+        }
+        return reallocate.print();
     }
 
 }

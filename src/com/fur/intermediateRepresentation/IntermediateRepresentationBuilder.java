@@ -9,6 +9,7 @@ import com.fur.intermediateRepresentation.node.*;
 import com.fur.nasm.label.NASMLabel;
 import com.fur.nasm.label.NASMLabels;
 import com.fur.nasm.memory.NASMStackMemory;
+import com.fur.nasm.memory.NASMStaticMemory;
 import com.fur.symbolTable.Entity.*;
 import com.fur.type.ArrayType;
 import com.fur.type.BaseType;
@@ -72,6 +73,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     }
     
     private IRRegister reallocate(IRRegister irRegister) {
+        if (irRegister.getMemory() != null)
+            return irRegister;
         if (irRegister.getReallocate() != null)
             return irRegister.getReallocate();
         Map<IRRegister, Boolean> reallocateMap = new HashMap<>();
@@ -164,6 +167,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             if (instruction instanceof FunctionLabelIRNode) {
                 currentFunction = (FunctionLabelIRNode) instruction;
                 FunctionEntity functionEntity = currentFunction.getEntity();
+                if (functionEntity == null) continue;
                 for (int i = 0; i < functionEntity.getParameterList().size(); i++) {
                     VariableEntity parameterEntity = functionEntity.getParameterList().get(i);
                     IRRegister paramaterIRRegister = parameterEntity.getIRRegister();
@@ -186,8 +190,9 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 if (instruction instanceof OpIRNode) {
                     if (((OpIRNode) instruction).getDestIRRegister().getMemory() == null)
                         ((OpIRNode) instruction).getDestIRRegister().setMemory(new NASMStackMemory(++cnt));
-                    if (((OpIRNode) instruction).getSourceIRRegister().getMemory() == null)
-                        ((OpIRNode) instruction).getSourceIRRegister().setMemory(new NASMStackMemory(++cnt));
+                    if (((OpIRNode) instruction).getSourceIRRegister() != null)
+                        if (((OpIRNode) instruction).getSourceIRRegister().getMemory() == null)
+                            ((OpIRNode) instruction).getSourceIRRegister().setMemory(new NASMStackMemory(++cnt));
                 }
                 if (instruction instanceof CallIRNode)
                     for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters())
@@ -206,9 +211,11 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             }
             if (instruction instanceof RetIRNode) {
                 assert currentFunction != null;
-                cnt = currentFunction.getEntity().getParameterList().size();
-                if (cnt > 6) cnt = 6;
-                currentFunction.setIrRegisterSize(cnt);
+                if (currentFunction.getEntity() != null) {
+                    cnt = currentFunction.getEntity().getParameterList().size();
+                    if (cnt > 6) cnt = 6;
+                    currentFunction.setIrRegisterSize(cnt);
+                }
                 currentFunction = null;
             }
             if (instruction instanceof LabelIRNode) ((LabelIRNode) instruction).setNasmLabel(labels.getnew());
@@ -220,13 +227,19 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     @Override
     public FunctionIRNode visitCompilationUnitNode(CompilationUnitNode node) {
         List<BaseIRNode> body = new ArrayList<>();
+        FunctionLabelIRNode mainLabel = new FunctionLabelIRNode(null);
+        mainLabel.setNasmLabel(new NASMLabel("main"));
+        body.add(mainLabel);
         for (BaseNode variableDeclarationNode : node.getBaseNodes())
-            if (variableDeclarationNode instanceof VariableDeclarationNode)
-                body.addAll(visit(variableDeclarationNode).getBodyNode());
+            if (variableDeclarationNode instanceof VariableDeclarationNode) {
+                IRRegister variableIRRegister = visit(variableDeclarationNode).getReturnRegister();
+                variableIRRegister.setMemory(new NASMStaticMemory(labels.getnew()));
+            }
         for (BaseNode variableInitializeStatement : node.getBaseNodes())
             if (variableInitializeStatement instanceof ExpressionStatementNode)
                 body.addAll(visit(variableInitializeStatement).getBodyNode());
         body.add(new CallIRNode(globalEntity.getFunctionEntity("main").getEntryLabel(), new ArrayList<>()));
+        body.add(new RetIRNode(new IRRegister()));
         body.addAll(constructorFunction);
         for (BaseNode baseNode : node.getBaseNodes()) {
             if (baseNode instanceof ClassDeclarationNode) {

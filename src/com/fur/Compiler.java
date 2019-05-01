@@ -1,7 +1,10 @@
 package com.fur;
 
 import com.fur.intermediateRepresentation.IntermediateRepresentationBuilder;
+import com.fur.intermediateRepresentation.node.BaseIRNode;
+import com.fur.intermediateRepresentation.node.BranchIRNode;
 import com.fur.intermediateRepresentation.node.FunctionIRNode;
+import com.fur.nasm.NASMBuilder;
 import com.fur.symbolTable.Entity.ClassEntity;
 import com.fur.symbolTable.SymbolTableBuilder;
 import com.fur.antlrParseTree.MstarLexer;
@@ -15,6 +18,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.IOException;
+import java.util.List;
 
 class Compiler {
 
@@ -54,11 +58,18 @@ class Compiler {
         return intermediateRepresentationBuilder.visit(abstractSyntaxTree);
     }
 
+    private List<String> buildNASM(List<BaseIRNode> instructions) {
+        NASMBuilder nasmBuilder = new NASMBuilder(instructions);
+        return nasmBuilder.build();
+    }
+
     void compile() {
         CompilationUnitNode abstractSyntaxTree = buildAbstractSyntaxTree(mstarFileCharStream);
         ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
         syntaxCheck(abstractSyntaxTree, globalEntity);
-        FunctionIRNode irNode = buildIR(abstractSyntaxTree, globalEntity);
+        List<BaseIRNode> irNodes = buildIR(abstractSyntaxTree, globalEntity).getBodyNode();
+        List<String> code = buildNASM(irNodes);
+        for (String line : code) System.out.println(line);
     }
 
 }
