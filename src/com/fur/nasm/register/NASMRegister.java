@@ -41,6 +41,15 @@ public class NASMRegister {
         if (irRegister != null) code.addAll(store());
         code.add("mov\t" + name + ", " + register.getMemory().print());
         register.setRegister(this);
+        irRegister = register;
+        return code;
+    }
+
+    public List<String> load(int immediate) {
+        List<String> code = new ArrayList<>();
+        if (irRegister != null) code.addAll(store());
+        code.add("mov\t" + name + ", " + immediate);
+        irRegister = null;
         return code;
     }
 

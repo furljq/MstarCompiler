@@ -5,7 +5,7 @@ public class NASMLabels {
     private int count;
 
     public NASMLabel getnew() {
-        return new NASMLabel("LABEL" + count);
+        return new NASMLabel("LABEL" + count++);
     }
 
 }

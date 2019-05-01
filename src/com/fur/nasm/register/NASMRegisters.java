@@ -58,9 +58,12 @@ public class NASMRegisters {
     }
 
     public NASMRegister getFreeRegister() {
-        for (NASMRegister register : registers)
+        for (int i = 0; i < 16; i++) {
+            if (i == 6 || i == 7) continue;
+            NASMRegister register = registers.get(i);
             if (register.getIrRegister() == null)
                 return register;
+        }
         return null;
     }
 

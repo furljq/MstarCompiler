@@ -21,7 +21,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         if (node instanceof FunctionLabelIRNode) {
             code.add("push\trbp");
             code.add("mov\trbp, rsp");
-            code.add("sub\trsp, " + ((FunctionLabelIRNode) node).getIrRegisterSize());
+            code.add("sub\trsp, " + ((FunctionLabelIRNode) node).getIrRegisterSize() * 8);
             if (((FunctionLabelIRNode) node).getEntity() != null)
                 for (int i = 0; i < ((FunctionLabelIRNode) node).getEntity().getParameterList().size(); i++) {
                     IRRegister parameterIRRegister = ((FunctionLabelIRNode) node).getEntity().getParameterList().get(i).getIRRegister();
@@ -45,6 +45,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (i < 6) code.addAll(registers.getParameterRegister(i).load(parameterIRRegister));
             else code.add("push\t" + parameterIRRegister.print());
         }
+        code.add("call\t" + node.getFunctionEntry().getNasmLabel().getName());
         return code;
     }
 
@@ -100,7 +101,21 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (freeRegister == null) freeRegister = registers.getRegister("r8");
             code.addAll(freeRegister.load(node.getDestIRRegister()));
         }
-        if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
+        if (node.getOperator() == OperatorList.STORE) {
+            NASMRegister sourceRegister = registers.getFreeRegister();
+            if (sourceRegister == null) sourceRegister = registers.getRegister("r8");
+            code.addAll(sourceRegister.load(node.getSourceIRRegister()));
+            NASMRegister destRegister = registers.getFreeRegister();
+            if (destRegister == null) destRegister = registers.getRegister("r9");
+            code.addAll(destRegister.load(node.getDestIRRegister()));
+            code.add("mov\t[" + destRegister.getName() + "], " + sourceRegister.getName());
+        } else if (node.getOperator() == OperatorList.MALLOC) {
+            code.addAll(registers.getRegister("rax").store());
+            if (node.getSourceIRRegister() == null) code.addAll(registers.getParameterRegister(0).load(node.getImmediate()));
+            else code.addAll(registers.getParameterRegister(0).load(node.getSourceIRRegister()));
+            code.add("call\tmalloc");
+            code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
+        } else if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
             code.addAll(registers.getRegister("rdx").store());
             code.addAll(registers.getRegister("rax").load(node.getDestIRRegister()));
             code.add("cqo");
@@ -109,6 +124,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             code.add("mov\t" + node.getDestIRRegister().print() + ", " + resultRegister);
         } else {
             String operator = null;
+            if (node.getOperator() == OperatorList.ASSIGN) operator = "mov";
             if (node.getOperator() == OperatorList.ADD) operator = "add";
             if (node.getOperator() == OperatorList.SUB) operator = "sub";
             if (node.getOperator() == OperatorList.MUL) operator = "imul";
@@ -117,7 +133,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.AND) operator = "and";
             if (node.getOperator() == OperatorList.LEFTSHIFT) operator = "sal";
             if (node.getOperator() == OperatorList.RIGHTSHIFT) operator = "sar";
-            code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + node.getSourceIRRegister());
+            String source = node.getSourceIRRegister() == null ? String.valueOf(node.getImmediate()) : node.getSourceIRRegister().print();
+            code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + source);
         }
         return code;
     }

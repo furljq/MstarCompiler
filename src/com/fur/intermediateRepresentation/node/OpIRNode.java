@@ -47,4 +47,7 @@ public class OpIRNode extends BaseIRNode {
         return visitor.visitOpIRNode(this);
     }
 
+    public int getImmediate() {
+        return immediate;
+    }
 }

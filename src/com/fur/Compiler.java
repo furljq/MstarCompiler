@@ -69,7 +69,10 @@ class Compiler {
         syntaxCheck(abstractSyntaxTree, globalEntity);
         List<BaseIRNode> irNodes = buildIR(abstractSyntaxTree, globalEntity).getBodyNode();
         List<String> code = buildNASM(irNodes);
-        for (String line : code) System.out.println(line);
+        for (String line : code) {
+            if (line.charAt(line.length() - 1) != ':') System.out.print("\t");
+            System.out.println(line);
+        }
     }
 
 }
