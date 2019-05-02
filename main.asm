@@ -518,7 +518,7 @@ main:
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 128
+	sub	rsp, 120
 	mov	rcx, qword [rbp-3*8]
 	mov	rcx, 0
 	mov	rdx, qword [rbp-4*8]
@@ -557,13 +557,15 @@ LABEL0:
 	jmp	LABEL0
 LABEL1:
 	mov	r12, qword [rbp-12*8]
-	add	r12, r11
 	add	r12, qword [rbp-11*8]
+	imul	r12, 8
+	add	r12, r11
 	mov	r13, qword [rbp-13*8]
-	null	r13, r12
-	mov	r13, qword [rbp-14*8]
-	mov	r14, qword [rbp-11*8]
-	add	r14, 1
+	mov	qword [rbp-12*8], r12
+	mov	r14, qword [rbp-12*8]
+	mov	[r14], r13
+	mov	r15, qword [rbp-11*8]
+	add	r15, 1
 	jmp	LABEL0
 LABEL2:
 	mov	rbx, r11
@@ -572,11 +574,11 @@ LABEL2:
 	mov	qword [rbp-4*8], rdi
 	mov	rdi, qword [rbp-5*8]
 	call	FUNCTION_size
-	mov	qword [rbp-15*8], rax
-	mov	r10, qword [rbp-15*8]
+	mov	qword [rbp-14*8], rax
+	mov	r10, qword [rbp-14*8]
 LABEL3:
 	mov	qword [rbp-2*8], rax
-	mov	rax, qword [rbp-16*8]
+	mov	rax, qword [rbp-15*8]
 	leave
 	ret
 LABEL4:

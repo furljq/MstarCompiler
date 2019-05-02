@@ -546,11 +546,10 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             body.add(continueLabel);
             body.addAll(baseCreator.getBodyNode());
             IRRegister addressIRRegister = new IRRegister();
-            IRRegister elementIRRegister = new IRRegister();
-            body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, destIRRegister));
             body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, iteratorIRRegister));
-            body.add(new OpIRNode(OperatorList.MEMORY, elementIRRegister, addressIRRegister));
-            body.add(new OpIRNode(OperatorList.ASSIGN, elementIRRegister, baseCreator.getReturnRegister()));
+            body.add(new OpIRNode(OperatorList.MUL, addressIRRegister, 8));
+            body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, destIRRegister));
+            body.add(new OpIRNode(OperatorList.STORE, addressIRRegister, baseCreator.getReturnRegister()));
             body.add(new OpIRNode(OperatorList.ADD, iteratorIRRegister, 1));
             body.add(new JumpIRNode(conditionLabel));
             body.add(breakLabel);
@@ -659,15 +658,27 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         List<BaseIRNode> body = new ArrayList<>();
         IRRegister destIRRegister = new IRRegister();
         if (node.getType() instanceof ClassType) {
-            body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, node.getValue().length() + 1));
+            body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, (node.getValue().length() + 1) / 4 + 1));
+            body.add(new OpIRNode(OperatorList.STORE, destIRRegister, (node.getValue().length() + 1) / 4));
+            body.add(new OpIRNode(OperatorList.ADD, destIRRegister, 8));
+            int value = 0;
             for (int i = 0; i < node.getValue().length() + 1; i++) {
-                IRRegister addressIRRegister = new IRRegister();
-                IRRegister charIRRegister = new IRRegister();
-                body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, destIRRegister));
-                body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, i));
-                body.add(new OpIRNode(OperatorList.MEMORY, charIRRegister, addressIRRegister));
-                if (i == node.getValue().length()) body.add(new OpIRNode(OperatorList.ASSIGN, charIRRegister, 0));
-                else body.add(new OpIRNode(OperatorList.ASSIGN, charIRRegister, ((int) node.getValue().charAt(i))));
+                char character = i == node.getValue().length() ? 0 : node.getValue().charAt(i);
+                int index = i / 4;
+                int offset = i % 4;
+                if (offset == 0) value = 0;
+                if (offset == 0) value += character << 24;
+                if (offset == 1) value += character << 16;
+                if (offset == 2) value += character << 8;
+                if (offset == 3) value += character;
+                if (offset == 3 || i == node.getValue().length()) {
+                    IRRegister addressIRRegister = new IRRegister();
+                    IRRegister charIRRegister = new IRRegister();
+                    body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, destIRRegister));
+                    body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, index * 8));
+                    body.add(new OpIRNode(OperatorList.ASSIGN, charIRRegister, value));
+                    body.add(new OpIRNode(OperatorList.STORE, addressIRRegister, charIRRegister));
+                }
             }
             destIRRegister.setType(new ClassType("string"));
         } else {
