@@ -2,7 +2,6 @@ package com.fur;
 
 import com.fur.intermediateRepresentation.IntermediateRepresentationBuilder;
 import com.fur.intermediateRepresentation.node.BaseIRNode;
-import com.fur.intermediateRepresentation.node.BranchIRNode;
 import com.fur.intermediateRepresentation.node.FunctionIRNode;
 import com.fur.nasm.NASMBuilder;
 import com.fur.symbolTable.Entity.ClassEntity;
@@ -17,19 +16,22 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 class Compiler {
 
     private CharStream mstarFileCharStream;
+    private PrintStream nasmOutputStream;
 
-    Compiler(String _mstarFile) throws IOException {
+    Compiler(String _mstarFile, String nasmFile) throws IOException {
         mstarFileCharStream = CharStreams.fromFileName(_mstarFile);
+        nasmOutputStream = new PrintStream(nasmFile);
     }
 
     Compiler() throws IOException {
         mstarFileCharStream = CharStreams.fromStream(System.in);
+        nasmOutputStream = System.out;
     }
 
     private CompilationUnitNode buildAbstractSyntaxTree(CharStream mstarFileCharStream) {
@@ -58,21 +60,27 @@ class Compiler {
         return intermediateRepresentationBuilder.visit(abstractSyntaxTree);
     }
 
-    private List<String> buildNASM(List<BaseIRNode> instructions) {
+    private List<String> buildNASM(List<BaseIRNode> instructions) throws IOException {
         NASMBuilder nasmBuilder = new NASMBuilder(instructions);
         return nasmBuilder.build();
     }
 
-    void compile() {
+    private void print(List<String> code) throws IOException {
+        for (String line : code) {
+            if (line.charAt(line.length() - 1) != ':') nasmOutputStream.print('\t');
+            nasmOutputStream.println(line);
+        }
+        nasmOutputStream.flush();
+        nasmOutputStream.close();
+    }
+
+    void compile() throws IOException {
         CompilationUnitNode abstractSyntaxTree = buildAbstractSyntaxTree(mstarFileCharStream);
         ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
         syntaxCheck(abstractSyntaxTree, globalEntity);
         List<BaseIRNode> irNodes = buildIR(abstractSyntaxTree, globalEntity).getBodyNode();
         List<String> code = buildNASM(irNodes);
-        for (String line : code) {
-            if (line.charAt(line.length() - 1) != ':') System.out.print("\t");
-            System.out.println(line);
-        }
+        print(code);
     }
 
 }

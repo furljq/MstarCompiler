@@ -4,6 +4,7 @@ import com.fur.abstractSyntaxTree.AbstractSyntaxTreeBaseVisitor;
 import com.fur.abstractSyntaxTree.node.*;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.symbolTable.Entity.*;
+import com.fur.type.ArrayType;
 import com.fur.type.BaseType;
 import com.fur.type.ClassType;
 import com.fur.type.PrimaryType;
@@ -20,26 +21,48 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         globalEntity.putNew("getString", setInBuildFunction(new ClassType("string"), null, null));
         globalEntity.putNew("getInt", setInBuildFunction(new PrimaryType(PrimaryTypeList.INT), null, null));
         globalEntity.putNew("toString", setInBuildFunction(new ClassType("string"), new PrimaryType(PrimaryTypeList.INT), "i"));
+        FunctionEntity sizeEntity = new FunctionEntity(globalEntity, null);
+        sizeEntity.put("this", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), sizeEntity, null));
+        sizeEntity.setReturnType(new PrimaryType(PrimaryTypeList.INT));
+        globalEntity.putNew("size", sizeEntity);
     }
 
     private void setInBuildString() {
         ClassEntity stringEntity = new ClassEntity(globalEntity, null);
         globalEntity.putNew("string", stringEntity);
         FunctionEntity length = new FunctionEntity(stringEntity, null);
+        length.put("this", new VariableEntity(new ClassType("string"), length, null));
         length.setReturnType(new PrimaryType(PrimaryTypeList.INT));
         stringEntity.putNew("length", length);
         FunctionEntity substring = new FunctionEntity(stringEntity, null);
+        substring.put("this", new VariableEntity(new ClassType("string"), substring, null));
         substring.setReturnType(new ClassType("string"));
         substring.put("left", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), substring, null));
         substring.put("right", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), substring, null));
         stringEntity.putNew("substring", substring);
         FunctionEntity parseInt = new FunctionEntity(stringEntity, null);
+        parseInt.put("this", new VariableEntity(new ClassType("string"), parseInt, null));
         parseInt.setReturnType(new PrimaryType(PrimaryTypeList.INT));
         stringEntity.putNew("parseInt", parseInt);
         FunctionEntity ord = new FunctionEntity(stringEntity, null);
+        ord.put("this", new VariableEntity(new ClassType("string"), ord, null));
         ord.setReturnType(new PrimaryType(PrimaryTypeList.INT));
         ord.put("pos", new VariableEntity(new PrimaryType(PrimaryTypeList.INT), ord, null));
         stringEntity.putNew("ord", ord);
+        setStringOperator("string_concat");
+        setStringOperator("string_lt");
+        setStringOperator("string_leq");
+        setStringOperator("string_gt");
+        setStringOperator("string_geq");
+        setStringOperator("string_equal");
+    }
+
+    private void setStringOperator(String functionName) {
+        FunctionEntity entity = new FunctionEntity(globalEntity, null);
+        entity.put("str1", new VariableEntity(new ClassType("string"), entity, null));
+        entity.put("str2", new VariableEntity(new ClassType("string"), entity, null));
+        entity.setReturnType(new ClassType("string"));
+        globalEntity.putNew(functionName, entity);
     }
 
     private FunctionEntity setInBuildFunction(BaseType returnType, BaseType parameterType1, String parameterName1) {

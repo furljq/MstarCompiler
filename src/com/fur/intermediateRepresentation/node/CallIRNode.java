@@ -8,10 +8,12 @@ import java.util.List;
 public class CallIRNode extends BaseIRNode {
 
     private FunctionLabelIRNode functionEntry;
+    private IRRegister destIRRegister;
     private List<IRRegister> parameterIRRegisters;
-    
-    public CallIRNode(FunctionLabelIRNode _functionEntry, List<IRRegister> paramaterIRRegisters) {
+
+    public CallIRNode(FunctionLabelIRNode _functionEntry, IRRegister destIRRegister, List<IRRegister> paramaterIRRegisters) {
         functionEntry = _functionEntry;
+        this.destIRRegister = destIRRegister;
         this.parameterIRRegisters = paramaterIRRegisters;
     }
 
@@ -32,4 +34,11 @@ public class CallIRNode extends BaseIRNode {
         parameterIRRegisters.set(index, irRegister);
     }
 
+    public IRRegister getDestIRRegister() {
+        return destIRRegister;
+    }
+
+    public void setDestIRRegister(IRRegister destIRRegister) {
+        this.destIRRegister = destIRRegister;
+    }
 }

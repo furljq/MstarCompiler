@@ -39,13 +39,14 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitCallIRNode(CallIRNode node) {
-        List<String> code = new ArrayList<>();
+        List<String> code = new ArrayList<>(registers.getRegister("rax").store());
         for (int i = node.getParameterIRRegisters().size() - 1; i >= 0; i--) {
             IRRegister parameterIRRegister = node.getParameterIRRegisters().get(i);
             if (i < 6) code.addAll(registers.getParameterRegister(i).load(parameterIRRegister));
             else code.add("push\t" + parameterIRRegister.print());
         }
         code.add("call\t" + node.getFunctionEntry().getNasmLabel().getName());
+        code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         return code;
     }
 
