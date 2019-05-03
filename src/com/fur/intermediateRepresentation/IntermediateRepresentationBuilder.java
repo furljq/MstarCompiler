@@ -256,7 +256,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(visit(baseNode).getBodyNode());
         }
         body.add(new LabelIRNode());
-        liveAnalyze(body);
+        //liveAnalyze(body);
         return new FunctionIRNode(memoryAllocate(body), null);
     }
 
