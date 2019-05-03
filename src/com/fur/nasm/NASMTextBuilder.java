@@ -96,17 +96,21 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     public List<String> visitOpIRNode(OpIRNode node) {
         List<String> code = new ArrayList<>();
         if (node.getOperator() == OperatorList.STORE || node.getOperator() == OperatorList.STORECHAR) {
-            if (node.getDestIRRegister().getRegister() == null) code.addAll(registers.getRegister("r8").load(node.getDestIRRegister()));
+            if (node.getDestIRRegister().getRegister() == null)
+                code.addAll(registers.getRegister("r8").load(node.getDestIRRegister()));
             String length = node.getOperator() == OperatorList.STORE ? "qword " : "";
             if (node.getSourceIRRegister() == null) {
                 code.add("mov\tr9, " + node.getImmediate());
                 code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], r9");
-            }
-            else {
+            } else {
                 code.addAll(registers.getRegister("r9").load(node.getSourceIRRegister()));
                 code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], " + node.getSourceIRRegister().print());
                 node.getSourceIRRegister().getRegister().store();
             }
+        } else if (node.getOperator() == OperatorList.LOAD) {
+            code.add("mov\tr8, " + node.getSourceIRRegister().print());
+            code.add("mov\tr9, [r8]");
+            code.add("mov\t" + node.getDestIRRegister() + ", r9");
         } else if (node.getOperator() == OperatorList.MALLOC) {
             if (node.getSourceIRRegister() == null) code.add("mov\t" + registers.getParameterRegister(0).getName() + ", " + node.getImmediate());
             else code.addAll(registers.getParameterRegister(0).load(node.getSourceIRRegister()));
