@@ -5,10 +5,7 @@ import com.fur.abstractSyntaxTree.node.*;
 import com.fur.enumerate.OperatorList;
 import com.fur.enumerate.PrimaryTypeList;
 import com.fur.symbolTable.Entity.*;
-import com.fur.type.ArrayType;
-import com.fur.type.BaseType;
-import com.fur.type.ClassType;
-import com.fur.type.PrimaryType;
+import com.fur.type.*;
 
 public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
@@ -87,7 +84,9 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         BaseType index = visit(node.getIndex());
         if (!(index instanceof PrimaryType)) throw new Error();
         if (((PrimaryType) index).getType() != PrimaryTypeList.INT) throw new Error();
-        return ((ArrayType) address).getBaseType();
+        BaseType type = ((ArrayType) address).getBaseType();
+        node.setType(new AddressType(type));
+        return type;
     }
 
     @Override
@@ -118,6 +117,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             if (((PrimaryType) leftType).getType() == PrimaryTypeList.VOID) throw new Error();
         if (operator == OperatorList.LEQ || operator == OperatorList.GEQ || operator == OperatorList.LT || operator == OperatorList.GT || operator == OperatorList.EQUAL || operator == OperatorList.NOTEQUAL)
             return new PrimaryType(PrimaryTypeList.BOOL);
+        node.setType(leftType);
         return leftType;
     }
 
@@ -131,6 +131,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             baseType = new ArrayType(baseType);
         for (int i = 0; i < node.getFixedDimension().size(); i++)
             baseType = new ArrayType(baseType);
+        node.setType(new AddressType(baseType));
         return baseType;
     }
 
@@ -142,7 +143,9 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
         if (classEntity == null) throw new Error();
         String memberName = node.getIdentifierExpressionNode().getIdentifierName();
         if (classEntity.getVariableEntity(memberName) == null) throw new Error();
-        return (classEntity.getVariableEntity(memberName)).getType();
+        BaseType type =(classEntity.getVariableEntity(memberName)).getType();
+        node.setType(new AddressType(type));
+        return type;
     }
 
     @Override
@@ -200,6 +203,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                 if (!parameterType.equals(argumentType)) throw new Error();
             }
         }
+        node.setType(functionEntity.getReturnType());
         return functionEntity.getReturnType();
     }
 
@@ -210,25 +214,33 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             if (entity instanceof BlockEntity) {
                 VariableEntity variableEntity = ((BlockEntity) entity).get(node.getIdentifierName());
                 if (variableEntity != null)
-                    if (variableEntity.getPosition().above(node.getPosition()))
+                    if (variableEntity.getPosition().above(node.getPosition())) {
+                        node.setType(variableEntity.getType());
                         return variableEntity.getType();
+                    }
             }
             if (entity instanceof FunctionEntity) {
                 VariableEntity variableEntity = ((FunctionEntity) entity).get(node.getIdentifierName());
                 if (variableEntity != null)
-                    if (variableEntity.getPosition().above(node.getPosition()))
+                    if (variableEntity.getPosition().above(node.getPosition())) {
+                        node.setType(variableEntity.getType());
                         return variableEntity.getType();
+                    }
             }
             if (entity instanceof ClassEntity) {
                 if (entity == globalEntity) {
                     VariableEntity variableEntity = ((ClassEntity) entity).getVariableEntity(node.getIdentifierName());
                     if (variableEntity != null)
-                        if (variableEntity.getPosition().above(node.getPosition()))
+                        if (variableEntity.getPosition().above(node.getPosition())) {
+                            node.setType(variableEntity.getType());
                             return variableEntity.getType();
+                        }
                 } else {
                     VariableEntity variableEntity = ((ClassEntity) entity).getVariableEntity(node.getIdentifierName());
-                    if (variableEntity != null)
+                    if (variableEntity != null) {
+                        node.setType(variableEntity.getType());
                         return variableEntity.getType();
+                    }
                 }
             }
             entity = entity.getParentEntity();
@@ -238,6 +250,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
 
     @Override
     public BaseType visitLiteralExpressionNode(LiteralExpressionNode node) {
+        node.setType(node.getType());
         return node.getType();
     }
 
@@ -253,6 +266,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             if (!(baseType instanceof PrimaryType) || ((PrimaryType) baseType).getType() != PrimaryTypeList.INT) throw new Error();
         if (operator == OperatorList.LOGICALNOT)
             if (!(baseType instanceof PrimaryType) || ((PrimaryType) baseType).getType() != PrimaryTypeList.BOOL) throw new Error();
+        node.setType(baseType);
         return baseType;
     }
 

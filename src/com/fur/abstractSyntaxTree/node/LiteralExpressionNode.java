@@ -16,6 +16,10 @@ public class LiteralExpressionNode extends BaseExpressionNode {
         super(token);
         type = _type;
         value = _value;
+        if (value.equals("null")) {
+            value = "0";
+            return;
+        }
         if (_type instanceof ClassType) {
             StringBuilder rebuild = new StringBuilder();
             for (int i = 1; i < value.length() - 1; i++) {
