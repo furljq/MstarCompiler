@@ -444,8 +444,9 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         index = loadMemory(index.getReturnRegister());
         body.addAll(index.getBodyNode());
         IRRegister destIRRegister = new IRRegister();
-        body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, address.getReturnRegister()));
-        body.add(new OpIRNode(OperatorList.ADD, destIRRegister, index.getReturnRegister()));
+        body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, index.getReturnRegister()));
+        body.add(new OpIRNode(OperatorList.MUL, destIRRegister, 8));
+        body.add(new OpIRNode(OperatorList.ADD, destIRRegister, address.getReturnRegister()));
         destIRRegister.setType(node.getType());
         return new FunctionIRNode(body, destIRRegister);
     }
@@ -531,55 +532,57 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     public FunctionIRNode visitCreatorExpressionNode(CreatorExpressionNode node) {
         List<BaseIRNode> body = new ArrayList<>();
         IRRegister destIRRegister = new IRRegister();
-        if (node.getFixedDimension().size() == 0) {
-            if (node.getRestDimension() == 0) {
-                BaseType type = node.getTypeNode().getType();
-                if (type instanceof ClassType) {
-                    String className = ((ClassType) type).getClassName();
-                    body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, globalEntity.getClassEntity(className).getSize() * 8));
-                    if (globalEntity.getClassEntity(className).hasFunctionEntity(className)) {
-                        FunctionEntity constructorEntity = globalEntity.getClassEntity(className).getFunctionEntity(className);
-                        body.add(new CallIRNode(constructorEntity.getEntryLabel(), destIRRegister, new ArrayList<>()));
-                    }
-                }
+        BaseType type = node.getTypeNode().getType();
+        if (node.getFixedDimension().size() == 0 && type instanceof ClassType) {
+            assert node.getRestDimension() == 0;
+            String className = ((ClassType) type).getClassName();
+            body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, globalEntity.getClassEntity(className).getSize() * 8));
+            if (globalEntity.getClassEntity(className).hasFunctionEntity(className)) {
+                FunctionEntity constructorEntity = globalEntity.getClassEntity(className).getFunctionEntity(className);
+                List<IRRegister> parameterIRRegister = new ArrayList<>();
+                parameterIRRegister.add(destIRRegister);
+                body.add(new CallIRNode(constructorEntity.getEntryLabel(), new IRRegister(), parameterIRRegister));
             }
         } else {
             FunctionIRNode dimension = visit(node.getFixedDimension().get(0));
             body.addAll(dimension.getBodyNode());
             dimension = loadMemory(dimension.getReturnRegister());
             body.addAll(dimension.getBodyNode());
-            IRRegister dimensionIRRegister = new IRRegister();
-            body.add(new OpIRNode(OperatorList.ASSIGN, dimensionIRRegister, dimension.getReturnRegister()));
-            body.add(new OpIRNode(OperatorList.ADD, dimensionIRRegister, 1));
-            body.add(new OpIRNode(OperatorList.MUL, dimensionIRRegister, 8));
-            body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, dimension.getReturnRegister()));
-            body.add(new OpIRNode(OperatorList.SUB, dimension.getReturnRegister(), 1));
+            IRRegister lengthIRRegister = new IRRegister();
+            body.add(new OpIRNode(OperatorList.ASSIGN, lengthIRRegister, dimension.getReturnRegister()));
+            body.add(new OpIRNode(OperatorList.ADD, lengthIRRegister, 1));
+            body.add(new OpIRNode(OperatorList.MUL, lengthIRRegister, 8));
+            body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, lengthIRRegister));
             body.add(new OpIRNode(OperatorList.STORE, destIRRegister, dimension.getReturnRegister()));
             body.add(new OpIRNode(OperatorList.ADD, destIRRegister, 8));
-            List<BaseExpressionNode> fixedDimension = new ArrayList<>();
-            for (int i = 1; i < node.getFixedDimension().size(); i++) fixedDimension.add(node.getFixedDimension().get(i));
-            CreatorExpressionNode baseCreatorExpression = new CreatorExpressionNode(node.getTypeNode(), fixedDimension, node.getRestDimension(), (Position) null);
-            FunctionIRNode baseCreator = visit(baseCreatorExpression);
-            IRRegister iteratorIRRegister = new IRRegister();
-            LabelIRNode conditionLabel = new LabelIRNode();
-            LabelIRNode continueLabel = new LabelIRNode();
-            LabelIRNode breakLabel = new LabelIRNode();
-            body.add(conditionLabel);
-            IRRegister conditionIRRegister = new IRRegister();
-            body.add(new CmpIRNode(OperatorList.LT, conditionIRRegister, iteratorIRRegister, dimension.getReturnRegister()));
-            body.add(new BranchIRNode(conditionIRRegister, conditionLabel, breakLabel));
-            body.add(continueLabel);
-            body.addAll(baseCreator.getBodyNode());
-            IRRegister addressIRRegister = new IRRegister();
-            body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, iteratorIRRegister));
-            body.add(new OpIRNode(OperatorList.MUL, addressIRRegister, 8));
-            body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, destIRRegister));
-            body.add(new OpIRNode(OperatorList.STORE, addressIRRegister, baseCreator.getReturnRegister()));
-            body.add(new OpIRNode(OperatorList.ADD, iteratorIRRegister, 1));
-            body.add(new JumpIRNode(conditionLabel));
-            body.add(breakLabel);
+            if (node.getFixedDimension().size() > 1 || (type instanceof ClassType && node.getRestDimension() == 0)) {
+                List<BaseExpressionNode> fixedDimension = new ArrayList<>();
+                for (int i = 1; i < node.getFixedDimension().size(); i++)
+                    fixedDimension.add(node.getFixedDimension().get(i));
+                CreatorExpressionNode baseCreatorExpression = new CreatorExpressionNode(node.getTypeNode(), fixedDimension, node.getRestDimension(), (Position) null);
+                FunctionIRNode baseCreator = visit(baseCreatorExpression);
+                IRRegister iteratorIRRegister = new IRRegister();
+                body.add(new OpIRNode(OperatorList.ASSIGN, iteratorIRRegister, 0));
+                LabelIRNode conditionLabel = new LabelIRNode();
+                LabelIRNode continueLabel = new LabelIRNode();
+                LabelIRNode breakLabel = new LabelIRNode();
+                body.add(conditionLabel);
+                IRRegister conditionIRRegister = new IRRegister();
+                body.add(new CmpIRNode(OperatorList.LT, conditionIRRegister, iteratorIRRegister, dimension.getReturnRegister()));
+                body.add(new BranchIRNode(conditionIRRegister, continueLabel, breakLabel));
+                body.add(continueLabel);
+                body.addAll(baseCreator.getBodyNode());
+                IRRegister addressIRRegister = new IRRegister();
+                body.add(new OpIRNode(OperatorList.ASSIGN, addressIRRegister, iteratorIRRegister));
+                body.add(new OpIRNode(OperatorList.MUL, addressIRRegister, 8));
+                body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, destIRRegister));
+                body.add(new OpIRNode(OperatorList.STORE, addressIRRegister, baseCreator.getReturnRegister()));
+                body.add(new OpIRNode(OperatorList.ADD, iteratorIRRegister, 1));
+                body.add(new JumpIRNode(conditionLabel));
+                body.add(breakLabel);
+            }
         }
-        destIRRegister.setType(getArrayType(node.getTypeNode().getType(), node.getFixedDimension().size() + node.getRestDimension()));
+        destIRRegister.setType(node.getType());
         return new FunctionIRNode(body, destIRRegister);
     }
 
@@ -595,7 +598,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         String member = node.getIdentifierExpressionNode().getIdentifierName();
         ClassEntity classEntity = globalEntity.getClassEntity(classType.getClassName());
         int index = classEntity.getIndex(member);
-        body.add(new OpIRNode(OperatorList.ADD, destIRRegister, index));
+        body.add(new OpIRNode(OperatorList.ADD, destIRRegister, index * 8));
         destIRRegister.setType(node.getType());
         return new FunctionIRNode(body, destIRRegister);
     }

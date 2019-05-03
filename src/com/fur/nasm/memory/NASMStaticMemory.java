@@ -15,8 +15,8 @@ public class NASMStaticMemory extends NASMMemory {
     }
 
     @Override
-    public String print() {
-        return "[rel " + label + "]";
+    public String printWithoutLength() {
+        return "[rel " + label.getName() + "]";
     }
 
 }

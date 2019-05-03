@@ -1,5 +1,6 @@
 
 
+
 global FUNCTION_size
 global FUNCTION_print
 global FUNCTION_println
@@ -35,12 +36,7 @@ FUNCTION_size:
         mov     rbp, rsp
         mov     qword [rbp-8H], rdi
         mov     rax, qword [rbp-8H]
-        sub     rax, 64
-        mov     rax, qword [rax]
-        lea     rdx, [rax+7H]
-        test    rax, rax
-        cmovs   rax, rdx
-        sar     rax, 3
+        mov     rax, qword [rax-8H]
         pop     rbp
         ret
 
@@ -415,20 +411,21 @@ FUNCTION_string_concat:
         mov     rax, qword [rbp-8H]
         mov     qword [rax], rdx
         add     qword [rbp-8H], 8
-        mov     dword [rbp-1CH], -1
+        mov     dword [rbp-1CH], 0
         mov     dword [rbp-18H], 0
         jmp     L_019
 
 L_018:  mov     eax, dword [rbp-18H]
         movsxd  rdx, eax
         mov     rax, qword [rbp-28H]
-        add     rax, rdx
-        add     dword [rbp-1CH], 1
-        mov     edx, dword [rbp-1CH]
-        movsxd  rcx, edx
-        mov     rdx, qword [rbp-8H]
-        add     rdx, rcx
-        movzx   eax, byte [rax]
+        lea     rcx, [rdx+rax]
+        mov     eax, dword [rbp-1CH]
+        lea     edx, [rax+1H]
+        mov     dword [rbp-1CH], edx
+        movsxd  rdx, eax
+        mov     rax, qword [rbp-8H]
+        add     rdx, rax
+        movzx   eax, byte [rcx]
         mov     byte [rdx], al
         add     dword [rbp-18H], 1
 L_019:  mov     eax, dword [rbp-18H]
@@ -440,21 +437,21 @@ L_019:  mov     eax, dword [rbp-18H]
 L_020:  mov     eax, dword [rbp-14H]
         movsxd  rdx, eax
         mov     rax, qword [rbp-30H]
-        add     rax, rdx
-        add     dword [rbp-1CH], 1
-        mov     edx, dword [rbp-1CH]
-        movsxd  rcx, edx
-        mov     rdx, qword [rbp-8H]
-        add     rdx, rcx
-        movzx   eax, byte [rax]
+        lea     rcx, [rdx+rax]
+        mov     eax, dword [rbp-1CH]
+        lea     edx, [rax+1H]
+        mov     dword [rbp-1CH], edx
+        movsxd  rdx, eax
+        mov     rax, qword [rbp-8H]
+        add     rdx, rax
+        movzx   eax, byte [rcx]
         mov     byte [rdx], al
         add     dword [rbp-14H], 1
 L_021:  mov     eax, dword [rbp-14H]
         cmp     eax, dword [rbp-0CH]
         jl      L_020
         mov     eax, dword [rbp-1CH]
-        cdqe
-        lea     rdx, [rax+1H]
+        movsxd  rdx, eax
         mov     rax, qword [rbp-8H]
         add     rax, rdx
         mov     byte [rax], 0
@@ -568,5 +565,3 @@ FUNCTION_string_geq:
         movzx   eax, al
         leave
         ret
-
-

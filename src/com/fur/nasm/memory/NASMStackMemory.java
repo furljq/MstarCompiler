@@ -9,9 +9,9 @@ public class NASMStackMemory extends NASMMemory {
     }
 
     @Override
-    public String print() {
-        if (rbpOffset >= 0) return "qword [rbp-" + rbpOffset + "*8]";
-        else return "qword [rbp+" + (-rbpOffset) + "*8]";
+    public String printWithoutLength() {
+        if (rbpOffset >= 0) return "[rbp-" + rbpOffset + "*8]";
+        else return "[rbp+" + (-rbpOffset) + "*8]";
     }
 
 }

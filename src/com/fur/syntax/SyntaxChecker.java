@@ -130,7 +130,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
             if (!((PrimaryType) dimension).getType().equals(PrimaryTypeList.INT)) throw new Error();
             baseType = new ArrayType(baseType);
         }
-        node.setType(new AddressType(baseType));
+        node.setType(baseType);
         return baseType;
     }
 
