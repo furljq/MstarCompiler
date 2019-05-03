@@ -68,9 +68,9 @@ expression:
   | expression Op = '[' expression ']'
   | expression Op = '(' expressions? ')'
   | expression Op = ('++' | '--')
-  | Op = 'new' creator
-  | Op = ('+'|'-'|'++'|'--') expression
-  | Op = ('~'|'!') expression
+  | <assoc=right> Op = 'new' creator
+  | <assoc=right> Op = ('+'|'-'|'++'|'--') expression
+  | <assoc=right> Op = ('~'|'!') expression
   | expression Op = ('*'|'/'|'%') expression
   | expression Op = ('+'|'-') expression
   | expression Op = ('<<' | '>>') expression
@@ -79,8 +79,8 @@ expression:
   | expression Op = '&' expression
   | expression Op = '^' expression
   | expression Op = '|' expression
-  | expression Op = '&&' expression
-  | expression Op = '||' expression
+  | <assoc=right> expression Op = '&&' expression
+  | <assoc=right> expression Op = '||' expression
   | <assoc=right> expression Op = '=' expression
 ;
 

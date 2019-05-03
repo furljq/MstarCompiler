@@ -177,10 +177,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                     if (cnt > 6) cnt = 6;
                 } else cnt = 0;
             }
-            if (instruction instanceof OpIRNode)
-                if (((OpIRNode) instruction).getOperator() == OperatorList.ASSIGN)
-                    if (((OpIRNode) instruction).getSourceIRRegister() == ((OpIRNode) instruction).getDestIRRegister())
-                        continue;
             if (currentFunction != null) {
                 if (instruction instanceof BranchIRNode)
                     if (((BranchIRNode) instruction).getConditionRegister().getMemory() == null)
@@ -274,10 +270,10 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         }
         for (VariableEntity parameterEntity : ((FunctionEntity) currentEntity).getParameterList()) {
             IRRegister parameterRegister = new IRRegister();
+            parameterRegister.setType(parameterEntity.getType());
             parameterEntity.setIRRegister(parameterRegister);
             body.add(new OpIRNode(OperatorList.ASSIGN, parameterRegister, 0));
         }
-        destIRRegister.setType(node.getTypeNode().getType());
         ((FunctionEntity) currentEntity).setReturnRegister(destIRRegister);
         body.addAll(visit(node.getBlockStatementNodes()).getBodyNode());
         body.add(((FunctionEntity) currentEntity).getReturnLabel());
@@ -338,8 +334,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         body.add(continueLabel);
         FunctionIRNode bodyExpression = visit(node.getBodyStatementNode());
         body.addAll(bodyExpression.getBodyNode());
-        FunctionIRNode updateExpression = visit(node.getUpdateExpressionNode());
-        body.addAll(updateExpression.getBodyNode());
+        if (node.getUpdateExpressionNode() != null) body.addAll(visit(node.getUpdateExpressionNode()).getBodyNode());
         body.add(new JumpIRNode(conditionLabel));
         body.add(breakLabel);
         currentEntity = oldEntity;
@@ -394,8 +389,12 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     public FunctionIRNode visitVariableDeclarationNode(VariableDeclarationNode node) {
         IRRegister variableRegister = new IRRegister();
         variableRegister.setType(node.getTypeNode().getType());
-        assert currentEntity instanceof BlockEntity;
-        VariableEntity variableEntity = ((BlockEntity) currentEntity).get(node.getName());
+        VariableEntity variableEntity;
+        if (currentEntity instanceof BlockEntity) variableEntity = ((BlockEntity) currentEntity).get(node.getName());
+        else {
+            assert currentEntity == globalEntity;
+            variableEntity = ((ClassEntity) currentEntity).getVariableEntity(node.getName());
+        }
         variableEntity.setIRRegister(variableRegister);
         List<BaseIRNode> body = new ArrayList<>();
         body.add(new OpIRNode(OperatorList.ASSIGN, variableRegister, 0));
@@ -463,18 +462,14 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 else body.add(new BranchIRNode(leftExpression.getReturnRegister(), breakLabel, continueLabel));
                 body.add(continueLabel);
                 body.addAll(rightExpression.getBodyNode());
-                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, node.getOperator() == OperatorList.AND ? 1 : 0));
-                if (node.getOperator() == OperatorList.AND) {
-                    body.add(new OpIRNode(OperatorList.AND, destIRRegister, leftExpression.getReturnRegister()));
-                    body.add(new OpIRNode(OperatorList.AND, destIRRegister, rightExpression.getReturnRegister()));
-                } else {
-                    body.add(new OpIRNode(OperatorList.OR, destIRRegister, leftExpression.getReturnRegister()));
-                    body.add(new OpIRNode(OperatorList.OR, destIRRegister, rightExpression.getReturnRegister()));
-                }
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, leftExpression.getReturnRegister()));
+                if (node.getOperator() == OperatorList.AND) body.add(new OpIRNode(OperatorList.AND, destIRRegister, rightExpression.getReturnRegister()));
+                else body.add(new OpIRNode(OperatorList.OR, destIRRegister, rightExpression.getReturnRegister()));
                 body.add(new JumpIRNode(endLabel));
                 body.add(breakLabel);
                 body.add(new OpIRNode(OperatorList.ADD, destIRRegister, node.getOperator() == OperatorList.OR ? 1 : 0));
                 body.add(new JumpIRNode(endLabel));
+                body.add(endLabel);
             }
             if (node.getOperator() == OperatorList.LT || node.getOperator() == OperatorList.GT || node.getOperator() == OperatorList.LEQ || node.getOperator() == OperatorList.GEQ || node.getOperator() == OperatorList.EQUAL || node.getOperator() == OperatorList.NOTEQUAL) {
                 body.addAll(rightExpression.getBodyNode());

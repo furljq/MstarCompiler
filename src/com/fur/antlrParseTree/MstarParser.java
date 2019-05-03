@@ -1830,7 +1830,7 @@ public class MstarParser extends Parser {
 						setState(260);
 						((ExpressionContext)_localctx).Op = match(T__43);
 						setState(261);
-						expression(4);
+						expression(3);
 						}
 						break;
 					case 10:
@@ -1842,7 +1842,7 @@ public class MstarParser extends Parser {
 						setState(263);
 						((ExpressionContext)_localctx).Op = match(T__44);
 						setState(264);
-						expression(3);
+						expression(2);
 						}
 						break;
 					case 11:
@@ -2265,8 +2265,8 @@ public class MstarParser extends Parser {
 		"\u00fd\f\b\2\2\u00fd\u00fe\7+\2\2\u00fe\u011f\5*\26\t\u00ff\u0100\f\7"+
 		"\2\2\u0100\u0101\7,\2\2\u0101\u011f\5*\26\b\u0102\u0103\f\6\2\2\u0103"+
 		"\u0104\7-\2\2\u0104\u011f\5*\26\7\u0105\u0106\f\5\2\2\u0106\u0107\7.\2"+
-		"\2\u0107\u011f\5*\26\6\u0108\u0109\f\4\2\2\u0109\u010a\7/\2\2\u010a\u011f"+
-		"\5*\26\5\u010b\u010c\f\3\2\2\u010c\u010d\7\n\2\2\u010d\u011f\5*\26\3\u010e"+
+		"\2\u0107\u011f\5*\26\5\u0108\u0109\f\4\2\2\u0109\u010a\7/\2\2\u010a\u011f"+
+		"\5*\26\4\u010b\u010c\f\3\2\2\u010c\u010d\7\n\2\2\u010d\u011f\5*\26\3\u010e"+
 		"\u010f\f\24\2\2\u010f\u0110\7\30\2\2\u0110\u011f\7\65\2\2\u0111\u0112"+
 		"\f\23\2\2\u0112\u0113\7\13\2\2\u0113\u0114\5*\26\2\u0114\u0115\7\f\2\2"+
 		"\u0115\u011f\3\2\2\2\u0116\u0117\f\22\2\2\u0117\u0119\7\6\2\2\u0118\u011a"+
