@@ -4,20 +4,21 @@
 	global FUNCTION_size
 	global FUNCTION_print
 	global FUNCTION_println
-	global FUNCTION_getstring
-	global FUNCTION_tostring
+	global FUNCTION_getString
+	global FUNCTION_toString
 	global CLASS_string_MEMBER_length
 	global CLASS_string_MEMBER_substring
 	global CLASS_string_MEMBER_parseInt
 	global FUNCTION_getInt
 	global CLASS_string_MEMBER_ord
-	global FUNCTIONi_string_concat
+	global FUNCTION_string_concat
 	global FUNCTION_string_equal
 	global FUNCTION_string_notequal
 	global FUNCTION_string_lt
 	global FUNCTION_string_leq
 	global FUNCTION_string_gt
-	global FUNCTION_string_geqextern strcmp
+	global FUNCTION_string_geq
+	extern strcmp
 	extern __stack_chk_fail
 	extern strlen
 	extern __isoc99_scanf
@@ -25,12 +26,18 @@
 	extern puts
 	extern printf
 	extern _GLOBAL_OFFSET_TABLE_
-SECTION .text   FUNCTION_size:
+	SECTION .text
+FUNCTION_size:
 	        push    rbp
 	        mov     rbp, rsp
 	        mov     qword [rbp-8H], rdi
 	        mov     rax, qword [rbp-8H]
-	        mov     rax, qword [rax-40H]
+	        sub     rax, 64
+	        mov     rax, qword [rax]
+	        lea     rdx, [rax+7H]
+	        test    rax, rax
+	        cmovs   rax, rdx
+	        sar     rax, 3
 	        pop     rbp
 	        ret
 FUNCTION_print:
@@ -57,7 +64,7 @@ FUNCTION_println:
 	        nop
 	        leave
 	        ret
-FUNCTION_getstring:
+FUNCTION_getString:
 	        push    rbp
 	        mov     rbp, rsp
 	        sub     rsp, 16
@@ -81,7 +88,7 @@ FUNCTION_getstring:
 	        add     rax, 8
 	        leave
 	        ret
-FUNCTION_tostring:
+FUNCTION_toString:
 	        push    rbp
 	        mov     rbp, rsp
 	        sub     rsp, 96
@@ -101,7 +108,8 @@ FUNCTION_tostring:
 	        mov     eax, dword [rbp-40H]
 	        cdqe
 	        mov     dword [rbp+rax*4-30H], 0
-	        jmp     L_004L_002:  mov     rcx, qword [rbp-58H]
+	        jmp     L_004
+	L_002:  mov     rcx, qword [rbp-58H]
 	        mov     rdx, qword 6666666666666667H
 	        mov     rax, rcx
 	        imul    rdx
@@ -158,7 +166,8 @@ FUNCTION_tostring:
 	        mov     rax, qword [rbp-38H]
 	        mov     byte [rax], 45
 	L_005:  mov     dword [rbp-3CH], 0
-	        jmp     L_007L_006:  mov     eax, dword [rbp-40H]
+	        jmp     L_007
+	L_006:  mov     eax, dword [rbp-40H]
 	        sub     eax, dword [rbp-3CH]
 	        cdqe
 	        mov     eax, dword [rbp+rax*4-30H]
@@ -217,7 +226,8 @@ CLASS_string_MEMBER_substring:
 	        add     qword [rbp-18H], rax
 	        add     qword [rbp-8H], 8
 	        mov     dword [rbp-10H], 0
-	        jmp     L_010L_009:  mov     eax, dword [rbp-10H]
+	        jmp     L_010
+	L_009:  mov     eax, dword [rbp-10H]
 	        movsxd  rdx, eax
 	        mov     rax, qword [rbp-18H]
 	        add     rax, rdx
@@ -245,7 +255,8 @@ CLASS_string_MEMBER_parseInt:
 	        mov     qword [rbp-18H], rdi
 	        mov     dword [rbp-10H], 0
 	        mov     dword [rbp-0CH], 0
-	        jmp     L_012L_011:  mov     eax, dword [rbp-0CH]
+	        jmp     L_012
+	L_011:  mov     eax, dword [rbp-0CH]
 	        lea     edx, [rax+1H]
 	        mov     dword [rbp-0CH], edx
 	        movsxd  rdx, eax
@@ -280,7 +291,8 @@ CLASS_string_MEMBER_parseInt:
 	        sub     eax, 48
 	        cdqe
 	        mov     qword [rbp-8H], rax
-	        jmp     L_014L_013:  mov     rdx, qword [rbp-8H]
+	        jmp     L_014
+	L_013:  mov     rdx, qword [rbp-8H]
 	        mov     rax, rdx
 	        shl     rax, 2
 	        add     rax, rdx
@@ -315,14 +327,15 @@ CLASS_string_MEMBER_parseInt:
 	        jz      L_016
 	        mov     rax, qword [rbp-8H]
 	        neg     rax
-	        jmp     L_017L_016:  mov     rax, qword [rbp-8H]
+	        jmp     L_017
+	L_016:  mov     rax, qword [rbp-8H]
 	L_017:  pop     rbp
 	        ret
 FUNCTION_getInt:
 	        push    rbp
 	        mov     rbp, rsp
 	        mov     eax, 0
-	        call    FUNCTION_getstring
+	        call    FUNCTION_getString
 	        mov     rdi, rax
 	        call    CLASS_string_MEMBER_parseInt
 	        pop     rbp
@@ -340,7 +353,7 @@ CLASS_string_MEMBER_ord:
 	        movsx   rax, al
 	        pop     rbp
 	        ret
-FUNCTIONi_string_concat:
+FUNCTION_string_concat:
 	        push    rbp
 	        mov     rbp, rsp
 	        sub     rsp, 48
@@ -371,7 +384,8 @@ FUNCTIONi_string_concat:
 	        add     qword [rbp-8H], 8
 	        mov     dword [rbp-1CH], -1
 	        mov     dword [rbp-18H], 0
-	        jmp     L_019L_018:  mov     eax, dword [rbp-18H]
+	        jmp     L_019
+	L_018:  mov     eax, dword [rbp-18H]
 	        movsxd  rdx, eax
 	        mov     rax, qword [rbp-28H]
 	        add     rax, rdx
@@ -387,7 +401,8 @@ FUNCTIONi_string_concat:
 	        cmp     eax, dword [rbp-10H]
 	        jl      L_018
 	        mov     dword [rbp-14H], 0
-	        jmp     L_021L_020:  mov     eax, dword [rbp-14H]
+	        jmp     L_021
+	L_020:  mov     eax, dword [rbp-14H]
 	        movsxd  rdx, eax
 	        mov     rax, qword [rbp-30H]
 	        add     rax, rdx
@@ -512,76 +527,56 @@ main:
 	sub	rsp, 16
 	call	FUNCTION_main
 	mov	qword [rbp-1*8], rax
-	mov	rax, qword [rbp-2*8]
+	mov	rax, qword [rbp-1*8]
 	leave
 	ret
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 120
-	mov	rcx, qword [rbp-3*8]
-	mov	rcx, 0
-	mov	rdx, qword [rbp-4*8]
-	mov	rdx, 0
-	mov	rbx, qword [rbp-5*8]
-	mov	rbx, 0
-	mov	rsi, qword [rbp-6*8]
-	mov	rsi, 1
-	mov	rdi, qword [rbp-7*8]
-	mov	rdi, rsi
-	mov	r8, qword [rbp-8*8]
-	mov	r8, 1
-	add	rdi, r8
-	mov	rcx, rdi
-	mov	rdx, rcx
-	add	rdx, 1
-	mov	r9, qword [rbp-9*8]
-	mov	qword [rbp-2*8], rax
-	mov	qword [rbp-4*8], rdx
-	mov	qword [rbp-7*8], rdi
-	mov	rdi, qword [rbp-4*8]
+	sub	rsp, 88
+	mov	qword [rbp-1*8], 0
+	mov	qword [rbp-2*8], 0
+	mov	rdi, 10
 	call	malloc
-	mov	r9, rax
-	sub	rdi, 1
-	mov	qword [rbp-4*8], rdi
-	mov	r10, qword [rbp-4*8]
-	mov	qword [rbp-9*8], r9
-	mov	r11, qword [rbp-9*8]
-	mov	[r11], r10
-	add	r11, 8
-LABEL0:
-	cmp	qword [rbp-11*8], r10
-	setl	qword [rbp-10*8]
-	cmp	qword [rbp-10*8], 0
-	jz	LABEL2
-	jmp	LABEL0
-LABEL1:
-	mov	r12, qword [rbp-12*8]
-	add	r12, qword [rbp-11*8]
-	imul	r12, 8
-	add	r12, r11
-	mov	r13, qword [rbp-13*8]
-	mov	qword [rbp-12*8], r12
-	mov	r14, qword [rbp-12*8]
-	mov	[r14], r13
-	mov	r15, qword [rbp-11*8]
-	add	r15, 1
-	jmp	LABEL0
-LABEL2:
-	mov	rbx, r11
-	mov	qword [rbp-2*8], rax
-	mov	qword [rbp-5*8], rbx
-	mov	qword [rbp-4*8], rdi
+	mov	qword [rbp-3*8], rax
+	mov	r8, qword [rbp-3*8]
+	mov	r9, 1
+	mov	qword [r8], r9
+	add	r8, 8
+	mov	qword [rbp-3*8], r8
+	mov	r8, qword [rbp-3*8]
+	mov	qword [rbp-4*8], r8
+	add	qword [rbp-4*8], 0
+	mov	r8, qword [rbp-4*8]
+	mov	r9, 108
+	mov	[r8], r9
+	mov	qword [rbp-4*8], r8
+	mov	r8, qword [rbp-3*8]
+	mov	qword [rbp-1*8], r8
+	mov	rdi, qword [rbp-1*8]
+	call	CLASS_string_MEMBER_length
+	mov	qword [rbp-5*8], rax
 	mov	rdi, qword [rbp-5*8]
-	call	FUNCTION_size
-	mov	qword [rbp-14*8], rax
-	mov	r10, qword [rbp-14*8]
-LABEL3:
-	mov	qword [rbp-2*8], rax
-	mov	rax, qword [rbp-15*8]
+	call	FUNCTION_toString
+	mov	qword [rbp-6*8], rax
+	mov	rsi, qword [rbp-1*8]
+	mov	rdi, qword [rbp-6*8]
+	call	FUNCTION_string_concat
+	mov	qword [rbp-7*8], rax
+	mov	r8, qword [rbp-7*8]
+	mov	qword [rbp-2*8], r8
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_print
+	mov	qword [rbp-8*8], rax
+	mov	qword [rbp-9*8], 0
+	mov	r8, qword [rbp-9*8]
+	mov	qword [rbp-10*8], r8
+	jmp	LABEL0
+LABEL0:
+	mov	rax, qword [rbp-10*8]
 	leave
 	ret
-LABEL4:
+LABEL1:
 	SECTION .data
 	SECTION .bss
 	SECTION .rodata

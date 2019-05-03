@@ -1,6 +1,6 @@
 int main() {
-    int a = 1 + 1;
-    int b = a;
-    int[] c = new int[b];
-    b = c.size();
+    string a = "l";
+    string b = toString(a.length()) + a;
+    print(b);
+    return 0;
 }

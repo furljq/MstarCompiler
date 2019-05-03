@@ -30,8 +30,10 @@ public class NASMRegister {
     public List<String> store() {
         List<String> code = new ArrayList<>();
         if (irRegister == null) return new ArrayList<>();
+        irRegister.setRegister(null);
         NASMMemory memory = irRegister.getMemory();
         code.add("mov\t" + memory.print() + ", " + name);
+        irRegister = null;
         return code;
     }
 

@@ -67,6 +67,7 @@ class Compiler {
 
     private void print(List<String> code) throws IOException {
         for (String line : code) {
+            if (line.length() == 0) continue;
             if (line.charAt(line.length() - 1) != ':') nasmOutputStream.print('\t');
             nasmOutputStream.println(line);
         }

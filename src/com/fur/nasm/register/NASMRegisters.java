@@ -1,5 +1,7 @@
 package com.fur.nasm.register;
 
+import com.fur.intermediateRepresentation.IRRegister;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +67,13 @@ public class NASMRegisters {
                 return register;
         }
         return null;
+    }
+
+    public List<String> store() {
+        List<String> code = new ArrayList<>();
+        for (NASMRegister register : registers)
+            code.addAll(register.store());
+        return code;
     }
 
 }

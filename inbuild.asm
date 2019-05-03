@@ -1,20 +1,24 @@
+
+
 global FUNCTION_size
 global FUNCTION_print
 global FUNCTION_println
-global FUNCTION_getstring
-global FUNCTION_tostring
+global FUNCTION_getString
+global FUNCTION_toString
 global CLASS_string_MEMBER_length
 global CLASS_string_MEMBER_substring
 global CLASS_string_MEMBER_parseInt
 global FUNCTION_getInt
 global CLASS_string_MEMBER_ord
-global FUNCTIONi_string_concat
+global FUNCTION_string_concat
 global FUNCTION_string_equal
 global FUNCTION_string_notequal
 global FUNCTION_string_lt
 global FUNCTION_string_leq
 global FUNCTION_string_gt
-global FUNCTION_string_geqextern strcmp
+global FUNCTION_string_geq
+
+extern strcmp
 extern __stack_chk_fail
 extern strlen
 extern __isoc99_scanf
@@ -22,14 +26,25 @@ extern malloc
 extern puts
 extern printf
 extern _GLOBAL_OFFSET_TABLE_
-SECTION .text   FUNCTION_size:
+
+
+SECTION .text
+
+FUNCTION_size:
         push    rbp
         mov     rbp, rsp
         mov     qword [rbp-8H], rdi
         mov     rax, qword [rbp-8H]
-        mov     rax, qword [rax-40H]
+        sub     rax, 64
+        mov     rax, qword [rax]
+        lea     rdx, [rax+7H]
+        test    rax, rax
+        cmovs   rax, rdx
+        sar     rax, 3
         pop     rbp
         ret
+
+
 FUNCTION_print:
         push    rbp
         mov     rbp, rsp
@@ -43,6 +58,8 @@ FUNCTION_print:
         nop
         leave
         ret
+
+
 FUNCTION_println:
         push    rbp
         mov     rbp, rsp
@@ -54,7 +71,9 @@ FUNCTION_println:
         nop
         leave
         ret
-FUNCTION_getstring:
+
+
+FUNCTION_getString:
         push    rbp
         mov     rbp, rsp
         sub     rsp, 16
@@ -78,11 +97,15 @@ FUNCTION_getstring:
         add     rax, 8
         leave
         ret
-FUNCTION_tostring:
+
+
+FUNCTION_toString:
         push    rbp
         mov     rbp, rsp
         sub     rsp, 96
         mov     qword [rbp-58H], rdi
+
+
         mov     rax, qword [fs:abs 28H]
         mov     qword [rbp-8H], rax
         xor     eax, eax
@@ -98,7 +121,9 @@ L_001:  cmp     qword [rbp-58H], 0
         mov     eax, dword [rbp-40H]
         cdqe
         mov     dword [rbp+rax*4-30H], 0
-        jmp     L_004L_002:  mov     rcx, qword [rbp-58H]
+        jmp     L_004
+
+L_002:  mov     rcx, qword [rbp-58H]
         mov     rdx, qword 6666666666666667H
         mov     rax, rcx
         imul    rdx
@@ -155,7 +180,9 @@ L_004:  mov     edx, dword [rbp-40H]
         mov     rax, qword [rbp-38H]
         mov     byte [rax], 45
 L_005:  mov     dword [rbp-3CH], 0
-        jmp     L_007L_006:  mov     eax, dword [rbp-40H]
+        jmp     L_007
+
+L_006:  mov     eax, dword [rbp-40H]
         sub     eax, dword [rbp-3CH]
         cdqe
         mov     eax, dword [rbp+rax*4-30H]
@@ -174,11 +201,15 @@ L_007:  mov     eax, dword [rbp-3CH]
         jl      L_006
         mov     rax, qword [rbp-38H]
         mov     rsi, qword [rbp-8H]
+
+
         xor     rsi, qword [fs:abs 28H]
         jz      L_008
         call    __stack_chk_fail
 L_008:  leave
         ret
+
+
 CLASS_string_MEMBER_length:
         push    rbp
         mov     rbp, rsp
@@ -187,6 +218,8 @@ CLASS_string_MEMBER_length:
         mov     rax, qword [rax-8H]
         pop     rbp
         ret
+
+
 CLASS_string_MEMBER_substring:
         push    rbp
         mov     rbp, rsp
@@ -214,7 +247,9 @@ CLASS_string_MEMBER_substring:
         add     qword [rbp-18H], rax
         add     qword [rbp-8H], 8
         mov     dword [rbp-10H], 0
-        jmp     L_010L_009:  mov     eax, dword [rbp-10H]
+        jmp     L_010
+
+L_009:  mov     eax, dword [rbp-10H]
         movsxd  rdx, eax
         mov     rax, qword [rbp-18H]
         add     rax, rdx
@@ -236,13 +271,17 @@ L_010:  mov     eax, dword [rbp-10H]
         mov     rax, qword [rbp-8H]
         leave
         ret
+
+
 CLASS_string_MEMBER_parseInt:
         push    rbp
         mov     rbp, rsp
         mov     qword [rbp-18H], rdi
         mov     dword [rbp-10H], 0
         mov     dword [rbp-0CH], 0
-        jmp     L_012L_011:  mov     eax, dword [rbp-0CH]
+        jmp     L_012
+
+L_011:  mov     eax, dword [rbp-0CH]
         lea     edx, [rax+1H]
         mov     dword [rbp-0CH], edx
         movsxd  rdx, eax
@@ -277,7 +316,9 @@ L_012:  mov     eax, dword [rbp-0CH]
         sub     eax, 48
         cdqe
         mov     qword [rbp-8H], rax
-        jmp     L_014L_013:  mov     rdx, qword [rbp-8H]
+        jmp     L_014
+
+L_013:  mov     rdx, qword [rbp-8H]
         mov     rax, rdx
         shl     rax, 2
         add     rax, rdx
@@ -312,18 +353,24 @@ L_015:  cmp     dword [rbp-10H], 0
         jz      L_016
         mov     rax, qword [rbp-8H]
         neg     rax
-        jmp     L_017L_016:  mov     rax, qword [rbp-8H]
+        jmp     L_017
+
+L_016:  mov     rax, qword [rbp-8H]
 L_017:  pop     rbp
         ret
+
+
 FUNCTION_getInt:
         push    rbp
         mov     rbp, rsp
         mov     eax, 0
-        call    FUNCTION_getstring
+        call    FUNCTION_getString
         mov     rdi, rax
         call    CLASS_string_MEMBER_parseInt
         pop     rbp
         ret
+
+
 CLASS_string_MEMBER_ord:
         push    rbp
         mov     rbp, rsp
@@ -337,7 +384,9 @@ CLASS_string_MEMBER_ord:
         movsx   rax, al
         pop     rbp
         ret
-FUNCTIONi_string_concat:
+
+
+FUNCTION_string_concat:
         push    rbp
         mov     rbp, rsp
         sub     rsp, 48
@@ -368,7 +417,9 @@ FUNCTIONi_string_concat:
         add     qword [rbp-8H], 8
         mov     dword [rbp-1CH], -1
         mov     dword [rbp-18H], 0
-        jmp     L_019L_018:  mov     eax, dword [rbp-18H]
+        jmp     L_019
+
+L_018:  mov     eax, dword [rbp-18H]
         movsxd  rdx, eax
         mov     rax, qword [rbp-28H]
         add     rax, rdx
@@ -384,7 +435,9 @@ L_019:  mov     eax, dword [rbp-18H]
         cmp     eax, dword [rbp-10H]
         jl      L_018
         mov     dword [rbp-14H], 0
-        jmp     L_021L_020:  mov     eax, dword [rbp-14H]
+        jmp     L_021
+
+L_020:  mov     eax, dword [rbp-14H]
         movsxd  rdx, eax
         mov     rax, qword [rbp-30H]
         add     rax, rdx
@@ -408,6 +461,8 @@ L_021:  mov     eax, dword [rbp-14H]
         mov     rax, qword [rbp-8H]
         leave
         ret
+
+
 FUNCTION_string_equal:
         push    rbp
         mov     rbp, rsp
@@ -424,6 +479,8 @@ FUNCTION_string_equal:
         movzx   eax, al
         leave
         ret
+
+
 FUNCTION_string_notequal:
         push    rbp
         mov     rbp, rsp
@@ -440,6 +497,8 @@ FUNCTION_string_notequal:
         movzx   eax, al
         leave
         ret
+
+
 FUNCTION_string_lt:
         push    rbp
         mov     rbp, rsp
@@ -455,6 +514,8 @@ FUNCTION_string_lt:
         movzx   eax, al
         leave
         ret
+
+
 FUNCTION_string_leq:
         push    rbp
         mov     rbp, rsp
@@ -471,6 +532,8 @@ FUNCTION_string_leq:
         movzx   eax, al
         leave
         ret
+
+
 FUNCTION_string_gt:
         push    rbp
         mov     rbp, rsp
@@ -487,6 +550,8 @@ FUNCTION_string_gt:
         movzx   eax, al
         leave
         ret
+
+
 FUNCTION_string_geq:
         push    rbp
         mov     rbp, rsp
@@ -503,3 +568,5 @@ FUNCTION_string_geq:
         movzx   eax, al
         leave
         ret
+
+

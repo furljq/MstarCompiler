@@ -18,7 +18,7 @@ public class LiteralExpressionNode extends BaseExpressionNode {
         value = _value;
         if (_type instanceof ClassType) {
             StringBuilder rebuild = new StringBuilder();
-            for (int i = 0; i < value.length(); i++) {
+            for (int i = 1; i < value.length() - 1; i++) {
                 if (value.charAt(i) == '\\') {
                     char nextChar = value.charAt(i + 1);
                     if (nextChar == 'n') rebuild.append('\n');
