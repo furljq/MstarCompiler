@@ -53,11 +53,6 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
     }
 
     @Override
-    public BaseType visitVariableDeclarationNode(VariableDeclarationNode node) {
-        return null;
-    }
-
-    @Override
     public BaseType visitClassDeclarationNode(ClassDeclarationNode node) {
         currentEntity = globalEntity.getClassEntity(node.getName());
         for (BaseNode variableNode : node.getVariableNodes())
@@ -129,8 +124,12 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                 throw new Error();
         for (int i = 0; i < node.getRestDimension(); i++)
             baseType = new ArrayType(baseType);
-        for (int i = 0; i < node.getFixedDimension().size(); i++)
+        for (BaseExpressionNode dimensionExpression : node.getFixedDimension()) {
+            BaseType dimension = visit(dimensionExpression);
+            if (!(dimension instanceof PrimaryType)) throw new Error();
+            if (!((PrimaryType) dimension).getType().equals(PrimaryTypeList.INT)) throw new Error();
             baseType = new ArrayType(baseType);
+        }
         node.setType(new AddressType(baseType));
         return baseType;
     }
@@ -163,6 +162,8 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                         throw new Error();
                     if (node.getArguments().size() != 0)
                         throw new Error();
+                    node.setEntity(globalEntity.getFunctionEntity("size"));
+                    node.setType(new PrimaryType(PrimaryTypeList.INT));
                     return new PrimaryType(PrimaryTypeList.INT);
                 }
                 throw new Error();
@@ -188,7 +189,8 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                 functionEntity = ((ClassEntity) entity).getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
             else functionEntity = globalEntity.getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
         } else throw new Error();
-        if (node.getfunctionNode() instanceof DotExpressionNode) {
+        node.setEntity(functionEntity);
+        if (functionEntity.getParentEntity() != globalEntity) {
             if (functionEntity.getParameterList().size() != node.getArguments().size() + 1) throw new Error();
             for (int i = 1; i < functionEntity.getParameterList().size(); i++) {
                 BaseType argumentType = visit(node.getArguments().get(i - 1));

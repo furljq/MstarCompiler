@@ -604,20 +604,14 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     public FunctionIRNode visitFunctionExpressionNode(FunctionExpressionNode node) {
         List<BaseIRNode> body = new ArrayList<>();
         IRRegister destIRRegister = new IRRegister();
-        FunctionEntity functionEntity;
+        FunctionEntity functionEntity = node.getEntity();
         List<IRRegister> parameterIRRegisters = new ArrayList<>();
         if (node.getfunctionNode() instanceof DotExpressionNode) {
             FunctionIRNode objectNode = visit(((DotExpressionNode) node.getfunctionNode()).getObjectExpressionNode());
             body.addAll(objectNode.getBodyNode());
             objectNode = loadMemory(objectNode.getReturnRegister());
             body.addAll(objectNode.getBodyNode());
-            BaseType classType = objectNode.getReturnRegister().getType();
-            if (classType instanceof ClassType) functionEntity = globalEntity.getClassEntity(((ClassType) classType).getClassName()).getFunctionEntity(((DotExpressionNode) node.getfunctionNode()).getIdentifierExpressionNode().getIdentifierName());
-            else functionEntity = globalEntity.getFunctionEntity("size");
             parameterIRRegisters.add(objectNode.getReturnRegister());
-        } else {
-            assert node.getfunctionNode() instanceof IdentifierExpressionNode;
-            functionEntity = globalEntity.getFunctionEntity(((IdentifierExpressionNode) node.getfunctionNode()).getIdentifierName());
         }
         for (int i = 0; i < node.getArguments().size(); i++) {
             FunctionIRNode argumentNode = visit(node.getArguments().get(i));
