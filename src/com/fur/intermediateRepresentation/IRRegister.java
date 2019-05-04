@@ -62,4 +62,12 @@ public class IRRegister {
         return reallocate.print();
     }
 
+    public String printWithoutLength() {
+        if (reallocate == null) {
+            if (register == null) return memory.printWithoutLength();
+            return register.getName();
+        }
+        return reallocate.printWithoutLength();
+    }
+
 }

@@ -59,7 +59,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     @Override
     public List<String> visitBranchIRNode(BranchIRNode node) {
         List<String> code = new ArrayList<>();
-        code.add("cmp\t" + node.getConditionRegister().print() + ", 0");
+        code.add("cmp\t" + node.getConditionIRRegister().print() + ", 0");
         code.add("jz\t" + node.getFalseDestIDNode().getNasmLabel().getName());
         code.add("jmp\t" + node.getTrueDestIRNode().getNasmLabel().getName());
         return code;
@@ -81,14 +81,14 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         }
         code.add("cmp\t" + node.getOperateIRRegister1().print() + ", " + node.getOperateIRRegister2().print());
         node.getOperateIRRegister2().getRegister().store();
-        String cmpOperator = null;
-        if (node.getOperator() == OperatorList.EQUAL) cmpOperator = "sete";
-        if (node.getOperator() == OperatorList.NOTEQUAL) cmpOperator = "setne";
-        if (node.getOperator() == OperatorList.GT) cmpOperator = "setg";
-        if (node.getOperator() == OperatorList.GEQ) cmpOperator = "setge";
-        if (node.getOperator() == OperatorList.LT) cmpOperator = "setl";
-        if (node.getOperator() == OperatorList.LEQ) cmpOperator = "setle";
-        code.add(cmpOperator + "\t" + node.getDestIRRegister().getMemory().printWithoutLength());
+        if (node.getOperator() == OperatorList.EQUAL) code.add("sete al");
+        if (node.getOperator() == OperatorList.NOTEQUAL) code.add("setne al");
+        if (node.getOperator() == OperatorList.GT) code.add("setg al");
+        if (node.getOperator() == OperatorList.GEQ) code.add("setge al");
+        if (node.getOperator() == OperatorList.LT) code.add("setl al");
+        if (node.getOperator() == OperatorList.LEQ) code.add("setle al");
+        code.add("movzx\teax, al");
+        code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         return code;
     }
 

@@ -50,7 +50,7 @@ public class NASMBuilder {
         code.add("SECTION .bss");
         code.addAll(data);
         code.add("SECTION .rodata");
-        code.add("L_022:\tdb 25H, 73H, 00H");
+        code.add("L_027:\tdb 25H, 73H, 00H");
         return code;
     }
 

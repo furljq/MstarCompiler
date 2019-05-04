@@ -5,21 +5,21 @@ import com.fur.intermediateRepresentation.IntermediateRepresentationVisitor;
 
 public class BranchIRNode extends BaseIRNode {
     
-    private IRRegister conditionRegister;
+    private IRRegister conditionIRRegister;
     private LabelIRNode trueDestIRNode, falseDestIDNode;
     
     public BranchIRNode(IRRegister _conditionRegister, LabelIRNode _trueDestIRNode, LabelIRNode _falseDestIDNode) {
-        conditionRegister = _conditionRegister;
+        conditionIRRegister = _conditionRegister;
         trueDestIRNode = _trueDestIRNode;
         falseDestIDNode = _falseDestIDNode;
     }
 
-    public void setConditionRegister(IRRegister conditionRegister) {
-        this.conditionRegister = conditionRegister;
+    public void setConditionIRRegister(IRRegister conditionIRRegister) {
+        this.conditionIRRegister = conditionIRRegister;
     }
 
-    public IRRegister getConditionRegister() {
-        return conditionRegister;
+    public IRRegister getConditionIRRegister() {
+        return conditionIRRegister;
     }
 
     public LabelIRNode getTrueDestIRNode() {

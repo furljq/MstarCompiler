@@ -66,10 +66,10 @@ public class NASMDataBuilder extends IntermediateRepresentationBaseVisitor<List<
     @Override
     public List<String> visitBranchIRNode(BranchIRNode node) {
         List<String> code = new ArrayList<>();
-        if (node.getConditionRegister().getMemory() instanceof NASMStaticMemory)
-            if (!staticIRRegisters.contains(node.getConditionRegister())) {
-                staticIRRegisters.add(node.getConditionRegister());
-                code.add(((NASMStaticMemory) node.getConditionRegister().getMemory()).getName() + ":\tresq\t1");
+        if (node.getConditionIRRegister().getMemory() instanceof NASMStaticMemory)
+            if (!staticIRRegisters.contains(node.getConditionIRRegister())) {
+                staticIRRegisters.add(node.getConditionIRRegister());
+                code.add(((NASMStaticMemory) node.getConditionIRRegister().getMemory()).getName() + ":\tresq\t1");
             }
         return code;
     }

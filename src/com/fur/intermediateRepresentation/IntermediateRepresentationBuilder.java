@@ -109,7 +109,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 if (instruction instanceof CallIRNode)
                     instruction.getLiveIRRegister().remove(((CallIRNode) instruction).getDestIRRegister());
                 if (instruction instanceof BranchIRNode)
-                    instruction.getLiveIRRegister().add(((BranchIRNode) instruction).getConditionRegister());
+                    instruction.getLiveIRRegister().add(((BranchIRNode) instruction).getConditionIRRegister());
                 if (instruction instanceof CallIRNode)
                     for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters())
                         instruction.getLiveIRRegister().add(parameterIRRegister);
@@ -137,7 +137,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                     irRegister1.getNearbyIRRegisters().add(irRegister2);
         for (BaseIRNode instruction : instructions) {
             if (instruction instanceof BranchIRNode)
-                ((BranchIRNode) instruction).setConditionRegister(reallocate(((BranchIRNode) instruction).getConditionRegister()));
+                ((BranchIRNode) instruction).setConditionIRRegister(reallocate(((BranchIRNode) instruction).getConditionIRRegister()));
             if (instruction instanceof CmpIRNode) {
                 ((CmpIRNode) instruction).setDestIRRegister(reallocate(((CmpIRNode) instruction).getDestIRRegister()));
                 ((CmpIRNode) instruction).setOperateIRRegister1(reallocate(((CmpIRNode) instruction).getOperateIRRegister1()));
@@ -185,8 +185,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             }
             if (currentFunction != null) {
                 if (instruction instanceof BranchIRNode)
-                    if (((BranchIRNode) instruction).getConditionRegister().getMemory() == null)
-                        ((BranchIRNode) instruction).getConditionRegister().setMemory(new NASMStackMemory(++cnt));
+                    if (((BranchIRNode) instruction).getConditionIRRegister().getMemory() == null)
+                        ((BranchIRNode) instruction).getConditionIRRegister().setMemory(new NASMStackMemory(++cnt));
                 if (instruction instanceof OpIRNode) {
                     if (((OpIRNode) instruction).getDestIRRegister().getMemory() == null)
                         ((OpIRNode) instruction).getDestIRRegister().setMemory(new NASMStackMemory(++cnt));
@@ -336,7 +336,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         body.add(conditionLabel);
         FunctionIRNode conditionExpression = visit(node.getConditionExpressionNode());
         body.addAll(conditionExpression.getBodyNode());
-        body.add(new BranchIRNode(conditionExpression.getReturnRegister(), conditionLabel, breakLabel));
+        body.add(new BranchIRNode(conditionExpression.getReturnRegister(), continueLabel, breakLabel));
         body.add(continueLabel);
         FunctionIRNode bodyExpression = visit(node.getBodyStatementNode());
         body.addAll(bodyExpression.getBodyNode());
