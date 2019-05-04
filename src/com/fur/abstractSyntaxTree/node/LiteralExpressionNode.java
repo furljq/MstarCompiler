@@ -29,6 +29,7 @@ public class LiteralExpressionNode extends BaseExpressionNode {
                     else if (nextChar == 't') rebuild.append('\t');
                     else if (nextChar == '"') rebuild.append('"');
                     else rebuild.append(nextChar);
+                    i++;
                 } else rebuild.append(value.charAt(i));
             }
             value = rebuild.toString();

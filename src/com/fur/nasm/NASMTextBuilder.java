@@ -27,7 +27,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
                 for (int i = 0; i < ((FunctionLabelIRNode) node).getEntity().getParameterList().size(); i++) {
                     IRRegister parameterIRRegister = ((FunctionLabelIRNode) node).getEntity().getParameterList().get(i).getIRRegister();
                     if (parameterIRRegister.getMemory() == null) continue;
-                    if (i < 6) code.add("mov\t" + parameterIRRegister.print() + ", " + registers.getParameterRegister(i));
+                    if (i < 6) code.add("mov\t" + parameterIRRegister.print() + ", " + registers.getParameterRegister(i).getName());
                 }
         }
         return code;
@@ -132,7 +132,10 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.ASSIGN) operator = "mov";
             if (node.getOperator() == OperatorList.ADD) operator = "add";
             if (node.getOperator() == OperatorList.SUB) operator = "sub";
-            if (node.getOperator() == OperatorList.MUL) operator = "imul";
+            if (node.getOperator() == OperatorList.MUL) {
+                operator = "imul";
+                code.addAll(registers.getRegister("r9").load(node.getDestIRRegister()));
+            }
             if (node.getOperator() == OperatorList.XOR) operator = "xor";
             if (node.getOperator() == OperatorList.OR) operator = "or";
             if (node.getOperator() == OperatorList.AND) operator = "and";
@@ -147,6 +150,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
                 code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + node.getSourceIRRegister().print());
                 node.getSourceIRRegister().getRegister().store();
             }
+            if (node.getOperator() == OperatorList.MUL) code.addAll(registers.getRegister("r9").store());
         }
         return code;
     }
