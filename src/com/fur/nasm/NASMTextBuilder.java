@@ -61,7 +61,6 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>();
         code.add("cmp\t" + node.getConditionIRRegister().print() + ", 0");
         code.add("jz\t" + node.getFalseDestIDNode().getNasmLabel().getName());
-        code.add("jmp\t" + node.getTrueDestIRNode().getNasmLabel().getName());
         return code;
     }
 

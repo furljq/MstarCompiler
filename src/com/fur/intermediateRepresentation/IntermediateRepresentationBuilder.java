@@ -54,11 +54,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         }
     }
 
-    private BaseType getArrayType(BaseType baseType, int dimension) {
-        if (dimension == 0) return baseType;
-        return new ArrayType(getArrayType(baseType, dimension - 1));
-    }
-
     private FunctionIRNode loadMemory(IRRegister address) {
         List<BaseIRNode> body = new ArrayList<>();
         if (!(address.getType() instanceof AddressType)) return new FunctionIRNode(body, address);
@@ -96,7 +91,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 BaseIRNode instruction = instructions.get(i);
                 List<IRRegister> liveIRRegister = new ArrayList<>(instruction.getLiveIRRegister());
                 if (instruction instanceof BranchIRNode) {
-                    instruction.getLiveIRRegister().addAll(((BranchIRNode) instruction).getTrueDestIRNode().getLiveIRRegister());
+                    instruction.getLiveIRRegister().addAll(instructions.get(i + 1).getLiveIRRegister());
                     instruction.getLiveIRRegister().addAll(((BranchIRNode) instruction).getFalseDestIDNode().getLiveIRRegister());
                 } else if (instruction instanceof JumpIRNode)
                     instruction.getLiveIRRegister().addAll(((JumpIRNode) instruction).getDestLabelNode().getLiveIRRegister());
@@ -336,8 +331,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         body.add(conditionLabel);
         FunctionIRNode conditionExpression = visit(node.getConditionExpressionNode());
         body.addAll(conditionExpression.getBodyNode());
-        body.add(new BranchIRNode(conditionExpression.getReturnRegister(), continueLabel, breakLabel));
-        body.add(continueLabel);
+        body.add(new BranchIRNode(conditionExpression.getReturnRegister(), breakLabel));
         FunctionIRNode bodyExpression = visit(node.getBodyStatementNode());
         body.addAll(bodyExpression.getBodyNode());
         if (node.getUpdateExpressionNode() != null) body.addAll(visit(node.getUpdateExpressionNode()).getBodyNode());
@@ -379,13 +373,11 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         ((IfEntity) currentEntity).setEndLabel(endLabel);
         FunctionIRNode conditionExpression = visit(node.getConditionExpressionNode());
         List<BaseIRNode> body = new ArrayList<>(conditionExpression.getBodyNode());
-        body.add(new BranchIRNode(conditionExpression.getReturnRegister(), thenLabel, elseLabel));
-        body.add(thenLabel);
+        body.add(new BranchIRNode(conditionExpression.getReturnRegister(), elseLabel));
         body.addAll(visit(node.getThenStatementNode()).getBodyNode());
         body.add(new JumpIRNode(endLabel));
         body.add(elseLabel);
-        body.addAll(visit(node.getThenStatementNode()).getBodyNode());
-        body.add(new JumpIRNode(endLabel));
+        body.addAll(visit(node.getElseStatementNode()).getBodyNode());
         body.add(endLabel);
         currentEntity = oldEntity;
         return new FunctionIRNode(body, null);
@@ -470,12 +462,13 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             IRRegister destIRRegister = new IRRegister();
             destIRRegister.setType(node.getType());
             if (node.getOperator() == OperatorList.LOGICALAND || node.getOperator() == OperatorList.LOGICALOR) {
-                LabelIRNode continueLabel = new LabelIRNode();
                 LabelIRNode breakLabel = new LabelIRNode();
                 LabelIRNode endLabel = new LabelIRNode();
-                if (node.getOperator() == OperatorList.AND) body.add(new BranchIRNode(leftExpression.getReturnRegister(), continueLabel, breakLabel));
-                else body.add(new BranchIRNode(leftExpression.getReturnRegister(), breakLabel, continueLabel));
-                body.add(continueLabel);
+                if (node.getOperator() == OperatorList.LOGICALAND) body.add(new BranchIRNode(leftExpression.getReturnRegister(), breakLabel));
+                else {
+                    body.add(new OpIRNode(OperatorList.XOR, leftExpression.getReturnRegister(), 1));
+                    body.add(new BranchIRNode(leftExpression.getReturnRegister(), breakLabel));
+                }
                 body.addAll(rightExpression.getBodyNode());
                 rightExpression = loadMemory(rightExpression.getReturnRegister());
                 body.addAll(rightExpression.getBodyNode());
@@ -484,8 +477,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 else body.add(new OpIRNode(OperatorList.OR, destIRRegister, rightExpression.getReturnRegister()));
                 body.add(new JumpIRNode(endLabel));
                 body.add(breakLabel);
-                body.add(new OpIRNode(OperatorList.ADD, destIRRegister, node.getOperator() == OperatorList.OR ? 1 : 0));
-                body.add(new JumpIRNode(endLabel));
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, node.getOperator() == OperatorList.LOGICALOR ? 1 : 0));
                 body.add(endLabel);
             }
             if (node.getOperator() == OperatorList.LT || node.getOperator() == OperatorList.GT || node.getOperator() == OperatorList.LEQ || node.getOperator() == OperatorList.GEQ || node.getOperator() == OperatorList.EQUAL || node.getOperator() == OperatorList.NOTEQUAL) {
@@ -564,13 +556,11 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 IRRegister iteratorIRRegister = new IRRegister();
                 body.add(new OpIRNode(OperatorList.ASSIGN, iteratorIRRegister, 0));
                 LabelIRNode conditionLabel = new LabelIRNode();
-                LabelIRNode continueLabel = new LabelIRNode();
                 LabelIRNode breakLabel = new LabelIRNode();
                 body.add(conditionLabel);
                 IRRegister conditionIRRegister = new IRRegister();
                 body.add(new CmpIRNode(OperatorList.LT, conditionIRRegister, iteratorIRRegister, dimension.getReturnRegister()));
-                body.add(new BranchIRNode(conditionIRRegister, continueLabel, breakLabel));
-                body.add(continueLabel);
+                body.add(new BranchIRNode(conditionIRRegister, breakLabel));
                 body.addAll(baseCreator.getBodyNode());
                 IRRegister addressIRRegister = new IRRegister();
                 body.add(new OpIRNode(OperatorList.ASSIGN, addressIRRegister, iteratorIRRegister));
@@ -727,8 +717,24 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 1));
             body.add(new OpIRNode(OperatorList.XOR, destIRRegister, expression.getReturnRegister()));
         }
-        if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.PREFIXDEC || node.getOperator() == OperatorList.SUFFIXINC || node.getOperator() == OperatorList.SUFFIXDEC)
-            body.add(new OpIRNode(node.getOperator(), expression.getReturnRegister(), 1));
+        if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.PREFIXDEC || node.getOperator() == OperatorList.SUFFIXINC || node.getOperator() == OperatorList.SUFFIXDEC) {
+            if (node.getOperator() == OperatorList.PREFIXINC) {
+                body.add(new OpIRNode(OperatorList.ADD, expression.getReturnRegister(), 1));
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+            }
+            if (node.getOperator() == OperatorList.SUFFIXINC) {
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+                body.add(new OpIRNode(OperatorList.ADD, expression.getReturnRegister(), 1));
+            }
+            if (node.getOperator() == OperatorList.PREFIXDEC) {
+                body.add(new OpIRNode(OperatorList.SUB, expression.getReturnRegister(), 1));
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+            }
+            if (node.getOperator() == OperatorList.SUFFIXDEC) {
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+                body.add(new OpIRNode(OperatorList.SUB, expression.getReturnRegister(), 1));
+            }
+        }
         return new FunctionIRNode(body, destIRRegister);
     }
 
