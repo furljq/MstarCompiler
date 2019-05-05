@@ -291,6 +291,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         if (node.getReturnExpressionNode() != null){
             FunctionIRNode returnExpression = visit(node.getReturnExpressionNode());
             body.addAll(returnExpression.getBodyNode());
+            returnExpression = loadMemory(returnExpression.getReturnRegister());
+            body.addAll(returnExpression.getBodyNode());
             body.add(new OpIRNode(OperatorList.ASSIGN, ((FunctionEntity) functionEntity).getReturnRegister(), returnExpression.getReturnRegister()));
         }
         body.add(new JumpIRNode(((FunctionEntity) functionEntity).getReturnLabel()));
@@ -330,6 +332,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             body.addAll(visit(node.getInitExpressionNode()).getBodyNode());
         body.add(conditionLabel);
         FunctionIRNode conditionExpression = visit(node.getConditionExpressionNode());
+        body.addAll(conditionExpression.getBodyNode());
+        conditionExpression = loadMemory(conditionExpression.getReturnRegister());
         body.addAll(conditionExpression.getBodyNode());
         body.add(new BranchIRNode(conditionExpression.getReturnRegister(), breakLabel));
         FunctionIRNode bodyExpression = visit(node.getBodyStatementNode());
@@ -373,6 +377,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         ((IfEntity) currentEntity).setEndLabel(endLabel);
         FunctionIRNode conditionExpression = visit(node.getConditionExpressionNode());
         List<BaseIRNode> body = new ArrayList<>(conditionExpression.getBodyNode());
+        conditionExpression = loadMemory(conditionExpression.getReturnRegister());
+        body.addAll(conditionExpression.getBodyNode());
         body.add(new BranchIRNode(conditionExpression.getReturnRegister(), elseLabel));
         body.addAll(visit(node.getThenStatementNode()).getBodyNode());
         body.add(new JumpIRNode(endLabel));

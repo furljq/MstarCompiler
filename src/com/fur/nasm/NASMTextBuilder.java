@@ -94,10 +94,10 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     @Override
     public List<String> visitOpIRNode(OpIRNode node) {
         List<String> code = new ArrayList<>();
-        if (node.getOperator() == OperatorList.STORE || node.getOperator() == OperatorList.STORECHAR) {
+        if (node.getOperator() == OperatorList.STORE) {
             if (node.getDestIRRegister().getRegister() == null)
                 code.addAll(registers.getRegister("r8").load(node.getDestIRRegister()));
-            String length = node.getOperator() == OperatorList.STORE ? "qword " : "";
+            String length = "qword ";
             if (node.getSourceIRRegister() == null) {
                 code.add("mov\tr9, " + node.getImmediate());
                 code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], r9");
