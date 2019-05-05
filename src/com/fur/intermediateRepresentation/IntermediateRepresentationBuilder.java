@@ -702,10 +702,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             destIRRegister.setType(new ClassType("string"));
         } else {
             assert node.getType() instanceof PrimaryType;
-            if (((PrimaryType) node.getType()).getType() == PrimaryTypeList.BOOL) {
-                if (node.getValue().equals("true")) body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 1));
-                else body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 0));
-            } else body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, Integer.parseInt(node.getValue())));
+            body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, Integer.parseInt(node.getValue())));
             destIRRegister.setType(new PrimaryType(PrimaryTypeList.INT));
         }
         return new FunctionIRNode(body, destIRRegister);
