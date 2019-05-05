@@ -714,7 +714,12 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         IRRegister destIRRegister = new IRRegister();
         FunctionIRNode expression = visit(node.getExpressionNode());
         List<BaseIRNode> body = new ArrayList<>(expression.getBodyNode());
-        if (node.getOperator() == OperatorList.NEG) body.add(new OpIRNode(OperatorList.SUB, destIRRegister, expression.getReturnRegister()));
+        expression = loadMemory(expression.getReturnRegister());
+        body.addAll(expression.getBodyNode());
+        if (node.getOperator() == OperatorList.NEG) {
+            body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+            body.add(new OpIRNode(OperatorList.NEG, destIRRegister, null));
+        }
         if (node.getOperator() == OperatorList.NOT) {
             body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 0xffff));
             body.add(new OpIRNode(OperatorList.XOR, destIRRegister, expression.getReturnRegister()));
