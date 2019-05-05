@@ -122,8 +122,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             code.add("cqo");
             code.add("idiv\t" + node.getSourceIRRegister().print());
             String resultRegister = node.getOperator() == OperatorList.DIV ? "rax" : "rdx";
-            code.add("mov\t" + node.getDestIRRegister().print() + ", " + resultRegister);
             registers.getRegister("rax").store();
+            code.add("mov\t" + node.getDestIRRegister().print() + ", " + resultRegister);
         } else if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.PREFIXDEC || node.getOperator() == OperatorList.SUFFIXINC || node.getOperator() == OperatorList.SUFFIXDEC) {
             if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.SUFFIXINC) code.add("inc\t" + node.getDestIRRegister().print());
             else code.add("dec\t" + node.getDestIRRegister().print());

@@ -21,108 +21,45 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.mx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+            <state relative-caret-position="95">
+              <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.asm">
+        <entry file="file://$PROJECT_DIR$/main.mx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="575" column="27" lean-forward="true" selection-start-line="575" selection-start-column="27" selection-end-line="575" selection-end-column="27" />
+            <state relative-caret-position="323">
+              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="121" column="28" lean-forward="true" selection-start-line="121" selection-start-column="28" selection-end-line="121" selection-end-column="28" />
+              <folding>
+                <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitCallIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
+        <entry file="file://$PROJECT_DIR$/main.asm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="316" column="73" selection-start-line="316" selection-start-column="73" selection-end-line="316" selection-end-column="73" />
-              <folding>
-                <element signature="method#IntermediateRepresentationBuilder#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#getFunctionLabel#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#1220#2487#1" />
-                <element signature="e#1336#2105#1" />
-                <element signature="e#1425#2091#1" />
-                <element signature="e#1606#2073#1" />
-                <element signature="e#2156#2477#1" />
-                <element signature="method#loadMemory#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#reallocate#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#3685#3809#1" />
-                <element signature="method#liveAnalyze#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#4110#7019#1" />
-                <element signature="e#4208#6979#1" />
-                <element signature="e#4429#4684#1" />
-                <element signature="e#6008#6243#1" />
-                <element signature="e#6765#6965#1" />
-                <element signature="e#7351#8991#1" />
-                <element signature="e#7592#7983#1" />
-                <element signature="e#8033#8368#1" />
-                <element signature="e#8594#8981#1" />
-                <element signature="method#memoryAllocate#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#9231#9976#1" />
-                <element signature="e#9293#9966#1" />
-                <element signature="e#9578#9952#1" />
-                <element signature="e#10050#13252#1" />
-                <element signature="e#10112#10410#1" />
-                <element signature="e#10240#10382#1" />
-                <element signature="e#10452#12794#1" />
-                <element signature="e#10780#11287#1" />
-                <element signature="e#11343#11832#1" />
-                <element signature="e#11887#12522#1" />
-                <element signature="e#12845#13004#1" />
-                <element signature="method#visitCompilationUnitNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#13725#13925#1" />
-                <element signature="e#14440#15079#1" />
-                <element signature="e#14500#14948#1" />
-                <element signature="e#14739#14888#1" />
-                <element signature="method#visitFunctionDeclarationNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#15732#16033#1" />
-                <element signature="e#16133#16409#1" />
-                <element signature="method#visitBlockStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitLoopStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitBreakStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitContinueStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitIfStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitVariableDeclarationNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#22519#22674#1" />
-                <element signature="method#visitExpressionStatementNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#23424#24612#1" />
-                <element signature="e#23716#24567#1" />
-                <element signature="method#visitArrayExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitBinaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#26119#26755#1" />
-                <element signature="e#27400#27616#1" />
-                <element signature="e#28745#30446#1" />
-                <element signature="e#29037#30293#1" />
-                <element signature="e#30893#32135#1" />
-                <element signature="e#31024#31647#1" />
-                <element signature="e#31653#32121#1" />
-                <element signature="method#visitCreatorExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="e#32549#33270#1" />
-                <element signature="e#32878#33260#1" />
-                <element signature="e#33276#35987#1" />
-                <element signature="e#34223#35977#1" />
-                <element signature="method#visitDotExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitFunctionExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitIdentifierExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitLiteralExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-                <element signature="method#visitUnaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
-              </folding>
+            <state relative-caret-position="222">
+              <caret line="565" column="27" lean-forward="true" selection-end-line="910" />
             </state>
           </provider>
         </entry>
@@ -243,11 +180,11 @@
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/LiteralExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/OpIRNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
-        <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java" />
+        <option value="$PROJECT_DIR$/main.mx" />
+        <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
       </list>
     </option>
   </component>
@@ -282,13 +219,6 @@
               <item name="Compiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fur" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="intermediateRepresentation" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
@@ -432,18 +362,18 @@
       <workItem from="1556860818616" duration="25242000" />
       <workItem from="1556940752555" duration="23599000" />
       <workItem from="1556987340947" duration="3782000" />
-      <workItem from="1557020194027" duration="2595000" />
+      <workItem from="1557020194027" duration="5449000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="533129000" />
+    <option name="totallyTimeSpent" value="535983000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24530831" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24530831" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -452,7 +382,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.26104417" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26104417" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5649264" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1028,13 +958,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1042,40 +965,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="94" column="53" selection-start-line="94" selection-start-column="53" selection-end-line="94" selection-end-column="53" />
-          <folding>
-            <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitCallIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitOpIRNode#0;class#NASMTextBuilder#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.asm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="575" column="27" lean-forward="true" selection-start-line="575" selection-start-column="27" selection-end-line="575" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="316" column="73" selection-start-line="316" selection-start-column="73" selection-end-line="316" selection-end-column="73" />
+        <state relative-caret-position="270">
+          <caret line="294" column="56" lean-forward="true" selection-start-line="294" selection-start-column="56" selection-end-line="294" selection-end-column="56" />
           <folding>
             <element signature="method#IntermediateRepresentationBuilder#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#getFunctionLabel#0;class#IntermediateRepresentationBuilder#0" />
@@ -1147,6 +1040,42 @@
             <element signature="method#visitLiteralExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#visitUnaryExpressionNode#0;class#IntermediateRepresentationBuilder#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.mx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="121" column="28" lean-forward="true" selection-start-line="121" selection-start-column="28" selection-end-line="121" selection-end-column="28" />
+          <folding>
+            <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitCallIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="565" column="27" lean-forward="true" selection-end-line="910" />
         </state>
       </provider>
     </entry>

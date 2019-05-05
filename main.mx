@@ -1,16 +1,37 @@
-class C2 {
-    int x;
-    int y;
-    bool b;
-    int z;
+int[] a = new int[10100];
+int n = 2;
+
+int qsrt(int l, int r) {
+    int i = l;
+    int j = r;
+    int x = a[(l + r) / 2];
+    while (i <= j) {
+        while (a[i] < x) i++;
+        while (a[j] > x) j--;
+        if (i <= j) {
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    if (l < j) qsrt(l, j);
+    if (i < r) qsrt(i, r);
+    return 0;
 }
 
 int main() {
-    C2 obj = new C2;
-    obj.x = 10;
-    obj.y = 20;
-    obj.b = obj.x > obj.y;
-    if (obj.b) obj.z = 40;
-    else obj.z = 80;
-    return obj.x + obj.y + obj.z;
+    int i;
+    for (i = 1; i <= n; i++)
+        a[i] = n + 1 - i;
+    qsrt(1, n);
+    for (i = 1; i <= n; i++) {
+//       printf("%d ", a[i]);
+		print(toString(a[i]));
+		print(" ");
+	}
+    print("\n");
+    return 0;
 }
+
