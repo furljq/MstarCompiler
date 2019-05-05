@@ -55,7 +55,7 @@ char* CLASS_string_MEMBER_substring(char *str, int l, int r) {
     int len = r - l + 1;
     char *subStr = (char*) malloc(9 + len);
     *((long long*) subStr) = len;
-    str += 8 + l;
+    str += l;
     subStr += 8;
     for (int i = 0; i < len; ++i)
         subStr[i] = str[i];

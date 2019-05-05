@@ -1,6 +1,7 @@
 
 
 
+
 global FUNCTION_size
 global FUNCTION_print
 global FUNCTION_println
@@ -259,7 +260,6 @@ CLASS_string_MEMBER_substring:
         mov     rax, qword [rbp-8H]
         mov     qword [rax], rdx
         mov     eax, dword [rbp-1CH]
-        add     eax, 8
         cdqe
         add     qword [rbp-18H], rax
         add     qword [rbp-8H], 8
@@ -586,5 +586,4 @@ FUNCTION_string_geq:
         movzx   eax, al
         leave
         ret
-
 
