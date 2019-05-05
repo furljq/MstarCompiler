@@ -715,8 +715,54 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         IRRegister destIRRegister = new IRRegister();
         FunctionIRNode expression = visit(node.getExpressionNode());
         List<BaseIRNode> body = new ArrayList<>(expression.getBodyNode());
-        expression = loadMemory(expression.getReturnRegister());
-        body.addAll(expression.getBodyNode());
+        if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.PREFIXDEC || node.getOperator() == OperatorList.SUFFIXINC || node.getOperator() == OperatorList.SUFFIXDEC) {
+            if (expression.getReturnRegister().getType() instanceof AddressType) {
+                IRRegister expressionIRRegister = expression.getReturnRegister();
+                IRRegister valueIRRegister = new IRRegister();
+                valueIRRegister.setType(expressionIRRegister.getType());
+                body.add(new OpIRNode(OperatorList.ASSIGN, valueIRRegister, expressionIRRegister));
+                FunctionIRNode load = loadMemory(valueIRRegister);
+                body.addAll(load.getBodyNode());
+                valueIRRegister = load.getReturnRegister();
+                if (node.getOperator() == OperatorList.PREFIXINC) {
+                    body.add(new OpIRNode(OperatorList.ADD, valueIRRegister, 1));
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, valueIRRegister));
+                }
+                if (node.getOperator() == OperatorList.SUFFIXINC) {
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, valueIRRegister));
+                    body.add(new OpIRNode(OperatorList.ADD, valueIRRegister, 1));
+                }
+                if (node.getOperator() == OperatorList.PREFIXDEC) {
+                    body.add(new OpIRNode(OperatorList.SUB, valueIRRegister, 1));
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, valueIRRegister));
+                }
+                if (node.getOperator() == OperatorList.SUFFIXDEC) {
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, valueIRRegister));
+                    body.add(new OpIRNode(OperatorList.SUB, valueIRRegister, 1));
+                }
+                body.add(new OpIRNode(OperatorList.STORE, expressionIRRegister, valueIRRegister));
+            } else {
+                if (node.getOperator() == OperatorList.PREFIXINC) {
+                    body.add(new OpIRNode(OperatorList.ADD, expression.getReturnRegister(), 1));
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+                }
+                if (node.getOperator() == OperatorList.SUFFIXINC) {
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+                    body.add(new OpIRNode(OperatorList.ADD, expression.getReturnRegister(), 1));
+                }
+                if (node.getOperator() == OperatorList.PREFIXDEC) {
+                    body.add(new OpIRNode(OperatorList.SUB, expression.getReturnRegister(), 1));
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+                }
+                if (node.getOperator() == OperatorList.SUFFIXDEC) {
+                    body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
+                    body.add(new OpIRNode(OperatorList.SUB, expression.getReturnRegister(), 1));
+                }
+            }
+        } else {
+            expression = loadMemory(expression.getReturnRegister());
+            body.addAll(expression.getBodyNode());
+        }
         if (node.getOperator() == OperatorList.NEG) {
             body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
             body.add(new OpIRNode(OperatorList.NEG, destIRRegister, null));
@@ -728,24 +774,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         if (node.getOperator() == OperatorList.LOGICALNOT) {
             body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 1));
             body.add(new OpIRNode(OperatorList.XOR, destIRRegister, expression.getReturnRegister()));
-        }
-        if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.PREFIXDEC || node.getOperator() == OperatorList.SUFFIXINC || node.getOperator() == OperatorList.SUFFIXDEC) {
-            if (node.getOperator() == OperatorList.PREFIXINC) {
-                body.add(new OpIRNode(OperatorList.ADD, expression.getReturnRegister(), 1));
-                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
-            }
-            if (node.getOperator() == OperatorList.SUFFIXINC) {
-                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
-                body.add(new OpIRNode(OperatorList.ADD, expression.getReturnRegister(), 1));
-            }
-            if (node.getOperator() == OperatorList.PREFIXDEC) {
-                body.add(new OpIRNode(OperatorList.SUB, expression.getReturnRegister(), 1));
-                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
-            }
-            if (node.getOperator() == OperatorList.SUFFIXDEC) {
-                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, expression.getReturnRegister()));
-                body.add(new OpIRNode(OperatorList.SUB, expression.getReturnRegister(), 1));
-            }
         }
         return new FunctionIRNode(body, destIRRegister);
     }
