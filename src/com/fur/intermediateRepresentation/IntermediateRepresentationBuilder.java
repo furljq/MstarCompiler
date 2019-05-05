@@ -263,6 +263,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         List<BaseIRNode> body = new ArrayList<>();
         IRRegister destIRRegister = new IRRegister();
         body.add(((FunctionEntity) currentEntity).getEntryLabel());
+        body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 0));
         if (oldEntity != globalEntity) {
             IRRegister parameterRegister = new IRRegister();
             VariableEntity parameterEntity = ((FunctionEntity) currentEntity).get("this");
