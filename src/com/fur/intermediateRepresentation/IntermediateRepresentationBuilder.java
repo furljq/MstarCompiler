@@ -267,13 +267,13 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             IRRegister parameterRegister = new IRRegister();
             VariableEntity parameterEntity = ((FunctionEntity) currentEntity).get("this");
             parameterEntity.setIRRegister(parameterRegister);
-            body.add(new OpIRNode(OperatorList.ASSIGN, parameterRegister, 0));
+            body.add(new OpIRNode(OperatorList.ADD, parameterRegister, 0));
         }
         for (VariableEntity parameterEntity : ((FunctionEntity) currentEntity).getParameterList()) {
             IRRegister parameterRegister = new IRRegister();
             parameterRegister.setType(parameterEntity.getType());
             parameterEntity.setIRRegister(parameterRegister);
-            body.add(new OpIRNode(OperatorList.ASSIGN, parameterRegister, 0));
+            body.add(new OpIRNode(OperatorList.ADD, parameterRegister, 0));
         }
         ((FunctionEntity) currentEntity).setReturnRegister(destIRRegister);
         body.addAll(visit(node.getBlockStatementNodes()).getBodyNode());
@@ -583,7 +583,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         List<BaseIRNode> body = new ArrayList<>(object.getBodyNode());
         object = loadMemory(object.getReturnRegister());
         body.addAll(object.getBodyNode());
-        body.add(new OpIRNode(OperatorList.ADD, destIRRegister, object.getReturnRegister()));
+        body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, object.getReturnRegister()));
         ClassType classType = (ClassType) object.getReturnRegister().getType();
         String member = node.getIdentifierExpressionNode().getIdentifierName();
         ClassEntity classEntity = globalEntity.getClassEntity(classType.getClassName());
@@ -674,21 +674,25 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             body.add(new OpIRNode(OperatorList.MALLOC, destIRRegister, node.getValue().length() + 9));
             body.add(new OpIRNode(OperatorList.STORE, destIRRegister, node.getValue().length()));
             body.add(new OpIRNode(OperatorList.ADD, destIRRegister, 8));
-            int value = 0;
+            long value = 0;
             for (int i = 0; i < node.getValue().length() + 1; i++) {
-                char character = i == node.getValue().length() ? 0 : node.getValue().charAt(i);
-                int index = i / 4;
-                int offset = i % 4;
+                long character = i == node.getValue().length() ? 0 : node.getValue().charAt(i);
+                int index = i / 8;
+                int offset = i % 8;
                 if (offset == 0) value = 0;
                 if (offset == 0) value += character;
                 if (offset == 1) value += character << 8;
                 if (offset == 2) value += character << 16;
                 if (offset == 3) value += character << 24;
-                if (offset == 3 || i == node.getValue().length()) {
+                if (offset == 4) value += character << 32;
+                if (offset == 5) value += character << 40;
+                if (offset == 6) value += character << 48;
+                if (offset == 7) value += character << 56;
+                if (offset == 7 || i == node.getValue().length()) {
                     IRRegister addressIRRegister = new IRRegister();
                     body.add(new OpIRNode(OperatorList.ASSIGN, addressIRRegister, destIRRegister));
-                    body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, index * 4));
-                    body.add(new OpIRNode(OperatorList.STORECHAR, addressIRRegister, value));
+                    body.add(new OpIRNode(OperatorList.ADD, addressIRRegister, index * 8));
+                    body.add(new OpIRNode(OperatorList.STORE, addressIRRegister, value));
                 }
             }
             destIRRegister.setType(new ClassType("string"));

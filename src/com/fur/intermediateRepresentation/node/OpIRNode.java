@@ -8,7 +8,7 @@ public class OpIRNode extends BaseIRNode {
 
     private OperatorList operator;
     private IRRegister destIRRegister, sourceIRRegister;
-    private int immediate;
+    private long immediate;
 
     public OpIRNode(OperatorList operator, IRRegister destIRRegister, IRRegister sourceIRRegister) {
         this.operator = operator;
@@ -16,7 +16,7 @@ public class OpIRNode extends BaseIRNode {
         this.sourceIRRegister = sourceIRRegister;
     }
 
-    public OpIRNode(OperatorList operator, IRRegister destIRRegister, int immediate) {
+    public OpIRNode(OperatorList operator, IRRegister destIRRegister, long immediate) {
         this.operator = operator;
         this.destIRRegister = destIRRegister;
         this.immediate = immediate;
@@ -47,7 +47,7 @@ public class OpIRNode extends BaseIRNode {
         return visitor.visitOpIRNode(this);
     }
 
-    public int getImmediate() {
+    public long getImmediate() {
         return immediate;
     }
 }

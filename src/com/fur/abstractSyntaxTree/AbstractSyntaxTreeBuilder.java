@@ -303,6 +303,7 @@ public class AbstractSyntaxTreeBuilder extends MstarBaseVisitor<BaseNode> {
                 conditionExpressionNode = (BaseExpressionNode) visit(context.expression(1));
                 updateExpressionNode = (BaseExpressionNode) visit(context.expression(2));
             }
+            if (conditionExpressionNode == null) conditionExpressionNode = new LiteralExpressionNode(new PrimaryType(PrimaryTypeList.BOOL), "true", context.start);
             BaseStatementNode bodyStatementNode = (BaseStatementNode) visit(context.statement(0));
             if (bodyStatementNode instanceof BlockStatementNode)
                 return new LoopStatementNode(initExpressionNode, conditionExpressionNode, updateExpressionNode, (BlockStatementNode) bodyStatementNode, context.start);
