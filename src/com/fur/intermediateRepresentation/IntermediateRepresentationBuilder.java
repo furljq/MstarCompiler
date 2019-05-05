@@ -478,9 +478,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(rightExpression.getBodyNode());
                 rightExpression = loadMemory(rightExpression.getReturnRegister());
                 body.addAll(rightExpression.getBodyNode());
-                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, leftExpression.getReturnRegister()));
-                if (node.getOperator() == OperatorList.AND) body.add(new OpIRNode(OperatorList.AND, destIRRegister, rightExpression.getReturnRegister()));
-                else body.add(new OpIRNode(OperatorList.OR, destIRRegister, rightExpression.getReturnRegister()));
+                body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, rightExpression.getReturnRegister()));
                 body.add(new JumpIRNode(endLabel));
                 body.add(breakLabel);
                 body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, node.getOperator() == OperatorList.LOGICALOR ? 1 : 0));
