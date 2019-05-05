@@ -16,4 +16,7 @@ public class Position {
         else return line <= position.line;
     }
 
+    public int getLine() {
+        return line;
+    }
 }

@@ -9,6 +9,11 @@ public class IntermediateRepresentationBaseVisitor<T> implements IntermediateRep
     }
 
     @Override
+    public T visitAnnotationIRNode(AnnotationIRNode node) {
+        return null;
+    }
+
+    @Override
     public T visitBranchIRNode(BranchIRNode node) {
         return null;
     }

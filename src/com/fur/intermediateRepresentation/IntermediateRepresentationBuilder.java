@@ -428,6 +428,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         body.addAll(preBody);
         body.addAll(midBody);
         body.addAll(sufBody);
+        body.add(new AnnotationIRNode(node.getPosition().getLine()));
         return new FunctionIRNode(body, null);
     }
 
@@ -488,7 +489,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(rightExpression.getBodyNode());
                 rightExpression = loadMemory(rightExpression.getReturnRegister());
                 body.addAll(rightExpression.getBodyNode());
-                if (leftExpression.getReturnRegister().getType() instanceof ClassType) {
+                if (leftExpression.getReturnRegister().getType() instanceof ClassType && ((ClassType) leftExpression.getReturnRegister().getType()).getClassName().equals("string")) {
                     List<IRRegister> parameterIRRegister = new ArrayList<>();
                     parameterIRRegister.add(leftExpression.getReturnRegister());
                     parameterIRRegister.add(rightExpression.getReturnRegister());

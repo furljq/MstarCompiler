@@ -7,6 +7,7 @@ public interface IntermediateRepresentationVisitor<T> {
 
     T visit(BaseIRNode node);
 
+    T visitAnnotationIRNode(AnnotationIRNode node);
     T visitBranchIRNode(BranchIRNode node);
     T visitCmpIRNode(CmpIRNode node);
     T visitCallIRNode(CallIRNode node);

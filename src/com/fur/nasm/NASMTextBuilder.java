@@ -106,6 +106,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
                 code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], " + node.getSourceIRRegister().print());
                 node.getSourceIRRegister().getRegister().store();
             }
+            node.getDestIRRegister().getRegister().store();
         } else if (node.getOperator() == OperatorList.LOAD) {
             code.add("mov\tr8, " + node.getSourceIRRegister().print());
             code.add("mov\tr9, [r8]");
@@ -155,4 +156,10 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         return code;
     }
 
+    @Override
+    public List<String> visitAnnotationIRNode(AnnotationIRNode node) {
+        List<String> code = new ArrayList<>();
+        code.add("; " + node.getLine());
+        return code;
+    }
 }
