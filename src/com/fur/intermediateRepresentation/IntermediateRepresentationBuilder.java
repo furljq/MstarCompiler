@@ -264,12 +264,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         IRRegister destIRRegister = new IRRegister();
         body.add(((FunctionEntity) currentEntity).getEntryLabel());
         body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, 0));
-        if (oldEntity != globalEntity) {
-            IRRegister parameterRegister = new IRRegister();
-            VariableEntity parameterEntity = ((FunctionEntity) currentEntity).get("this");
-            parameterEntity.setIRRegister(parameterRegister);
-            body.add(new OpIRNode(OperatorList.ADD, parameterRegister, 0));
-        }
         for (VariableEntity parameterEntity : ((FunctionEntity) currentEntity).getParameterList()) {
             IRRegister parameterRegister = new IRRegister();
             parameterRegister.setType(parameterEntity.getType());
@@ -658,11 +652,9 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                         IRRegister indexIRRegister = new IRRegister();
                         body.add(new OpIRNode(OperatorList.ASSIGN, indexIRRegister, index));
                         IRRegister destIRRegister = new IRRegister();
-                        body.add(new OpIRNode(OperatorList.ADD, destIRRegister, thisIRRegister));
+                        body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, thisIRRegister));
                         body.add(new OpIRNode(OperatorList.ADD, destIRRegister, indexIRRegister));
-                        if (variableEntity.getType() instanceof PrimaryType)
-                            body.add(new OpIRNode(OperatorList.MEMORY, destIRRegister, destIRRegister));
-                        destIRRegister.setType(variableEntity.getType());
+                        destIRRegister.setType(node.getType());
                         return new FunctionIRNode(body, destIRRegister);
                     }
                 }

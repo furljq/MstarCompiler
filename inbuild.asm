@@ -2,10 +2,6 @@
 
 
 
-
-
-default rel
-
 global FUNCTION_size
 global FUNCTION_print
 global FUNCTION_println
@@ -562,18 +558,5 @@ FUNCTION_string_geq:
         movzx   eax, al
         leave
         ret
-
-
-
-SECTION .data   
-
-
-SECTION .bss    
-
-
-SECTION .rodata 
-
-L_022:
-        db 25H, 73H, 00H
 
 

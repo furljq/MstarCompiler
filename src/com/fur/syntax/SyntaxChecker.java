@@ -240,7 +240,7 @@ public class SyntaxChecker extends AbstractSyntaxTreeBaseVisitor<BaseType> {
                 } else {
                     VariableEntity variableEntity = ((ClassEntity) entity).getVariableEntity(node.getIdentifierName());
                     if (variableEntity != null) {
-                        node.setType(variableEntity.getType());
+                        node.setType(new AddressType(variableEntity.getType()));
                         return variableEntity.getType();
                     }
                 }
