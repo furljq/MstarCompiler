@@ -22,7 +22,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             registers.store();
             code.add("push\trbp");
             code.add("mov\trbp, rsp");
-            code.add("sub\trsp, " + (((FunctionLabelIRNode) node).getIrRegisterSize() + 1) * 8);
+            code.add("sub\trsp, " + (((FunctionLabelIRNode) node).getIrRegisterSize() + 1) / 2 * 16);
             if (((FunctionLabelIRNode) node).getEntity() != null)
                 for (int i = 0; i < ((FunctionLabelIRNode) node).getEntity().getParameterList().size(); i++) {
                     IRRegister parameterIRRegister = ((FunctionLabelIRNode) node).getEntity().getParameterList().get(i).getIRRegister();
