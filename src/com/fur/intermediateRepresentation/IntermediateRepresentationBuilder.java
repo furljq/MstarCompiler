@@ -605,6 +605,11 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             objectNode = loadMemory(objectNode.getReturnRegister());
             body.addAll(objectNode.getBodyNode());
             parameterIRRegisters.add(objectNode.getReturnRegister());
+        } else if (functionEntity.getParentEntity() != globalEntity) {
+            BaseEntity entity = currentEntity;
+            while (!(entity instanceof FunctionEntity)) entity = entity.getParentEntity();
+            IRRegister thisIRRegister = ((FunctionEntity) entity).getParameterList().get(0).getIRRegister();
+            parameterIRRegisters.add(thisIRRegister);
         }
         for (int i = 0; i < node.getArguments().size(); i++) {
             FunctionIRNode argumentNode = visit(node.getArguments().get(i));
