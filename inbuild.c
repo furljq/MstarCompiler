@@ -15,10 +15,9 @@ void FUNCTION_println(char a[]) {
 }
 
 char* FUNCTION_getString() {
-    char *str = (char*) malloc(265);
-    scanf("%s", str + 8);
-    *((long long*) str) = strlen(str + 8);
-    return str + 8;
+    char *str = (char*) malloc(256);
+    scanf("%s", str);
+    return str;
 }
 
 char* FUNCTION_toString(long long num) {
@@ -48,7 +47,7 @@ char* FUNCTION_toString(long long num) {
 }
 
 long long CLASS_string_MEMBER_length(char* str) {
-    return *(long long*)(str - 8);
+    return strlen(str);
 }
 
 char* CLASS_string_MEMBER_substring(char *str, int l, int r) {
