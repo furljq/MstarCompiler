@@ -2,7 +2,6 @@
 	global main
 	global CLASS_older_MEMBER_solveAge
 	global FUNCTION_main
-	default rel
 	global FUNCTION_size
 	global FUNCTION_print
 	global FUNCTION_println
@@ -511,11 +510,6 @@ FUNCTION_string_geq:
 	        movzx   eax, al
 	        leave
 	        ret
-	SECTION .data   
-	SECTION .bss    
-	SECTION .rodata 
-L_022:
-	        db 25H, 73H, 00H
 main:
 	push	rbp
 	mov	rbp, rsp
@@ -655,6 +649,11 @@ LABEL2:
 	cmp	qword [rbp-35*8], 0
 	jz	LABEL3
 	mov	qword [rbp-36*8], 1
+	mov	r9, qword [rbp-36*8]
+	mov	qword [rbp-36*8], r9
+	mov	r8, qword [rbp-36*8]
+	imul	r8, 8
+	mov	qword [rbp-36*8], r8
 	mov	r8, qword [rbp-1*8]
 	mov	qword [rbp-37*8], r8
 	mov	r8, qword [rbp-36*8]
@@ -826,4 +825,4 @@ LABEL12:
 	SECTION .data
 	SECTION .bss
 	SECTION .rodata
-	L_027:	db 25H, 73H, 00H
+	L_022:	db 25H, 73H, 00H

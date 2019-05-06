@@ -651,6 +651,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                         int index = ((ClassEntity) entity).getIndex(node.getIdentifierName());
                         IRRegister indexIRRegister = new IRRegister();
                         body.add(new OpIRNode(OperatorList.ASSIGN, indexIRRegister, index));
+                        body.add(new OpIRNode(OperatorList.MUL, indexIRRegister, 8));
                         IRRegister destIRRegister = new IRRegister();
                         body.add(new OpIRNode(OperatorList.ASSIGN, destIRRegister, thisIRRegister));
                         body.add(new OpIRNode(OperatorList.ADD, destIRRegister, indexIRRegister));
