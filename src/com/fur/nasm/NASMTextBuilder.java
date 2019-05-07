@@ -144,7 +144,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.XOR) operator = "xor";
             if (node.getOperator() == OperatorList.OR) operator = "or";
             if (node.getOperator() == OperatorList.AND) operator = "and";
-            if (node.getSourceIRRegister() == null) code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
+            code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
             if (node.getOperator() == OperatorList.MUL) code.addAll(destRegister.store());
         }
         if (node.getOperator() == OperatorList.NEG) {
