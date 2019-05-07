@@ -60,7 +60,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     public List<String> visitBranchIRNode(BranchIRNode node) {
         List<String> code = new ArrayList<>();
         code.add("cmp\t" + node.getConditionIRRegister().print() + ", 0");
-        code.add("jz\t" + node.getFalseDestIDNode().getNasmLabel().getName());
+        code.add("jz\t" + node.getFalseDestIRNode().getNasmLabel().getName());
         return code;
     }
 
@@ -94,28 +94,23 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     @Override
     public List<String> visitOpIRNode(OpIRNode node) {
         List<String> code = new ArrayList<>();
+        NASMRegister sourceRegister = registers.getRegister("r8");
+        if (node.getSourceIRRegister() == null) code.add("mov\t" + sourceRegister.getName() + ", " + node.getImmediate());
+        else code.addAll(sourceRegister.load(node.getSourceIRRegister()));
         if (node.getOperator() == OperatorList.STORE) {
-            if (node.getDestIRRegister().getRegister() == null)
-                code.addAll(registers.getRegister("r8").load(node.getDestIRRegister()));
+            NASMRegister destRegister = registers.getRegister("r9");
+            code.addAll(destRegister.load(node.getDestIRRegister()));
             String length = "qword ";
-            if (node.getSourceIRRegister() == null) {
-                code.add("mov\tr9, " + node.getImmediate());
-                code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], r9");
-            } else {
-                code.addAll(registers.getRegister("r9").load(node.getSourceIRRegister()));
-                code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], " + node.getSourceIRRegister().print());
-                node.getSourceIRRegister().getRegister().store();
-            }
+            code.add("mov\t" + length + "[" + node.getDestIRRegister().print() + "], " + sourceRegister.getName());
             node.getDestIRRegister().getRegister().store();
         }
         if (node.getOperator() == OperatorList.LOAD) {
-            code.add("mov\tr8, " + node.getSourceIRRegister().print());
-            code.add("mov\tr9, [r8]");
-            code.add("mov\t" + node.getDestIRRegister().print() + ", r9");
+            NASMRegister tmpRegister = registers.getRegister("r9");
+            code.add("mov\t" + tmpRegister.getName() + ", [" + sourceRegister.getName() + "]");
+            code.add("mov\t" + node.getDestIRRegister().print() + ", " + tmpRegister.getName());
         }
         if (node.getOperator() == OperatorList.MALLOC) {
-            if (node.getSourceIRRegister() == null) code.add("mov\t" + registers.getParameterRegister(0).getName() + ", " + node.getImmediate());
-            else code.addAll(registers.getParameterRegister(0).load(node.getSourceIRRegister()));
+            code.add("mov\t" + registers.getParameterRegister(0).getName() + ", " + sourceRegister.getName());
             code.add("call\tmalloc");
             code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
             registers.getRegister("rax").store();
@@ -124,54 +119,41 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
             code.addAll(registers.getRegister("rax").load(node.getDestIRRegister()));
             code.add("cqo");
-            code.add("idiv\t" + node.getSourceIRRegister().print());
+            code.add("idiv\t" + sourceRegister);
             String resultRegister = node.getOperator() == OperatorList.DIV ? "rax" : "rdx";
             registers.getRegister("rax").store();
             code.add("mov\t" + node.getDestIRRegister().print() + ", " + resultRegister);
-        }
-        if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.PREFIXDEC || node.getOperator() == OperatorList.SUFFIXINC || node.getOperator() == OperatorList.SUFFIXDEC) {
-            if (node.getOperator() == OperatorList.PREFIXINC || node.getOperator() == OperatorList.SUFFIXINC) code.add("inc\t" + node.getDestIRRegister().print());
-            else code.add("dec\t" + node.getDestIRRegister().print());
         }
         if (node.getOperator() == OperatorList.LEFTSHIFT || node.getOperator() == OperatorList.RIGHTSHIFT) {
             String operator;
             if (node.getOperator() == OperatorList.LEFTSHIFT) operator = "shl";
             else operator = "sar";
-            if (node.getSourceIRRegister() == null) code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + node.getImmediate());
-            else {
-                code.addAll(registers.getRegister("rcx").load(node.getSourceIRRegister()));
-                code.add(operator + "\t" + node.getDestIRRegister().print() + ", cl");
-                node.getSourceIRRegister().getRegister().store();
-            }
+            code.add("mov\trcx, " + sourceRegister.getName());
+            code.add(operator + "\t" + node.getDestIRRegister().print() + " ,cl");
         }
         if (node.getOperator() == OperatorList.ASSIGN || node.getOperator() == OperatorList.ADD || node.getOperator() == OperatorList.SUB || node.getOperator() == OperatorList.MUL || node.getOperator() == OperatorList.XOR || node.getOperator() == OperatorList.AND || node.getOperator() == OperatorList.OR){
             String operator = null;
+            NASMRegister destRegister = registers.getRegister("r9");
             if (node.getOperator() == OperatorList.ASSIGN) operator = "mov";
             if (node.getOperator() == OperatorList.ADD) operator = "add";
             if (node.getOperator() == OperatorList.SUB) operator = "sub";
             if (node.getOperator() == OperatorList.MUL) {
                 operator = "imul";
-                code.addAll(registers.getRegister("r9").load(node.getDestIRRegister()));
+                code.addAll(destRegister.load(node.getDestIRRegister()));
             }
             if (node.getOperator() == OperatorList.XOR) operator = "xor";
             if (node.getOperator() == OperatorList.OR) operator = "or";
             if (node.getOperator() == OperatorList.AND) operator = "and";
-            if (node.getSourceIRRegister() == null) {
-                if (node.getOperator() == OperatorList.MUL) code.addAll(registers.getRegister("r8").load(node.getDestIRRegister()));
-                code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + node.getImmediate());
-                if (node.getOperator() == OperatorList.MUL) code.addAll(registers.getRegister("r8").store());
-            } else {
-                code.addAll(registers.getRegister("r8").load(node.getSourceIRRegister()));
-                code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + node.getSourceIRRegister().print());
-                node.getSourceIRRegister().getRegister().store();
-            }
-            if (node.getOperator() == OperatorList.MUL) code.addAll(registers.getRegister("r9").store());
+            if (node.getSourceIRRegister() == null) code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
+            if (node.getOperator() == OperatorList.MUL) code.addAll(destRegister.store());
         }
         if (node.getOperator() == OperatorList.NEG) {
-            code.addAll(registers.getRegister("r8").load(node.getDestIRRegister()));
-            code.add("neg\tr8");
+            NASMRegister destRegister = registers.getRegister("r9");
+            code.addAll(destRegister.load(node.getDestIRRegister()));
+            code.add("neg\t" + destRegister.getName());
             code.addAll(node.getDestIRRegister().getRegister().store());
         }
+        if (node.getSourceIRRegister() != null) sourceRegister.store();
         return code;
     }
 

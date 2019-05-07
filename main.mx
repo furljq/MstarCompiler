@@ -1,6 +1,12 @@
 int MAXN = 10005;
 int MAXM = 10005;
 
+class T{
+    int key;
+    T this = address;
+    int t(){}
+}
+
 int main(){
 	int M;
 	int N;

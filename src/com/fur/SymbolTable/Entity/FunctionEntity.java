@@ -6,10 +6,7 @@ import com.fur.intermediateRepresentation.node.FunctionLabelIRNode;
 import com.fur.intermediateRepresentation.node.LabelIRNode;
 import com.fur.type.BaseType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FunctionEntity extends BaseEntity {
 
@@ -17,9 +14,12 @@ public class FunctionEntity extends BaseEntity {
     private List<VariableEntity> parameterList = new ArrayList<>();
     private Map<String, VariableEntity> variableScope = new HashMap<>();
     private BlockEntity blockEntity;
-    private IRRegister returnRegister;
+
+    private IRRegister returnIRRegister;
     private FunctionLabelIRNode entryLabel;
     private LabelIRNode returnLabel;
+    private Set<IRRegister> staticIRRegisterDefine = new HashSet<>();
+    private Set<IRRegister> staticIRRegisterUse = new HashSet<>();
 
     public void setEntryLabel(FunctionLabelIRNode entryLabel) {
         this.entryLabel = entryLabel;
@@ -70,12 +70,19 @@ public class FunctionEntity extends BaseEntity {
         parameterList.add(variableEntity);
     }
 
-    public void setReturnRegister(IRRegister returnRegister) {
-        this.returnRegister = returnRegister;
+    public void setReturnIRRegister(IRRegister returnIRRegister) {
+        this.returnIRRegister = returnIRRegister;
     }
 
-    public IRRegister getReturnRegister() {
-        return returnRegister;
+    public IRRegister getReturnIRRegister() {
+        return returnIRRegister;
     }
 
+    public Set<IRRegister> getStaticIRRegisterUse() {
+        return staticIRRegisterUse;
+    }
+
+    public Set<IRRegister> getStaticIRRegisterDefine() {
+        return staticIRRegisterDefine;
+    }
 }

@@ -14,6 +14,7 @@ public class IRRegister {
     private IRRegister reallocate;
     private NASMMemory memory;
     private NASMRegister register;
+    private Long constValue;
 
     public void setType(BaseType type) {
         this.type = type;
@@ -70,4 +71,11 @@ public class IRRegister {
         return reallocate.printWithoutLength();
     }
 
+    public Long getConstValue() {
+        return constValue;
+    }
+
+    public void setConstValue(Long constValue) {
+        this.constValue = constValue;
+    }
 }

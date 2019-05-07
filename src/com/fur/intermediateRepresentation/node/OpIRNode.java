@@ -42,12 +42,17 @@ public class OpIRNode extends BaseIRNode {
         return sourceIRRegister;
     }
 
+    public long getImmediate() {
+        return immediate;
+    }
+
+    public void setImmediate(long immediate) {
+        this.immediate = immediate;
+    }
+
     @Override
     public <T> T accept(IntermediateRepresentationVisitor<? extends T> visitor) {
         return visitor.visitOpIRNode(this);
     }
 
-    public long getImmediate() {
-        return immediate;
-    }
 }
