@@ -521,7 +521,7 @@ main:
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 648
+	sub	rsp, 2088
 	mov	r8, 0
 	mov	qword [rbp-1*8], r8
 	mov	r8, 0
@@ -535,32 +535,129 @@ FUNCTION_main:
 	mov	r8, qword [rbp-5*8]
 	mov	qword [rbp-2*8], r8
 	; 2
-	mov	r8, qword [rbp-2*8]
+	mov	r8, 0
 	mov	qword [rbp-6*8], r8
-	mov	r8, 1
-	add	qword [rbp-2*8], r8
 	mov	r8, qword [rbp-6*8]
-	mov	qword [rbp-4*8], r8
-	; 5
-	mov	r8, qword [rbp-4*8]
 	mov	qword [rbp-3*8], r8
-	; 6
-	mov	r8, qword [rbp-3*8]
+	; 3
+	mov	r8, 0
 	mov	qword [rbp-7*8], r8
-	mov	r8, qword [rbp-4*8]
-	add	qword [rbp-7*8], r8
 	mov	r8, qword [rbp-7*8]
-	mov	qword [rbp-8*8], r8
-	mov	r8, qword [rbp-2*8]
-	add	qword [rbp-8*8], r8
-	mov	r8, qword [rbp-8*8]
-	mov	qword [rbp-1*8], r8
-	jmp	LABEL0
+	cmp	qword [rbp-3*8], r8
+	setne al
+	movzx	eax, al
+	mov	qword [rbp-8*8], rax
+	cmp	qword [rbp-8*8], 0
+	jz	LABEL1
 LABEL0:
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-9*8], r8
+	mov	r8, qword [rbp-3*8]
+	mov	rax, qword [rbp-9*8]
+	cqo
+	idiv	com.fur.nasm.register.NASMRegister@1068e947
+	mov	qword [rbp-9*8], rax
+	mov	r8, 1
+	mov	qword [rbp-10*8], r8
+	mov	r8, qword [rbp-10*8]
+	cmp	qword [rbp-9*8], r8
+	setne al
+	movzx	eax, al
+	mov	qword [rbp-11*8], rax
+	mov	r8, qword [rbp-11*8]
+	mov	qword [rbp-12*8], r8
+	jmp	LABEL2
+LABEL1:
+	mov	r8, 0
+	mov	qword [rbp-12*8], r8
+LABEL2:
+	cmp	qword [rbp-12*8], 0
+	jz	LABEL4
+LABEL3:
+	mov	r8, 10
+	mov	qword [rbp-13*8], r8
+	mov	r8, qword [rbp-13*8]
+	mov	qword [rbp-4*8], r8
+	; 6
+	jmp	LABEL5
+LABEL4:
+	mov	r8, 20
+	mov	qword [rbp-14*8], r8
+	mov	r8, qword [rbp-14*8]
+	mov	qword [rbp-4*8], r8
+	; 8
+LABEL5:
+	mov	r8, 10
+	mov	qword [rbp-15*8], r8
+	mov	r8, qword [rbp-15*8]
+	cmp	qword [rbp-4*8], r8
+	sete al
+	movzx	eax, al
+	mov	qword [rbp-16*8], rax
+	cmp	qword [rbp-16*8], 0
+	jz	LABEL10
+LABEL6:
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-17*8], r8
+	mov	r8, qword [rbp-3*8]
+	mov	rax, qword [rbp-17*8]
+	cqo
+	idiv	com.fur.nasm.register.NASMRegister@1068e947
+	mov	qword [rbp-17*8], rax
+	mov	r8, 0
+	mov	qword [rbp-18*8], r8
+	mov	r8, qword [rbp-18*8]
+	cmp	qword [rbp-17*8], r8
+	sete al
+	movzx	eax, al
+	mov	qword [rbp-19*8], rax
+	cmp	qword [rbp-19*8], 0
+	jz	LABEL8
+LABEL7:
+	mov	r8, 5
+	mov	qword [rbp-20*8], r8
+	mov	r8, qword [rbp-20*8]
+	cmp	qword [rbp-2*8], r8
+	sete al
+	movzx	eax, al
+	mov	qword [rbp-21*8], rax
+	mov	r8, qword [rbp-21*8]
+	mov	qword [rbp-22*8], r8
+	jmp	LABEL9
+LABEL8:
+	mov	r8, 0
+	mov	qword [rbp-22*8], r8
+LABEL9:
+	mov	r8, qword [rbp-22*8]
+	mov	qword [rbp-23*8], r8
+	jmp	LABEL11
+LABEL10:
+	mov	r8, 0
+	mov	qword [rbp-23*8], r8
+LABEL11:
+	mov	r8, 1
+	mov	qword [rbp-24*8], r8
+	mov	r8, qword [rbp-23*8]
+	xor	qword [rbp-24*8], r8
+	cmp	qword [rbp-24*8], 0
+	jz	LABEL13
+LABEL12:
+	mov	r8, 30
+	mov	qword [rbp-25*8], r8
+	mov	r8, qword [rbp-25*8]
+	mov	qword [rbp-4*8], r8
+	; 12
+	jmp	LABEL14
+LABEL13:
+LABEL14:
+	mov	r8, qword [rbp-4*8]
+	mov	qword [rbp-1*8], r8
+	jmp	LABEL15
+LABEL15:
 	mov	rax, qword [rbp-1*8]
 	leave
 	ret
-LABEL1:
+LABEL16:
 	SECTION .data
 	SECTION .bss
 	SECTION .rodata

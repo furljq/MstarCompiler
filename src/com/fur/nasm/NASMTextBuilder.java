@@ -119,10 +119,10 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
             code.addAll(registers.getRegister("rax").load(node.getDestIRRegister()));
             code.add("cqo");
-            code.add("idiv\t" + sourceRegister);
-            String resultRegister = node.getOperator() == OperatorList.DIV ? "rax" : "rdx";
+            code.add("idiv\t" + sourceRegister.getName());
+            String resultRegisterName = node.getOperator() == OperatorList.DIV ? "rax" : "rdx";
             registers.getRegister("rax").store();
-            code.add("mov\t" + node.getDestIRRegister().print() + ", " + resultRegister);
+            code.add("mov\t" + node.getDestIRRegister().print() + ", " + resultRegisterName);
         }
         if (node.getOperator() == OperatorList.LEFTSHIFT || node.getOperator() == OperatorList.RIGHTSHIFT) {
             String operator;
