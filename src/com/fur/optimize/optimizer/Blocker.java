@@ -179,6 +179,7 @@ public class Blocker {
                         code.add(instruction);
                     }
                 }
+                if (((OpIRNode) instruction).getOperator() == OperatorList.MALLOC || ((OpIRNode) instruction).getOperator() == OperatorList.MEMORY || ((OpIRNode) instruction).getOperator() == OperatorList.LOAD) code.add(instruction);
             }
             if (instruction instanceof RetIRNode) {
                 if (((RetIRNode) instruction).getReturnIRRegister() != null && ((RetIRNode) instruction).getReturnIRRegister().getConstValue() != null) {
