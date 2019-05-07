@@ -224,7 +224,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
     @Override
     public FunctionIRNode visitCompilationUnitNode(CompilationUnitNode node) {
         List<BaseIRNode> body = new ArrayList<>();
-        FunctionLabelIRNode mainLabel = new FunctionLabelIRNode(null);
+        FunctionLabelIRNode mainLabel = new FunctionLabelIRNode(new FunctionEntity(null, null));
         mainLabel.setNasmLabel(new NASMLabel("main"));
         body.add(mainLabel);
         for (BaseNode variableDeclarationNode : node.getBaseNodes())

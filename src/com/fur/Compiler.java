@@ -4,6 +4,7 @@ import com.fur.intermediateRepresentation.IntermediateRepresentationBuilder;
 import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.intermediateRepresentation.node.FunctionIRNode;
 import com.fur.nasm.NASMBuilder;
+import com.fur.optimize.Optimizer;
 import com.fur.symbolTable.Entity.ClassEntity;
 import com.fur.symbolTable.SymbolTableBuilder;
 import com.fur.antlrParseTree.MstarLexer;
@@ -60,6 +61,11 @@ class Compiler {
         return intermediateRepresentationBuilder.visit(abstractSyntaxTree);
     }
 
+    private List<BaseIRNode> optimize(List<BaseIRNode> instructions) {
+        Optimizer optimizer = new Optimizer();
+        return optimizer.optimize(instructions);
+    }
+
     private List<String> buildNASM(List<BaseIRNode> instructions) throws IOException {
         NASMBuilder nasmBuilder = new NASMBuilder(instructions);
         return nasmBuilder.build();
@@ -80,6 +86,7 @@ class Compiler {
         ClassEntity globalEntity = buildSymbolTable(abstractSyntaxTree);
         syntaxCheck(abstractSyntaxTree, globalEntity);
         List<BaseIRNode> irNodes = buildIR(abstractSyntaxTree, globalEntity).getBodyNode();
+        irNodes = optimize(irNodes);
         List<String> code = buildNASM(irNodes);
         print(code);
     }

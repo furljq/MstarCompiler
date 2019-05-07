@@ -555,7 +555,7 @@ LABEL0:
 	mov	r8, qword [rbp-3*8]
 	mov	rax, qword [rbp-9*8]
 	cqo
-	idiv	com.fur.nasm.register.NASMRegister@1068e947
+	idiv	r8
 	mov	qword [rbp-9*8], rax
 	mov	r8, 1
 	mov	qword [rbp-10*8], r8
@@ -602,7 +602,7 @@ LABEL6:
 	mov	r8, qword [rbp-3*8]
 	mov	rax, qword [rbp-17*8]
 	cqo
-	idiv	com.fur.nasm.register.NASMRegister@1068e947
+	idiv	r8
 	mov	qword [rbp-17*8], rax
 	mov	r8, 0
 	mov	qword [rbp-18*8], r8

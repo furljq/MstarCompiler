@@ -5,6 +5,7 @@ import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.intermediateRepresentation.node.*;
 import com.fur.nasm.memory.NASMStaticMemory;
 import com.fur.optimize.BlockIRNode;
+import com.fur.optimize.Optimizer;
 import com.fur.symbolTable.Entity.FunctionEntity;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class Blocker {
             }
             assert currentBlock != null;
             currentBlock.getInstructions().add(instruction);
+            instruction.setBlock(currentBlock);
             if (instruction instanceof JumpIRNode) {
                 BlockIRNode destBlock = ((JumpIRNode) instruction).getDestLabelNode().getBlock();
                 currentBlock.getOutNodes().add(destBlock);
@@ -154,10 +156,12 @@ public class Blocker {
                     code.add(instruction);
                 }
                 if (((OpIRNode) instruction).getOperator() == OperatorList.ADD || ((OpIRNode) instruction).getOperator() == OperatorList.SUB || ((OpIRNode) instruction).getOperator() == OperatorList.MUL || ((OpIRNode) instruction).getOperator() == OperatorList.DIV || ((OpIRNode) instruction).getOperator() == OperatorList.MOD || ((OpIRNode) instruction).getOperator() == OperatorList.LEFTSHIFT || ((OpIRNode) instruction).getOperator() == OperatorList.RIGHTSHIFT || ((OpIRNode) instruction).getOperator() == OperatorList.AND || ((OpIRNode) instruction).getOperator() == OperatorList.OR || ((OpIRNode) instruction).getOperator() == OperatorList.XOR) {
-                    if (((OpIRNode) instruction).getDestIRRegister().getConstValue() != null && ((OpIRNode) instruction).getSourceIRRegister().getConstValue() != null) {
+                    if (((OpIRNode) instruction).getDestIRRegister().getConstValue() != null && (((OpIRNode) instruction).getSourceIRRegister() == null || ((OpIRNode) instruction).getSourceIRRegister().getConstValue() != null)) {
                         long res = 0;
                         long operator1 = ((OpIRNode) instruction).getDestIRRegister().getConstValue();
-                        long operator2 = ((OpIRNode) instruction).getSourceIRRegister().getConstValue();
+                        long operator2;
+                        if (((OpIRNode) instruction).getSourceIRRegister() == null) operator2 = ((OpIRNode) instruction).getImmediate();
+                        else operator2 = ((OpIRNode) instruction).getSourceIRRegister().getConstValue();
                         if (((OpIRNode) instruction).getOperator() == OperatorList.ADD) res = operator1 + operator2;
                         if (((OpIRNode) instruction).getOperator() == OperatorList.SUB) res = operator1 - operator2;
                         if (((OpIRNode) instruction).getOperator() == OperatorList.MUL) res = operator1 * operator2;
@@ -176,25 +180,78 @@ public class Blocker {
                     }
                 }
             }
+            if (instruction instanceof RetIRNode)
+                if (((RetIRNode) instruction).getReturnIRRegister() != null && ((RetIRNode) instruction).getReturnIRRegister().getConstValue() != null) {
+                    ((RetIRNode) instruction).setImmediate(((RetIRNode) instruction).getReturnIRRegister().getConstValue());
+                    ((RetIRNode) instruction).setReturnIRRegister(null);
+                }
+            if (instruction instanceof AnnotationIRNode || instruction instanceof JumpIRNode || instruction instanceof LabelIRNode) code.add(instruction);
+        }
+        for (BaseIRNode instruction : instructions) {
+            if (instruction instanceof CmpIRNode) ((CmpIRNode) instruction).getDestIRRegister().setConstValue(null);
+            if (instruction instanceof OpIRNode) ((OpIRNode) instruction).getDestIRRegister().setConstValue(null);
         }
         return code;
     }
 
     private void instructionAnalyze(BlockIRNode block) {
-        block.setInstructions(constAnalyze(block.getInstructions()));
+        //block.setInstructions(constAnalyze(block.getInstructions()));
         for (int i = block.getInstructions().size() - 1; i >= 0; i--) {
             BaseIRNode instruction = block.getInstructions().get(i);
-            IRRegister defineIRRegister = null;
-            if (instruction instanceof CallIRNode) defineIRRegister = ((CallIRNode) instruction).getDestIRRegister();
-            if (instruction instanceof CmpIRNode) defineIRRegister = ((CmpIRNode) instruction).getDestIRRegister();
-            if (instruction instanceof OpIRNode) defineIRRegister = ((OpIRNode) instruction).getDestIRRegister();
+            List<IRRegister> defineIRRegisters = new ArrayList<>();
+            boolean reDefine = false;
+            if (instruction instanceof CallIRNode){
+                defineIRRegisters.add(((CallIRNode) instruction).getDestIRRegister());
+                defineIRRegisters.addAll(((CallIRNode) instruction).getFunctionEntry().getEntity().getStaticIRRegisterDefine());
+                reDefine = true;
+            }
+            if (instruction instanceof CmpIRNode) {
+                defineIRRegisters.add(((CmpIRNode) instruction).getDestIRRegister());
+                reDefine = true;
+            }
+            if (instruction instanceof OpIRNode) {
+                defineIRRegisters.add(((OpIRNode) instruction).getDestIRRegister());
+                reDefine = true;
+            }
+            for (IRRegister defineIRRegister : defineIRRegisters) {
+                if (block.getUseIRRegisters().contains(defineIRRegister)) {
+                    block.getUseIRRegisters().remove(defineIRRegister);
+                    reDefine = false;
+                } else if (!block.getDefineIRRegisters().contains(defineIRRegister)) reDefine = false;
+                block.getDefineIRRegisters().add(defineIRRegister);
+            }
+            if (reDefine) block.getInstructions().get(i).remove();
+            if (instruction instanceof BranchIRNode) block.getUseIRRegisters().add(((BranchIRNode) instruction).getConditionIRRegister());
+            if (instruction instanceof CallIRNode) {
+                block.getUseIRRegisters().addAll(((CallIRNode) instruction).getParameterIRRegisters());
+                block.getUseIRRegisters().addAll(((CallIRNode) instruction).getFunctionEntry().getEntity().getStaticIRRegisterUse());
+            }
+            if (instruction instanceof CmpIRNode) {
+                block.getUseIRRegisters().add(((CmpIRNode) instruction).getOperateIRRegister1());
+                block.getUseIRRegisters().add(((CmpIRNode) instruction).getOperateIRRegister2());
+            }
+            if (instruction instanceof OpIRNode) {
+                block.getUseIRRegisters().add(((OpIRNode) instruction).getSourceIRRegister());
+                block.getUseIRRegisters().add(((OpIRNode) instruction).getDestIRRegister());
+            }
+            if (instruction instanceof RetIRNode) block.getUseIRRegisters().add(((RetIRNode) instruction).getReturnIRRegister());
         }
+        List<BaseIRNode> code = new ArrayList<>();
+        for (BaseIRNode instruction : block.getInstructions())
+            if (!instruction.isRemove())
+                code.add(instruction);
+        block.setInstructions(code);
+    }
+
+    private void blockAnalyze(List<BlockIRNode> blocks) {
+
     }
 
     public List<BlockIRNode> block(List<BaseIRNode> instructions) {
         functionAnalyze(instructions);
         List<BlockIRNode> blocks = putBlock(instructions);
         for (BlockIRNode block : blocks) instructionAnalyze(block);
+        blockAnalyze(blocks);
         return blocks;
     }
 
