@@ -180,11 +180,13 @@ public class Blocker {
                     }
                 }
             }
-            if (instruction instanceof RetIRNode)
+            if (instruction instanceof RetIRNode) {
                 if (((RetIRNode) instruction).getReturnIRRegister() != null && ((RetIRNode) instruction).getReturnIRRegister().getConstValue() != null) {
                     ((RetIRNode) instruction).setImmediate(((RetIRNode) instruction).getReturnIRRegister().getConstValue());
                     ((RetIRNode) instruction).setReturnIRRegister(null);
                 }
+                code.add(instruction);
+            }
             if (instruction instanceof AnnotationIRNode || instruction instanceof JumpIRNode || instruction instanceof LabelIRNode) code.add(instruction);
         }
         for (BaseIRNode instruction : instructions) {
@@ -195,7 +197,7 @@ public class Blocker {
     }
 
     private void instructionAnalyze(BlockIRNode block) {
-        //block.setInstructions(constAnalyze(block.getInstructions()));
+        block.setInstructions(constAnalyze(block.getInstructions()));
         for (int i = block.getInstructions().size() - 1; i >= 0; i--) {
             BaseIRNode instruction = block.getInstructions().get(i);
             List<IRRegister> defineIRRegisters = new ArrayList<>();
@@ -237,9 +239,7 @@ public class Blocker {
             if (instruction instanceof RetIRNode) block.getUseIRRegisters().add(((RetIRNode) instruction).getReturnIRRegister());
         }
         List<BaseIRNode> code = new ArrayList<>();
-        for (BaseIRNode instruction : block.getInstructions())
-            if (!instruction.isRemove())
-                code.add(instruction);
+        for (BaseIRNode instruction : block.getInstructions()) if (!instruction.isRemove()) code.add(instruction);
         block.setInstructions(code);
     }
 

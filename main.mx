@@ -1,15 +1,43 @@
+int gcd(int x, int y) {
+  if (x%y == 0) return y;
+  else return gcd5(y, x%y);
+}
+
+
+int gcd1(int x, int y) {
+  if (x%y == 0) return y;
+  else return gcd(y, x%y);
+}
+
+
+int gcd2(int x, int y) {
+  if (x%y == 0) return y;
+  else return gcd1(y, x%y);
+}
+
+
+
+int gcd3(int x, int y) {
+  if (x%y == 0) return y;
+  else return gcd2(y, x%y);
+}
+
+
+int gcd4(int x, int y) {
+  if (x%y == 0) return y;
+  else return gcd(y, x%y);
+}
+
+
+int gcd5(int x, int y) {
+  if (x%y == 0) return y;
+  else return gcd2(y, x%y);
+}
+
 int main() {
-    int a = 5;
-    int b = 0;
-    int c;
-    if (b != 0 && a/b != 1) {
-        c = 10;
-    } else {
-        c = 20;
-    }
+    println(toString(gcd(10,1)));
+    println(toString(gcd(34986,3087)));
+    println(toString(gcd(2907,1539)));
 
-    if (!(c == 10 && a/b == 0 && a == 5))
-        c = 30;
-
-    return c;
+    return 0;
 }

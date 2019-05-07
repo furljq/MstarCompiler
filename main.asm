@@ -1,5 +1,11 @@
 	default rel
 	global main
+	global FUNCTION_gcd
+	global FUNCTION_gcd1
+	global FUNCTION_gcd2
+	global FUNCTION_gcd3
+	global FUNCTION_gcd4
+	global FUNCTION_gcd5
 	global FUNCTION_main
 	global FUNCTION_size
 	global FUNCTION_print
@@ -518,146 +524,385 @@ main:
 	mov	rax, qword [rbp-1*8]
 	leave
 	ret
-FUNCTION_main:
+FUNCTION_gcd:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 2088
-	mov	r8, 0
-	mov	qword [rbp-1*8], r8
-	mov	r8, 0
-	mov	qword [rbp-2*8], r8
+	sub	rsp, 648
+	mov	qword [rbp-1*8], rdi
+	mov	qword [rbp-2*8], rsi
 	mov	r8, 0
 	mov	qword [rbp-3*8], r8
 	mov	r8, 0
+	add	qword [rbp-1*8], r8
+	mov	r8, 0
+	add	qword [rbp-2*8], r8
+	mov	r8, qword [rbp-1*8]
 	mov	qword [rbp-4*8], r8
-	mov	r8, 5
-	mov	qword [rbp-5*8], r8
-	mov	r8, qword [rbp-5*8]
-	mov	qword [rbp-2*8], r8
-	; 2
-	mov	r8, 0
-	mov	qword [rbp-6*8], r8
-	mov	r8, qword [rbp-6*8]
-	mov	qword [rbp-3*8], r8
-	; 3
-	mov	r8, 0
-	mov	qword [rbp-7*8], r8
-	mov	r8, qword [rbp-7*8]
-	cmp	qword [rbp-3*8], r8
-	setne al
-	movzx	eax, al
-	mov	qword [rbp-8*8], rax
-	cmp	qword [rbp-8*8], 0
-	jz	LABEL1
-LABEL0:
 	mov	r8, qword [rbp-2*8]
-	mov	qword [rbp-9*8], r8
-	mov	r8, qword [rbp-3*8]
-	mov	rax, qword [rbp-9*8]
+	mov	rax, qword [rbp-4*8]
 	cqo
 	idiv	r8
-	mov	qword [rbp-9*8], rax
-	mov	r8, 1
-	mov	qword [rbp-10*8], r8
-	mov	r8, qword [rbp-10*8]
-	cmp	qword [rbp-9*8], r8
-	setne al
-	movzx	eax, al
-	mov	qword [rbp-11*8], rax
-	mov	r8, qword [rbp-11*8]
-	mov	qword [rbp-12*8], r8
-	jmp	LABEL2
-LABEL1:
+	mov	qword [rbp-4*8], rdx
 	mov	r8, 0
-	mov	qword [rbp-12*8], r8
-LABEL2:
-	cmp	qword [rbp-12*8], 0
-	jz	LABEL4
-LABEL3:
-	mov	r8, 10
-	mov	qword [rbp-13*8], r8
-	mov	r8, qword [rbp-13*8]
-	mov	qword [rbp-4*8], r8
-	; 6
-	jmp	LABEL5
-LABEL4:
-	mov	r8, 20
-	mov	qword [rbp-14*8], r8
-	mov	r8, qword [rbp-14*8]
-	mov	qword [rbp-4*8], r8
-	; 8
-LABEL5:
-	mov	r8, 10
-	mov	qword [rbp-15*8], r8
-	mov	r8, qword [rbp-15*8]
+	mov	qword [rbp-5*8], r8
+	mov	r8, qword [rbp-5*8]
 	cmp	qword [rbp-4*8], r8
 	sete al
 	movzx	eax, al
-	mov	qword [rbp-16*8], rax
-	cmp	qword [rbp-16*8], 0
-	jz	LABEL10
-LABEL6:
+	mov	qword [rbp-6*8], rax
+	cmp	qword [rbp-6*8], 0
+	jz	LABEL1
+LABEL0:
 	mov	r8, qword [rbp-2*8]
-	mov	qword [rbp-17*8], r8
-	mov	r8, qword [rbp-3*8]
-	mov	rax, qword [rbp-17*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL3
+	jmp	LABEL2
+LABEL1:
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-7*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-7*8]
 	cqo
 	idiv	r8
-	mov	qword [rbp-17*8], rax
+	mov	qword [rbp-7*8], rdx
+	mov	rsi, qword [rbp-7*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd5
+	mov	qword [rbp-8*8], rax
+	mov	r8, qword [rbp-8*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL3
+LABEL2:
+LABEL3:
+	mov	rax, qword [rbp-3*8]
+	leave
+	ret
+FUNCTION_gcd1:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 648
+	mov	qword [rbp-1*8], rdi
+	mov	qword [rbp-2*8], rsi
 	mov	r8, 0
-	mov	qword [rbp-18*8], r8
-	mov	r8, qword [rbp-18*8]
-	cmp	qword [rbp-17*8], r8
+	mov	qword [rbp-3*8], r8
+	mov	r8, 0
+	add	qword [rbp-1*8], r8
+	mov	r8, 0
+	add	qword [rbp-2*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-4*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-4*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-4*8], rdx
+	mov	r8, 0
+	mov	qword [rbp-5*8], r8
+	mov	r8, qword [rbp-5*8]
+	cmp	qword [rbp-4*8], r8
 	sete al
 	movzx	eax, al
-	mov	qword [rbp-19*8], rax
-	cmp	qword [rbp-19*8], 0
-	jz	LABEL8
+	mov	qword [rbp-6*8], rax
+	cmp	qword [rbp-6*8], 0
+	jz	LABEL5
+LABEL4:
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL7
+	jmp	LABEL6
+LABEL5:
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-7*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-7*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-7*8], rdx
+	mov	rsi, qword [rbp-7*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd
+	mov	qword [rbp-8*8], rax
+	mov	r8, qword [rbp-8*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL7
+LABEL6:
 LABEL7:
-	mov	r8, 5
-	mov	qword [rbp-20*8], r8
-	mov	r8, qword [rbp-20*8]
-	cmp	qword [rbp-2*8], r8
+	mov	rax, qword [rbp-3*8]
+	leave
+	ret
+FUNCTION_gcd2:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 648
+	mov	qword [rbp-1*8], rdi
+	mov	qword [rbp-2*8], rsi
+	mov	r8, 0
+	mov	qword [rbp-3*8], r8
+	mov	r8, 0
+	add	qword [rbp-1*8], r8
+	mov	r8, 0
+	add	qword [rbp-2*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-4*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-4*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-4*8], rdx
+	mov	r8, 0
+	mov	qword [rbp-5*8], r8
+	mov	r8, qword [rbp-5*8]
+	cmp	qword [rbp-4*8], r8
 	sete al
 	movzx	eax, al
-	mov	qword [rbp-21*8], rax
-	mov	r8, qword [rbp-21*8]
-	mov	qword [rbp-22*8], r8
-	jmp	LABEL9
+	mov	qword [rbp-6*8], rax
+	cmp	qword [rbp-6*8], 0
+	jz	LABEL9
 LABEL8:
-	mov	r8, 0
-	mov	qword [rbp-22*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL11
+	jmp	LABEL10
 LABEL9:
-	mov	r8, qword [rbp-22*8]
-	mov	qword [rbp-23*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-7*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-7*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-7*8], rdx
+	mov	rsi, qword [rbp-7*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd1
+	mov	qword [rbp-8*8], rax
+	mov	r8, qword [rbp-8*8]
+	mov	qword [rbp-3*8], r8
 	jmp	LABEL11
 LABEL10:
-	mov	r8, 0
-	mov	qword [rbp-23*8], r8
 LABEL11:
-	mov	r8, 1
-	mov	qword [rbp-24*8], r8
-	mov	r8, qword [rbp-23*8]
-	xor	qword [rbp-24*8], r8
-	cmp	qword [rbp-24*8], 0
+	mov	rax, qword [rbp-3*8]
+	leave
+	ret
+FUNCTION_gcd3:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 648
+	mov	qword [rbp-1*8], rdi
+	mov	qword [rbp-2*8], rsi
+	mov	r8, 0
+	mov	qword [rbp-3*8], r8
+	mov	r8, 0
+	add	qword [rbp-1*8], r8
+	mov	r8, 0
+	add	qword [rbp-2*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-4*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-4*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-4*8], rdx
+	mov	r8, 0
+	mov	qword [rbp-5*8], r8
+	mov	r8, qword [rbp-5*8]
+	cmp	qword [rbp-4*8], r8
+	sete al
+	movzx	eax, al
+	mov	qword [rbp-6*8], rax
+	cmp	qword [rbp-6*8], 0
 	jz	LABEL13
 LABEL12:
-	mov	r8, 30
-	mov	qword [rbp-25*8], r8
-	mov	r8, qword [rbp-25*8]
-	mov	qword [rbp-4*8], r8
-	; 12
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL15
 	jmp	LABEL14
 LABEL13:
-LABEL14:
-	mov	r8, qword [rbp-4*8]
-	mov	qword [rbp-1*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-7*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-7*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-7*8], rdx
+	mov	rsi, qword [rbp-7*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd2
+	mov	qword [rbp-8*8], rax
+	mov	r8, qword [rbp-8*8]
+	mov	qword [rbp-3*8], r8
 	jmp	LABEL15
+LABEL14:
 LABEL15:
+	mov	rax, qword [rbp-3*8]
+	leave
+	ret
+FUNCTION_gcd4:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 648
+	mov	qword [rbp-1*8], rdi
+	mov	qword [rbp-2*8], rsi
+	mov	r8, 0
+	mov	qword [rbp-3*8], r8
+	mov	r8, 0
+	add	qword [rbp-1*8], r8
+	mov	r8, 0
+	add	qword [rbp-2*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-4*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-4*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-4*8], rdx
+	mov	r8, 0
+	mov	qword [rbp-5*8], r8
+	mov	r8, qword [rbp-5*8]
+	cmp	qword [rbp-4*8], r8
+	sete al
+	movzx	eax, al
+	mov	qword [rbp-6*8], rax
+	cmp	qword [rbp-6*8], 0
+	jz	LABEL17
+LABEL16:
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL19
+	jmp	LABEL18
+LABEL17:
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-7*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-7*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-7*8], rdx
+	mov	rsi, qword [rbp-7*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd
+	mov	qword [rbp-8*8], rax
+	mov	r8, qword [rbp-8*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL19
+LABEL18:
+LABEL19:
+	mov	rax, qword [rbp-3*8]
+	leave
+	ret
+FUNCTION_gcd5:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 648
+	mov	qword [rbp-1*8], rdi
+	mov	qword [rbp-2*8], rsi
+	mov	r8, 0
+	mov	qword [rbp-3*8], r8
+	mov	r8, 0
+	add	qword [rbp-1*8], r8
+	mov	r8, 0
+	add	qword [rbp-2*8], r8
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-4*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-4*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-4*8], rdx
+	mov	r8, 0
+	mov	qword [rbp-5*8], r8
+	mov	r8, qword [rbp-5*8]
+	cmp	qword [rbp-4*8], r8
+	sete al
+	movzx	eax, al
+	mov	qword [rbp-6*8], rax
+	cmp	qword [rbp-6*8], 0
+	jz	LABEL21
+LABEL20:
+	mov	r8, qword [rbp-2*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL23
+	jmp	LABEL22
+LABEL21:
+	mov	r8, qword [rbp-1*8]
+	mov	qword [rbp-7*8], r8
+	mov	r8, qword [rbp-2*8]
+	mov	rax, qword [rbp-7*8]
+	cqo
+	idiv	r8
+	mov	qword [rbp-7*8], rdx
+	mov	rsi, qword [rbp-7*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd2
+	mov	qword [rbp-8*8], rax
+	mov	r8, qword [rbp-8*8]
+	mov	qword [rbp-3*8], r8
+	jmp	LABEL23
+LABEL22:
+LABEL23:
+	mov	rax, qword [rbp-3*8]
+	leave
+	ret
+FUNCTION_main:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 1448
+	mov	r8, 0
+	mov	qword [rbp-1*8], r8
+	mov	r8, 10
+	mov	qword [rbp-2*8], r8
+	mov	r8, 1
+	mov	qword [rbp-3*8], r8
+	mov	rsi, qword [rbp-3*8]
+	mov	rdi, qword [rbp-2*8]
+	call	FUNCTION_gcd
+	mov	qword [rbp-4*8], rax
+	mov	rdi, qword [rbp-4*8]
+	call	FUNCTION_toString
+	mov	qword [rbp-5*8], rax
+	mov	rdi, qword [rbp-5*8]
+	call	FUNCTION_println
+	mov	qword [rbp-6*8], rax
+	; 38
+	mov	r8, 34986
+	mov	qword [rbp-7*8], r8
+	mov	r8, 3087
+	mov	qword [rbp-8*8], r8
+	mov	rsi, qword [rbp-8*8]
+	mov	rdi, qword [rbp-7*8]
+	call	FUNCTION_gcd
+	mov	qword [rbp-9*8], rax
+	mov	rdi, qword [rbp-9*8]
+	call	FUNCTION_toString
+	mov	qword [rbp-10*8], rax
+	mov	rdi, qword [rbp-10*8]
+	call	FUNCTION_println
+	mov	qword [rbp-11*8], rax
+	; 39
+	mov	r8, 2907
+	mov	qword [rbp-12*8], r8
+	mov	r8, 1539
+	mov	qword [rbp-13*8], r8
+	mov	rsi, qword [rbp-13*8]
+	mov	rdi, qword [rbp-12*8]
+	call	FUNCTION_gcd
+	mov	qword [rbp-14*8], rax
+	mov	rdi, qword [rbp-14*8]
+	call	FUNCTION_toString
+	mov	qword [rbp-15*8], rax
+	mov	rdi, qword [rbp-15*8]
+	call	FUNCTION_println
+	mov	qword [rbp-16*8], rax
+	; 40
+	mov	r8, 0
+	mov	qword [rbp-17*8], r8
+	mov	r8, 0
+	mov	qword [rbp-1*8], r8
+	jmp	LABEL24
+LABEL24:
 	mov	rax, qword [rbp-1*8]
 	leave
 	ret
-LABEL16:
+LABEL25:
 	SECTION .data
 	SECTION .bss
 	SECTION .rodata
