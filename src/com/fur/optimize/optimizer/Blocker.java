@@ -155,6 +155,7 @@ public class Blocker {
                     ((OpIRNode) instruction).getDestIRRegister().setConstValue(null);
                     code.add(instruction);
                 }
+                if (((OpIRNode) instruction).getOperator() == OperatorList.STORE) code.add(instruction);
                 if (((OpIRNode) instruction).getOperator() == OperatorList.ADD || ((OpIRNode) instruction).getOperator() == OperatorList.SUB || ((OpIRNode) instruction).getOperator() == OperatorList.MUL || ((OpIRNode) instruction).getOperator() == OperatorList.DIV || ((OpIRNode) instruction).getOperator() == OperatorList.MOD || ((OpIRNode) instruction).getOperator() == OperatorList.LEFTSHIFT || ((OpIRNode) instruction).getOperator() == OperatorList.RIGHTSHIFT || ((OpIRNode) instruction).getOperator() == OperatorList.AND || ((OpIRNode) instruction).getOperator() == OperatorList.OR || ((OpIRNode) instruction).getOperator() == OperatorList.XOR) {
                     if (((OpIRNode) instruction).getDestIRRegister().getConstValue() != null && (((OpIRNode) instruction).getSourceIRRegister() == null || ((OpIRNode) instruction).getSourceIRRegister().getConstValue() != null)) {
                         long res = 0;

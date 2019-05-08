@@ -522,11 +522,14 @@ main:
 	mov	rdi, r8
 	call	malloc
 	mov	qword [rbp-3*8], rax
+	mov	r8, 4
+	mov	r9, qword [rbp-3*8]
+	mov	qword [r9], r8
 	mov	r8, 8
 	add	qword [rbp-3*8], r8
 	mov	r8, qword [rbp-3*8]
 	mov	qword [rel LABEL0], r8
-	; 2
+	; 1
 	call	FUNCTION_main
 	mov	qword [rbp-4*8], rax
 	mov	rax, qword [rbp-4*8]
@@ -535,175 +538,64 @@ main:
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 2728
-	mov	r8, 0
-	mov	qword [rbp-1*8], r8
-	mov	rdi, qword [rel LABEL0]
-	call	FUNCTION_size
-	mov	qword [rbp-4*8], rax
-	mov	r8, qword [rbp-4*8]
-	mov	qword [rbp-5*8], r8
-	mov	r8, 1
+	sub	rsp, 1128
+	mov	r8, 4
+	mov	qword [rbp-3*8], r8
+	mov	r8, 40
+	mov	qword [rbp-4*8], r8
+	mov	r8, 40
+	mov	rdi, r8
+	call	malloc
+	mov	qword [rbp-5*8], rax
+	mov	r8, 4
+	mov	r9, qword [rbp-5*8]
+	mov	qword [r9], r8
+	mov	r8, 8
 	add	qword [rbp-5*8], r8
-	mov	r8, 3
-	mov	rcx, r8
-	shl	qword [rbp-5*8] ,cl
 	mov	r8, qword [rbp-5*8]
-	mov	rdi, r8
-	call	malloc
-	mov	qword [rbp-6*8], rax
-	mov	r8, 8
-	add	qword [rbp-6*8], r8
-	mov	r8, qword [rbp-6*8]
 	mov	qword [rbp-2*8], r8
-	; 5
-	mov	r8, 0
+	; 4
+	mov	r8, 2
+	mov	qword [rbp-6*8], r8
+	mov	r8, 16
 	mov	qword [rbp-7*8], r8
-	mov	r8, 0
-	mov	qword [rbp-3*8], r8
-LABEL1:
-	mov	rdi, qword [rel LABEL0]
-	call	FUNCTION_size
-	mov	qword [rbp-8*8], rax
-	mov	r8, qword [rbp-8*8]
-	cmp	qword [rbp-3*8], r8
-	setl al
-	movzx	eax, al
-	mov	qword [rbp-9*8], rax
-	cmp	qword [rbp-9*8], 0
-	jz	LABEL3
-LABEL2:
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-10*8], r8
-	mov	r8, 3
-	mov	rcx, r8
-	shl	qword [rbp-10*8] ,cl
-	mov	r8, qword [rel LABEL0]
-	add	qword [rbp-10*8], r8
-	mov	r8, 0
-	mov	qword [rbp-11*8], r8
-	; 9
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-12*8], r8
-	mov	r8, 3
-	mov	rcx, r8
-	shl	qword [rbp-12*8] ,cl
 	mov	r8, qword [rbp-2*8]
-	add	qword [rbp-12*8], r8
-	call	FUNCTION_getInt
-	mov	qword [rbp-13*8], rax
-	; 10
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-14*8], r8
-	mov	r8, 1
-	add	qword [rbp-3*8], r8
-	jmp	LABEL1
-LABEL3:
-	mov	r8, 0
-	mov	qword [rbp-15*8], r8
-	mov	r8, 0
-	mov	qword [rbp-3*8], r8
-LABEL4:
-	mov	rdi, qword [rel LABEL0]
-	call	FUNCTION_size
-	mov	qword [rbp-16*8], rax
-	mov	r8, qword [rbp-16*8]
-	cmp	qword [rbp-3*8], r8
-	setl al
-	movzx	eax, al
-	mov	qword [rbp-17*8], rax
-	cmp	qword [rbp-17*8], 0
-	jz	LABEL6
-LABEL5:
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-18*8], r8
-	mov	r8, 3
-	mov	rcx, r8
-	shl	qword [rbp-18*8] ,cl
-	mov	r8, qword [rel LABEL0]
-	add	qword [rbp-18*8], r8
-	mov	r8, qword [rbp-18*8]
-	mov	r9, [r8]
-	mov	qword [rbp-19*8], r9
-	mov	rdi, qword [rbp-19*8]
-	call	FUNCTION_toString
-	mov	qword [rbp-20*8], rax
-	mov	rdi, qword [rbp-20*8]
-	call	FUNCTION_print
-	mov	qword [rbp-21*8], rax
-	; 14
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-22*8], r8
-	mov	r8, 1
-	add	qword [rbp-3*8], r8
-	jmp	LABEL4
-LABEL6:
-	mov	r8, 9
-	mov	rdi, r8
-	call	malloc
-	mov	qword [rbp-23*8], rax
-	mov	r8, 8
-	add	qword [rbp-23*8], r8
-	mov	r8, qword [rbp-23*8]
-	mov	qword [rbp-24*8], r8
-	mov	r8, 0
-	add	qword [rbp-24*8], r8
-	mov	rdi, qword [rbp-23*8]
-	call	FUNCTION_println
-	mov	qword [rbp-25*8], rax
-	; 16
+	add	qword [rbp-7*8], r8
+	mov	r8, 2
+	mov	qword [rbp-8*8], r8
+	mov	r8, 2
+	mov	r9, qword [rbp-7*8]
+	mov	qword [r9], r8
+	; 5
 	mov	r8, qword [rbp-2*8]
 	mov	qword [rel LABEL0], r8
-	; 17
-	mov	r8, 0
-	mov	qword [rbp-26*8], r8
-	mov	r8, 0
-	mov	qword [rbp-3*8], r8
-LABEL7:
-	mov	rdi, qword [rel LABEL0]
-	call	FUNCTION_size
-	mov	qword [rbp-27*8], rax
-	mov	r8, qword [rbp-27*8]
-	cmp	qword [rbp-3*8], r8
-	setl al
-	movzx	eax, al
-	mov	qword [rbp-28*8], rax
-	cmp	qword [rbp-28*8], 0
-	jz	LABEL9
-LABEL8:
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-29*8], r8
-	mov	r8, 3
-	mov	rcx, r8
-	shl	qword [rbp-29*8] ,cl
+	; 6
+	mov	r8, 2
+	mov	qword [rbp-9*8], r8
+	mov	r8, 16
+	mov	qword [rbp-10*8], r8
 	mov	r8, qword [rel LABEL0]
-	add	qword [rbp-29*8], r8
-	mov	r8, qword [rbp-29*8]
+	add	qword [rbp-10*8], r8
+	mov	r8, qword [rbp-10*8]
 	mov	r9, [r8]
-	mov	qword [rbp-30*8], r9
-	mov	rdi, qword [rbp-30*8]
+	mov	qword [rbp-11*8], r9
+	mov	rdi, qword [rbp-11*8]
 	call	FUNCTION_toString
-	mov	qword [rbp-31*8], rax
-	mov	rdi, qword [rbp-31*8]
-	call	FUNCTION_print
-	mov	qword [rbp-32*8], rax
-	; 20
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-33*8], r8
-	mov	r8, 1
-	add	qword [rbp-3*8], r8
-	jmp	LABEL7
-LABEL9:
+	mov	qword [rbp-12*8], rax
+	mov	rdi, qword [rbp-12*8]
+	call	FUNCTION_println
+	mov	qword [rbp-13*8], rax
+	; 7
 	mov	r8, 0
-	mov	qword [rbp-34*8], r8
+	mov	qword [rbp-14*8], r8
 	mov	r8, 0
 	mov	qword [rbp-1*8], r8
-	jmp	LABEL10
-LABEL10:
+	jmp	LABEL1
+LABEL1:
 	mov	rax, qword [rbp-1*8]
 	leave
 	ret
-LABEL11:
+LABEL2:
 	SECTION .data
 	SECTION .bss
 	LABEL0:	resq	1
