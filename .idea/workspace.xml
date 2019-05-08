@@ -20,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="95">
+              <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -41,17 +41,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.asm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="576" column="18" lean-forward="true" selection-start-line="576" selection-start-column="18" selection-end-line="576" selection-end-column="18" />
+            <state relative-caret-position="285">
+              <caret line="15" column="17" lean-forward="true" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="261" column="64" selection-start-line="261" selection-start-column="64" selection-end-line="261" selection-end-column="64" />
+            <state relative-caret-position="176">
+              <caret line="270" column="17" lean-forward="true" selection-start-line="270" selection-start-column="17" selection-end-line="270" selection-end-column="17" />
               <folding>
                 <element signature="method#addStaticUse#0;class#Blocker#0" />
                 <element signature="method#addStaticDefine#0;class#Blocker#0" />
@@ -98,7 +98,6 @@
                 <element signature="e#16824#17787#1" />
                 <element signature="e#16905#17747#1" />
                 <element signature="e#18695#18841#1" />
-                <element signature="e#18895#19003#1" />
                 <element signature="e#19715#19968#1" />
                 <element signature="e#20019#20230#1" />
                 <element signature="e#20280#20762#1" />
@@ -248,9 +247,9 @@
         <option value="$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java" />
         <option value="$PROJECT_DIR$/src/com/fur/symbolTable/SymbolTableBuilder.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/BlockIRNode.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
         <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
       </list>
     </option>
   </component>
@@ -455,12 +454,12 @@
       <workItem from="1556987340947" duration="3782000" />
       <workItem from="1557020194027" duration="30483000" />
       <workItem from="1557202313537" duration="24715000" />
-      <workItem from="1557273881990" duration="18758000" />
+      <workItem from="1557273881990" duration="19408000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="614591000" />
+    <option name="totallyTimeSpent" value="615241000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -1195,13 +1194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.mx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -1226,17 +1218,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.asm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="576" column="18" lean-forward="true" selection-start-line="576" selection-start-column="18" selection-end-line="576" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="261" column="64" selection-start-line="261" selection-start-column="64" selection-end-line="261" selection-end-column="64" />
+        <state relative-caret-position="176">
+          <caret line="270" column="17" lean-forward="true" selection-start-line="270" selection-start-column="17" selection-end-line="270" selection-end-column="17" />
           <folding>
             <element signature="method#addStaticUse#0;class#Blocker#0" />
             <element signature="method#addStaticDefine#0;class#Blocker#0" />
@@ -1283,12 +1268,25 @@
             <element signature="e#16824#17787#1" />
             <element signature="e#16905#17747#1" />
             <element signature="e#18695#18841#1" />
-            <element signature="e#18895#19003#1" />
             <element signature="e#19715#19968#1" />
             <element signature="e#20019#20230#1" />
             <element signature="e#20280#20762#1" />
             <element signature="method#block#0;class#Blocker#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="17" lean-forward="true" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
         </state>
       </provider>
     </entry>
