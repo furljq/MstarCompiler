@@ -263,11 +263,11 @@ public class Blocker {
                 }
                 if (instruction instanceof CmpIRNode) {
                     defineIRRegisters.add(((CmpIRNode) instruction).getDestIRRegister());
-                    reDefine = true;
+                    if (!(((CmpIRNode) instruction).getDestIRRegister().getMemory() instanceof NASMStaticMemory)) reDefine = true;
                 }
                 if (instruction instanceof OpIRNode && ((OpIRNode) instruction).getOperator() != OperatorList.STORE) {
                     defineIRRegisters.add(((OpIRNode) instruction).getDestIRRegister());
-                    reDefine = true;
+                    if (!(((OpIRNode) instruction).getDestIRRegister().getMemory() instanceof NASMStaticMemory)) reDefine = true;
                 }
                 for (IRRegister defineIRRegister : defineIRRegisters) if (block.getInstructions().get(i).getLiveIRRegister().contains(defineIRRegister)) reDefine = false;
                 block.getInstructions().get(i).getLiveIRRegister().removeAll(defineIRRegisters);
