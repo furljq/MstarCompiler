@@ -151,7 +151,7 @@ public class Blocker {
                         code.add(new OpIRNode(OperatorList.ASSIGN, ((OpIRNode) instruction).getDestIRRegister(), -((OpIRNode) instruction).getDestIRRegister().getConstValue()));
                     else code.add(instruction);
                 }
-                if (((OpIRNode) instruction).getOperator() == OperatorList.LOAD) {
+                if (((OpIRNode) instruction).getOperator() == OperatorList.LOAD || ((OpIRNode) instruction).getOperator() == OperatorList.MALLOC) {
                     ((OpIRNode) instruction).getDestIRRegister().setConstValue(null);
                     code.add(instruction);
                 }
@@ -179,7 +179,6 @@ public class Blocker {
                         code.add(instruction);
                     }
                 }
-                if (((OpIRNode) instruction).getOperator() == OperatorList.MALLOC || ((OpIRNode) instruction).getOperator() == OperatorList.MEMORY || ((OpIRNode) instruction).getOperator() == OperatorList.LOAD) code.add(instruction);
             }
             if (instruction instanceof RetIRNode) {
                 if (((RetIRNode) instruction).getReturnIRRegister() != null && ((RetIRNode) instruction).getReturnIRRegister().getConstValue() != null) {
@@ -234,8 +233,9 @@ public class Blocker {
                 block.getUseIRRegisters().add(((CmpIRNode) instruction).getOperateIRRegister2());
             }
             if (instruction instanceof OpIRNode) {
-                block.getUseIRRegisters().add(((OpIRNode) instruction).getSourceIRRegister());
-                block.getUseIRRegisters().add(((OpIRNode) instruction).getDestIRRegister());
+                if (((OpIRNode) instruction).getOperator() != OperatorList.NEG) block.getUseIRRegisters().add(((OpIRNode) instruction).getSourceIRRegister());
+                if (((OpIRNode) instruction).getOperator() != OperatorList.ASSIGN && ((OpIRNode) instruction).getOperator() != OperatorList.LOAD && ((OpIRNode) instruction).getOperator() != OperatorList.MALLOC)
+                    block.getUseIRRegisters().add(((OpIRNode) instruction).getDestIRRegister());
             }
             if (instruction instanceof RetIRNode) block.getUseIRRegisters().add(((RetIRNode) instruction).getReturnIRRegister());
         }

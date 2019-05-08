@@ -24,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
-              <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -32,17 +32,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.asm">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
-            </state>
+            <state relative-caret-position="-114" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.mx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+            <state relative-caret-position="456">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -50,35 +48,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="181" selection-start-line="181" selection-end-line="181" />
+            <state relative-caret-position="191">
+              <caret line="236" column="79" lean-forward="true" selection-start-line="236" selection-start-column="79" selection-end-line="236" selection-end-column="79" />
               <folding>
                 <element signature="method#addStaticUse#0;class#Blocker#0" />
                 <element signature="method#addStaticDefine#0;class#Blocker#0" />
                 <element signature="method#functionAnalyze#0;class#Blocker#0" />
-                <element signature="e#962#3668#1" />
-                <element signature="e#1127#3628#1" />
-                <element signature="e#1193#1475#1" />
-                <element signature="e#1521#3232#1" />
-                <element signature="e#1735#2024#1" />
-                <element signature="e#2082#2450#1" />
-                <element signature="e#2631#3214#1" />
-                <element signature="e#3287#3614#1" />
                 <element signature="method#putBlock#0;class#Blocker#0" />
-                <element signature="e#4029#5153#1" />
-                <element signature="e#4141#4251#1" />
-                <element signature="e#4405#4635#1" />
-                <element signature="e#4689#5143#1" />
-                <element signature="e#6757#8077#1" />
-                <element signature="e#8083#8232#1" />
-                <element signature="e#12822#13053#1" />
-                <element signature="e#14368#14469#1" />
-                <element signature="e#14552#14652#1" />
-                <element signature="e#14752#15102#1" />
-                <element signature="e#14828#14919#1" />
-                <element signature="e#13908#14161#1" />
-                <element signature="e#14212#14423#1" />
-                <element signature="e#14473#14676#1" />
                 <element signature="method#blockAnalyze#0;class#Blocker#0" />
                 <element signature="method#block#0;class#Blocker#0" />
               </folding>
@@ -101,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="89" column="47" lean-forward="true" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+            <state relative-caret-position="319">
+              <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -138,7 +114,6 @@
       <find>; 9</find>
       <find>NEG</find>
       <find>currentE</find>
-      <find>.memory</find>
       <find>8</find>
       <find>call</find>
       <find>Branch</find>
@@ -150,6 +125,7 @@
       <find>setC</find>
       <find>label0</find>
       <find>Call</find>
+      <find>.memory</find>
     </findStrings>
     <replaceStrings>
       <replace>identifier</replace>
@@ -202,7 +178,6 @@
         <option value="$PROJECT_DIR$/src/com/fur/nasm/memory/NASMStaticMemory.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/LiteralExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/AbstractSyntaxTreeBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java" />
         <option value="$PROJECT_DIR$/main.asm" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationVisitor.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBaseVisitor.java" />
@@ -226,15 +201,16 @@
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/RetIRNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/Compiler.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java" />
-        <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
+        <option value="$PROJECT_DIR$/main.mx" />
+        <option value="$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="162" />
-    <option name="y" value="-24" />
+    <option name="x" value="161" />
+    <option name="y" value="-25" />
     <option name="width" value="1750" />
     <option name="height" value="1030" />
   </component>
@@ -244,7 +220,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -280,6 +255,20 @@
               <item name="Compiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fur" type="462c0819:PsiDirectoryNode" />
+              <item name="enumerate" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fur" type="462c0819:PsiDirectoryNode" />
+              <item name="intermediateRepresentation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fur" type="462c0819:PsiDirectoryNode" />
               <item name="optimize" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -294,6 +283,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -426,18 +416,19 @@
       <workItem from="1556940752555" duration="23599000" />
       <workItem from="1556987340947" duration="3782000" />
       <workItem from="1557020194027" duration="30483000" />
-      <workItem from="1557202313537" duration="24638000" />
+      <workItem from="1557202313537" duration="24715000" />
+      <workItem from="1557273881990" duration="993000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="595756000" />
+    <option name="totallyTimeSpent" value="596826000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25536194" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25871313" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -447,7 +438,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23159304" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.19812584" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.22623828" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -486,15 +477,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java</url>
-          <line>102</line>
-          <properties />
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java</url>
           <line>201</line>
           <properties />
-          <option name="timeStamp" value="25" />
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -673,13 +658,6 @@
             <element signature="e#1864#1865#0" expanded="true" />
             <element signature="e#1891#1892#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="11" lean-forward="true" selection-start-line="18" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1073,10 +1051,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
+    <entry file="file://$PROJECT_DIR$/main.mx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="89" column="47" lean-forward="true" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+        <state relative-caret-position="456">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
@@ -1090,10 +1068,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.asm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-114" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="498" column="63" lean-forward="true" selection-start-line="498" selection-start-column="63" selection-end-line="498" selection-end-column="63" />
+        <state relative-caret-position="323">
+          <caret line="17" column="22" lean-forward="true" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
           <folding>
             <element signature="method#IntermediateRepresentationBuilder#0;class#IntermediateRepresentationBuilder#0" />
             <element signature="method#getFunctionLabel#0;class#IntermediateRepresentationBuilder#0" />
@@ -1197,55 +1187,26 @@
     <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
-          <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.asm">
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="319">
+          <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="181" selection-start-line="181" selection-end-line="181" />
+        <state relative-caret-position="191">
+          <caret line="236" column="79" lean-forward="true" selection-start-line="236" selection-start-column="79" selection-end-line="236" selection-end-column="79" />
           <folding>
             <element signature="method#addStaticUse#0;class#Blocker#0" />
             <element signature="method#addStaticDefine#0;class#Blocker#0" />
             <element signature="method#functionAnalyze#0;class#Blocker#0" />
-            <element signature="e#962#3668#1" />
-            <element signature="e#1127#3628#1" />
-            <element signature="e#1193#1475#1" />
-            <element signature="e#1521#3232#1" />
-            <element signature="e#1735#2024#1" />
-            <element signature="e#2082#2450#1" />
-            <element signature="e#2631#3214#1" />
-            <element signature="e#3287#3614#1" />
             <element signature="method#putBlock#0;class#Blocker#0" />
-            <element signature="e#4029#5153#1" />
-            <element signature="e#4141#4251#1" />
-            <element signature="e#4405#4635#1" />
-            <element signature="e#4689#5143#1" />
-            <element signature="e#6757#8077#1" />
-            <element signature="e#8083#8232#1" />
-            <element signature="e#12822#13053#1" />
-            <element signature="e#14368#14469#1" />
-            <element signature="e#14552#14652#1" />
-            <element signature="e#14752#15102#1" />
-            <element signature="e#14828#14919#1" />
-            <element signature="e#13908#14161#1" />
-            <element signature="e#14212#14423#1" />
-            <element signature="e#14473#14676#1" />
             <element signature="method#blockAnalyze#0;class#Blocker#0" />
             <element signature="method#block#0;class#Blocker#0" />
           </folding>

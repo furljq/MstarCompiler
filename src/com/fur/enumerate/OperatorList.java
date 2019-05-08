@@ -17,7 +17,6 @@ public enum OperatorList {
     ASSIGN,
 
     MALLOC,
-    MEMORY,
     STORE,
     LOAD
 }
