@@ -15,6 +15,7 @@ public class BlockIRNode {
     private List<BlockIRNode> outNodes = new ArrayList<>();
     private Set<IRRegister> defineIRRegisters = new HashSet<>();
     private Set<IRRegister> useIRRegisters = new HashSet<>();
+    private Set<IRRegister> liveIRRegister = new HashSet<>();
 
     public List<BlockIRNode> getInNodes() {
         return inNodes;
@@ -38,5 +39,9 @@ public class BlockIRNode {
 
     public Set<IRRegister> getUseIRRegisters() {
         return useIRRegisters;
+    }
+
+    public Set<IRRegister> getLiveIRRegister() {
+        return liveIRRegister;
     }
 }
