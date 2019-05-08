@@ -55,6 +55,7 @@ public class SymbolTableBuilder extends AbstractSyntaxTreeBaseVisitor<BaseEntity
         setStringOperator("string_gt");
         setStringOperator("string_geq");
         setStringOperator("string_equal");
+        setStringOperator("string_notequal");
     }
 
     private void setStringOperator(String functionName) {
