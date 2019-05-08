@@ -147,9 +147,10 @@ public class Blocker {
                     code.add(instruction);
                 }
                 if (((OpIRNode) instruction).getOperator() == OperatorList.NEG) {
-                    if (((OpIRNode) instruction).getDestIRRegister().getConstValue() != null)
+                    if (((OpIRNode) instruction).getDestIRRegister().getConstValue() != null) {
+                        ((OpIRNode) instruction).getDestIRRegister().setConstValue(((OpIRNode) instruction).getSourceIRRegister().getConstValue());
                         code.add(new OpIRNode(OperatorList.ASSIGN, ((OpIRNode) instruction).getDestIRRegister(), -((OpIRNode) instruction).getDestIRRegister().getConstValue()));
-                    else code.add(instruction);
+                    } else code.add(instruction);
                 }
                 if (((OpIRNode) instruction).getOperator() == OperatorList.LOAD || ((OpIRNode) instruction).getOperator() == OperatorList.MALLOC) {
                     ((OpIRNode) instruction).getDestIRRegister().setConstValue(null);

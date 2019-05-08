@@ -20,11 +20,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
-              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
@@ -42,16 +51,16 @@
         <entry file="file://$PROJECT_DIR$/main.mx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+              <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="236" column="158" lean-forward="true" selection-start-line="236" selection-start-column="158" selection-end-line="236" selection-end-column="158" />
+            <state relative-caret-position="124">
+              <caret line="133" column="35" selection-start-line="133" selection-start-column="35" selection-end-line="133" selection-end-column="35" />
               <folding>
                 <element signature="method#addStaticUse#0;class#Blocker#0" />
                 <element signature="method#addStaticDefine#0;class#Blocker#0" />
@@ -69,19 +78,11 @@
                 <element signature="e#4176#4286#1" />
                 <element signature="e#4488#4718#1" />
                 <element signature="e#4772#5226#1" />
-                <element signature="method#constAnalyze#0;class#Blocker#0" />
                 <element signature="e#5853#6175#1" />
-                <element signature="e#6271#6617#1" />
-                <element signature="e#6840#8160#1" />
                 <element signature="e#8166#8315#1" />
-                <element signature="e#8517#8731#1" />
-                <element signature="e#8815#9149#1" />
-                <element signature="e#9230#9569#1" />
-                <element signature="e#9651#9799#1" />
-                <element signature="e#10450#12703#1" />
+                <element signature="e#9230#9573#1" />
                 <element signature="e#10680#12519#1" />
                 <element signature="e#12525#12685#1" />
-                <element signature="e#13002#13426#1" />
                 <element signature="e#13156#13373#1" />
                 <element signature="e#13644#13887#1" />
                 <element signature="e#14340#14604#1" />
@@ -91,6 +92,7 @@
                 <element signature="e#15115#15244#1" />
                 <element signature="e#15669#15922#1" />
                 <element signature="e#15973#16184#1" />
+                <element signature="e#16065#16484#1" />
                 <element signature="method#blockAnalyze#0;class#Blocker#0" />
                 <element signature="method#block#0;class#Blocker#0" />
               </folding>
@@ -113,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+            <state relative-caret-position="141">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
             </state>
           </provider>
         </entry>
@@ -154,14 +156,14 @@
       <find>call</find>
       <find>Branch</find>
       <find>LEFT</find>
-      <find>new Op</find>
-      <find>neg</find>
       <find>setBlock</find>
       <find>DIV</find>
       <find>setC</find>
       <find>label0</find>
       <find>Call</find>
       <find>.memory</find>
+      <find>neg</find>
+      <find>new Op</find>
     </findStrings>
     <replaceStrings>
       <replace>identifier</replace>
@@ -238,9 +240,9 @@
         <option value="$PROJECT_DIR$/src/com/fur/Compiler.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java" />
         <option value="$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
         <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
       </list>
     </option>
   </component>
@@ -453,12 +455,12 @@
       <workItem from="1556987340947" duration="3782000" />
       <workItem from="1557020194027" duration="30483000" />
       <workItem from="1557202313537" duration="24715000" />
-      <workItem from="1557273881990" duration="1776000" />
+      <workItem from="1557273881990" duration="3527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="597609000" />
+    <option name="totallyTimeSpent" value="599360000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -474,7 +476,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23159304" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5153949" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.5153949" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -510,12 +512,6 @@
           <line>91</line>
           <properties />
           <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java</url>
-          <line>202</line>
-          <properties />
-          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1097,13 +1093,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1210,22 +1199,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="141">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
         </state>
       </provider>
     </entry>
@@ -1236,10 +1211,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/enumerate/OperatorList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.mx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="236" column="158" lean-forward="true" selection-start-line="236" selection-start-column="158" selection-end-line="236" selection-end-column="158" />
+        <state relative-caret-position="124">
+          <caret line="133" column="35" selection-start-line="133" selection-start-column="35" selection-end-line="133" selection-end-column="35" />
           <folding>
             <element signature="method#addStaticUse#0;class#Blocker#0" />
             <element signature="method#addStaticDefine#0;class#Blocker#0" />
@@ -1257,19 +1246,11 @@
             <element signature="e#4176#4286#1" />
             <element signature="e#4488#4718#1" />
             <element signature="e#4772#5226#1" />
-            <element signature="method#constAnalyze#0;class#Blocker#0" />
             <element signature="e#5853#6175#1" />
-            <element signature="e#6271#6617#1" />
-            <element signature="e#6840#8160#1" />
             <element signature="e#8166#8315#1" />
-            <element signature="e#8517#8731#1" />
-            <element signature="e#8815#9149#1" />
-            <element signature="e#9230#9569#1" />
-            <element signature="e#9651#9799#1" />
-            <element signature="e#10450#12703#1" />
+            <element signature="e#9230#9573#1" />
             <element signature="e#10680#12519#1" />
             <element signature="e#12525#12685#1" />
-            <element signature="e#13002#13426#1" />
             <element signature="e#13156#13373#1" />
             <element signature="e#13644#13887#1" />
             <element signature="e#14340#14604#1" />
@@ -1279,9 +1260,17 @@
             <element signature="e#15115#15244#1" />
             <element signature="e#15669#15922#1" />
             <element signature="e#15973#16184#1" />
+            <element signature="e#16065#16484#1" />
             <element signature="method#blockAnalyze#0;class#Blocker#0" />
             <element signature="method#block#0;class#Blocker#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
         </state>
       </provider>
     </entry>
