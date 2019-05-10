@@ -514,109 +514,60 @@ main:
 	mov	rbp, rsp
 	sub	rsp, 168
 	; IR
+	push	r15
+	push	r14
+	push	r13
+	push	r12
+	push	r11
+	push	r10
 	call	FUNCTION_main
-	mov	qword [rbp-1*8], rax
+	mov	r15, rax
+	pop	r10
+	pop	r11
+	pop	r12
+	pop	r13
+	pop	r14
+	pop	r15
 	; IR
-	mov	rax, qword [rbp-1*8]
+	push	r15
+	push	r14
+	push	r13
+	push	r12
+	push	r11
+	push	r10
+	mov	rax, r15
 	leave
 	ret
 	; IR
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 1288
-	; IR
-	mov	r8, 0
-	mov	qword [rbp-2*8], r8
+	sub	rsp, 488
 	; IR
 	; 2
 	; IR
-	mov	r8, 0
-	mov	qword [rbp-3*8], r8
+	; 5
 	; IR
-LABEL0:
+	; 6
 	; IR
-	mov	r8, 10
-	mov	qword [rbp-6*8], r8
-	; IR
-	mov	r8, qword [rbp-6*8]
-	cmp	qword [rbp-3*8], r8
-	setl al
-	movzx	eax, al
-	mov	qword [rbp-7*8], rax
-	; IR
-	cmp	qword [rbp-7*8], 0
-	jz	LABEL6
-	; IR
-LABEL1:
-	; IR
-	mov	r8, qword [rbp-3*8]
-	mov	qword [rbp-8*8], r8
-	; IR
-	mov	r8, 3
-	mov	rax, qword [rbp-8*8]
-	cqo
-	idiv	r8
-	mov	qword [rbp-8*8], rdx
-	; IR
-	mov	r8, 0
-	mov	qword [rbp-10*8], r8
-	; IR
-	mov	r8, qword [rbp-10*8]
-	cmp	qword [rbp-8*8], r8
-	sete al
-	movzx	eax, al
-	mov	qword [rbp-11*8], rax
-	; IR
-	cmp	qword [rbp-11*8], 0
-	jz	LABEL3
-	; IR
-LABEL2:
-	; IR
-	jmp	LABEL5
-	; IR
-	jmp	LABEL4
-	; IR
-LABEL3:
-	; IR
-LABEL4:
-	; IR
-	mov	r8, 1
-	add	qword [rbp-2*8], r8
-	; IR
-	; 8
-	; IR
-LABEL5:
-	; IR
-	mov	r8, 1
-	add	qword [rbp-3*8], r8
+	mov	r8, 6
+	mov	r15, r8
 	; IR
 	jmp	LABEL0
 	; IR
-LABEL6:
+LABEL0:
 	; IR
-	mov	rdi, qword [rbp-2*8]
-	call	FUNCTION_toString
-	mov	qword [rbp-14*8], rax
-	; IR
-	mov	rdi, qword [rbp-14*8]
-	call	FUNCTION_println
-	mov	qword [rbp-15*8], rax
-	; IR
-	; 10
-	; IR
-	mov	r8, 0
-	mov	qword [rbp-1*8], r8
-	; IR
-	jmp	LABEL7
-	; IR
-LABEL7:
-	; IR
-	mov	rax, qword [rbp-1*8]
+	push	r15
+	push	r14
+	push	r13
+	push	r12
+	push	r11
+	push	r10
+	mov	rax, r15
 	leave
 	ret
 	; IR
-LABEL8:
+LABEL1:
 	; IR
 	SECTION .data
 	SECTION .bss

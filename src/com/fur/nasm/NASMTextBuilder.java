@@ -46,8 +46,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             else code.add("push\t" + parameterIRRegister.print());
         }
         code.add("call\t" + node.getFunctionEntry().getNasmLabel().getName());
-        code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         code.addAll(registers.load());
+        code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         return code;
     }
 
