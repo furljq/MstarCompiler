@@ -23,7 +23,6 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>();
         code.add(node.getNasmLabel().getName() + ":");
         if (node instanceof FunctionLabelIRNode) {
-            registers.store();
             code.add("push\trbp");
             code.add("mov\trbp, rsp");
             code.add("sub\trsp, " + (((FunctionLabelIRNode) node).getIrRegisterSize() + 1) / 2 * 16 + 8);
@@ -53,7 +52,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitRetIRNode(RetIRNode node) {
-        List<String> code = new ArrayList<>(registers.store());
+        List<String> code = new ArrayList<>();
         code.add("mov\trax, " + node.getReturnIRRegister().print());
         code.add("leave");
         code.add("ret");
