@@ -37,7 +37,7 @@ public class RegisterDistributor {
             Collections.sort(allIRRegisters);
             for (IRRegister irRegister : allIRRegisters) {
                 if (irRegister.getRegister() != null) continue;
-                Set<NASMRegister> approachRegisters = registers.getDistributedRegisterSet();
+                Set<NASMRegister> approachRegisters = new HashSet<>(registers.getCallerSaveRegisters());
                 for (IRRegister conflictIRRegister : irRegister.getConflictIRRegisters())
                     if (conflictIRRegister.getRegister() != null)
                         approachRegisters.remove(conflictIRRegister.getRegister());

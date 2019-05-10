@@ -1,13 +1,11 @@
 package com.fur.nasm.register;
 
-import com.fur.intermediateRepresentation.IRRegister;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NASMRegisters {
 
     private List<NASMRegister> registers;
-    private Set<NASMRegister> distributedRegisters;
     private List<NASMRegister> callerSaveRegisters;
 
     public NASMRegisters() {
@@ -28,17 +26,17 @@ public class NASMRegisters {
         registers.add(new NASMRegister("r13"));
         registers.add(new NASMRegister("r14"));
         registers.add(new NASMRegister("r15"));
-        distributedRegisters = new HashSet<>();
-//        distributedRegisters.add(registers.get(3));
-//        distributedRegisters.add(registers.get(6));
-//        distributedRegisters.add(registers.get(7));
-//        distributedRegisters.add(registers.get(10));
-//        distributedRegisters.add(registers.get(11));
-//        distributedRegisters.add(registers.get(12));
-//        distributedRegisters.add(registers.get(13));
-//        distributedRegisters.add(registers.get(14));
-//        distributedRegisters.add(registers.get(15));
-        callerSaveRegisters = new ArrayList<>(distributedRegisters);
+        callerSaveRegisters = new ArrayList<>();
+        callerSaveRegisters.add(registers.get(15));
+        callerSaveRegisters.add(registers.get(14));
+        callerSaveRegisters.add(registers.get(13));
+        callerSaveRegisters.add(registers.get(12));
+        callerSaveRegisters.add(registers.get(11));
+        callerSaveRegisters.add(registers.get(10));
+    }
+
+    public List<NASMRegister> getCallerSaveRegisters() {
+        return callerSaveRegisters;
     }
 
     public NASMRegister getRegister(String name) {
@@ -85,17 +83,6 @@ public class NASMRegisters {
             code.add("pop\t" + register.getName());
         }
         return code;
-    }
-
-    public Set<NASMRegister> getDistributedRegisterSet() {
-        return distributedRegisters;
-    }
-
-    public String getFunctionPushOffset(NASMRegister register) {
-        for (int i = 0; i < callerSaveRegisters.size(); i++)
-            if (register.getName().equals(callerSaveRegisters.get(i).getName()))
-                return "qword [rsp+" + (callerSaveRegisters.size() - i - 1) + "*8]";
-        return null;
     }
 
 }
