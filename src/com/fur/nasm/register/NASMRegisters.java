@@ -2,12 +2,13 @@ package com.fur.nasm.register;
 
 import com.fur.intermediateRepresentation.IRRegister;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class NASMRegisters {
 
     private List<NASMRegister> registers;
+    private Set<NASMRegister> distributedRegisters;
+    private List<NASMRegister> callerSaveRegisters;
 
     public NASMRegisters() {
         registers = new ArrayList<>();
@@ -27,6 +28,17 @@ public class NASMRegisters {
         registers.add(new NASMRegister("r13"));
         registers.add(new NASMRegister("r14"));
         registers.add(new NASMRegister("r15"));
+        callerSaveRegisters = new ArrayList<>();
+//        distributedRegisters.add(registers.get(3));
+//        distributedRegisters.add(registers.get(6));
+//        distributedRegisters.add(registers.get(7));
+//        distributedRegisters.add(registers.get(10));
+//        distributedRegisters.add(registers.get(11));
+//        distributedRegisters.add(registers.get(12));
+//        distributedRegisters.add(registers.get(13));
+//        distributedRegisters.add(registers.get(14));
+//        distributedRegisters.add(registers.get(15));
+        distributedRegisters = new HashSet<>(callerSaveRegisters);
     }
 
     public NASMRegister getRegister(String name) {
@@ -59,21 +71,24 @@ public class NASMRegisters {
         return null;
     }
 
-    public NASMRegister getFreeRegister() {
-        for (int i = 0; i < 16; i++) {
-            if (i == 6 || i == 7) continue;
-            NASMRegister register = registers.get(i);
-            if (register.getIrRegister() == null)
-                return register;
-        }
-        return null;
-    }
-
     public List<String> store() {
         List<String> code = new ArrayList<>();
-        for (NASMRegister register : registers)
-            code.addAll(register.store());
+        for (NASMRegister register : callerSaveRegisters)
+            code.add("push\t" + register.getName());
         return code;
+    }
+
+    public List<String> load() {
+        List<String> code = new ArrayList<>();
+        for (int reverse = callerSaveRegisters.size() - 1; reverse >= 0; reverse--){
+            NASMRegister register = callerSaveRegisters.get(reverse);
+            code.add("pop\t" + register.getName());
+        }
+        return code;
+    }
+
+    public Set<NASMRegister> getDistributedRegisterSet() {
+        return distributedRegisters;
     }
 
 }

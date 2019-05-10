@@ -2,6 +2,7 @@ package com.fur.nasm;
 
 import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.intermediateRepresentation.node.FunctionLabelIRNode;
+import com.fur.nasm.register.NASMRegisters;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,15 +11,16 @@ import java.util.List;
 public class NASMBuilder {
 
     private NASMDataBuilder dataBuilder = new NASMDataBuilder();
-    private NASMTextBuilder textBuilder = new NASMTextBuilder();
+    private NASMTextBuilder textBuilder;
     private List<BaseIRNode> instructions;
-    private String inbuildFileName = "inbuild.asm";
 
-    public NASMBuilder(List<BaseIRNode> instructions) {
+    public NASMBuilder(List<BaseIRNode> instructions, NASMRegisters registers) {
         this.instructions = instructions;
+        textBuilder = new NASMTextBuilder(registers);
     }
 
-    List<String> inbuildFunctions() throws IOException {
+    private List<String> inbuildFunctions() throws IOException {
+        String inbuildFileName = "inbuild.asm";
         File filename = new File(inbuildFileName);
         InputStreamReader reader = new InputStreamReader(
                 new FileInputStream(filename));
@@ -38,6 +40,7 @@ public class NASMBuilder {
         List<String> data = new ArrayList<>();
         for (BaseIRNode instruction : instructions) {
             text.addAll(textBuilder.visit(instruction));
+            text.add("; IR");
             List<String> bss = dataBuilder.visit(instruction);
             if (bss != null) data.addAll(bss);
             if (instruction instanceof FunctionLabelIRNode) code.add("global " + ((FunctionLabelIRNode) instruction).getNasmLabel().getName());

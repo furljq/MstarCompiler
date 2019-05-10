@@ -4,6 +4,7 @@ import com.fur.intermediateRepresentation.IntermediateRepresentationBuilder;
 import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.intermediateRepresentation.node.FunctionIRNode;
 import com.fur.nasm.NASMBuilder;
+import com.fur.nasm.register.NASMRegisters;
 import com.fur.optimize.Optimizer;
 import com.fur.symbolTable.Entity.ClassEntity;
 import com.fur.symbolTable.SymbolTableBuilder;
@@ -24,6 +25,7 @@ class Compiler {
 
     private CharStream mstarFileCharStream;
     private PrintStream nasmOutputStream;
+    private NASMRegisters registers = new NASMRegisters();
 
     Compiler(String _mstarFile, String nasmFile) throws IOException {
         mstarFileCharStream = CharStreams.fromFileName(_mstarFile);
@@ -62,16 +64,16 @@ class Compiler {
     }
 
     private List<BaseIRNode> optimize(List<BaseIRNode> instructions) {
-        Optimizer optimizer = new Optimizer();
+        Optimizer optimizer = new Optimizer(registers);
         return optimizer.optimize(instructions);
     }
 
-    private List<String> buildNASM(List<BaseIRNode> instructions) throws IOException {
-        NASMBuilder nasmBuilder = new NASMBuilder(instructions);
+    private List<String> buildNASM(List<BaseIRNode> instructions, NASMRegisters registers) throws IOException {
+        NASMBuilder nasmBuilder = new NASMBuilder(instructions, registers);
         return nasmBuilder.build();
     }
 
-    private void print(List<String> code) throws IOException {
+    private void print(List<String> code) {
         for (String line : code) {
             if (line.length() == 0) continue;
             if (line.charAt(line.length() - 1) != ':') nasmOutputStream.print('\t');
@@ -87,7 +89,7 @@ class Compiler {
         syntaxCheck(abstractSyntaxTree, globalEntity);
         List<BaseIRNode> irNodes = buildIR(abstractSyntaxTree, globalEntity).getBodyNode();
         irNodes = optimize(irNodes);
-        List<String> code = buildNASM(irNodes);
+        List<String> code = buildNASM(irNodes, registers);
         print(code);
     }
 
