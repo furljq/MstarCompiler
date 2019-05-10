@@ -1,106 +1,14 @@
-
-int n;
-int h;
-int now;
-int[] a;
-int A = 48271;
-int M = 2147483647;
-int Q;
-int R;
-int seed=1;
-int random() {
-    int tempseed = A * (seed % Q) - R * (seed / Q);
-    println(toString(A) + " " + toString(Q) + " " + toString(R) + " " + toString(seed) + " " + toString(tempseed));
-    if (tempseed >= 0)
-		seed = tempseed;
-    else
-		seed = tempseed + M;
-	return seed;
-}
-void initialize(int val) {
-    seed = val;
-}
-void swap(int x,int y) {
-    int temp = a[x];
-    a[x] = a[y];
-    a[y] = temp;
-}
-bool pd(int x) {
-    for (;h <= x; ++h)
-        if (x == h * (h + 1) / 2)
-			return true;
-    return false;
-}
-void show() {
-    int i;
-    for (i = 0; i < now; ++i)
-        print(toString(a[i]) + " ");
-    println("");
-}
-bool win()
-{
-    int i;
-	int j;
-	int[] b = new int[100];
-	int temp;
-    if (now != h)
-		return false;
-    for (j = 0; j < now; ++j)
-        b[j] = a[j];
-    for (i = 0;i < now - 1; ++i)
-        for (j = i + 1;j < now; ++j)
-            if (b[i] > b[j]) {
-                temp = b[i];
-                b[i] = b[j];
-                b[j] = temp;
-            }
-    for (i = 0; i < now; ++i)
-        if (b[i] != i + 1)
-			return false;
-    return true;
-}
-void merge()
-{
-    int i;
-    for (i = 0;i < now; ++i)
-        if (a[i] == 0) {
-            int j;
-            for (j = i+1; j < now; ++j)
-                if (a[j] != 0) {
-                    swap(i,j);
-                    break;
-                }
-        }
-    for (i=0;i<now;++i)
-        if (a[i] == 0) {
-            now = i;
-            break;
-        }
-}
-void move() {
-    int i = 0;
-    for (; i < now; ) {
-        --a[i];
-        i = i + 1;
-    }
-    a[now] = now;
-    now++;
-}
 int main() {
-    int i = 0;
-	int temp = 0;
-	int count = 0;
-	n = 3 * 7 * 10;
-	h = 0;
-	a = new int[100];
-    Q = M / A;
-    R = M % A;
-    if (!pd(n)) {
-        println("Sorry, the number n must be a number s.t. there exists i satisfying n=1+2+...+i");
-        return 1;
-    }
-    println("Let's start!");
-    initialize(3654898);
-    now = random() % 10 + 1;
-    println(toString(now));
+	int cnt = 0;
+	int i;
+	for(i = 0; i < 10; ++i) {
+		if(i % 3 == 0) {
+			continue;
+		}
+		cnt++;
+	}
+	println(toString(cnt));
+	
+	
+	return 0;
 }

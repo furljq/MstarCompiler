@@ -243,6 +243,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         body.add(new LabelIRNode());
         FunctionIRNode bodyExpression = visit(node.getBodyStatementNode());
         body.addAll(bodyExpression.getBodyNode());
+        body.add(continueLabel);
         if (node.getUpdateExpressionNode() != null) body.addAll(visit(node.getUpdateExpressionNode()).getBodyNode());
         body.add(new JumpIRNode(conditionLabel));
         body.add(breakLabel);
@@ -264,7 +265,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         BaseEntity loopEntity = currentEntity;
         List<BaseIRNode> body = new ArrayList<>();
         while (!(loopEntity instanceof LoopEntity)) loopEntity = loopEntity.getParentEntity();
-        body.add(new JumpIRNode(((LoopEntity) loopEntity).getConditionLabel()));
+        body.add(new JumpIRNode(((LoopEntity) loopEntity).getContinueLabel()));
         return new FunctionIRNode(body, null);
     }
 
