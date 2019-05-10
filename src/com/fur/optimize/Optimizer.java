@@ -21,6 +21,7 @@ public class Optimizer {
         List<BlockIRNode> blocks = blocker.block(instructions);
         List<BaseIRNode> code = new ArrayList<>();
         for (BlockIRNode block : blocks) code.addAll(block.getInstructions());
+        registerDistributor.distribute(code);
         return code;
     }
 
