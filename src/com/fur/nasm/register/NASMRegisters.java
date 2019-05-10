@@ -28,7 +28,7 @@ public class NASMRegisters {
         registers.add(new NASMRegister("r13"));
         registers.add(new NASMRegister("r14"));
         registers.add(new NASMRegister("r15"));
-        callerSaveRegisters = new ArrayList<>();
+        distributedRegisters = new HashSet<>();
 //        distributedRegisters.add(registers.get(3));
 //        distributedRegisters.add(registers.get(6));
 //        distributedRegisters.add(registers.get(7));
@@ -38,7 +38,7 @@ public class NASMRegisters {
 //        distributedRegisters.add(registers.get(13));
 //        distributedRegisters.add(registers.get(14));
 //        distributedRegisters.add(registers.get(15));
-        distributedRegisters = new HashSet<>(callerSaveRegisters);
+        callerSaveRegisters = new ArrayList<>(distributedRegisters);
     }
 
     public NASMRegister getRegister(String name) {
@@ -89,6 +89,13 @@ public class NASMRegisters {
 
     public Set<NASMRegister> getDistributedRegisterSet() {
         return distributedRegisters;
+    }
+
+    public String getFunctionPushOffset(NASMRegister register) {
+        for (int i = 0; i < callerSaveRegisters.size(); i++)
+            if (register.getName().equals(callerSaveRegisters.get(i).getName()))
+                return "qword [rsp+" + (callerSaveRegisters.size() - i - 1) + "*8]";
+        return null;
     }
 
 }

@@ -22,7 +22,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
 
     private ClassEntity globalEntity;
     private BaseEntity currentEntity;
-    private List<IRRegister> reallocateIRRegisters = new ArrayList<>();
     private NASMLabels labels = new NASMLabels();
 
     public IntermediateRepresentationBuilder(ClassEntity _globalEntity) {
@@ -61,96 +60,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         destIRRegister.setType(((AddressType) address.getType()).getBaseType());
         body.add(new OpIRNode(OperatorList.LOAD, destIRRegister, address));
         return new FunctionIRNode(body, destIRRegister);
-    }
-    
-    private IRRegister reallocate(IRRegister irRegister) {
-        if (irRegister.getMemory() != null)
-            return irRegister;
-        if (irRegister.getReallocate() != null)
-            return irRegister.getReallocate();
-        Map<IRRegister, Boolean> reallocateMap = new HashMap<>();
-        for (IRRegister reallocateIRRegister : reallocateIRRegisters)
-            reallocateMap.put(reallocateIRRegister, true);
-        for (IRRegister nearbyIRRegister : irRegister.getNearbyIRRegisters())
-            reallocateMap.put(nearbyIRRegister.getReallocate(), false);
-        for (IRRegister reallocateIRRegister : reallocateIRRegisters)
-            if (reallocateMap.get(reallocateIRRegister)) {
-                irRegister.setReallocate(reallocateIRRegister);
-                return reallocateIRRegister;
-            }
-        IRRegister reallocateIRRegister = new IRRegister();
-        reallocateIRRegisters.add(reallocateIRRegister);
-        irRegister.setReallocate(reallocateIRRegister);
-        return reallocateIRRegister;
-    }
-
-    private void liveAnalyze(List<BaseIRNode> instructions) {
-        while (true) {
-            boolean diff = false;
-            for (int i = 0; i < instructions.size() - 1; i++) {
-                BaseIRNode instruction = instructions.get(i);
-                List<IRRegister> liveIRRegister = new ArrayList<>(instruction.getLiveIRRegister());
-                if (instruction instanceof BranchIRNode) {
-                    instruction.getLiveIRRegister().addAll(instructions.get(i + 1).getLiveIRRegister());
-                    instruction.getLiveIRRegister().addAll(((BranchIRNode) instruction).getFalseDestIRNode().getLiveIRRegister());
-                } else if (instruction instanceof JumpIRNode)
-                    instruction.getLiveIRRegister().addAll(((JumpIRNode) instruction).getDestLabelNode().getLiveIRRegister());
-                else instruction.getLiveIRRegister().addAll(instructions.get(i + 1).getLiveIRRegister());
-                if (instruction instanceof CmpIRNode)
-                    instruction.getLiveIRRegister().remove(((CmpIRNode) instruction).getDestIRRegister());
-                if (instruction instanceof OpIRNode)
-                    if (((OpIRNode) instruction).getOperator() == OperatorList.ASSIGN)
-                        instruction.getLiveIRRegister().remove(((OpIRNode) instruction).getDestIRRegister());
-                if (instruction instanceof CallIRNode)
-                    instruction.getLiveIRRegister().remove(((CallIRNode) instruction).getDestIRRegister());
-                if (instruction instanceof BranchIRNode)
-                    instruction.getLiveIRRegister().add(((BranchIRNode) instruction).getConditionIRRegister());
-                if (instruction instanceof CallIRNode)
-                    for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters())
-                        instruction.getLiveIRRegister().add(parameterIRRegister);
-                if (instruction instanceof CmpIRNode) {
-                    instruction.getLiveIRRegister().add(((CmpIRNode) instruction).getOperateIRRegister1());
-                    instruction.getLiveIRRegister().add(((CmpIRNode) instruction).getOperateIRRegister2());
-                }
-                if (instruction instanceof OpIRNode)
-                    if (((OpIRNode) instruction).getSourceIRRegister() != null)
-                        instruction.getLiveIRRegister().add(((OpIRNode) instruction).getSourceIRRegister());
-                if (instruction instanceof RetIRNode)
-                    instruction.getLiveIRRegister().add(((RetIRNode) instruction).getReturnIRRegister());
-                if (liveIRRegister.size() != instruction.getLiveIRRegister().size()) diff = true;
-                else {
-                    int j = 0;
-                    for (IRRegister live : instruction.getLiveIRRegister())
-                        if (live != liveIRRegister.get(j++)) diff = true;
-                }
-            }
-            if (!diff) break;
-        }
-        for (BaseIRNode instruction : instructions)
-            for (IRRegister irRegister1 : instruction.getLiveIRRegister())
-                for (IRRegister irRegister2 : instruction.getLiveIRRegister())
-                    irRegister1.getNearbyIRRegisters().add(irRegister2);
-        for (BaseIRNode instruction : instructions) {
-            if (instruction instanceof BranchIRNode)
-                ((BranchIRNode) instruction).setConditionIRRegister(reallocate(((BranchIRNode) instruction).getConditionIRRegister()));
-            if (instruction instanceof CmpIRNode) {
-                ((CmpIRNode) instruction).setDestIRRegister(reallocate(((CmpIRNode) instruction).getDestIRRegister()));
-                ((CmpIRNode) instruction).setOperateIRRegister1(reallocate(((CmpIRNode) instruction).getOperateIRRegister1()));
-                ((CmpIRNode) instruction).setOperateIRRegister2(reallocate(((CmpIRNode) instruction).getOperateIRRegister2()));
-            }
-            if (instruction instanceof OpIRNode) {
-                ((OpIRNode) instruction).setDestIRRegister(reallocate(((OpIRNode) instruction).getDestIRRegister()));
-                if (((OpIRNode) instruction).getSourceIRRegister() != null)
-                    ((OpIRNode) instruction).setSourceIRRegister(reallocate(((OpIRNode) instruction).getSourceIRRegister()));
-            }
-            if (instruction instanceof RetIRNode)
-                ((RetIRNode) instruction).setReturnIRRegister(reallocate(((RetIRNode) instruction).getReturnIRRegister()));
-            if (instruction instanceof CallIRNode) {
-                ((CallIRNode) instruction).setDestIRRegister(reallocate(((CallIRNode) instruction).getDestIRRegister()));
-                for (int i = 0; i < ((CallIRNode) instruction).getParameterIRRegisters().size(); i++)
-                    ((CallIRNode) instruction).setParameterIRRegisters(i, reallocate(((CallIRNode) instruction).getParameterIRRegisters().get(i)));
-            }
-        }
     }
 
     private List<BaseIRNode> memoryAllocate(List<BaseIRNode> instructions) {

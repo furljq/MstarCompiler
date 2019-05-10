@@ -8,6 +8,10 @@ public class NASMStackMemory extends NASMMemory {
         this.rbpOffset = rbpOffset;
     }
 
+    public int getRbpOffset() {
+        return rbpOffset;
+    }
+
     @Override
     public String printWithoutLength() {
         if (rbpOffset >= 0) return "[rbp-" + rbpOffset + "*8]";

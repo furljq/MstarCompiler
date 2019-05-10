@@ -7,14 +7,13 @@ import com.fur.type.BaseType;
 import java.util.HashSet;
 import java.util.Set;
 
-public class IRRegister {
+public class IRRegister implements Comparable<IRRegister> {
 
     private BaseType type;
-    private Set<IRRegister> nearbyIRRegisters = new HashSet<>();
-    private IRRegister reallocate;
+    private Long constValue;
+    private Set<IRRegister> conflictIRRegisters = new HashSet<>();
     private NASMMemory memory;
     private NASMRegister register;
-    private Long constValue;
 
     public void setType(BaseType type) {
         this.type = type;
@@ -24,22 +23,12 @@ public class IRRegister {
         return type;
     }
 
-    Set<IRRegister> getNearbyIRRegisters() {
-        return nearbyIRRegisters;
-    }
-
-    public IRRegister getReallocate() {
-        if (reallocate == null) return this;
-        return reallocate.getReallocate();
-    }
-
-    void setReallocate(IRRegister reallocate) {
-        this.reallocate = reallocate;
+    public Set<IRRegister> getConflictIRRegisters() {
+        return conflictIRRegisters;
     }
 
     public NASMMemory getMemory() {
-        if (reallocate == null) return memory;
-        return reallocate.getMemory();
+        return memory;
     }
 
     public void setMemory(NASMMemory memory) {
@@ -47,8 +36,7 @@ public class IRRegister {
     }
 
     public NASMRegister getRegister() {
-        if (reallocate == null) return register;
-        return reallocate.getRegister();
+        return register;
     }
 
     public void setRegister(NASMRegister register) {
@@ -56,19 +44,8 @@ public class IRRegister {
     }
 
     public String print() {
-        if (reallocate == null) {
-            if (register == null) return memory.print();
-            return register.getName();
-        }
-        return reallocate.print();
-    }
-
-    public String printWithoutLength() {
-        if (reallocate == null) {
-            if (register == null) return memory.printWithoutLength();
-            return register.getName();
-        }
-        return reallocate.printWithoutLength();
+        if (register != null) return register.getName();
+        return memory.print();
     }
 
     public Long getConstValue() {
@@ -77,5 +54,10 @@ public class IRRegister {
 
     public void setConstValue(Long constValue) {
         this.constValue = constValue;
+    }
+
+    @Override
+    public int compareTo(IRRegister o) {
+        return Integer.compare(conflictIRRegisters.size(), o.conflictIRRegisters.size());
     }
 }
