@@ -5,8 +5,8 @@ import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.intermediateRepresentation.node.*;
 import com.fur.nasm.memory.NASMStaticMemory;
 import com.fur.optimize.BlockIRNode;
-import com.fur.optimize.Optimizer;
 import com.fur.symbolTable.Entity.FunctionEntity;
+import com.fur.symbolTable.Entity.VariableEntity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -204,9 +204,12 @@ public class Blocker {
 
     private void instructionAnalyze(BlockIRNode block) {
         block.setInstructions(constAnalyze(block.getInstructions()));
-        for (int i = block.getInstructions().size() - 1; i >= 0; i--) {
-            BaseIRNode instruction = block.getInstructions().get(i);
+        for (int reverse = block.getInstructions().size() - 1; reverse >= 0; reverse--) {
+            BaseIRNode instruction = block.getInstructions().get(reverse);
             List<IRRegister> defineIRRegisters = new ArrayList<>();
+            if (instruction instanceof FunctionLabelIRNode)
+                for (VariableEntity parameterEntity : ((FunctionLabelIRNode) instruction).getEntity().getParameterList())
+                    defineIRRegisters.add(parameterEntity.getIRRegister());
             if (instruction instanceof CallIRNode){
                 defineIRRegisters.add(((CallIRNode) instruction).getDestIRRegister());
                 defineIRRegisters.addAll(((CallIRNode) instruction).getFunctionEntry().getEntity().getStaticIRRegisterDefine());
@@ -249,7 +252,8 @@ public class Blocker {
             }
             if (!diff) break;
         }
-        for (BlockIRNode block : blocks) {
+        for (int reverse = blocks.size() - 1; reverse >= 0; reverse--) {
+            BlockIRNode block = blocks.get(reverse);
             for (int i = block.getInstructions().size() - 1; i >= 0; i--) {
                 if (i == block.getInstructions().size() - 1)
                     for (BlockIRNode outBlock : block.getOutNodes()) block.getInstructions().get(i).getLiveIRRegister().addAll(outBlock.getLiveIRRegister());
@@ -257,6 +261,9 @@ public class Blocker {
                 BaseIRNode instruction = block.getInstructions().get(i);
                 List<IRRegister> defineIRRegisters = new ArrayList<>();
                 boolean reDefine = false;
+                if (instruction instanceof FunctionLabelIRNode)
+                    for (VariableEntity parameterEntity : ((FunctionLabelIRNode) instruction).getEntity().getParameterList())
+                        defineIRRegisters.add(parameterEntity.getIRRegister());
                 if (instruction instanceof CallIRNode) {
                     defineIRRegisters.add(((CallIRNode) instruction).getDestIRRegister());
                     defineIRRegisters.addAll(((CallIRNode) instruction).getFunctionEntry().getEntity().getStaticIRRegisterDefine());
