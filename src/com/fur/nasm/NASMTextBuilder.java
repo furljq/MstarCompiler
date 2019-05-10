@@ -106,8 +106,10 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             code.add("mov\t" + node.getDestIRRegister().print() + ", r9");
         }
         if (node.getOperator() == OperatorList.MALLOC) {
+            code.addAll(registers.store());
             code.add("mov\trdi, " + sourceRegister.getName());
             code.add("call\tmalloc");
+            code.addAll(registers.load());
             code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         }
         if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
