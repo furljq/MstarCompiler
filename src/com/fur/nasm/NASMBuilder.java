@@ -52,8 +52,8 @@ public class NASMBuilder {
         code.add("SECTION .data");
         code.add("SECTION .bss");
         code.addAll(data);
-        code.add("SECTION .rodata");
-        code.add("L_022:\tdb 25H, 73H, 00H");
+        code.add("SECTION .rodata.str1.1");
+        code.add(".LC0:\tdb 25H, 73H, 00H");
         return code;
     }
 

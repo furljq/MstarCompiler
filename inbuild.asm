@@ -1,11 +1,5 @@
 
 
-
-
-
-
-default rel
-
 global FUNCTION_size
 global FUNCTION_print
 global FUNCTION_println
@@ -546,18 +540,5 @@ FUNCTION_string_geq:
         not     rax
         shr     rax, 63
         ret
-
-
-
-SECTION .data   
-
-
-SECTION .bss    
-
-
-SECTION .rodata.str1.1 
-
-.LC0:
-        db 25H, 73H, 00H
 
 

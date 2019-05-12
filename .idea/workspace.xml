@@ -23,17 +23,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+            <state relative-caret-position="209">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.mx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
+            <state relative-caret-position="19">
+              <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -41,17 +41,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
+            <state relative-caret-position="367">
               <caret line="93" selection-start-line="93" selection-end-line="93" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.asm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-457">
-              <caret line="1071" column="16" lean-forward="true" selection-start-line="1071" selection-start-column="16" selection-end-line="1071" selection-end-column="16" />
+            <state relative-caret-position="513">
+              <caret line="27" column="32" lean-forward="true" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -204,8 +204,8 @@
         <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegisters.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
         <option value="$PROJECT_DIR$/main.mx" />
+        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
       </list>
     </option>
   </component>
@@ -417,7 +417,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="624425000" />
+    <option name="totallyTimeSpent" value="624695000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -432,8 +432,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2128514" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.5850067" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2128514" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.31325302" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1091,13 +1091,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1138,22 +1131,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/Compiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
+        <state relative-caret-position="367">
           <caret line="93" selection-start-line="93" selection-end-line="93" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.asm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-457">
-          <caret line="1071" column="16" lean-forward="true" selection-start-line="1071" selection-start-column="16" selection-end-line="1071" selection-end-column="16" />
+        <state relative-caret-position="513">
+          <caret line="27" column="32" lean-forward="true" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.mx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
         </state>
       </provider>
     </entry>
