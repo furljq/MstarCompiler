@@ -47,7 +47,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         code.add("call\t" + node.getFunctionEntry().getNasmLabel().getName());
         int extendRegisterSize = node.getParameterIRRegisters().size() - 4;
         if (extendRegisterSize < 0) extendRegisterSize = 0;
-        code.add("add\trsp, " + extendRegisterSize);
+        code.add("add\trsp, " + extendRegisterSize * 8);
         code.addAll(registers.load());
         code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         return code;
