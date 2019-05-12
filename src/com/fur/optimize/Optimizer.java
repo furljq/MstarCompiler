@@ -13,7 +13,7 @@ public class Optimizer {
 
     private Blocker blocker = new Blocker();
     private RegisterDistributor registerDistributor;
-    private RegisterSaver registerSaver;
+    private RegisterSaver registerSaver = new RegisterSaver();
 
     public Optimizer(NASMRegisters registers) {
         registerDistributor = new RegisterDistributor(registers);
