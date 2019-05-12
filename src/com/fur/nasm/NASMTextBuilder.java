@@ -30,7 +30,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
                 for (int i = 0; i < ((FunctionLabelIRNode) node).getEntity().getParameterList().size(); i++) {
                     IRRegister parameterIRRegister = ((FunctionLabelIRNode) node).getEntity().getParameterList().get(i).getIRRegister();
                     if (parameterIRRegister.getMemory() == null) continue;
-                    if (i < 6) code.add("mov\t" + parameterIRRegister.print() + ", " + registers.getParameterRegister(i).getName());
+                    if (i < 4) code.add("mov\t" + parameterIRRegister.print() + ", " + registers.getParameterRegister(i).getName());
                 }
         }
         return code;
@@ -41,11 +41,11 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>(registers.store());
         for (int i = node.getParameterIRRegisters().size() - 1; i >= 0; i--) {
             IRRegister parameterIRRegister = node.getParameterIRRegisters().get(i);
-            if (i < 6) code.add("mov\t" + registers.getParameterRegister(i).getName() + ", " + parameterIRRegister.print());
+            if (i < 4) code.add("mov\t" + registers.getParameterRegister(i).getName() + ", " + parameterIRRegister.print());
             else code.add("push\t" + parameterIRRegister.print());
         }
         code.add("call\t" + node.getFunctionEntry().getNasmLabel().getName());
-        int extendRegisterSize = node.getParameterIRRegisters().size() - 6;
+        int extendRegisterSize = node.getParameterIRRegisters().size() - 4;
         if (extendRegisterSize < 0) extendRegisterSize = 0;
         code.add("add\trsp, " + extendRegisterSize);
         code.addAll(registers.load());
