@@ -13,9 +13,24 @@ import java.util.List;
 public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<String>> {
 
     private NASMRegisters registers;
+    private FunctionLabelIRNode currentFunction = null;
 
     NASMTextBuilder(NASMRegisters registers) {
         this.registers = registers;
+    }
+
+    private List<String> callerSavePush(List<NASMRegister> registers) {
+        List<String> code = new ArrayList<>();
+        for (NASMRegister register : registers)
+            code.add("push\t" + register.getName());
+        return code;
+    }
+
+    private List<String> callerSavePop(List<NASMRegister> registers) {
+        List<String> code = new ArrayList<>();
+        for (int reverse = registers.size() - 1; reverse >= 0; reverse--)
+            code.add("pop\t" + registers.get(reverse).getName());
+        return code;
     }
 
     @Override
@@ -23,6 +38,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>();
         code.add(node.getNasmLabel().getName() + ":");
         if (node instanceof FunctionLabelIRNode) {
+            currentFunction = (FunctionLabelIRNode) node;
             code.add("push\trbp");
             code.add("mov\trbp, rsp");
             code.add("sub\trsp, " + (((FunctionLabelIRNode) node).getIrRegisterSize() + 1) / 2 * 16 + 8);
@@ -38,7 +54,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitCallIRNode(CallIRNode node) {
-        List<String> code = new ArrayList<>(registers.store());
+        List<String> code = new ArrayList<>(callerSavePush(currentFunction.getUsedRegisters()));
         for (int i = node.getParameterIRRegisters().size() - 1; i >= 0; i--) {
             IRRegister parameterIRRegister = node.getParameterIRRegisters().get(i);
             if (i < 4) code.add("mov\t" + registers.getParameterRegister(i).getName() + ", " + parameterIRRegister.print());
@@ -48,7 +64,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         int extendRegisterSize = node.getParameterIRRegisters().size() - 4;
         if (extendRegisterSize < 0) extendRegisterSize = 0;
         code.add("add\trsp, " + extendRegisterSize * 8);
-        code.addAll(registers.load());
+        code.addAll(callerSavePop(currentFunction.getUsedRegisters()));
         code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         return code;
     }

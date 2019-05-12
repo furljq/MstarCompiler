@@ -4,6 +4,7 @@ import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.nasm.register.NASMRegisters;
 import com.fur.optimize.optimizer.Blocker;
 import com.fur.optimize.optimizer.RegisterDistributor;
+import com.fur.optimize.optimizer.RegisterSaver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Optimizer {
 
     private Blocker blocker = new Blocker();
     private RegisterDistributor registerDistributor;
+    private RegisterSaver registerSaver;
 
     public Optimizer(NASMRegisters registers) {
         registerDistributor = new RegisterDistributor(registers);
@@ -22,6 +24,7 @@ public class Optimizer {
         List<BaseIRNode> code = new ArrayList<>();
         for (BlockIRNode block : blocks) code.addAll(block.getInstructions());
         registerDistributor.distribute(code);
+        registerSaver.save(code);
         return code;
     }
 
