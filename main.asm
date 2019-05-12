@@ -520,34 +520,92 @@ main:
 	push	r12
 	push	r11
 	push	r10
+	push	r9
+	push	r8
 	push	rbx
 	call	FUNCTION_main
+	add	rsp, 0
 	pop	rbx
+	pop	r8
+	pop	r9
 	pop	r10
 	pop	r11
 	pop	r12
 	pop	r13
 	pop	r14
 	pop	r15
-	mov	r13, rax
+	mov	r8, rax
 	; IR
-	mov	rax, r13
+	mov	rax, r8
 	leave
 	ret
 	; IR
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 29288
+	sub	rsp, 648
 	; IR
-	mov	r8, 8
-	mov	r13, r8
+	mov	rcx, 0
+	mov	r9, rcx
 	; IR
-	jmp	LABEL0
+	; 2
+	; IR
+	mov	rcx, 6442450941
+	mov	r8, rcx
+	; IR
+	; 3
+	; IR
+	push	r15
+	push	r14
+	push	r13
+	push	r12
+	push	r11
+	push	r10
+	push	r9
+	push	r8
+	push	rbx
+	mov	rdi, r8
+	call	FUNCTION_toString
+	add	rsp, 0
+	pop	rbx
+	pop	r8
+	pop	r9
+	pop	r10
+	pop	r11
+	pop	r12
+	pop	r13
+	pop	r14
+	pop	r15
+	mov	r8, rax
+	; IR
+	push	r15
+	push	r14
+	push	r13
+	push	r12
+	push	r11
+	push	r10
+	push	r9
+	push	r8
+	push	rbx
+	mov	rdi, r8
+	call	FUNCTION_println
+	add	rsp, 0
+	pop	rbx
+	pop	r8
+	pop	r9
+	pop	r10
+	pop	r11
+	pop	r12
+	pop	r13
+	pop	r14
+	pop	r15
+	mov	qword [rbp-7*8], rax
+	; IR
+	; 4
 	; IR
 LABEL0:
 	; IR
-	mov	rax, r13
+	mov	rax, r9
 	leave
 	ret
 	; IR

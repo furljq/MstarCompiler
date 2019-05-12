@@ -3,7 +3,7 @@
 #include<string.h>
 
 long long FUNCTION_size(long long* a) {
-    return *(long long*)(a - 1);
+    return *(a - 1);
 }
 
 void FUNCTION_print(char a[]) {
@@ -26,7 +26,7 @@ char* FUNCTION_toString(long long num) {
         neg = 1;
         num = -num;
     }
-    int digits[10];
+    int digits[20];
     if (num == 0) {
         digits[++len] = 0;
     }
@@ -36,13 +36,11 @@ char* FUNCTION_toString(long long num) {
             num /= 10;
         }
     }
-    char *str = (char*) malloc(len + neg + 9);
-    *((long long*) str) = len + neg;
-    str += 8;
-    str[len + neg] = 0;
+    char *str = (char*) malloc((len + neg) / 8 * 8 + 8);
     if (neg) str[0] = '-';
     for (int i = 0; i < len; ++i)
         str[i + neg] = digits[len - i] + '0';
+    str[len + neg] = 0;
     return str;
 }
 
@@ -52,10 +50,8 @@ long long CLASS_string_MEMBER_length(char* str) {
 
 char* CLASS_string_MEMBER_substring(char *str, int l, int r) {
     int len = r - l + 1;
-    char *subStr = (char*) malloc(9 + len);
-    *((long long*) subStr) = len;
+    char *subStr = (char*) malloc(len / 8 * 8 + 8);
     str += l;
-    subStr += 8;
     for (int i = 0; i < len; ++i)
         subStr[i] = str[i];
     subStr[len] = 0;
@@ -87,10 +83,8 @@ long long CLASS_string_MEMBER_ord(char *str, int idx) {
 }
 
 char* FUNCTION_string_concat(char *str1, char *str2) {
-    int len1 = *((long long*)(str1 - 8)), len2 = *((long long*)(str2 - 8));
-    char *catStr = (char*) malloc(9 + len1 + len2);
-    *((long long*) catStr) = len1 + len2;
-    catStr += 8;
+    int len1 = strlen(str1), len2 = strlen(str2);
+    char *catStr = (char*) malloc((len1 + len2) / 8 * 8 + 8);
     int now = 0;
     for (int i = 0; i < len1; ++i)
         catStr[now++] = str1[i];
