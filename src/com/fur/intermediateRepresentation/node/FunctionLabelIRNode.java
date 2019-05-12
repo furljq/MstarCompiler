@@ -3,13 +3,14 @@ package com.fur.intermediateRepresentation.node;
 import com.fur.nasm.register.NASMRegister;
 import com.fur.symbolTable.Entity.FunctionEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionLabelIRNode extends LabelIRNode {
 
     private FunctionEntity entity;
     private int irRegisterSize;
-    private List<NASMRegister> usedRegisters;
+    private List<NASMRegister> usedRegisters = new ArrayList<>();
 
     public FunctionLabelIRNode(FunctionEntity entity) {
         this.entity = entity;
