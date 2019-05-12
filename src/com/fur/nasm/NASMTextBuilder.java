@@ -112,8 +112,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     @Override
     public List<String> visitOpIRNode(OpIRNode node) {
         List<String> code = new ArrayList<>();
-        NASMRegister sourceRegister = registers.getRegister("r8");
-        NASMRegister temporaryRegister = registers.getRegister("r9");
+        NASMRegister sourceRegister = registers.getRegister("rcx");
+        NASMRegister temporaryRegister = registers.getRegister("rdx");
         if (node.getSourceIRRegister() == null) code.add("mov\t" + sourceRegister.getName() + ", " + node.getImmediate());
         else code.add("mov\t" + sourceRegister.getName() + ", " + node.getSourceIRRegister().print());
         if (node.getOperator() == OperatorList.STORE) {
