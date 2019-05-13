@@ -6,12 +6,15 @@ import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.intermediateRepresentation.node.*;
 import com.fur.nasm.label.NASMLabels;
 import com.fur.nasm.memory.NASMStackMemory;
+import com.fur.nasm.memory.NASMStaticMemory;
 import com.fur.type.PrimaryType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionRecorder {
+
+    private NASMLabels labels = new NASMLabels("table");
 
     private boolean check(BaseIRNode instruction) {
         if (!(instruction instanceof FunctionLabelIRNode)) return false;
@@ -32,8 +35,8 @@ public class FunctionRecorder {
                 ((FunctionLabelIRNode) instruction).setDataTable(new IRRegister());
                 ((FunctionLabelIRNode) instruction).setEnableTable(new IRRegister());
                 int currentSize = ((FunctionLabelIRNode) instruction).getIrRegisterSize();
-                ((FunctionLabelIRNode) instruction).getEnableTable().setMemory(new NASMStackMemory(++currentSize));
-                ((FunctionLabelIRNode) instruction).getDataTable().setMemory(new NASMStackMemory(++currentSize));
+                ((FunctionLabelIRNode) instruction).getEnableTable().setMemory(new NASMStaticMemory(labels.getnew()));
+                ((FunctionLabelIRNode) instruction).getDataTable().setMemory(new NASMStaticMemory(labels.getnew()));
                 ((FunctionLabelIRNode) instruction).setIrRegisterSize(currentSize);
                 initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getDataTable(), 500 * 8));
                 initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getEnableTable(), 500 * 8));
