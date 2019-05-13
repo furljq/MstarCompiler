@@ -15,6 +15,7 @@ public class FunctionRecorder {
 
     private boolean check(BaseIRNode instruction) {
         if (!(instruction instanceof FunctionLabelIRNode)) return false;
+        if (((FunctionLabelIRNode) instruction).getEntity().isPrint()) return false;
         if (!((FunctionLabelIRNode) instruction).getEntity().getStaticIRRegisterDefine().isEmpty()) return false;
         if (!((FunctionLabelIRNode) instruction).getEntity().getStaticIRRegisterUse().isEmpty()) return false;
         if (((FunctionLabelIRNode) instruction).getEntity().getReturnType() == null) return false;

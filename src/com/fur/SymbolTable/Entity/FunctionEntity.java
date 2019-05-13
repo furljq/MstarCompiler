@@ -20,6 +20,7 @@ public class FunctionEntity extends BaseEntity {
     private LabelIRNode returnLabel;
     private Set<IRRegister> staticIRRegisterDefine = new HashSet<>();
     private Set<IRRegister> staticIRRegisterUse = new HashSet<>();
+    private boolean print;
 
     public void setEntryLabel(FunctionLabelIRNode entryLabel) {
         this.entryLabel = entryLabel;
@@ -84,5 +85,13 @@ public class FunctionEntity extends BaseEntity {
 
     public Set<IRRegister> getStaticIRRegisterDefine() {
         return staticIRRegisterDefine;
+    }
+
+    public boolean isPrint() {
+        return print;
+    }
+
+    public void setPrint(boolean print) {
+        this.print = print;
     }
 }
