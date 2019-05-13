@@ -8,15 +8,45 @@ import com.fur.nasm.register.NASMRegister;
 import com.fur.nasm.register.NASMRegisters;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<String>> {
 
     private NASMRegisters registers;
-    private FunctionLabelIRNode currentFunction = null;
+    private Set<NASMRegister> usedRegisters = new HashSet<>();
 
     NASMTextBuilder(NASMRegisters registers) {
         this.registers = registers;
+    }
+
+    private void addUsedRegister(BaseIRNode instruction) {
+        if (instruction instanceof BranchIRNode)
+            if (((BranchIRNode) instruction).getConditionIRRegister().getRegister() != null)
+                usedRegisters.add(((BranchIRNode) instruction).getConditionIRRegister().getRegister());
+        if (instruction instanceof CallIRNode) {
+            for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters())
+                if (parameterIRRegister.getRegister() != null)
+                    usedRegisters.add(parameterIRRegister.getRegister());
+            if (((CallIRNode) instruction).getDestIRRegister().getRegister() != null)
+                usedRegisters.add(((CallIRNode) instruction).getDestIRRegister().getRegister());
+        }
+        if (instruction instanceof CmpIRNode) {
+            if (((CmpIRNode) instruction).getOperateIRRegister1().getRegister() != null)
+                usedRegisters.add(((CmpIRNode) instruction).getOperateIRRegister1().getRegister());
+            if (((CmpIRNode) instruction).getOperateIRRegister2().getRegister() != null)
+                usedRegisters.add(((CmpIRNode) instruction).getOperateIRRegister2().getRegister());
+            if (((CmpIRNode) instruction).getDestIRRegister().getRegister() != null)
+                usedRegisters.add(((CmpIRNode) instruction).getDestIRRegister().getRegister());
+        }
+        if (instruction instanceof OpIRNode) {
+            if (((OpIRNode) instruction).getDestIRRegister().getRegister() != null)
+                usedRegisters.add(((OpIRNode) instruction).getDestIRRegister().getRegister());
+            if (((OpIRNode) instruction).getSourceIRRegister() != null)
+                if (((OpIRNode) instruction).getSourceIRRegister().getRegister() != null)
+                    usedRegisters.add(((OpIRNode) instruction).getSourceIRRegister().getRegister());
+        }
     }
 
     private List<String> callerSavePush(List<NASMRegister> registers) {
@@ -38,7 +68,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>();
         code.add(node.getNasmLabel().getName() + ":");
         if (node instanceof FunctionLabelIRNode) {
-            currentFunction = (FunctionLabelIRNode) node;
+            usedRegisters.clear();
             code.add("push\trbp");
             code.add("mov\trbp, rsp");
             code.add("sub\trsp, " + (((FunctionLabelIRNode) node).getIrRegisterSize() + 1) / 2 * 16 + 8);
@@ -54,7 +84,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitCallIRNode(CallIRNode node) {
-        List<String> code = new ArrayList<>(callerSavePush(currentFunction.getUsedRegisters()));
+        List<NASMRegister> saveRegisters = new ArrayList<>(usedRegisters);
+        List<String> code = new ArrayList<>(callerSavePush(saveRegisters));
         for (int i = node.getParameterIRRegisters().size() - 1; i >= 0; i--) {
             IRRegister parameterIRRegister = node.getParameterIRRegisters().get(i);
             if (i < 6) code.add("mov\t" + registers.getParameterRegister(i).getName() + ", " + parameterIRRegister.print());
@@ -64,8 +95,9 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         int extendRegisterSize = node.getParameterIRRegisters().size() - 6;
         if (extendRegisterSize < 0) extendRegisterSize = 0;
         code.add("add\trsp, " + extendRegisterSize * 8);
-        code.addAll(callerSavePop(currentFunction.getUsedRegisters()));
+        code.addAll(callerSavePop(saveRegisters));
         code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
+        addUsedRegister(node);
         return code;
     }
 
@@ -83,6 +115,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>();
         code.add("cmp\t" + node.getConditionIRRegister().print() + ", 0");
         code.add("jz\t" + node.getFalseDestIRNode().getNasmLabel().getName());
+        addUsedRegister(node);
         return code;
     }
 
@@ -106,6 +139,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         if (node.getOperator() == OperatorList.LEQ) code.add("setle al");
         code.add("movzx\teax, al");
         code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
+        addUsedRegister(node);
         return code;
     }
 
@@ -165,6 +199,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.AND) operator = "and";
             code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
         }
+        addUsedRegister(node);
         return code;
     }
 
