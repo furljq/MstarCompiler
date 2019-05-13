@@ -24,7 +24,7 @@ public class Optimizer {
 
     public List<BaseIRNode> optimize(List<BaseIRNode> instructions) {
         blocker.functionAnalyze(instructions);
-//        instructions = functionRecorder.functionRecord(instructions);
+        instructions = functionRecorder.functionRecord(instructions);
         List<BlockIRNode> blocks = blocker.block(instructions);
         List<BaseIRNode> code = new ArrayList<>();
         for (BlockIRNode block : blocks) code.addAll(block.getInstructions());

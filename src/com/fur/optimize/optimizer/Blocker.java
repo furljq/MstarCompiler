@@ -54,7 +54,7 @@ public class Blocker {
                     }
                     if (instruction instanceof RetIRNode) addStaticUse(((RetIRNode) instruction).getReturnIRRegister());
                     if (instruction instanceof CallIRNode) {
-                        if (((CallIRNode) instruction).getFunctionEntry().getNasmLabel().getName().equals("print") || ((CallIRNode) instruction).getFunctionEntry().getNasmLabel().getName().equals("println")) currentFunction.setPrint(true);
+                        if (((CallIRNode) instruction).getFunctionEntry().getNasmLabel().getName().equals("FUNCTION_print") || ((CallIRNode) instruction).getFunctionEntry().getNasmLabel().getName().equals("FUNCTION_println")) currentFunction.setPrint(true);
                         currentFunction.getStaticIRRegisterDefine().addAll(((CallIRNode) instruction).getFunctionEntry().getEntity().getStaticIRRegisterDefine());
                         currentFunction.getStaticIRRegisterUse().addAll(((CallIRNode) instruction).getFunctionEntry().getEntity().getStaticIRRegisterUse());
                         for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters()) addStaticUse(parameterIRRegister);
