@@ -17,7 +17,6 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     private NASMRegisters registers;
     private Set<NASMRegister> usedRegisters = new HashSet<>();
-    private NASMLabels labels = new NASMLabels("label");
 
     NASMTextBuilder(NASMRegisters registers) {
         this.registers = registers;
@@ -69,7 +68,6 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitLabelIRNode(LabelIRNode node) {
-        if (node.getNasmLabel() == null) node.setNasmLabel(labels.getnew());
         List<String> code = new ArrayList<>();
         code.add(node.getNasmLabel().getName() + ":");
         if (node instanceof FunctionLabelIRNode) {
