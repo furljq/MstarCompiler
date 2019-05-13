@@ -85,7 +85,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
     @Override
     public List<String> visitCallIRNode(CallIRNode node) {
         List<NASMRegister> saveRegisters = new ArrayList<>(usedRegisters);
-        List<String> code = new ArrayList<>(registers.store());
+        List<String> code = new ArrayList<>(callerSavePush(saveRegisters));
         for (int i = node.getParameterIRRegisters().size() - 1; i >= 0; i--) {
             IRRegister parameterIRRegister = node.getParameterIRRegisters().get(i);
             if (i < 6) code.add("mov\t" + registers.getParameterRegister(i).getName() + ", " + parameterIRRegister.print());
@@ -95,7 +95,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         int extendRegisterSize = node.getParameterIRRegisters().size() - 6;
         if (extendRegisterSize < 0) extendRegisterSize = 0;
         code.add("add\trsp, " + extendRegisterSize * 8);
-        code.addAll(registers.load());
+        code.addAll(callerSavePop(saveRegisters));
         code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         addUsedRegister(node);
         return code;
@@ -160,10 +160,11 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             code.add("mov\t" + node.getDestIRRegister().print() + ", " + temporaryRegister.getName() + "");
         }
         if (node.getOperator() == OperatorList.MALLOC) {
-            code.addAll(registers.store());
+            List<NASMRegister> saveRegisters = new ArrayList<>(usedRegisters);
+            code.addAll(callerSavePush(saveRegisters));
             code.add("mov\trdi, " + sourceRegister.getName());
             code.add("call\tmalloc");
-            code.addAll(registers.load());
+            code.addAll(callerSavePop(saveRegisters));
             code.add("mov\t" + node.getDestIRRegister().print() + ", rax");
         }
         if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
