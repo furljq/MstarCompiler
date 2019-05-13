@@ -4,6 +4,7 @@ import com.fur.enumerate.OperatorList;
 import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.intermediateRepresentation.IntermediateRepresentationBaseVisitor;
 import com.fur.intermediateRepresentation.node.*;
+import com.fur.nasm.label.NASMLabels;
 import com.fur.nasm.register.NASMRegister;
 import com.fur.nasm.register.NASMRegisters;
 
@@ -16,6 +17,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     private NASMRegisters registers;
     private Set<NASMRegister> usedRegisters = new HashSet<>();
+    private NASMLabels labels = new NASMLabels("label");
 
     NASMTextBuilder(NASMRegisters registers) {
         this.registers = registers;
@@ -67,6 +69,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitLabelIRNode(LabelIRNode node) {
+        node.setNasmLabel(labels.getnew());
         List<String> code = new ArrayList<>();
         code.add(node.getNasmLabel().getName() + ":");
         if (node instanceof FunctionLabelIRNode) {

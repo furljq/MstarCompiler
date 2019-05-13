@@ -23,7 +23,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
 
     private ClassEntity globalEntity;
     private BaseEntity currentEntity;
-    private NASMLabels labels = new NASMLabels();
+    private NASMLabels labels = new NASMLabels("static");
 
     public IntermediateRepresentationBuilder(ClassEntity _globalEntity) {
         globalEntity = _globalEntity;
@@ -114,9 +114,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
             if (instruction instanceof RetIRNode) {
                 currentFunction = null;
             }
-            if (instruction instanceof LabelIRNode)
-                if (((LabelIRNode) instruction).getNasmLabel() == null)
-                    ((LabelIRNode) instruction).setNasmLabel(labels.getnew());
             code.add(instruction);
         }
         return code;
