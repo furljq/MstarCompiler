@@ -27,7 +27,7 @@ public class Blocker {
             currentFunction.getStaticIRRegisterDefine().add(staticIRRegister);
     }
 
-    private void functionAnalyze(List<BaseIRNode> instructions) {
+    public void functionAnalyze(List<BaseIRNode> instructions) {
         while (true) {
             boolean diff = false;
             int staticUseSize = 0;
@@ -302,7 +302,6 @@ public class Blocker {
     }
 
     public List<BlockIRNode> block(List<BaseIRNode> instructions) {
-        functionAnalyze(instructions);
         List<BlockIRNode> blocks = putBlock(instructions);
         for (BlockIRNode block : blocks) instructionAnalyze(block);
         blockAnalyze(blocks);

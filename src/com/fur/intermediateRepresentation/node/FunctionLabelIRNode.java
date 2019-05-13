@@ -1,15 +1,13 @@
 package com.fur.intermediateRepresentation.node;
 
-import com.fur.nasm.register.NASMRegister;
+import com.fur.intermediateRepresentation.IRRegister;
 import com.fur.symbolTable.Entity.FunctionEntity;
-
-import java.util.List;
 
 public class FunctionLabelIRNode extends LabelIRNode {
 
     private FunctionEntity entity;
     private int irRegisterSize;
-    private List<NASMRegister> usedRegisters;
+    private IRRegister dataTable, enableTable;
 
     public FunctionLabelIRNode(FunctionEntity entity) {
         this.entity = entity;
@@ -27,11 +25,19 @@ public class FunctionLabelIRNode extends LabelIRNode {
         this.irRegisterSize = irRegisterSize;
     }
 
-    public List<NASMRegister> getUsedRegisters() {
-        return usedRegisters;
+    public IRRegister getEnableTable() {
+        return enableTable;
     }
 
-    public void setUsedRegisters(List<NASMRegister> usedRegisters) {
-        this.usedRegisters = usedRegisters;
+    public void setEnableTable(IRRegister enableTable) {
+        this.enableTable = enableTable;
+    }
+
+    public IRRegister getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(IRRegister dataTable) {
+        this.dataTable = dataTable;
     }
 }
