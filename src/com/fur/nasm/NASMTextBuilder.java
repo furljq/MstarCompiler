@@ -53,11 +53,13 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<String> code = new ArrayList<>();
         for (NASMRegister register : registers)
             code.add("push\t" + register.getName());
+        if (registers.size() % 2 == 1) code.add("sub\trsp, 8");
         return code;
     }
 
     private List<String> callerSavePop(List<NASMRegister> registers) {
         List<String> code = new ArrayList<>();
+        if (registers.size() % 2 == 1) code.add("add\trsp, 8");
         for (int reverse = registers.size() - 1; reverse >= 0; reverse--)
             code.add("pop\t" + registers.get(reverse).getName());
         return code;
@@ -156,7 +158,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             code.add("mov\tqword [" + temporaryRegister.getName() + "], " + sourceRegister.getName());
         }
         if (node.getOperator() == OperatorList.LOAD) {
-            code.add("mov\t" + temporaryRegister.getName() + ", [" + sourceRegister.getName() + "]");
+            code.add("mov\t" + temporaryRegister.getName() + ", qword [" + sourceRegister.getName() + "]");
             code.add("mov\t" + node.getDestIRRegister().print() + ", " + temporaryRegister.getName() + "");
         }
         if (node.getOperator() == OperatorList.MALLOC) {

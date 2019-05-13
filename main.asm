@@ -512,22 +512,8 @@ main:
 	sub	rsp, 328
 	; IR
 	mov	rcx, 40
-	push	r15
-	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	rbx
 	mov	rdi, rcx
 	call	malloc
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, 4
@@ -542,22 +528,12 @@ main:
 	; IR
 	; 1
 	; IR
-	push	r15
 	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	rbx
+	sub	rsp, 8
 	call	FUNCTION_main
 	add	rsp, 0
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
+	add	rsp, 8
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rax, r14
@@ -570,22 +546,8 @@ FUNCTION_main:
 	sub	rsp, 5928
 	; IR
 	mov	rcx, 40
-	push	r15
-	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	rbx
 	mov	rdi, rcx
 	call	malloc
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, 4
@@ -648,61 +610,31 @@ FUNCTION_main:
 	; IR
 	; 9
 	; IR
-	push	r15
 	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	rbx
+	push	r15
 	mov	rdi, r15
 	call	FUNCTION_size
 	add	rsp, 0
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
 	pop	r15
+	pop	r14
 	mov	r14, rax
 	; IR
-	push	r15
 	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_toString
 	add	rsp, 0
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
 	pop	r15
+	pop	r14
 	mov	r14, rax
 	; IR
-	push	r15
 	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
-	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_println
 	add	rsp, 0
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
 	pop	r15
+	pop	r14
 	mov	qword [rbp-17*8], rax
 	; IR
 	; 10
@@ -719,26 +651,20 @@ LABEL1:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
-	push	r15
 	push	r14
-	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
+	sub	rsp, 8
 	mov	rdi, r14
 	call	FUNCTION_size
 	add	rsp, 0
-	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
-	pop	r13
-	pop	r14
+	add	rsp, 8
 	pop	r15
+	pop	rbx
+	pop	r14
 	mov	r14, rax
 	; IR
 	mov	rcx, r14
@@ -759,7 +685,7 @@ LABEL2:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
 	mov	rcx, rbx
@@ -772,22 +698,16 @@ LABEL2:
 	mov	rcx, r14
 	add	r13, rcx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	call	FUNCTION_getInt
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, r14
@@ -817,26 +737,20 @@ LABEL5:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_size
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, r14
@@ -857,7 +771,7 @@ LABEL6:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
 	mov	rcx, rbx
@@ -871,45 +785,33 @@ LABEL6:
 	add	r13, rcx
 	; IR
 	mov	rcx, r13
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_toString
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_print
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	qword [rbp-42*8], rax
 	; IR
 	; 14
@@ -924,22 +826,16 @@ LABEL7:
 LABEL8:
 	; IR
 	mov	rcx, 9
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, rcx
 	call	malloc
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, 0
@@ -959,23 +855,17 @@ LABEL8:
 	mov	rdx, r13
 	mov	qword [rdx], rcx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_println
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	qword [rbp-46*8], rax
 	; IR
 	; 15
@@ -992,26 +882,20 @@ LABEL9:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_size
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, r14
@@ -1032,7 +916,7 @@ LABEL10:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
 	mov	rcx, rbx
@@ -1072,26 +956,20 @@ LABEL13:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_size
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
 	mov	rcx, r14
@@ -1112,7 +990,7 @@ LABEL14:
 	add	r14, rcx
 	; IR
 	mov	rcx, r14
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
 	mov	rcx, rbx
@@ -1126,45 +1004,33 @@ LABEL14:
 	add	r13, rcx
 	; IR
 	mov	rcx, r13
-	mov	rdx, [rcx]
+	mov	rdx, qword [rcx]
 	mov	r14, rdx
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_toString
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	r14, rax
 	; IR
-	push	r15
 	push	r14
 	push	r13
-	push	r12
-	push	r11
-	push	r10
 	push	rbx
+	push	r15
 	mov	rdi, r14
 	call	FUNCTION_print
 	add	rsp, 0
+	pop	r15
 	pop	rbx
-	pop	r10
-	pop	r11
-	pop	r12
 	pop	r13
 	pop	r14
-	pop	r15
 	mov	qword [rbp-71*8], rax
 	; IR
 	; 19
