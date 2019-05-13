@@ -79,13 +79,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 ((FunctionLabelIRNode) instruction).setIrRegisterSize(7);
             }
         }
-        int cnt = 0;
         for (BaseIRNode instruction : instructions) {
-            if (instruction instanceof FunctionLabelIRNode) {
-                currentFunction = (FunctionLabelIRNode) instruction;
-                cnt = currentFunction.getEntity().getParameterList().size();
-                if (cnt > 6) cnt = 6;
-            }
+            if (instruction instanceof FunctionLabelIRNode) currentFunction = (FunctionLabelIRNode) instruction;
             if (currentFunction != null) {
                 if (instruction instanceof BranchIRNode)
                     if (((BranchIRNode) instruction).getConditionIRRegister().getMemory() == null)
@@ -117,8 +112,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                         ((RetIRNode) instruction).getReturnIRRegister().allocateMemory(currentFunction);
             }
             if (instruction instanceof RetIRNode) {
-                assert currentFunction != null;
-                currentFunction.setIrRegisterSize(cnt);
                 currentFunction = null;
             }
             if (instruction instanceof LabelIRNode)
@@ -159,7 +152,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(visit(baseNode).getBodyNode());
         }
         body.add(new LabelIRNode());
-        //liveAnalyze(body);
         return new FunctionIRNode(memoryAllocate(body), null);
     }
 
