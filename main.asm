@@ -1,7 +1,11 @@
 	default rel
 	global main
-	global FUNCTION_a
+	global FUNCTION_printNum
 	global FUNCTION_main
+	global static0
+	global static3
+	global static1
+	global static2
 	global FUNCTION_size
 	global FUNCTION_print
 	global FUNCTION_println
@@ -509,310 +513,893 @@ FUNCTION_string_geq:
 main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 648
+	sub	rsp, 1448
 	; IR
-	call	FUNCTION_main
-	add	rsp, 0
-	mov	rbx, rax
+	mov	rcx, 40
+	mov	rdi, rcx
+	call	malloc
+	mov	r12, rax
 	; IR
-	mov	rax, rbx
-	leave
-	ret
+	mov	rcx, 4
+	mov	rdx, r12
+	mov	qword [rdx], rcx
 	; IR
-FUNCTION_a:
-	push	rbp
-	mov	rbp, rsp
-	sub	rsp, 1768
-	mov	rbx, rdi
-	mov	qword [rbp-2*8], rsi
-	mov	qword [rbp-3*8], rdx
-	mov	qword [rbp-4*8], rcx
-	mov	qword [rbp-5*8], r8
-	mov	qword [rbp-6*8], r9
+	mov	rcx, 8
+	add	r12, rcx
 	; IR
-	mov	rcx, 0
-	add	rbx, rcx
+	mov	rcx, r12
+	mov	qword [rel static0], rcx
 	; IR
-	mov	rcx, 0
-	add	qword [rbp-2*8], rcx
+	; 1
 	; IR
-	mov	rcx, 0
-	add	qword [rbp-3*8], rcx
+	mov	rcx, 5
+	mov	r13, rcx
 	; IR
-	mov	rcx, 0
-	add	qword [rbp-4*8], rcx
+	mov	rcx, 48
+	push	r12
+	push	r13
+	mov	rdi, rcx
+	call	malloc
+	pop	r13
+	pop	r12
+	mov	r14, rax
 	; IR
-	mov	rcx, 0
-	add	qword [rbp-5*8], rcx
+	mov	rcx, 5
+	mov	rdx, r14
+	mov	qword [rdx], rcx
 	; IR
-	mov	rcx, 0
-	add	qword [rbp-6*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+2*8], rcx
+	mov	rcx, 8
+	add	r14, rcx
 	; IR
 	mov	rcx, 0
-	add	qword [rbp+3*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+4*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+5*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+6*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+7*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+8*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+9*8], rcx
-	; IR
-	mov	rcx, 0
-	add	qword [rbp+10*8], rcx
-	; IR
-	mov	rcx, rbx
 	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp-2*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp-3*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp-4*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp-5*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp-6*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+2*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+3*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+4*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+5*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+6*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+7*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+8*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+9*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	mov	rcx, qword [rbp+10*8]
-	add	rbx, rcx
-	; IR
-	mov	rcx, rbx
-	mov	rbx, rcx
-	; IR
-	jmp	label0
 	; IR
 label0:
 	; IR
-	mov	rax, rbx
+	mov	rcx, r13
+	cmp	rbx, rcx
+	setl al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label2
+	; IR
+label1:
+	; IR
+	mov	rcx, 24
+	push	r12
+	push	r13
+	push	r14
+	push	rbx
+	mov	rdi, rcx
+	call	malloc
+	pop	rbx
+	pop	r14
+	pop	r13
+	pop	r12
+	mov	r12, rax
+	; IR
+	mov	rcx, rbx
+	mov	r15, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r15 ,cl
+	; IR
+	mov	rcx, r14
+	add	r15, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, r15
+	mov	qword [rdx], rcx
+	; IR
+	mov	rcx, 1
+	add	rbx, rcx
+	; IR
+	jmp	label0
+	; IR
+label2:
+	; IR
+	mov	rcx, r14
+	mov	qword [rel static3], rcx
+	; IR
+	; 10
+	; IR
+	push	r12
+	push	r15
+	push	r13
+	push	r14
+	push	rbx
+	sub	rsp, 8
+	call	FUNCTION_main
+	add	rsp, 0
+	add	rsp, 8
+	pop	rbx
+	pop	r14
+	pop	r13
+	pop	r15
+	pop	r12
+	mov	r12, rax
+	; IR
+	mov	rax, r12
+	leave
+	ret
+	; IR
+FUNCTION_printNum:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 1128
+	mov	rbx, rdi
+	; IR
+	mov	rcx, rbx
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, r14
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	cmp	r12, 0
+	jz	label3
+	; IR
+	mov	rcx, rbx
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, r13
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r15, rdx
+	; IR
+	jmp	label4
+	; IR
+label3:
+	; IR
+	mov	rcx, 0
+	mov	r15, rcx
+	; IR
+	mov	rcx, 0
+	add	rbx, rcx
+	; IR
+	push	r12
+	push	r15
+	push	r13
+	push	rbx
+	push	r14
+	sub	rsp, 8
+	mov	rdi, rbx
+	call	FUNCTION_toString
+	add	rsp, 0
+	add	rsp, 8
+	pop	r14
+	pop	rbx
+	pop	r13
+	pop	r15
+	pop	r12
+	mov	r12, rax
+	; IR
+	push	r12
+	push	r15
+	push	r13
+	push	rbx
+	push	r14
+	sub	rsp, 8
+	mov	rdi, r12
+	call	FUNCTION_println
+	add	rsp, 0
+	add	rsp, 8
+	pop	r14
+	pop	rbx
+	pop	r13
+	pop	r15
+	pop	r12
+	mov	qword [rbp-10*8], rax
+	; IR
+	; 13
+	; IR
+label4:
+	; IR
+	mov	rcx, rbx
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, r14
+	add	r12, rcx
+	; IR
+	mov	rcx, 1
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	mov	rcx, rbx
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, r13
+	add	r12, rcx
+	; IR
+	mov	rcx, r15
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	mov	rax, r15
 	leave
 	ret
 	; IR
 FUNCTION_main:
 	push	rbp
 	mov	rbp, rsp
-	sub	rsp, 2248
-	; IR
-	mov	rcx, 1
-	mov	rbx, rcx
-	; IR
-	mov	rcx, 2
-	mov	r13, rcx
-	; IR
-	mov	rcx, 3
-	mov	r15, rcx
-	; IR
-	mov	rcx, 4
-	mov	r10, rcx
-	; IR
-	mov	rcx, 5
-	mov	r14, rcx
-	; IR
-	mov	rcx, 6
-	mov	r12, rcx
-	; IR
-	mov	rcx, 7
-	mov	r11, rcx
-	; IR
-	mov	rcx, 8
-	mov	qword [rbp-16*8], rcx
-	; IR
-	mov	rcx, 9
-	mov	qword [rbp-17*8], rcx
-	; IR
-	mov	rcx, 10
-	mov	qword [rbp-18*8], rcx
-	; IR
-	mov	rcx, 11
-	mov	qword [rbp-19*8], rcx
-	; IR
-	mov	rcx, 12
-	mov	qword [rbp-20*8], rcx
-	; IR
-	mov	rcx, 13
-	mov	qword [rbp-21*8], rcx
-	; IR
-	mov	rcx, 14
-	mov	qword [rbp-22*8], rcx
-	; IR
-	mov	rcx, 15
-	mov	qword [rbp-23*8], rcx
-	; IR
-	push	rbx
-	push	r13
-	push	r15
-	push	r10
-	push	r14
-	push	r12
-	push	r11
-	sub	rsp, 8
-	push	qword [rbp-23*8]
-	push	qword [rbp-22*8]
-	push	qword [rbp-21*8]
-	push	qword [rbp-20*8]
-	push	qword [rbp-19*8]
-	push	qword [rbp-18*8]
-	push	qword [rbp-17*8]
-	push	qword [rbp-16*8]
-	push	r11
-	mov	r9, r12
-	mov	r8, r14
-	mov	rcx, r10
-	mov	rdx, r15
-	mov	rsi, r13
-	mov	rdi, rbx
-	call	FUNCTION_a
-	add	rsp, 72
-	add	rsp, 8
-	pop	r11
-	pop	r12
-	pop	r14
-	pop	r10
-	pop	r15
-	pop	r13
-	pop	rbx
-	mov	rbx, rax
-	; IR
-	push	rbx
-	push	r13
-	push	r15
-	push	r10
-	push	r14
-	push	r12
-	push	r11
-	sub	rsp, 8
-	mov	rdi, rbx
-	call	FUNCTION_toString
-	add	rsp, 0
-	add	rsp, 8
-	pop	r11
-	pop	r12
-	pop	r14
-	pop	r10
-	pop	r15
-	pop	r13
-	pop	rbx
-	mov	rbx, rax
-	; IR
-	push	rbx
-	push	r13
-	push	r15
-	push	r10
-	push	r14
-	push	r12
-	push	r11
-	sub	rsp, 8
-	mov	rdi, rbx
-	call	FUNCTION_println
-	add	rsp, 0
-	add	rsp, 8
-	pop	r11
-	pop	r12
-	pop	r14
-	pop	r10
-	pop	r15
-	pop	r13
-	pop	rbx
-	mov	qword [rbp-26*8], rax
-	; IR
-	; 8
+	sub	rsp, 9288
 	; IR
 	mov	rcx, 0
-	mov	rbx, rcx
+	mov	qword [rel static1], rcx
 	; IR
-	jmp	label1
+label5:
 	; IR
-label1:
+	mov	rcx, 4
+	mov	r12, rcx
 	; IR
-	mov	rax, rbx
+	mov	rcx, r12
+	cmp	qword [rel static1], rcx
+	setl al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label8
+	; IR
+label6:
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, 96
+	push	r12
+	sub	rsp, 8
+	mov	rdi, rcx
+	call	malloc
+	add	rsp, 8
+	pop	r12
+	mov	r15, rax
+	; IR
+	mov	rcx, 11
+	mov	rdx, r15
+	mov	qword [rdx], rcx
+	; IR
+	mov	rcx, 8
+	add	r15, rcx
+	; IR
+	mov	rcx, r15
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	; 17
+	; IR
+label7:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static1], rcx
+	; IR
+	jmp	label5
+	; IR
+label8:
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static1], rcx
+	; IR
+label9:
+	; IR
+	mov	rcx, 4
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static1], rcx
+	setl al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label16
+	; IR
+label10:
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static2], rcx
+	; IR
+label11:
+	; IR
+	mov	rcx, 10
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static2], rcx
+	setl al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label14
+	; IR
+label12:
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, qword [rel static2]
+	mov	r15, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r15 ,cl
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, 888
+	mov	rdx, r15
+	mov	qword [rdx], rcx
+	; IR
+	; 23
+	; IR
+label13:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static2], rcx
+	; IR
+	jmp	label11
+	; IR
+label14:
+	; IR
+label15:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static1], rcx
+	; IR
+	jmp	label9
+	; IR
+label16:
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static1], rcx
+	; IR
+label17:
+	; IR
+	mov	rcx, 5
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static1], rcx
+	setl al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label20
+	; IR
+label18:
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static3]
+	add	r12, rcx
+	; IR
+	mov	rcx, 24
+	push	r12
+	push	r15
+	mov	rdi, rcx
+	call	malloc
+	pop	r15
+	pop	r12
+	mov	r15, rax
+	; IR
+	mov	rcx, r15
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	; 26
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static3]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, 8
+	add	r12, rcx
+	; IR
+	mov	rcx, -1
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	; 27
+	; IR
+label19:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static1], rcx
+	; IR
+	jmp	label17
+	; IR
+label20:
+	; IR
+	mov	rcx, 24
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, 72
+	mov	r15, rcx
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, r15
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	push	r12
+	push	r15
+	mov	rdi, r12
+	call	FUNCTION_printNum
+	add	rsp, 0
+	pop	r15
+	pop	r12
+	mov	qword [rbp-46*8], rax
+	; IR
+	; 30
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static1], rcx
+	; IR
+label21:
+	; IR
+	mov	rcx, 3
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static1], rcx
+	setle al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label28
+	; IR
+label22:
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static2], rcx
+	; IR
+label23:
+	; IR
+	mov	rcx, 9
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static2], rcx
+	setle al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label26
+	; IR
+label24:
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, qword [rel static2]
+	mov	r15, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r15 ,cl
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 10
+	mov	rdx, r12
+	imul	rdx, rcx
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static2]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, r15
+	mov	qword [rdx], rcx
+	; IR
+	; 33
+	; IR
+label25:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static2], rcx
+	; IR
+	jmp	label23
+	; IR
+label26:
+	; IR
+label27:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static1], rcx
+	; IR
+	jmp	label21
+	; IR
+label28:
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static1], rcx
+	; IR
+label29:
+	; IR
+	mov	rcx, 3
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static1], rcx
+	setle al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label36
+	; IR
+label30:
+	; IR
+	mov	rcx, 0
+	mov	qword [rel static2], rcx
+	; IR
+label31:
+	; IR
+	mov	rcx, 9
+	mov	r12, rcx
+	; IR
+	mov	rcx, r12
+	cmp	qword [rel static2], rcx
+	setle al
+	movzx	eax, al
+	mov	r12, rax
+	; IR
+	cmp	r12, 0
+	jz	label34
+	; IR
+label32:
+	; IR
+	mov	rcx, qword [rel static1]
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, qword [rel static2]
+	mov	r15, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r15 ,cl
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, r15
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	push	r12
+	push	r15
+	mov	rdi, r12
+	call	FUNCTION_printNum
+	add	rsp, 0
+	pop	r15
+	pop	r12
+	mov	qword [rbp-71*8], rax
+	; IR
+	; 37
+	; IR
+label33:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static2], rcx
+	; IR
+	jmp	label31
+	; IR
+label34:
+	; IR
+label35:
+	; IR
+	mov	rcx, 1
+	add	qword [rel static1], rcx
+	; IR
+	jmp	label29
+	; IR
+label36:
+	; IR
+	mov	rcx, 16
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, 80
+	mov	r15, rcx
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, 0
+	mov	rdx, r15
+	mov	qword [rdx], rcx
+	; IR
+	; 38
+	; IR
+	mov	rcx, 16
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, 80
+	mov	r15, rcx
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, r15
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	push	r12
+	push	r15
+	mov	rdi, r12
+	call	FUNCTION_printNum
+	add	rsp, 0
+	pop	r15
+	pop	r12
+	mov	qword [rbp-86*8], rax
+	; IR
+	; 39
+	; IR
+	mov	rcx, 0
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static3]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, 8
+	add	r12, rcx
+	; IR
+	mov	rcx, -2
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	; 40
+	; IR
+	mov	rcx, 16
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static0]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, 80
+	mov	r15, rcx
+	; IR
+	mov	rcx, r12
+	add	r15, rcx
+	; IR
+	mov	rcx, r15
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, 3
+	mov	rcx, rcx
+	shl	r12 ,cl
+	; IR
+	mov	rcx, qword [rel static3]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, 8
+	add	r12, rcx
+	; IR
+	mov	rcx, -10
+	mov	rdx, r12
+	mov	qword [rdx], rcx
+	; IR
+	; 41
+	; IR
+	mov	rcx, 0
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static3]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, 8
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	push	r12
+	push	r15
+	mov	rdi, r12
+	call	FUNCTION_printNum
+	add	rsp, 0
+	pop	r15
+	pop	r12
+	mov	qword [rbp-109*8], rax
+	; IR
+	; 42
+	; IR
+	mov	rcx, 8
+	mov	r12, rcx
+	; IR
+	mov	rcx, qword [rel static3]
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	mov	rcx, r12
+	mov	r12, rcx
+	; IR
+	mov	rcx, 8
+	add	r12, rcx
+	; IR
+	mov	rcx, r12
+	mov	rdx, qword [rcx]
+	mov	r12, rdx
+	; IR
+	push	r12
+	push	r15
+	mov	rdi, r12
+	call	FUNCTION_printNum
+	add	rsp, 0
+	pop	r15
+	pop	r12
+	mov	qword [rbp-115*8], rax
+	; IR
+	; 43
+	; IR
+	mov	rcx, 0
+	mov	r12, rcx
+	; IR
+	jmp	label37
+	; IR
+label37:
+	; IR
+	mov	rax, r12
 	leave
 	ret
 	; IR
-label2:
+label38:
 	; IR
 	SECTION .data
 	SECTION .bss
+	static0:	resq	1
+	static3:	resq	1
+	static1:	resq	1
+	static2:	resq	1
 	SECTION .rodata
 	L_022:	db 25H, 73H, 00H
