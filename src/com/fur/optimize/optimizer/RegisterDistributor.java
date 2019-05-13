@@ -21,12 +21,10 @@ public class RegisterDistributor {
         List<IRRegister> allIRRegisters = new ArrayList<>();
         for (BaseIRNode instruction : instructions) {
             for (IRRegister irRegister1 : instruction.getLiveIRRegister()) {
-                if (irRegister1.getMemory() instanceof NASMStaticMemory) continue;
-                if (((NASMStackMemory) irRegister1.getMemory()).getRbpOffset() < 0) continue;
+                if (irRegister1.getMemory() != null) continue;
                 allIRRegisters.add(irRegister1);
                 for (IRRegister irRegister2 : instruction.getLiveIRRegister()) if (irRegister1 != irRegister2) {
-                    if (irRegister2.getMemory() instanceof NASMStaticMemory) continue;
-                    if (((NASMStackMemory) irRegister1.getMemory()).getRbpOffset() < 0) continue;
+                    if (irRegister2.getMemory() != null) continue;
                     irRegister1.getConflictIRRegisters().add(irRegister2);
                     irRegister2.getConflictIRRegisters().add(irRegister1);
                 }

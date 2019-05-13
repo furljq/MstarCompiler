@@ -63,9 +63,7 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
         return new FunctionIRNode(body, destIRRegister);
     }
 
-    private List<BaseIRNode> memoryAllocate(List<BaseIRNode> instructions) {
-        List<BaseIRNode> code = new ArrayList<>();
-        FunctionLabelIRNode currentFunction = null;
+    private void memoryAllocate(List<BaseIRNode> instructions) {
         for (BaseIRNode instruction : instructions) {
             if (instruction instanceof FunctionLabelIRNode) {
                 FunctionEntity functionEntity = ((FunctionLabelIRNode) instruction).getEntity();
@@ -79,44 +77,6 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 ((FunctionLabelIRNode) instruction).setIrRegisterSize(7);
             }
         }
-        for (BaseIRNode instruction : instructions) {
-            if (instruction instanceof FunctionLabelIRNode) currentFunction = (FunctionLabelIRNode) instruction;
-            if (currentFunction != null) {
-                if (instruction instanceof BranchIRNode)
-                    if (((BranchIRNode) instruction).getConditionIRRegister().getMemory() == null)
-                        ((BranchIRNode) instruction).getConditionIRRegister().allocateMemory(currentFunction);
-                if (instruction instanceof OpIRNode) {
-                    if (((OpIRNode) instruction).getDestIRRegister().getMemory() == null)
-                        ((OpIRNode) instruction).getDestIRRegister().allocateMemory(currentFunction);
-                    if (((OpIRNode) instruction).getSourceIRRegister() != null)
-                        if (((OpIRNode) instruction).getSourceIRRegister().getMemory() == null)
-                            ((OpIRNode) instruction).getSourceIRRegister().allocateMemory(currentFunction);
-                }
-                if (instruction instanceof CallIRNode) {
-                    if (((CallIRNode) instruction).getDestIRRegister().getMemory() == null)
-                        ((CallIRNode) instruction).getDestIRRegister().allocateMemory(currentFunction);
-                    for (IRRegister parameterIRRegister : ((CallIRNode) instruction).getParameterIRRegisters())
-                        if (parameterIRRegister.getMemory() == null)
-                            parameterIRRegister.allocateMemory(currentFunction);
-                }
-                if (instruction instanceof CmpIRNode) {
-                    if (((CmpIRNode) instruction).getDestIRRegister().getMemory() == null)
-                        ((CmpIRNode) instruction).getDestIRRegister().allocateMemory(currentFunction);
-                    if (((CmpIRNode) instruction).getOperateIRRegister1().getMemory() == null)
-                        ((CmpIRNode) instruction).getOperateIRRegister1().allocateMemory(currentFunction);
-                    if (((CmpIRNode) instruction).getOperateIRRegister2().getMemory() == null)
-                        ((CmpIRNode) instruction).getOperateIRRegister2().allocateMemory(currentFunction);
-                }
-                if (instruction instanceof RetIRNode)
-                    if (((RetIRNode) instruction).getReturnIRRegister().getMemory() == null)
-                        ((RetIRNode) instruction).getReturnIRRegister().allocateMemory(currentFunction);
-            }
-            if (instruction instanceof RetIRNode) {
-                currentFunction = null;
-            }
-            code.add(instruction);
-        }
-        return code;
     }
 
     @Override
@@ -149,7 +109,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 body.addAll(visit(baseNode).getBodyNode());
         }
         body.add(new LabelIRNode());
-        return new FunctionIRNode(memoryAllocate(body), null);
+        memoryAllocate(body);
+        return new FunctionIRNode(body, null);
     }
 
     @Override

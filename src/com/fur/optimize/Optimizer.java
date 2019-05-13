@@ -2,8 +2,8 @@ package com.fur.optimize;
 
 import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.intermediateRepresentation.node.LabelIRNode;
-import com.fur.nasm.label.NASMLabels;
 import com.fur.nasm.register.NASMRegisters;
+import com.fur.optimize.optimizer.Allocator;
 import com.fur.optimize.optimizer.Blocker;
 import com.fur.optimize.optimizer.FunctionRecorder;
 import com.fur.optimize.optimizer.RegisterDistributor;
@@ -16,7 +16,7 @@ public class Optimizer {
     private Blocker blocker = new Blocker();
     private RegisterDistributor registerDistributor;
     private FunctionRecorder functionRecorder = new FunctionRecorder();
-    private NASMLabels labels = new NASMLabels("label");
+    private Allocator allocator = new Allocator();
 
     public Optimizer(NASMRegisters registers) {
         registerDistributor = new RegisterDistributor(registers);
@@ -29,7 +29,7 @@ public class Optimizer {
         List<BaseIRNode> code = new ArrayList<>();
         for (BlockIRNode block : blocks) code.addAll(block.getInstructions());
         registerDistributor.distribute(code);
-        for (BaseIRNode label : code) if (label instanceof LabelIRNode) if (((LabelIRNode) label).getNasmLabel() == null) ((LabelIRNode) label).setNasmLabel(labels.getnew());
+        allocator.allocate(code);
         return code;
     }
 
