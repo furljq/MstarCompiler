@@ -35,8 +35,8 @@ public class FunctionRecorder {
                 ((FunctionLabelIRNode) instruction).getEnableTable().setMemory(new NASMStackMemory(++currentSize));
                 ((FunctionLabelIRNode) instruction).getDataTable().setMemory(new NASMStackMemory(++currentSize));
                 ((FunctionLabelIRNode) instruction).setIrRegisterSize(currentSize);
-                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getDataTable(), 50 * 8));
-                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getEnableTable(), 50 * 8));
+                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getDataTable(), 500 * 8));
+                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getEnableTable(), 500 * 8));
             }
         }
         List<BaseIRNode> code = new ArrayList<>();
