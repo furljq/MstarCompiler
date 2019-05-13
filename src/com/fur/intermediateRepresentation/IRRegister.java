@@ -1,6 +1,8 @@
 package com.fur.intermediateRepresentation;
 
+import com.fur.intermediateRepresentation.node.FunctionLabelIRNode;
 import com.fur.nasm.memory.NASMMemory;
+import com.fur.nasm.memory.NASMStackMemory;
 import com.fur.nasm.register.NASMRegister;
 import com.fur.type.BaseType;
 
@@ -33,6 +35,12 @@ public class IRRegister implements Comparable<IRRegister> {
 
     public void setMemory(NASMMemory memory) {
         this.memory = memory;
+    }
+
+    public void allocateMemory(FunctionLabelIRNode function) {
+        int count = function.getIrRegisterSize();
+        memory = new NASMStackMemory(++count);
+        function.setIrRegisterSize(count);
     }
 
     public NASMRegister getRegister() {
