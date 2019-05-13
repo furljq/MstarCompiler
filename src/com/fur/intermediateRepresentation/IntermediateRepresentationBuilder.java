@@ -71,8 +71,8 @@ public class IntermediateRepresentationBuilder extends AbstractSyntaxTreeBaseVis
                 for (int i = 0; i < functionEntity.getParameterList().size(); i++) {
                     VariableEntity parameterEntity = functionEntity.getParameterList().get(i);
                     IRRegister paramaterIRRegister = parameterEntity.getIRRegister();
-                    if (i < 6) paramaterIRRegister.setMemory(new NASMStackMemory(i + 1));
-                    else paramaterIRRegister.setMemory(new NASMStackMemory(6 - 2 - i));
+                    if (i < 4) paramaterIRRegister.setMemory(new NASMStackMemory(i + 1));
+                    else paramaterIRRegister.setMemory(new NASMStackMemory(4 - 2 - i));
                 }
                 ((FunctionLabelIRNode) instruction).setIrRegisterSize(7);
             }

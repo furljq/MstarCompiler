@@ -33,6 +33,8 @@ public class NASMRegisters {
         callerSaveRegisters.add(registers.get(12));
         callerSaveRegisters.add(registers.get(11));
         callerSaveRegisters.add(registers.get(10));
+        callerSaveRegisters.add(registers.get(9));
+        callerSaveRegisters.add(registers.get(8));
         callerSaveRegisters.add(registers.get(3));
     }
 
