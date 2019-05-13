@@ -69,9 +69,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitLabelIRNode(LabelIRNode node) {
-        if (node.getNasmLabel() != null) node.setNasmLabel(labels.getnew());
+        if (node.getNasmLabel() == null) node.setNasmLabel(labels.getnew());
         List<String> code = new ArrayList<>();
-        assert node.getNasmLabel() != null;
         code.add(node.getNasmLabel().getName() + ":");
         if (node instanceof FunctionLabelIRNode) {
             usedRegisters.clear();
