@@ -38,8 +38,8 @@ public class FunctionRecorder {
                 ((FunctionLabelIRNode) instruction).getEnableTable().setMemory(new NASMStaticMemory(labels.getnew()));
                 ((FunctionLabelIRNode) instruction).getDataTable().setMemory(new NASMStaticMemory(labels.getnew()));
                 ((FunctionLabelIRNode) instruction).setIrRegisterSize(currentSize);
-                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getDataTable(), 500 * 8));
-                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getEnableTable(), 500 * 8));
+                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getDataTable(), 100 * 8));
+                initial.add(new OpIRNode(OperatorList.MALLOC, ((FunctionLabelIRNode) instruction).getEnableTable(), 100 * 8));
             }
         }
         List<BaseIRNode> code = new ArrayList<>();
@@ -72,11 +72,14 @@ public class FunctionRecorder {
                 assert instruction instanceof FunctionLabelIRNode;
                 currentFunction = (FunctionLabelIRNode) instruction;
                 IRRegister argumentIRRegister = new IRRegister();
-                int currentSize = currentFunction.getIrRegisterSize();
-                argumentIRRegister.setMemory(new NASMStackMemory(++currentSize));
-                currentFunction.setIrRegisterSize(currentSize);
+                argumentIRRegister.allocateMemory(currentFunction);
+                IRRegister temporaryIRRegister = new IRRegister();
+                temporaryIRRegister.allocateMemory(currentFunction);
                 LabelIRNode breakLabel = new LabelIRNode();
+                code.add(new OpIRNode(OperatorList.ASSIGN, temporaryIRRegister, 100));
                 code.add(new OpIRNode(OperatorList.ASSIGN, argumentIRRegister, currentFunction.getEntity().getParameterList().get(0).getIRRegister()));
+                code.add(new CmpIRNode(OperatorList.LT, temporaryIRRegister, argumentIRRegister, temporaryIRRegister));
+                code.add(new BranchIRNode(temporaryIRRegister, breakLabel));
                 code.add(new OpIRNode(OperatorList.LEFTSHIFT, argumentIRRegister, 3));
                 code.add(new OpIRNode(OperatorList.ADD, argumentIRRegister, currentFunction.getEnableTable()));
                 code.add(new OpIRNode(OperatorList.LOAD, argumentIRRegister, argumentIRRegister));
