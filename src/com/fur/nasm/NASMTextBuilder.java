@@ -86,7 +86,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
 
     @Override
     public List<String> visitCallIRNode(CallIRNode node) {
-        List<NASMRegister> saveRegisters = new ArrayList<>(usedRegisters);
+        List<NASMRegister> saveRegisters = new ArrayList<>();
+        for (IRRegister irRegister : node.getLiveIRRegister()) if (irRegister.getRegister() != null) saveRegisters.add(irRegister.getRegister());
         List<String> code = new ArrayList<>(callerSavePush(saveRegisters));
         for (int i = node.getParameterIRRegisters().size() - 1; i >= 0; i--) {
             IRRegister parameterIRRegister = node.getParameterIRRegisters().get(i);
