@@ -120,6 +120,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         NASMRegister sourceRegister = registers.getRegister("rcx");
         NASMRegister temporaryRegister = registers.getRegister("rdx");
         if (node.getSourceIRRegister() == null) code.add("mov\t" + sourceRegister.getName() + ", " + node.getImmediate());
+        else if (node.getSourceIRRegister().getRegister() != null) sourceRegister = node.getSourceIRRegister().getRegister();
         else code.add("mov\t" + sourceRegister.getName() + ", " + node.getSourceIRRegister().print());
         if (node.getOperator() == OperatorList.STORE) {
             code.add("mov\t" + temporaryRegister.getName() + ", " + node.getDestIRRegister().print());
@@ -198,14 +199,13 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.OR) operator = "or";
             if (node.getOperator() == OperatorList.AND) operator = "and";
             boolean work = true;
-            if (node.getOperator() == OperatorList.ASSIGN && node.getSourceIRRegister() != null && node.getSourceIRRegister().print().equals(node.getSourceIRRegister().print())) work = false;
+            if (node.getOperator() == OperatorList.ASSIGN && node.getSourceIRRegister() != null && node.getDestIRRegister().print().equals(node.getSourceIRRegister().print())) work = false;
             if (node.getOperator() == OperatorList.ADD && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
             if (node.getOperator() == OperatorList.SUB && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
             if (node.getOperator() == OperatorList.XOR && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
             if (node.getOperator() == OperatorList.OR && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
             if (node.getOperator() == OperatorList.AND && node.getSourceIRRegister() == null && node.getImmediate() == 1) work = false;
-//            if (work)
-                code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
+            if (work) code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
         }
         return code;
     }
