@@ -4,7 +4,7 @@ public class NASMRegister {
 
     private String name;
 
-    public NASMRegister(String name) {
+    NASMRegister(String name) {
         this.name = name;
     }
 

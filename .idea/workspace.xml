@@ -20,20 +20,52 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/FunctionRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="469">
+              <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1501">
+              <caret line="209" column="102" lean-forward="true" selection-start-line="209" selection-start-column="102" selection-end-line="209" selection-end-column="102" />
+              <folding>
+                <element signature="method#addUsedRegister#0;class#NASMTextBuilder#0" />
+                <element signature="e#1070#1505#1" />
+                <element signature="e#1552#2122#1" />
+                <element signature="e#2168#2621#1" />
+                <element signature="method#callerSavePush#0;class#NASMTextBuilder#0" />
+                <element signature="method#callerSavePop#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="e#3517#4283#1" />
+                <element signature="e#3909#4273#1" />
+                <element signature="method#visitCallIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="e#4613#4900#1" />
+                <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
+                <element signature="e#7719#7936#1" />
+                <element signature="e#7990#8217#1" />
+                <element signature="e#8273#8651#1" />
+                <element signature="e#9940#10228#1" />
+                <element signature="e#10492#11092#1" />
+                <element signature="method#visitAnnotationIRNode#0;class#NASMTextBuilder#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.asm">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="38">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -119,7 +151,6 @@
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/BaseExpressionNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/type/AddressType.java" />
         <option value="$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/FunctionExpressionNode.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegister.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/memory/NASMMemory.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/memory/NASMStackMemory.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/memory/NASMStaticMemory.java" />
@@ -147,10 +178,8 @@
         <option value="$PROJECT_DIR$/inbuild.asm" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterSaving.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterSaver.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegisters.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IRRegister.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/label/NASMLabels.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/FunctionSaver.java" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/FunctionLabelIRNode.java" />
         <option value="$PROJECT_DIR$/src/com/fur/symbolTable/Entity/FunctionEntity.java" />
@@ -162,6 +191,9 @@
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/Allocator.java" />
         <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegister.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegisters.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
       </list>
     </option>
   </component>
@@ -178,6 +210,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -212,30 +245,7 @@
               <item name="Compiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="intermediateRepresentation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="intermediateRepresentation" type="462c0819:PsiDirectoryNode" />
-              <item name="node" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
               <item name="nasm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="nasm" type="462c0819:PsiDirectoryNode" />
-              <item name="memory" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
@@ -245,26 +255,10 @@
               <item name="nasm" type="462c0819:PsiDirectoryNode" />
               <item name="register" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="optimize" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Compiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fur" type="462c0819:PsiDirectoryNode" />
-              <item name="optimize" type="462c0819:PsiDirectoryNode" />
-              <item name="optimizer" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -400,17 +394,18 @@
       <workItem from="1557202313537" duration="24715000" />
       <workItem from="1557273881990" duration="19408000" />
       <workItem from="1557475523873" duration="2663000" />
+      <workItem from="1557838493249" duration="1403000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="644768000" />
+    <option name="totallyTimeSpent" value="647289000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27546915" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27949062" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -493,12 +488,6 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/FunctionRecorder.java</url>
-          <line>30</line>
-          <properties />
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/Blocker.java</url>
           <line>56</line>
           <properties />
@@ -547,13 +536,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/label/NASMLabel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/abstractSyntaxTree/node/FunctionDeclarationNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -695,13 +677,6 @@
             <element signature="e#411#412#0" expanded="true" />
             <element signature="e#442#443#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMDataBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -911,29 +886,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="44" column="46" lean-forward="true" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterSaver.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegisters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="34" column="51" lean-forward="true" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1517#1518#0" expanded="true" />
-            <element signature="e#1559#1560#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IRRegister.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -1039,13 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/FunctionRecorder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="92" column="13" lean-forward="true" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/Optimizer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -1101,33 +1047,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
+    <entry file="file://$PROJECT_DIR$/main.mx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegister.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="999">
-          <caret line="171" column="9" lean-forward="true" selection-start-line="171" selection-start-column="9" selection-end-line="171" selection-end-column="9" />
+        <state relative-caret-position="247">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
-            <element signature="method#addUsedRegister#0;class#NASMTextBuilder#0" />
-            <element signature="e#1108#1543#1" />
-            <element signature="e#1590#2160#1" />
-            <element signature="e#2206#2659#1" />
-            <element signature="method#callerSavePush#0;class#NASMTextBuilder#0" />
-            <element signature="method#callerSavePop#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="e#3555#4321#1" />
-            <element signature="e#3947#4311#1" />
-            <element signature="method#visitCallIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="e#4651#4938#1" />
-            <element signature="e#9253#9554#1" />
-            <element signature="e#9544#9862#1" />
-            <element signature="e#9915#10203#1" />
-            <element signature="e#10467#11067#1" />
-            <element signature="method#visitAnnotationIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#214#215#0" expanded="true" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/main.asm">
       <provider selected="true" editor-type-id="text-editor">
@@ -1136,10 +1068,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMDataBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-526">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegisters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1094">
+          <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/FunctionRecorder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1501">
+          <caret line="209" column="102" lean-forward="true" selection-start-line="209" selection-start-column="102" selection-end-line="209" selection-end-column="102" />
+          <folding>
+            <element signature="method#addUsedRegister#0;class#NASMTextBuilder#0" />
+            <element signature="e#1070#1505#1" />
+            <element signature="e#1552#2122#1" />
+            <element signature="e#2168#2621#1" />
+            <element signature="method#callerSavePush#0;class#NASMTextBuilder#0" />
+            <element signature="method#callerSavePop#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="e#3517#4283#1" />
+            <element signature="e#3909#4273#1" />
+            <element signature="method#visitCallIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="e#4613#4900#1" />
+            <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="e#7719#7936#1" />
+            <element signature="e#7990#8217#1" />
+            <element signature="e#8273#8651#1" />
+            <element signature="e#9940#10228#1" />
+            <element signature="e#10492#11092#1" />
+            <element signature="method#visitAnnotationIRNode#0;class#NASMTextBuilder#0" />
+          </folding>
         </state>
       </provider>
     </entry>

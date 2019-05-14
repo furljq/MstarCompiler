@@ -72,20 +72,4 @@ public class NASMRegisters {
         return null;
     }
 
-    public List<String> store() {
-        List<String> code = new ArrayList<>();
-        for (NASMRegister register : callerSaveRegisters)
-            code.add("push\t" + register.getName());
-        return code;
-    }
-
-    public List<String> load() {
-        List<String> code = new ArrayList<>();
-        for (int reverse = callerSaveRegisters.size() - 1; reverse >= 0; reverse--){
-            NASMRegister register = callerSaveRegisters.get(reverse);
-            code.add("pop\t" + register.getName());
-        }
-        return code;
-    }
-
 }
