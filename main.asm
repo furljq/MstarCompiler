@@ -512,9 +512,9 @@ main:
 	; IR
 	call	FUNCTION_main
 	add	rsp, 0
-	mov	r13, rax
+	mov	r9, rax
 	; IR
-	mov	rax, r13
+	mov	rax, r9
 	leave
 	ret
 	; IR
@@ -525,36 +525,33 @@ FUNCTION_main:
 	; IR
 	call	FUNCTION_getInt
 	add	rsp, 0
-	mov	r13, rax
+	mov	r9, rax
 	; IR
-	mov	rcx, r13
-	mov	r13, rcx
+	mov	rcx, r9
+	mov	r9, rcx
 	; IR
 	; 2
 	; IR
-	mov	rcx, r13
-	mov	r13, rcx
+	mov	rcx, r9
+	mov	r9, rcx
 	; IR
-	mov	rcx, 3
-	mov	rax, 2863311530
-	mov	rdx, r13
+	mov	rcx, 10
+	mov	rax, 3435973836
+	mov	rdx, r9
 	imul	rdx, rax
-	mov	rax, r13
-	mov	r13, rdx
-	mov	rcx, 33
-	sar	r13, cl
-	imul	r13, 3
-	sub	rax, r13
-	mov	r13, rax
+	mov	rax, r9
+	mov	r9, rdx
+	mov	rcx, 35
+	sar	r9, cl
 	; IR
-	mov	rcx, r13
-	mov	r13, rcx
+	mov	rcx, r9
+	mov	r9, rcx
 	; IR
 	jmp	label0
 	; IR
 label0:
 	; IR
-	mov	rax, r13
+	mov	rax, r9
 	leave
 	ret
 	; IR
