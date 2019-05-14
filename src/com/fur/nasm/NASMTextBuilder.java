@@ -177,7 +177,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
                 long magicNum = 0;
                 while (divNum > (1 << magicNum)) magicNum++;
                 magicNum += 31;
-                long mulNum = (long) 1 << magicNum;
+                long mulNum = ((long) 1 << magicNum) / divNum;
                 code.add("mov\t" + tempName1 + ", " + mulNum);
                 code.add("mov\t" + tempName2 + ", " + node.getDestIRRegister().print());
                 code.add("imul\t" + tempName2 + ", " + tempName1);
@@ -222,7 +222,14 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.XOR) operator = "xor";
             if (node.getOperator() == OperatorList.OR) operator = "or";
             if (node.getOperator() == OperatorList.AND) operator = "and";
-            code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
+            boolean work = true;
+            if (node.getOperator() == OperatorList.ASSIGN && node.getSourceIRRegister() != null && node.getSourceIRRegister().print().equals(node.getSourceIRRegister().print())) work = false;
+            if (node.getOperator() == OperatorList.ADD && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
+            if (node.getOperator() == OperatorList.SUB && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
+            if (node.getOperator() == OperatorList.XOR && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
+            if (node.getOperator() == OperatorList.OR && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
+            if (node.getOperator() == OperatorList.AND && node.getSourceIRRegister() == null && node.getImmediate() == 1) work = false;
+            if (work) code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
         }
         addUsedRegister(node);
         return code;

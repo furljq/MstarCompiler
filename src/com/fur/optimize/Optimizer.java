@@ -1,7 +1,9 @@
 package com.fur.optimize;
 
+import com.fur.enumerate.OperatorList;
 import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.intermediateRepresentation.node.LabelIRNode;
+import com.fur.intermediateRepresentation.node.OpIRNode;
 import com.fur.nasm.register.NASMRegisters;
 import com.fur.optimize.optimizer.Allocator;
 import com.fur.optimize.optimizer.Blocker;
