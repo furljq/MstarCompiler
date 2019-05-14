@@ -1,6 +1,9 @@
 	default rel
 	global main
+	global FUNCTION_f
 	global FUNCTION_main
+	global table1
+	global table0
 	global FUNCTION_size
 	global FUNCTION_print
 	global FUNCTION_println
@@ -510,11 +513,197 @@ main:
 	mov	rbp, rsp
 	sub	rsp, 648
 	; IR
+	mov	rcx, 800
+	mov	rdi, rcx
+	call	malloc
+	mov	qword [rel table1], rax
+	; IR
+	mov	rcx, 800
+	mov	rdi, rcx
+	call	malloc
+	mov	qword [rel table0], rax
+	; IR
 	call	FUNCTION_main
 	add	rsp, 0
-	mov	r9, rax
+	mov	r13, rax
 	; IR
-	mov	rax, r9
+	mov	rax, r13
+	leave
+	ret
+	; IR
+FUNCTION_f:
+	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 808
+	mov	qword [rbp-1*8], rdi
+	; IR
+	mov	rcx, 100
+	mov	qword [rbp-9*8], rcx
+	; IR
+	mov	rcx, qword [rbp-1*8]
+	mov	qword [rbp-8*8], rcx
+	; IR
+	mov	rcx, qword [rbp-9*8]
+	cmp	qword [rbp-8*8], rcx
+	setl al
+	movzx	eax, al
+	mov	qword [rbp-9*8], rax
+	; IR
+	cmp	qword [rbp-9*8], 0
+	jz	label0
+	; IR
+	mov	rcx, 3
+	shl	qword [rbp-8*8] ,cl
+	; IR
+	mov	rcx, qword [rel table0]
+	add	qword [rbp-8*8], rcx
+	; IR
+	mov	rcx, qword [rbp-8*8]
+	mov	rdx, qword [rcx]
+	mov	qword [rbp-8*8], rdx
+	; IR
+	cmp	qword [rbp-8*8], 0
+	jz	label0
+	; IR
+	mov	rcx, qword [rbp-1*8]
+	mov	qword [rbp-8*8], rcx
+	; IR
+	mov	rcx, 3
+	shl	qword [rbp-8*8] ,cl
+	; IR
+	mov	rcx, qword [rel table1]
+	add	qword [rbp-8*8], rcx
+	; IR
+	mov	rcx, qword [rbp-8*8]
+	mov	rdx, qword [rcx]
+	mov	r13, rdx
+	; IR
+	jmp	label5
+	; IR
+label0:
+	; IR
+	mov	rcx, 0
+	add	qword [rbp-1*8], rcx
+	; IR
+	mov	rcx, 0
+	mov	r8, rcx
+	; IR
+	; 3
+	; IR
+	mov	rcx, 0
+	mov	r12, rcx
+	; IR
+label1:
+	; IR
+	mov	rcx, qword [rbp-1*8]
+	cmp	r12, rcx
+	setl al
+	movzx	eax, al
+	mov	r13, rax
+	; IR
+	cmp	r13, 0
+	jz	label4
+	; IR
+label2:
+	; IR
+	mov	rcx, r8
+	mov	r13, rcx
+	; IR
+	mov	rcx, r12
+	add	r13, rcx
+	; IR
+	mov	rcx, r13
+	mov	r13, rcx
+	; IR
+	mov	rcx, qword [rbp-1*8]
+	mov	r8, rcx
+	; IR
+	mov	rcx, r12
+	mov	r11, rcx
+	; IR
+	mov	rcx, 1
+	sub	r11, rcx
+	; IR
+	mov	rcx, r11
+	and	r8, rcx
+	; IR
+	mov	rcx, r8
+	xor	r13, rcx
+	; IR
+	mov	rcx, r13
+	mov	r8, rcx
+	; IR
+	; 5
+	; IR
+	mov	rcx, r8
+	mov	r13, rcx
+	; IR
+	mov	rcx, 10000
+	mov	rax, 3518437209
+	mov	rdx, r13
+	imul	rdx, rax
+	mov	rax, r13
+	mov	r13, rdx
+	mov	rcx, 45
+	sar	r13, cl
+	imul	r13, 10000
+	sub	rax, r13
+	mov	r13, rax
+	; IR
+	mov	rcx, r13
+	mov	r8, rcx
+	; IR
+	; 6
+	; IR
+label3:
+	; IR
+	mov	rcx, r12
+	mov	r13, rcx
+	; IR
+	mov	rcx, 1
+	add	r13, rcx
+	; IR
+	mov	rcx, r13
+	mov	r12, rcx
+	; IR
+	jmp	label1
+	; IR
+label4:
+	; IR
+	mov	rcx, r8
+	mov	r13, rcx
+	; IR
+	jmp	label5
+	; IR
+label5:
+	; IR
+	mov	rcx, qword [rbp-1*8]
+	mov	qword [rbp-10*8], rcx
+	; IR
+	mov	rcx, 3
+	shl	qword [rbp-10*8] ,cl
+	; IR
+	mov	rcx, qword [rel table0]
+	add	qword [rbp-10*8], rcx
+	; IR
+	mov	rcx, 1
+	mov	rdx, qword [rbp-10*8]
+	mov	qword [rdx], rcx
+	; IR
+	mov	rcx, qword [rbp-1*8]
+	mov	qword [rbp-10*8], rcx
+	; IR
+	mov	rcx, 3
+	shl	qword [rbp-10*8] ,cl
+	; IR
+	mov	rcx, qword [rel table1]
+	add	qword [rbp-10*8], rcx
+	; IR
+	mov	rcx, r13
+	mov	rdx, qword [rbp-10*8]
+	mov	qword [rdx], rcx
+	; IR
+	mov	rax, r13
 	leave
 	ret
 	; IR
@@ -523,41 +712,175 @@ FUNCTION_main:
 	mov	rbp, rsp
 	sub	rsp, 648
 	; IR
-	call	FUNCTION_getInt
-	add	rsp, 0
-	mov	r9, rax
+	mov	rcx, 0
+	mov	r8, rcx
 	; IR
-	mov	rcx, r9
-	mov	r9, rcx
+	; 16
 	; IR
-	; 2
+	mov	rcx, 0
+	mov	r12, rcx
 	; IR
-	mov	rcx, r9
-	mov	r9, rcx
+label6:
+	; IR
+	mov	rcx, 90000000
+	mov	r13, rcx
+	; IR
+	mov	rcx, r13
+	cmp	r12, rcx
+	setl al
+	movzx	eax, al
+	mov	r13, rax
+	; IR
+	cmp	r13, 0
+	jz	label19
+	; IR
+label7:
+	; IR
+	mov	rcx, 0
+	mov	r11, rcx
+	; IR
+label8:
 	; IR
 	mov	rcx, 10
-	mov	rax, 3435973836
-	mov	rdx, r9
-	imul	rdx, rax
-	mov	rax, r9
-	mov	r9, rdx
-	mov	rcx, 35
-	sar	r9, cl
+	mov	r13, rcx
 	; IR
-	mov	rcx, r9
-	mov	r9, rcx
+	mov	rcx, r13
+	cmp	r11, rcx
+	setl al
+	movzx	eax, al
+	mov	r13, rax
 	; IR
-	jmp	label0
+	cmp	r13, 0
+	jz	label17
 	; IR
-label0:
+label9:
 	; IR
-	mov	rax, r9
+	mov	rcx, 89999999
+	mov	r13, rcx
+	; IR
+	mov	rcx, r13
+	cmp	r12, rcx
+	setge al
+	movzx	eax, al
+	mov	r13, rax
+	; IR
+	cmp	r13, 0
+	jz	label14
+	; IR
+label10:
+	; IR
+	mov	rcx, 9
+	mov	r13, rcx
+	; IR
+	mov	rcx, r13
+	cmp	r11, rcx
+	setge al
+	movzx	eax, al
+	mov	r13, rax
+	; IR
+	cmp	r13, 0
+	jz	label12
+	; IR
+label11:
+	; IR
+	mov	rcx, r8
+	mov	r8, rcx
+	; IR
+	mov	rcx, r12
+	mov	r13, rcx
+	; IR
+	mov	rcx, 8
+	mov	rdx, r13
+	imul	rdx, rcx
+	mov	r13, rdx
+	; IR
+	push	r12
+	push	r8
+	push	r11
+	push	r13
+	mov	rdi, r13
+	call	FUNCTION_f
+	add	rsp, 0
+	pop	r13
+	pop	r11
+	pop	r8
+	pop	r12
+	mov	r13, rax
+	; IR
+	mov	rcx, r13
+	add	r8, rcx
+	; IR
+	mov	rcx, r8
+	mov	r8, rcx
+	; IR
+	; 21
+	; IR
+	jmp	label13
+	; IR
+label12:
+	; IR
+label13:
+	; IR
+	jmp	label15
+	; IR
+label14:
+	; IR
+label15:
+	; IR
+label16:
+	; IR
+	mov	rcx, 1
+	add	r11, rcx
+	; IR
+	jmp	label8
+	; IR
+label17:
+	; IR
+label18:
+	; IR
+	mov	rcx, 1
+	add	r12, rcx
+	; IR
+	jmp	label6
+	; IR
+label19:
+	; IR
+	push	r8
+	sub	rsp, 8
+	mov	rdi, r8
+	call	FUNCTION_toString
+	add	rsp, 0
+	add	rsp, 8
+	pop	r8
+	mov	r13, rax
+	; IR
+	push	r13
+	sub	rsp, 8
+	mov	rdi, r13
+	call	FUNCTION_println
+	add	rsp, 0
+	add	rsp, 8
+	pop	r13
+	mov	qword [rbp-8*8], rax
+	; IR
+	; 26
+	; IR
+	mov	rcx, 0
+	mov	r13, rcx
+	; IR
+	jmp	label20
+	; IR
+label20:
+	; IR
+	mov	rax, r13
 	leave
 	ret
 	; IR
-label1:
+label21:
 	; IR
 	SECTION .data
 	SECTION .bss
+	table1:	resq	1
+	table0:	resq	1
 	SECTION .rodata
 	L_022:	db 25H, 73H, 00H
