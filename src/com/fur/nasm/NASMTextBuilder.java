@@ -171,23 +171,24 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         }
         if (node.getOperator() == OperatorList.MOD ||  node.getOperator() == OperatorList.DIV) {
             if (node.getSourceIRRegister() == null) {
+                String tempName1 = "rax";
+                String tempName2 = "rdx";
                 long divNum = node.getImmediate();
                 long magicNum = 0;
                 while (divNum > (1 << magicNum)) magicNum++;
                 magicNum += 31;
                 long mulNum = (long) 1 << magicNum;
-                code.add("mov\t" + sourceRegister.getName() + ", " + mulNum);
-                code.add("mov\t" + temporaryRegister.getName() + ", " + node.getDestIRRegister().print());
-                code.add("imul\t" + temporaryRegister.getName() + ", " + sourceRegister.getName());
-                code.add("mov\t" + node.getDestIRRegister().print() + ", " + temporaryRegister.getName());
+                code.add("mov\t" + tempName1 + ", " + mulNum);
+                code.add("mov\t" + tempName2 + ", " + node.getDestIRRegister().print());
+                code.add("imul\t" + tempName2 + ", " + tempName1);
+                code.add("mov\t" + node.getDestIRRegister().print() + ", " + tempName2);
                 code.add("mov\trcx, " + magicNum);
-                code.add("mov\t" + temporaryRegister.getName() + ", " + node.getDestIRRegister());
                 code.add("sar\t" + node.getDestIRRegister().print() + " ,cl");
                 if (node.getOperator() == OperatorList.MOD) {
-                    code.add("mov\t" + sourceRegister.getName() + node.getDestIRRegister().print());
-                    code.add("imul\t" + sourceRegister.getName() + ", " + node.getImmediate());
-                    code.add("sub\t" + temporaryRegister.getName() + ", " + sourceRegister.getName());
-                    code.add("mov\t" + node.getDestIRRegister().print() + ", " + temporaryRegister);
+                    code.add("mov\t" + tempName1 + ", " + node.getDestIRRegister().print());
+                    code.add("imul\t" + tempName1 + ", " + node.getImmediate());
+                    code.add("sub\t" + tempName2 + ", " + tempName1);
+                    code.add("mov\t" + node.getDestIRRegister().print() + ", " + tempName2);
                 }
             } else {
                 code.add("mov\trax, " + node.getDestIRRegister().print());
@@ -201,7 +202,6 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             String operator;
             if (node.getOperator() == OperatorList.LEFTSHIFT) operator = "shl";
             else operator = "sar";
-            code.add("mov\trcx, " + sourceRegister.getName());
             code.add(operator + "\t" + node.getDestIRRegister().print() + " ,cl");
         }
         if (node.getOperator() == OperatorList.MUL) {

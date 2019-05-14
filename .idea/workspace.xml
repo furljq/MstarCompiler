@@ -29,11 +29,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.mx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1501">
-              <caret line="209" column="102" lean-forward="true" selection-start-line="209" selection-start-column="102" selection-end-line="209" selection-end-column="102" />
+            <state relative-caret-position="177">
+              <caret line="174" column="38" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
               <folding>
                 <element signature="method#addUsedRegister#0;class#NASMTextBuilder#0" />
                 <element signature="e#1070#1505#1" />
@@ -64,8 +73,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="95">
+              <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterDistributor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -189,10 +207,10 @@
         <option value="$PROJECT_DIR$/src/com/fur/optimize/Optimizer.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterDistributor.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/Allocator.java" />
-        <option value="$PROJECT_DIR$/main.mx" />
-        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegister.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegisters.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
+        <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
       </list>
     </option>
@@ -394,18 +412,18 @@
       <workItem from="1557202313537" duration="24715000" />
       <workItem from="1557273881990" duration="19408000" />
       <workItem from="1557475523873" duration="2663000" />
-      <workItem from="1557838493249" duration="1403000" />
+      <workItem from="1557838493249" duration="1938000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="647289000" />
+    <option name="totallyTimeSpent" value="647824000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27949062" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27949062" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -414,7 +432,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2128514" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2128514" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.44578314" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -492,6 +510,12 @@
           <line>56</line>
           <properties />
           <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterDistributor.java</url>
+          <line>24</line>
+          <properties />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1002,13 +1026,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterDistributor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/intermediateRepresentation/IntermediateRepresentationBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1046,9 +1063,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.mx">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/register/NASMRegister.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1102,17 +1116,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+    <entry file="file://$PROJECT_DIR$/main.mx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1501">
-          <caret line="209" column="102" lean-forward="true" selection-start-line="209" selection-start-column="102" selection-end-line="209" selection-end-column="102" />
+        <state relative-caret-position="177">
+          <caret line="174" column="38" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
           <folding>
             <element signature="method#addUsedRegister#0;class#NASMTextBuilder#0" />
             <element signature="e#1070#1505#1" />
@@ -1136,6 +1157,13 @@
             <element signature="e#10492#11092#1" />
             <element signature="method#visitAnnotationIRNode#0;class#NASMTextBuilder#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/optimize/optimizer/RegisterDistributor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
