@@ -181,14 +181,14 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
                 code.add("mov\t" + tempName1 + ", " + mulNum);
                 code.add("mov\t" + tempName2 + ", " + node.getDestIRRegister().print());
                 code.add("imul\t" + tempName2 + ", " + tempName1);
+                code.add("mov\t" + tempName1 + ", " + node.getDestIRRegister().print());
                 code.add("mov\t" + node.getDestIRRegister().print() + ", " + tempName2);
                 code.add("mov\trcx, " + magicNum);
-                code.add("sar\t" + node.getDestIRRegister().print() + " ,cl");
+                code.add("sar\t" + node.getDestIRRegister().print() + ", cl");
                 if (node.getOperator() == OperatorList.MOD) {
-                    code.add("mov\t" + tempName1 + ", " + node.getDestIRRegister().print());
-                    code.add("imul\t" + tempName1 + ", " + node.getImmediate());
-                    code.add("sub\t" + tempName2 + ", " + tempName1);
-                    code.add("mov\t" + node.getDestIRRegister().print() + ", " + tempName2);
+                    code.add("imul\t" + node.getDestIRRegister().print() + ", " + node.getImmediate());
+                    code.add("sub\t" + tempName1 + ", " + node.getDestIRRegister().print());
+                    code.add("mov\t" + node.getDestIRRegister().print() + ", " + tempName1);
                 }
             } else {
                 code.add("mov\trax, " + node.getDestIRRegister().print());
@@ -229,7 +229,8 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             if (node.getOperator() == OperatorList.XOR && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
             if (node.getOperator() == OperatorList.OR && node.getSourceIRRegister() == null && node.getImmediate() == 0) work = false;
             if (node.getOperator() == OperatorList.AND && node.getSourceIRRegister() == null && node.getImmediate() == 1) work = false;
-            if (work) code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
+//            if (work)
+                code.add(operator + "\t" + node.getDestIRRegister().print() + ", " + sourceRegister.getName());
         }
         addUsedRegister(node);
         return code;

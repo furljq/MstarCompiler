@@ -528,20 +528,27 @@ FUNCTION_main:
 	mov	r13, rax
 	; IR
 	mov	rcx, r13
+	mov	r13, rcx
 	; IR
 	; 2
 	; IR
 	mov	rcx, r13
+	mov	r13, rcx
 	; IR
-	mov	rcx, 2
-	mov	rax, 4294967296
+	mov	rcx, 3
+	mov	rax, 2863311530
 	mov	rdx, r13
 	imul	rdx, rax
+	mov	rax, r13
 	mov	r13, rdx
-	mov	rcx, 32
-	sar	r13 ,cl
+	mov	rcx, 33
+	sar	r13, cl
+	imul	r13, 3
+	sub	rax, r13
+	mov	r13, rax
 	; IR
 	mov	rcx, r13
+	mov	r13, rcx
 	; IR
 	jmp	label0
 	; IR
