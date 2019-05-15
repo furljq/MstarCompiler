@@ -178,6 +178,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
             String operator;
             if (node.getOperator() == OperatorList.LEFTSHIFT) operator = "shl";
             else operator = "sar";
+            if (!sourceRegister.getName().equals("rcx")) code.add("mov\trcx, " + sourceRegister.getName());
             code.add(operator + "\t" + node.getDestIRRegister().print() + " ,cl");
         }
         if (node.getOperator() == OperatorList.MUL) {
