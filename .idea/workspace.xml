@@ -32,18 +32,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="63" column="63" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="63" />
+            <state relative-caret-position="146">
+              <caret line="69" column="31" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="31" />
               <folding>
-                <element signature="method#callerSavePush#0;class#NASMTextBuilder#0" />
-                <element signature="method#callerSavePop#0;class#NASMTextBuilder#0" />
                 <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
                 <element signature="e#1543#2274#1" />
                 <element signature="e#1900#2264#1" />
-                <element signature="e#2737#3024#1" />
                 <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
                 <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
                 <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
@@ -71,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+            <state relative-caret-position="209">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -112,11 +109,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.asm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="744" column="8" lean-forward="true" selection-end-line="2329" />
+            <state relative-caret-position="340">
+              <caret line="749" column="7" lean-forward="true" selection-start-line="749" selection-start-column="7" selection-end-line="749" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -134,7 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setC</find>
       <find>label0</find>
       <find>Call</find>
       <find>.memory</find>
@@ -164,6 +160,7 @@
       <find>setMe</find>
       <find>toStringH</find>
       <find>getDim</find>
+      <find>push</find>
     </findStrings>
     <replaceStrings>
       <replace>identifier</replace>
@@ -242,9 +239,9 @@
         <option value="$PROJECT_DIR$/src/com/fur/optimize/optimizer/FunctionCalleeSave.java" />
         <option value="$PROJECT_DIR$/src/com/fur/optimize/Optimizer.java" />
         <option value="$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java" />
-        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
         <option value="$PROJECT_DIR$/main.mx" />
         <option value="$PROJECT_DIR$/src/com/fur/intermediateRepresentation/node/FunctionLabelIRNode.java" />
+        <option value="$PROJECT_DIR$/src/com/fur/Main.java" />
       </list>
     </option>
   </component>
@@ -456,12 +453,12 @@
       <workItem from="1557840830770" duration="6439000" />
       <workItem from="1557848308289" duration="154000" />
       <workItem from="1557878681128" duration="2239000" />
-      <workItem from="1557881948515" duration="2497000" />
+      <workItem from="1557881948515" duration="2993000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="659429000" />
+    <option name="totallyTimeSpent" value="659925000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -1161,47 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="63" column="63" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="63" />
-          <folding>
-            <element signature="method#callerSavePush#0;class#NASMTextBuilder#0" />
-            <element signature="method#callerSavePop#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="e#1543#2274#1" />
-            <element signature="e#1900#2264#1" />
-            <element signature="e#2737#3024#1" />
-            <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="method#visitOpIRNode#0;class#NASMTextBuilder#0" />
-            <element signature="e#5876#6093#1" />
-            <element signature="e#6147#6374#1" />
-            <element signature="e#6430#6945#1" />
-            <element signature="e#7041#9101#1" />
-            <element signature="e#7095#8701#1" />
-            <element signature="e#7381#7573#1" />
-            <element signature="e#7579#8687#1" />
-            <element signature="e#8344#8669#1" />
-            <element signature="e#8707#9091#1" />
-            <element signature="e#9209#9555#1" />
-            <element signature="e#9608#9921#1" />
-            <element signature="e#9974#10262#1" />
-            <element signature="e#10526#11902#1" />
-            <element signature="method#visitAnnotationIRNode#0;class#NASMTextBuilder#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.mx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="381">
@@ -1249,8 +1205,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.asm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="744" column="8" lean-forward="true" selection-end-line="2329" />
+        <state relative-caret-position="340">
+          <caret line="749" column="7" lean-forward="true" selection-start-line="749" selection-start-column="7" selection-end-line="749" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/fur/nasm/NASMTextBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="69" column="31" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="31" />
+          <folding>
+            <element signature="method#visitLabelIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="e#1543#2274#1" />
+            <element signature="e#1900#2264#1" />
+            <element signature="method#visitRetIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitBranchIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitJumpIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitCmpIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="method#visitOpIRNode#0;class#NASMTextBuilder#0" />
+            <element signature="e#5876#6093#1" />
+            <element signature="e#6147#6374#1" />
+            <element signature="e#6430#6945#1" />
+            <element signature="e#7041#9101#1" />
+            <element signature="e#7095#8701#1" />
+            <element signature="e#7381#7573#1" />
+            <element signature="e#7579#8687#1" />
+            <element signature="e#8344#8669#1" />
+            <element signature="e#8707#9091#1" />
+            <element signature="e#9209#9555#1" />
+            <element signature="e#9608#9921#1" />
+            <element signature="e#9974#10262#1" />
+            <element signature="e#10526#11902#1" />
+            <element signature="method#visitAnnotationIRNode#0;class#NASMTextBuilder#0" />
+          </folding>
         </state>
       </provider>
     </entry>

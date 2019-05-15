@@ -59,7 +59,7 @@ public class NASMTextBuilder extends IntermediateRepresentationBaseVisitor<List<
         List<NASMRegister> saveRegisters = new ArrayList<>();
         for (IRRegister irRegister : node.getLiveIRRegister()) if (irRegister.getRegister() != null) {
             if (node.getFunctionEntry().getIrRegisterSize() != 0) {
-                if (node.getFunctionEntry().getCalleeSaveRegisters().contains(irRegister.getRegister()))
+//                if (node.getFunctionEntry().getCalleeSaveRegisters().contains(irRegister.getRegister()))
                     saveRegisters.add(irRegister.getRegister());
             } else saveRegisters.add(irRegister.getRegister());
         }
