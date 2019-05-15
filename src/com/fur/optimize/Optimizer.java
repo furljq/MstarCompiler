@@ -5,10 +5,7 @@ import com.fur.intermediateRepresentation.node.BaseIRNode;
 import com.fur.intermediateRepresentation.node.LabelIRNode;
 import com.fur.intermediateRepresentation.node.OpIRNode;
 import com.fur.nasm.register.NASMRegisters;
-import com.fur.optimize.optimizer.Allocator;
-import com.fur.optimize.optimizer.Blocker;
-import com.fur.optimize.optimizer.FunctionRecorder;
-import com.fur.optimize.optimizer.RegisterDistributor;
+import com.fur.optimize.optimizer.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +16,7 @@ public class Optimizer {
     private RegisterDistributor registerDistributor;
     private FunctionRecorder functionRecorder = new FunctionRecorder();
     private Allocator allocator = new Allocator();
+    private FunctionCalleeSave functionCalleeSave = new FunctionCalleeSave();
 
     public Optimizer(NASMRegisters registers) {
         registerDistributor = new RegisterDistributor(registers);
@@ -31,6 +29,7 @@ public class Optimizer {
         List<BaseIRNode> code = new ArrayList<>();
         for (BlockIRNode block : blocks) code.addAll(block.getInstructions());
         registerDistributor.distribute(code);
+        functionCalleeSave.functionCalleeSave(code);
         allocator.allocate(code);
         return code;
     }

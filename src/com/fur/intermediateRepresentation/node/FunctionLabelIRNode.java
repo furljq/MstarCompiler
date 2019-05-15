@@ -1,13 +1,18 @@
 package com.fur.intermediateRepresentation.node;
 
 import com.fur.intermediateRepresentation.IRRegister;
+import com.fur.nasm.register.NASMRegister;
 import com.fur.symbolTable.Entity.FunctionEntity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class FunctionLabelIRNode extends LabelIRNode {
 
     private FunctionEntity entity;
     private int irRegisterSize;
     private IRRegister dataTable, enableTable;
+    private Set<NASMRegister> calleeSaveRegisters = new HashSet<>();
 
     public FunctionLabelIRNode(FunctionEntity entity) {
         this.entity = entity;
@@ -39,5 +44,9 @@ public class FunctionLabelIRNode extends LabelIRNode {
 
     public void setDataTable(IRRegister dataTable) {
         this.dataTable = dataTable;
+    }
+
+    public Set<NASMRegister> getCalleeSaveRegisters() {
+        return calleeSaveRegisters;
     }
 }
